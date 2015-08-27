@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:background="@color/dashboard_black"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/textViewPopupTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:padding="10dp"
+		android:text="@string/sr_dialog_title"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="#47D1FF" />
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:background="#47D1FF" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:padding="5dp">
+
+		<ImageButton
+			android:id="@+id/imageButtonFaceHappy"
+			android:layout_width="wrap_content"
+			android:layout_height="100dp"
+			android:layout_margin="5dp"
+			android:layout_weight="0.33"
+			android:background="@color/color_transparent"
+			android:scaleType="centerInside"
+			android:src="@drawable/sr_smiley_happy" />
+
+		<ImageButton
+			android:id="@+id/imageButtonFaceNeutral"
+			android:layout_width="wrap_content"
+			android:layout_height="100dp"
+			android:layout_margin="5dp"
+			android:layout_weight="0.33"
+			android:background="@color/color_transparent"
+			android:scaleType="centerInside"
+			android:src="@drawable/sr_smiley_neutral" />
+
+		<ImageButton
+			android:id="@+id/imageButtonFaceSad"
+			android:layout_width="wrap_content"
+			android:layout_height="100dp"
+			android:layout_margin="5dp"
+			android:layout_weight="0.33"
+			android:background="@color/color_transparent"
+			android:scaleType="centerInside"
+			android:src="@drawable/sr_smiley_sad" />
+	</LinearLayout>
+
+</LinearLayout>

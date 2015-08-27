@@ -1,0 +1,41 @@
+// TODO BEFORE RELEASE ###
+// 		1. change database name
+// 		2. add +1 to version code in manifest
+//      3. add +1 to Constants and change Server URI
+//		4. update changelog (in app and hp)
+//      5. comment MyDatabaseTools in UploadService
+//      6. remove LifeCycleCallbacks in StressReductionPlugin.java
+//      7. change UUID
+
+
+// logging of location, v, a, direction (compass) every new location
+// -> how much data? 14mb for 36min (144515 location infos, 121 segment infos)
+// -> reduce location infos (now 971kb for 36min, 9369 location infos 123 segment infos)
+// logging when no routing active (check for speed over x kmh) ### DONE (logging for >20kmh)
+// 3 smilies from Master Thesis Stefan Schneegaß (Discount Usability) (Uni Essen), or own -> own
+// log all 3 acceleration values
+// write all data to ONE database
+// Timeout for popup (20s), Distance timeout (200m), last visited segment timeout
+// Screenshots for Tablets
+// write info page. impressum (link to uni page)
+// TODO Popup if new version available, logging of opening of the app
+// TODO always log segment infos -> how to obtain current segment infos?
+// Name: Happy Navi, Desc: Next-Gen Navigation, Uni Stuttgart, Logo, Fork of OsmAnd, Buzzwords
+// Plugin entry has no Description on start up -> default of osmand if plugin is already enabled! See PluginsActivity.java:104
+// check requirements for licence -> everything can be modified as long as the sourcecode is published
+// Notification Sound (enable/disable)
+// Eula at start
+// TODO Flyer (Mensa), Poster (Uni)
+// TODO provide offline maps, check bastians folder, read https://code.google.com/p/osmand/wiki/CreateOfflineMapsForYourself
+// translate text
+// TODO log estimated arrival time and actual arrival time
+// TODO Plugin seperate App -> testing needed
+// Description with Link to homepage
+// TODO ? change core logic, logging of segements directly to database, all the time not only while routing active
+// TODO Discussion about anonymisation (cut off beginn/end of route?), how about driver profile
+// TODO fix DE stile for online tiles on maps.hcilab.org
+// TODO integrate maps.hcilab.org online tiles
+// TODO download complete germany at once, or DACH
+
+// TODO ### NEW ### move constants to corresponding classes where possible
+// TODO ### NEW ### start disclaimer from elsewhere (OsmandApplication.java?)

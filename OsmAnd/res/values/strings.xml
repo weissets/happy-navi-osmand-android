@@ -2246,4 +2246,41 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 	<string name="next_proceed">Next</string>
 	<string name="opening_at">Opening at</string>
 	<string name="closing_at">Closing at</string>
+	<string name="sr_plugin_description">This plugin aims at improving route calculation for driving with less stress. For a full description visit http://maps.hcilab.org/info.</string>
+	<string name="sr_plugin_name">Stress Reduction Plugin</string>
+	<string name="sr_plugin_info_version">1.0.0</string>
+    <string name="sr_plugin_info">
+		Happy Navi is a research Version of OsmAnd. It is developed by the Human-Computer-Interaction Group (www.hcilab.org) at the  University of Stuttgart (Germany).
+		\n\nOur goal is to determine and evaluate stress values for single street segments and to adapt the routing for driving with less stress.
+		\n\nTherefore the user will be asked to give a rating for the past couple street segments each time the car is stopped.
+		\n\nThe plugin for this feature is activated by default! If you want to disable it go to \'Settings\' → \'Plugins\'.
+        \n\nFor a full description of this project visit our info page (http://maps.hcilab.org/info). The source code can be found at GitHub (https://github.com/weissets/happy_navi_osmand).
+		\n\nThank you for supporting this research project!
+	</string>
+	<string name="sr_dialog_title">How did you like the last couple street segments?</string>
+	<string name="sr_plugin_info_title">%1$s</string>
+	<string name="sr_plugin_whats_new_title">What\'s New</string>
+    <string name="sr_plugin_whats_new_description">
+		Version 2.1.0-212
+		\n\n• Settings option to simulate a calculated route (default: false)
+		\n\n• Fixed some minor bugs
+		\n\n\n
+		Version 2.1.0-211
+		\n\n• Updated to version 2.1
+        \n\n• Settings option for using only wifi connection for data upload (default: false)
+    </string>
+	<string name="sr_settings_title">Stress Reduction Settings</string>
+	<string name="sr_settings_notification_sound_title">Notification Sound</string>
+	<string name="sr_settings_notification_sound_description">This will notify you with a sound when a new evaluation dialog is displayed.</string>
+	<string name="sr_settings_use_wifi_only_title">Use Wifi Only</string>
+	<string name="sr_settings_use_wifi_only_description">Use only wifi connection for uploading data to the server (reducing mobile data usage).</string>
+	<string name="sr_settings_location_simulation_title">Use Location Simulation</string>
+	<string name="sr_settings_location_simulation_description">Display a dialog to start location simulation if a new route is calculated (debugging).</string>
+	<string name="sr_settings_routing_title">Routing (Coming soon!)</string>
+	<string name="sr_settings_routing_description">Use adapted routing for less stressful and tiring street segments.</string>
+	<string name="sr_request_rating">Please give a rating!</string>
+	<string name="sr_plugin_new_version_available">New Version Available</string>
+	<string name="sr_plugin_new_version">
+		A new version of Happy Navi (OsmAnd) is available. If you would like to install the new version right now click on \'Download\'. If you would like to install the new version later click on \'Cancel\'.
+	</string>
 </resources>
