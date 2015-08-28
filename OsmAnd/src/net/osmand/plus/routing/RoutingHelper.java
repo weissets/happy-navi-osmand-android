@@ -1,8 +1,6 @@
 package net.osmand.plus.routing;
 
-
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,11 +32,11 @@ public class RoutingHelper {
 	
 	private static final org.apache.commons.logging.Log log = PlatformUtil.getLog(RoutingHelper.class);
 	
-	public static interface IRouteInformationListener {
+	public interface IRouteInformationListener {
 		
-		public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast);
+		void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast);
 		
-		public void routeWasCancelled();
+		void routeWasCancelled();
 	}
 	
 	private static final float POSITION_TOLERANCE = 60;
@@ -616,7 +614,7 @@ public class RoutingHelper {
 					if(l == null) {
 						it.remove();
 					} else {
-						l.newRouteIsCalculated(newRoute, showToast);	
+						l.newRouteIsCalculated(newRoute, showToast);
 					}
 				}
 				if (showToast.value) {
