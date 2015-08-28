@@ -229,9 +229,8 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
 		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", turning on logging");
 		logSegments = true;
-		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
-			locationSimulation.newRouteIsCalculated(newRoute, showToast);
-		}
+		locationSimulation.newRouteIsCalculated(newRoute);
+
 	}
 
 	/**

@@ -46,7 +46,7 @@ public class LocationSimulation
 		routingHelper = osmandApplication.getRoutingHelper();
 	}
 
-	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
+	public void newRouteIsCalculated(boolean newRoute) {
 		log.debug("newRouteIsCalculated(): newRoute=" + newRoute);
 		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
 			// if develop mode then show dialog if route should be simulated
@@ -64,7 +64,6 @@ public class LocationSimulation
 		if (simulationThread != null) {
 			simulationThread.interrupt();
 			simulationThread = null;
-			locationList.clear();
 		}
 	}
 
@@ -110,8 +109,8 @@ public class LocationSimulation
 				}
 				float currentBearing = locationList.get(0).bearingTo(locationList.get(1));
 				boolean firstRun = true;
+				float speedVar = (random.nextFloat() - 0.5f) * 10f;
 				for (Location loc : interpolatedLocationList) {
-					float speedVar = (random.nextFloat() - 0.5f) * 10f;
 					// simulate points
 					android.location.Location loc2 = new android.location.Location("gps");
 					loc2.setTime(System.currentTimeMillis());
