@@ -1,14 +1,15 @@
 package net.osmand.plus.stressreduction.simulation;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.SystemClock;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
 import net.osmand.ValueHolder;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.fragments.FragmentLocationSimulationDialog;
@@ -24,8 +25,8 @@ import java.util.Random;
  *
  * @author Tobias
  */
-public class LocationSimulation implements RoutingHelper.IRouteInformationListener,
-		FragmentLocationSimulationDialog.StartSimulationListener {
+public class LocationSimulation
+		implements FragmentLocationSimulationDialog.StartSimulationListener {
 
 	private static final Log log = PlatformUtil.getLog(LocationSimulation.class);
 
@@ -36,36 +37,34 @@ public class LocationSimulation implements RoutingHelper.IRouteInformationListen
 
 	private final List<Location> locationList = new ArrayList<>();
 
-	private float LOCATION_SPEED = 0f;
+	private float LOCATION_SPEED;
 
 	public LocationSimulation(OsmandApplication osmandApplication,
 	                          FragmentHandler fragmentHandler) {
 		this.osmandApplication = osmandApplication;
 		this.fragmentHandler = fragmentHandler;
 		routingHelper = osmandApplication.getRoutingHelper();
-		routingHelper.addListener(this);
 	}
 
-	@Override
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
+		log.debug("newRouteIsCalculated(): newRoute=" + newRoute);
 		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
-			log.debug("newRouteIsCalculated(): newRoute=" + newRoute);
 			// if develop mode then show dialog if route should be simulated
 			if (simulationThread == null) {
+				locationList.clear();
+				locationList.addAll(routingHelper.getCurrentCalculatedRoute());
 				fragmentHandler.showLocationSimulationDialog(this);
 			} else {
 				log.error("newRouteIsCalculated(): simulationThread is NOT NULL");
 			}
-
-			locationList.addAll(routingHelper.getCurrentCalculatedRoute());
 		}
 	}
 
-	@Override
 	public void routeWasCancelled() {
 		if (simulationThread != null) {
 			simulationThread.interrupt();
 			simulationThread = null;
+			locationList.clear();
 		}
 	}
 
@@ -87,6 +86,7 @@ public class LocationSimulation implements RoutingHelper.IRouteInformationListen
 		 *
 		 * @see Thread#start
 		 */
+		@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 		@Override
 		public void run() {
 			Thread thisThread = Thread.currentThread();
@@ -111,7 +111,7 @@ public class LocationSimulation implements RoutingHelper.IRouteInformationListen
 				float currentBearing = locationList.get(0).bearingTo(locationList.get(1));
 				boolean firstRun = true;
 				for (Location loc : interpolatedLocationList) {
-					float speedVar = (random.nextFloat()-0.5f)*10f;
+					float speedVar = (random.nextFloat() - 0.5f) * 10f;
 					// simulate points
 					android.location.Location loc2 = new android.location.Location("gps");
 					loc2.setTime(System.currentTimeMillis());

@@ -45,13 +45,11 @@ public class StressReductionPlugin extends OsmandPlugin {
 		DataHandler dataHandler = new DataHandler(osmandApplication);
 		fragmentHandler = new FragmentHandler(osmandApplication);
 		sensorHandler = new SensorHandler(osmandApplication, dataHandler, fragmentHandler);
-		new LocationSimulation(osmandApplication, fragmentHandler);
 
 		firstRun = true;
 
 		// TODO remove ActivityLifecycleCallbacks (only for test purposes)
-		osmandApplication.registerActivityLifecycleCallbacks(
-				new CurrentActivityCallbacks()); // ##### DEBUG #####
+		osmandApplication.registerActivityLifecycleCallbacks(new CurrentActivityCallbacks());
 
 		// enable the plugin by default
 		StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);
@@ -78,12 +76,10 @@ public class StressReductionPlugin extends OsmandPlugin {
 	}
 
 	/**
-	 * ##### DEBUG #####
-	 * Only for testing since API < 14 not supported
-	 * http://baroqueworksdev.blogspot.de/2012/12/how-to-use-activitylifecyclecallbacks.html
+	 * This class is called each time a activity changes its state
 	 */
 	private static class CurrentActivityCallbacks
-			implements Application.ActivityLifecycleCallbacks {
+			implements OsmandApplication.ActivityLifecycleCallbacks {
 
 		@Override
 		public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

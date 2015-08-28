@@ -14,6 +14,7 @@ import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
 import net.osmand.plus.stressreduction.database.SegmentInfo;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
+import net.osmand.plus.stressreduction.simulation.LocationSimulation;
 import net.osmand.plus.stressreduction.tools.Calculation;
 import net.osmand.router.RouteSegmentResult;
 import net.osmand.router.VehicleRouter;
@@ -33,11 +34,12 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 
 	private static final Log log = PlatformUtil.getLog(SRLocation.class);
 
+	private final OsmandApplication osmandApplication;
 	private final OsmAndLocationProvider osmAndLocationProvider;
 	private final RoutingHelper routingHelper;
 	private final DataHandler dataHandler;
 	private final FragmentHandler fragmentHandler;
-	private VehicleRouter vehicleRouter;
+	private final LocationSimulation locationSimulation;
 	private Location currentLocation;
 	private Location lastDialogLocation;
 	private long lastLoggedSegmentID;
@@ -57,18 +59,16 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	public SRLocation(OsmandApplication osmandApplication, DataHandler dataHandler,
 	                  FragmentHandler fragmentHandler) {
+		this.osmandApplication = osmandApplication;
 		this.dataHandler = dataHandler;
 		this.fragmentHandler = fragmentHandler;
 		osmAndLocationProvider = osmandApplication.getLocationProvider();
 		routingHelper = osmandApplication.getRoutingHelper();
+		locationSimulation = new LocationSimulation(osmandApplication, fragmentHandler);
 		isDriving = false;
 		logSegments = false;
 		timerLocation = 0;
 		timerDialog = 0;
-		vehicleRouter = osmandApplication.getDefaultRoutingConfig()
-				.getRouter(ApplicationMode.CAR.getStringKey());
-//		osmandApplication.getNavigationService().getNoBackupFilesDir();
-
 	}
 
 	/**
@@ -128,10 +128,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			}
 
 			if (routeDataObject != null) {
-
-				log.debug("updateLocation(): penaltyTransition=" +
-						vehicleRouter.getPenaltyTransition(routeDataObject));
-
+				// check if current segment is the same as last segment
 				if (routeDataObject.getId() == lastLoggedSegmentID) {
 					log.debug("updateLocation(): same id as last logged segment");
 					return;
@@ -232,6 +229,9 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
 		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", turning on logging");
 		logSegments = true;
+		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
+			locationSimulation.newRouteIsCalculated(newRoute, showToast);
+		}
 	}
 
 	/**
@@ -239,6 +239,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	@Override
 	public void routeWasCancelled() {
+		locationSimulation.routeWasCancelled();
 		if (logSegments && SQLiteLogger
 				.getDatabaseSizeSinceLastStressValue(dataHandler.getTimestampLastStressValue()) >
 				0) {

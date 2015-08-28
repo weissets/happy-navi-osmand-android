@@ -1,9 +1,12 @@
 package net.osmand.plus.stressreduction;
 
+import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.activities.SettingsBaseActivity;
 
 import net.osmand.plus.R;
+import net.osmand.plus.stressreduction.simulation.LocationSimulation;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -41,6 +44,10 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		locationSimulationPreference
 				.setSummary(R.string.sr_settings_location_simulation_description);
 		preferenceScreen.addPreference(locationSimulationPreference);
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			locationSimulationPreference.setEnabled(false);
+			locationSimulationPreference.setChecked(false);
+		}
 
 		CheckBoxPreference routingPreference = createCheckBoxPreference(settings.SR_ROUTING);
 		routingPreference.setTitle(R.string.sr_settings_routing_title);
@@ -49,17 +56,5 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		routingPreference.setChecked(false);
 		preferenceScreen.addPreference(routingPreference);
 	}
-
-//	@Override
-//	public boolean onPreferenceChange(Preference preference, Object newValue) {
-//
-//		return super.onPreferenceChange(preference, newValue);
-//	}
-//
-//	@Override
-//	public boolean onPreferenceClick(Preference preference) {
-//
-//		return super.onPreferenceClick(preference);
-//	}
 
 }
