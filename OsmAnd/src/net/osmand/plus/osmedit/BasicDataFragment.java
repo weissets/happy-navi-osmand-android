@@ -25,6 +25,7 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.osmedit.data.EditPoiData;
 import net.osmand.plus.osmedit.data.Tag;
 import net.osmand.plus.osmedit.dialogs.OpeningHoursDaysDialogFragment;
+import net.osmand.plus.osmedit.dialogs.OpeningHoursHoursDialogFragment;
 import net.osmand.util.OpeningHoursParser;
 import net.osmand.util.OpeningHoursParser.BasicOpeningHourRule;
 
@@ -64,6 +65,8 @@ public class BasicDataFragment extends Fragment {
 		webSiteImageView.setImageDrawable(iconsCache.getContentIcon(R.drawable.ic_world_globe_dark));
 		ImageView descriptionImageView = (ImageView) view.findViewById(R.id.descriptionImageView);
 		descriptionImageView.setImageDrawable(iconsCache.getContentIcon(R.drawable.ic_action_description));
+		ImageView openingHoursImageView = (ImageView) view.findViewById(R.id.openingHoursImageView);
+		openingHoursImageView.setImageDrawable(iconsCache.getContentIcon(R.drawable.ic_action_time));
 
 		streetEditText = (EditText) view.findViewById(R.id.streetEditText);
 		streetEditText.addTextChangedListener(new MyOnFocusChangeListener(getData(),
@@ -94,7 +97,9 @@ public class BasicDataFragment extends Fragment {
 		});
 		LinearLayout openHoursContainer = (LinearLayout) view.findViewById(R.id.openHoursContainer);
 		Drawable clockDrawable = iconsCache.getContentIcon(R.drawable.ic_action_time);
-		Drawable deleteDrawable = iconsCache.getContentIcon(R.drawable.ic_action_remove_dark);
+		Drawable deleteDrawable = iconsCache
+				.getPaintedContentIcon(R.drawable.ic_action_remove_dark,
+						getActivity().getResources().getColor(R.color.icon_color_light));
 		if (savedInstanceState != null && savedInstanceState.containsKey(OPENING_HOURS)) {
 			mOpeningHoursAdapter = new OpeningHoursAdapter(
 					(OpeningHoursParser.OpeningHours) savedInstanceState.getSerializable(OPENING_HOURS),
@@ -553,12 +558,28 @@ public class BasicDataFragment extends Fragment {
 				closingTextView.setText(formatTime(enHour, enTime));
 				timeContainer.setVisibility(View.VISIBLE);
 
-				view.setOnClickListener(new View.OnClickListener() {
+				daysTextView.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						OpeningHoursDaysDialogFragment fragment =
 								OpeningHoursDaysDialogFragment.createInstance(rule, position);
 						fragment.show(getChildFragmentManager(), "OpenTimeDialogFragment");
+					}
+				});
+				openingTextView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						OpeningHoursHoursDialogFragment fragment =
+								OpeningHoursHoursDialogFragment.createInstance(rule, position, true);
+						fragment.show(getChildFragmentManager(), "OpeningHoursHoursDialogFragment");
+					}
+				});
+				closingTextView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						OpeningHoursHoursDialogFragment fragment =
+								OpeningHoursHoursDialogFragment.createInstance(rule, position, false);
+						fragment.show(getChildFragmentManager(), "OpeningHoursHoursDialogFragment");
 					}
 				});
 			} else if (openingHours.getRules().get(position) instanceof UnparseableRule) {
