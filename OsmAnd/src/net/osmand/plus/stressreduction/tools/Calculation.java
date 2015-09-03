@@ -12,13 +12,23 @@ import java.util.List;
 public class Calculation {
 
 	/**
-	 * Convert a given float value in m/s to a rounded value in km/h
+	 * Convert a given float value in m/s to a rounded int value in km/h
 	 *
-	 * @param ms The float value in m/s
+	 * @param ms The speed value in m/s
 	 * @return The calculated rounded value in km/h
 	 */
 	public static int convertMsToKmh(float ms) {
 		return Math.round(ms * Constants.MS_TO_KMH);
+	}
+
+	/**
+	 * Convert a given float value in km/h to a float value in m/s
+	 *
+	 * @param kmh The speed value in km/h
+	 * @return The calculated value in m/s
+	 */
+	public static float convertKmhToMs(float kmh) {
+		return (kmh / Constants.MS_TO_KMH);
 	}
 
 	/**

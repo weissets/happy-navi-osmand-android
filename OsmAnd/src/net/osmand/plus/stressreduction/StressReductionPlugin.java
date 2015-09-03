@@ -1,7 +1,6 @@
 package net.osmand.plus.stressreduction;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 
 import net.osmand.PlatformUtil;
@@ -10,10 +9,10 @@ import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.stressreduction.connectivity.ConnectionHandler;
+import net.osmand.plus.stressreduction.connectivity.WifiReceiver;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.sensors.SensorHandler;
-import net.osmand.plus.stressreduction.simulation.LocationSimulation;
 
 import org.apache.commons.logging.Log;
 
@@ -158,6 +157,9 @@ public class StressReductionPlugin extends OsmandPlugin {
 			firstRun = false;
 			fragmentHandler.showStartDialogs();
 		}
+
+		// disable wifi receiver
+		WifiReceiver.disableReceiver(osmandApplication);
 
 		// start sensors
 		sensorHandler.startSensors();

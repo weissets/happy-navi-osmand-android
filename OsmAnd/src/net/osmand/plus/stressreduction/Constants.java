@@ -102,5 +102,4 @@ public class Constants {
 	public static final String COLUMN_LOCATION_TIMESTAMP = "location_timestamp";
 
 	public static final String COLUMN_PHONE_ID = "phone_id";
-
 }

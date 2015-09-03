@@ -2,10 +2,10 @@ package net.osmand.plus.stressreduction.simulation;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
-import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.activities.actions.OsmAndDialogs;
 import net.osmand.plus.routing.RoutingHelper;
+import net.osmand.plus.stressreduction.fragments.FragmentHandler;
+import net.osmand.plus.stressreduction.fragments.FragmentLocationSimulationDialog;
 import net.osmand.plus.stressreduction.tools.Calculation;
 
 import org.apache.commons.logging.Log;
@@ -20,29 +20,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class simulates driving with the car without routing
+ * This class simulates driving with the car with routing
  *
  * @author Tobias
  */
-public class LocationSimulation {
+public class RoutingSimulation
+		implements FragmentLocationSimulationDialog.StartSimulationListener {
 
-	private final Log log = PlatformUtil.getLog(LocationSimulation.class);
+	private static final Log log = PlatformUtil.getLog(RoutingSimulation.class);
 
 	private final OsmandApplication osmandApplication;
 	private final RoutingHelper routingHelper;
-	private final SimulationThread simulationThread;
+	private SimulationThread simulationThread;
+	private final FragmentHandler fragmentHandler;
 
-	private List<Location> locationList;
-	private final int SIMULATION_SPEED;
+	private final List<Location> locationList = new ArrayList<>();
+	private int SIMULATION_SPEED;
 
-	LocationSimulation (OsmandApplication osmandApplication, List<Location> locationList, int
-			speed) {
+	public RoutingSimulation(OsmandApplication osmandApplication, FragmentHandler
+			fragmentHandler) {
 		this.osmandApplication = osmandApplication;
+		this.fragmentHandler = fragmentHandler;
 		routingHelper = osmandApplication.getRoutingHelper();
-		this.locationList = locationList;
-		SIMULATION_SPEED = speed;
-		simulationThread = new SimulationThread();
-		simulationThread.start();
+	}
+
+	public void newRouteIsCalculated() {
+		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
+			// if develop mode then show dialog if route should be simulated
+			if (simulationThread == null) {
+				locationList.addAll(routingHelper.getCurrentCalculatedRoute());
+				fragmentHandler.showLocationSimulationDialog(this);
+			} else {
+				log.error("newRouteIsCalculated(): simulationThread is NOT NULL");
+			}
+		}
+	}
+
+	public void routeWasCancelled() {
+		if (simulationThread != null) {
+			simulationThread.interrupt();
+			simulationThread = null;
+			locationList.clear();
+		}
+	}
+
+	@Override
+	public void startSimulation(int speed, boolean routing) {
+		if (simulationThread == null) {
+			if (!routing) {
+				new LocationSimulation(osmandApplication, locationList, speed);
+				routingHelper.clearCurrentRoute(null, null);
+				return;
+			}
+			SIMULATION_SPEED = speed;
+			simulationThread = new SimulationThread();
+			simulationThread.start();
+		} else {
+			osmandApplication.showToastMessage("Simulation already in use!");
+		}
 	}
 
 	private class SimulationThread extends Thread {
@@ -63,6 +98,7 @@ public class LocationSimulation {
 			locationManager.setTestProviderEnabled("gps", true);
 
 			List<Location> interpolatedLocationList = new ArrayList<>();
+//			Random random = new Random();
 			long timer = System.currentTimeMillis();
 			float lastSegmentSpeed = 50;
 
@@ -76,6 +112,7 @@ public class LocationSimulation {
 				}
 				float currentBearing = locationList.get(0).bearingTo(locationList.get(1));
 				locationList.remove(0);
+//				float speedVar = (random.nextFloat() - 0.5f) * 10f / 3.6f;
 				float LOCATION_SPEED;
 				if (routingHelper.getCurrentMaxSpeed() > 0) {
 					LOCATION_SPEED = routingHelper.getCurrentMaxSpeed();
@@ -127,6 +164,8 @@ public class LocationSimulation {
 			}
 			locationManager.setTestProviderEnabled("gps", false);
 			locationManager.removeTestProvider("gps");
+//			simulationThread = null;
+			routeWasCancelled();
 		}
 
 		List<Location> interpolateLocations(Location loc1, Location loc2) {
@@ -170,5 +209,4 @@ public class LocationSimulation {
 			}
 		}
 	}
-
 }

@@ -1,6 +1,8 @@
 package net.osmand.plus.stressreduction.fragments;
 
 import android.app.Dialog;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import android.widget.ImageButton;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -26,9 +29,14 @@ import java.util.Locale;
 public class FragmentSRDialog extends DialogFragment implements View.OnClickListener {
 
 	private static SRDialogButtonClickListener srDialogButtonClickListener;
+	private static String PLAY_SOUND = "play_sound";
 
-	public static FragmentSRDialog newInstance(SRDialogButtonClickListener listener) {
+	public static FragmentSRDialog newInstance(SRDialogButtonClickListener listener,
+	                                           boolean playSound) {
 		FragmentSRDialog dialog = new FragmentSRDialog();
+		Bundle arguments = new Bundle(1);
+		arguments.putBoolean(PLAY_SOUND, playSound);
+		dialog.setArguments(arguments);
 		try {
 			srDialogButtonClickListener = listener;
 		} catch (ClassCastException e) {
@@ -91,7 +99,29 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 		this.setCancelable(false);
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+		Bundle arguments = this.getArguments();
+		if (arguments.getBoolean(PLAY_SOUND, false)) {
+			playNotificationSound();
+		}
+
 		return view;
+	}
+
+	private void playNotificationSound() {
+		try {
+			AssetFileDescriptor afd = this.getActivity().getApplication().getAssets()
+					.openFd("sounds/desk_bell" + ".mp3");
+			MediaPlayer mediaPlayer = new MediaPlayer();
+			mediaPlayer
+					.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+			afd.close();
+			mediaPlayer.prepare();
+			mediaPlayer.setVolume(1.0f, 1.0f);
+			mediaPlayer.start();
+		} catch (IllegalArgumentException | IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public interface SRDialogButtonClickListener {

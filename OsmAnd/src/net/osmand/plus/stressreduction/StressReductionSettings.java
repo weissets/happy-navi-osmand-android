@@ -1,15 +1,13 @@
 package net.osmand.plus.stressreduction;
 
-import net.osmand.plus.OsmandSettings;
+import net.osmand.plus.BuildConfig;
 import net.osmand.plus.activities.SettingsBaseActivity;
 
 import net.osmand.plus.R;
-import net.osmand.plus.stressreduction.simulation.LocationSimulation;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.preference.PreferenceScreen;
 
 /**
@@ -38,15 +36,16 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		useWifiOnlyPreference.setSummary(R.string.sr_settings_use_wifi_only_description);
 		preferenceScreen.addPreference(useWifiOnlyPreference);
 
-		CheckBoxPreference locationSimulationPreference =
-				createCheckBoxPreference(settings.SR_LOCATION_SIMULATION);
-		locationSimulationPreference.setTitle(R.string.sr_settings_location_simulation_title);
-		locationSimulationPreference
-				.setSummary(R.string.sr_settings_location_simulation_description);
-		preferenceScreen.addPreference(locationSimulationPreference);
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			locationSimulationPreference.setEnabled(false);
-			locationSimulationPreference.setChecked(false);
+		if (BuildConfig.DEBUG) {
+			CheckBoxPreference locationSimulationPreference = createCheckBoxPreference(settings.SR_LOCATION_SIMULATION);
+			locationSimulationPreference.setTitle(R.string.sr_settings_location_simulation_title);
+			locationSimulationPreference
+					.setSummary(R.string.sr_settings_location_simulation_description);
+			preferenceScreen.addPreference(locationSimulationPreference);
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				locationSimulationPreference.setEnabled(false);
+				locationSimulationPreference.setChecked(false);
+			}
 		}
 
 		CheckBoxPreference routingPreference = createCheckBoxPreference(settings.SR_ROUTING);

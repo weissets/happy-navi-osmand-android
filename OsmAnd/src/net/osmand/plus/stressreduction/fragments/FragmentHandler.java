@@ -5,15 +5,11 @@ import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.database.DataHandler;
-import net.osmand.plus.stressreduction.simulation.LocationSimulation;
+import net.osmand.plus.stressreduction.database.SQLiteLogger;
+import net.osmand.plus.stressreduction.simulation.RoutingSimulation;
 import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
-
-import android.content.res.AssetFileDescriptor;
-import android.media.MediaPlayer;
-
-import java.io.IOException;
 
 /**
  * This class handles all interactions with fragments
@@ -76,9 +72,12 @@ public class FragmentHandler {
 
 	public void showSRDialog(DataHandler dataHandler) {
 		if ((mapActivity != null) && (mapActivity.getSupportFragmentManager()
-				.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG) == null)) {
-			playNotificationSound();
-			FragmentSRDialog fragmentSRDialog = FragmentSRDialog.newInstance(dataHandler);
+				.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG) == null) && SQLiteLogger
+				.getDatabaseSizeSinceLastStressValue(DataHandler.getTimestampLastStressValue()) >
+				0) {
+			boolean playSound = osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get();
+			FragmentSRDialog fragmentSRDialog =
+					FragmentSRDialog.newInstance(dataHandler, playSound);
 			fragmentSRDialog
 					.show(mapActivity.getSupportFragmentManager(), Constants.FRAGMENT_SR_DIALOG);
 		} else {
@@ -86,33 +85,16 @@ public class FragmentHandler {
 		}
 	}
 
-	public void showLocationSimulationDialog(LocationSimulation locationSimulation) {
+	public void showLocationSimulationDialog(RoutingSimulation routingSimulation) {
 		if ((mapActivity != null) && (mapActivity.getSupportFragmentManager()
 				.findFragmentByTag(Constants.FRAGMENT_LOCATION_SIMULATION) == null)) {
 			FragmentLocationSimulationDialog fragmentLocationSimulationDialog =
-					FragmentLocationSimulationDialog.newInstance(locationSimulation);
+					FragmentLocationSimulationDialog.newInstance(routingSimulation);
 			fragmentLocationSimulationDialog.show(mapActivity.getSupportFragmentManager(),
 					Constants.FRAGMENT_LOCATION_SIMULATION);
 		} else {
 			log.error("showLocationSimulationDialog(): mapActivity is NULL or " +
 					"FragmentLocationSimulationDialog is NOT NULL");
-		}
-	}
-
-	private void playNotificationSound() {
-		if (osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get()) {
-			try {
-				AssetFileDescriptor afd =
-						osmandApplication.getAssets().openFd("sounds/desk_bell.mp3");
-				MediaPlayer mediaPlayer = new MediaPlayer();
-				mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
-						afd.getLength());
-				mediaPlayer.prepare();
-				mediaPlayer.setVolume(1.0f, 1.0f);
-				mediaPlayer.start();
-			} catch (IllegalArgumentException | IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

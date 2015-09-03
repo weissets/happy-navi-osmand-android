@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import net.osmand.plus.R;
@@ -25,6 +26,7 @@ public class FragmentLocationSimulationDialog extends DialogFragment
 
 	private static StartSimulationListener startSimulationListener;
 	private TextView speedText;
+	private CheckBox routingCheckBox;
 
 	public static FragmentLocationSimulationDialog newInstance(StartSimulationListener listener) {
 		FragmentLocationSimulationDialog dialog = new FragmentLocationSimulationDialog();
@@ -46,17 +48,17 @@ public class FragmentLocationSimulationDialog extends DialogFragment
 	public void onClick(View v) {
 		if (v.getId() == R.id.buttonPlus) {
 			int speed = Integer.parseInt(speedText.getText().toString());
-			speed += 10;
-			if (speed > 100) {
-				speed = 100;
+			speed *= 2;
+			if (speed > 8) {
+				speed = 8;
 			}
 			speedText.setText(String.valueOf(speed));
 		}
 		if (v.getId() == R.id.buttonMinus) {
 			int speed = Integer.parseInt(speedText.getText().toString());
-			speed -= 10;
-			if (speed < 0) {
-				speed = 0;
+			speed /= 2;
+			if (speed < 1) {
+				speed = 1;
 			}
 			speedText.setText(String.valueOf(speed));
 		}
@@ -65,7 +67,8 @@ public class FragmentLocationSimulationDialog extends DialogFragment
 		}
 		if (v.getId() == R.id.sr_dialog_simulation_yes) {
 			startSimulationListener
-					.startSimulation(Integer.parseInt(speedText.getText().toString()));
+					.startSimulation(Integer.parseInt(speedText.getText().toString()),
+							routingCheckBox.isChecked());
 			this.dismiss();
 		}
 	}
@@ -106,7 +109,8 @@ public class FragmentLocationSimulationDialog extends DialogFragment
 		minusButton.setOnClickListener(this);
 
 		speedText = (TextView) view.findViewById(R.id.speedText);
-		speedText.setText("50");
+		speedText.setText("1");
+		routingCheckBox = (CheckBox) view.findViewById(R.id.checkBoxRouting);
 
 		this.setCancelable(false);
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -115,6 +119,6 @@ public class FragmentLocationSimulationDialog extends DialogFragment
 	}
 
 	public interface StartSimulationListener {
-		void startSimulation(int speed);
+		void startSimulation(int speed, boolean routing);
 	}
 }

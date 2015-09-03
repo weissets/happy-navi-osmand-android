@@ -945,7 +945,7 @@ public class OsmandSettings {
 	// this value string is synchronized with settings_pref.xml preference name
 	public final OsmandPreference<Boolean> SR_NOTIFICATION_SOUND = new BooleanPreference("sr_play_sound", true).makeGlobal();
 	public final OsmandPreference<Boolean> SR_USE_WIFI_ONLY = new BooleanPreference("sr_use_wifi_only", false).makeGlobal();
-	public final OsmandPreference<Boolean> SR_LOCATION_SIMULATION = new BooleanPreference("sr_location_simulation", false).makeGlobal();
+	public final OsmandPreference<Boolean> SR_LOCATION_SIMULATION = new BooleanPreference("sr_location_simulation", true).makeGlobal();
 	public final OsmandPreference<Boolean> SR_ROUTING = new BooleanPreference("sr_routing", true).makeGlobal();
 	
 	// this value string is synchronized with settings_pref.xml preference name

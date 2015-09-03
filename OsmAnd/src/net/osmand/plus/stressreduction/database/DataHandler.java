@@ -24,7 +24,7 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 	private static final Log log = PlatformUtil.getLog(DataHandler.class);
 
 	private final SQLiteLogger sqLiteLogger;
-	private String timestampLastStressValue;
+	private static String timestampLastStressValue;
 
 	public DataHandler(Context context) {
 		sqLiteLogger = SQLiteLogger.getSQLiteLogger(context);
@@ -71,11 +71,11 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 		updateStressValueInDatabase(stressValue, timestamp);
 	}
 
-	public String getTimestampLastStressValue() {
+	public static String getTimestampLastStressValue() {
 		return timestampLastStressValue;
 	}
 
-	private void setTimestampLastStressValue(String timestamp) {
+	public static void setTimestampLastStressValue(String timestamp) {
 		timestampLastStressValue = timestamp;
 	}
 

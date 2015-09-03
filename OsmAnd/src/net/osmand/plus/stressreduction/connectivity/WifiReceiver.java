@@ -41,11 +41,11 @@ public class WifiReceiver extends BroadcastReceiver {
 	 *
 	 * @param context the context
 	 */
-	private static void disableReceiver(Context context) {
+	public static void disableReceiver(Context context) {
 		log.debug("disableReceiver(): disabling receiver...");
 		ComponentName componentName = new ComponentName(context, WifiReceiver.class);
 		context.getPackageManager().setComponentEnabledSetting(componentName,
-				PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+				PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
 	}
 
 	/**

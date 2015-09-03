@@ -4,7 +4,7 @@ import net.osmand.Location;
 import net.osmand.PlatformUtil;
 import net.osmand.ValueHolder;
 import net.osmand.binary.RouteDataObject;
-import net.osmand.plus.ApplicationMode;
+import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.routing.RoutingHelper;
@@ -14,13 +14,13 @@ import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
 import net.osmand.plus.stressreduction.database.SegmentInfo;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
-import net.osmand.plus.stressreduction.simulation.LocationSimulation;
+import net.osmand.plus.stressreduction.simulation.RoutingSimulation;
 import net.osmand.plus.stressreduction.tools.Calculation;
 import net.osmand.router.RouteSegmentResult;
-import net.osmand.router.VehicleRouter;
 
 import org.apache.commons.logging.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +34,12 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 
 	private static final Log log = PlatformUtil.getLog(SRLocation.class);
 
-	private final OsmandApplication osmandApplication;
 	private final OsmAndLocationProvider osmAndLocationProvider;
 	private final RoutingHelper routingHelper;
 	private final DataHandler dataHandler;
 	private final FragmentHandler fragmentHandler;
-	private final LocationSimulation locationSimulation;
+	private final RoutingSimulation routingSimulation;
+	private final CurrentPositionHelper currentPositionHelper;
 	private Location currentLocation;
 	private Location lastDialogLocation;
 	private long lastLoggedSegmentID;
@@ -59,14 +59,15 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	public SRLocation(OsmandApplication osmandApplication, DataHandler dataHandler,
 	                  FragmentHandler fragmentHandler) {
-		this.osmandApplication = osmandApplication;
 		this.dataHandler = dataHandler;
 		this.fragmentHandler = fragmentHandler;
 		osmAndLocationProvider = osmandApplication.getLocationProvider();
 		routingHelper = osmandApplication.getRoutingHelper();
-		locationSimulation = new LocationSimulation(osmandApplication, fragmentHandler);
+		routingSimulation = new RoutingSimulation(osmandApplication, fragmentHandler);
+		currentPositionHelper = new CurrentPositionHelper(osmandApplication);
 		isDriving = false;
-		logSegments = false;
+//		logSegments = false;
+		logSegments = true;
 		timerLocation = 0;
 		timerDialog = 0;
 	}
@@ -123,8 +124,10 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			RouteSegmentResult routeSegmentResult = routingHelper.getCurrentSegmentResult();
 			if (routeSegmentResult != null) {
 				routeDataObject = routeSegmentResult.getObject();
+				log.debug("updateLocation(): found rdo in first try");
 			} else {
 				routeDataObject = osmAndLocationProvider.getLastKnownRouteSegment();
+				log.debug("updateLocation(): found rdo in second try");
 			}
 
 			if (routeDataObject != null) {
@@ -150,9 +153,36 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 				segmentSpeedList.clear();
 				lastLoggedSegmentID = routeDataObject.getId();
 			} else {
-				log.debug("updateLocation(): RouteDataObject is NULL");
-				// TODO obtain info for current segment (note: segment not available without
-				// calculated route)
+				log.debug("updateLocation(): RouteDataObject is NULL, trying native search...");
+//				try {
+//					routeDataObject = currentPositionHelper.runUpdateInThread(location.getLatitude(),
+//							location.getLongitude());
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+				if (routeDataObject != null) {
+					// TODO log segment when not navigating
+					if (routeDataObject.getId() == lastLoggedSegmentID) {
+						log.debug("updateLocation(): same id as last logged segment");
+						return;
+					}
+					log.debug("updateLocation(): logging: UniqueID=" + StressReductionPlugin.getUUID
+							() +
+							", SegmentID=" + routeDataObject.getId() + ", Name=" +
+							routeDataObject.getName() + ", Highway=" + routeDataObject.getHighway() +
+							", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" +
+							Math.round(routeDataObject.getMaximumSpeed() * Constants.MS_TO_KMH) +
+							", Oneway=" + routeDataObject.getOneway() + ", Ref=" +
+							routeDataObject.getRef() + ", Route=" + routeDataObject.getRoute() +
+							", Restrictions=" + routeDataObject.getRestrictionLength() +
+							", Current Speed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
+							"," + location.getLongitude());
+//					dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
+//							Calculation.convertMsToKmh(Calculation.getAverageValue(segmentSpeedList)
+//							)));
+					segmentSpeedList.clear();
+					lastLoggedSegmentID = routeDataObject.getId();
+				}
 			}
 		}
 
@@ -174,6 +204,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	private boolean isDialogTimeout() {
 		// dialog timeout set to 30s TODO check how big the timeout should be
 		if (System.currentTimeMillis() - timerDialog < 30000) {
+			log.debug("isDialogTimeout(): true");
 			return true;
 		}
 		timerDialog = System.currentTimeMillis();
@@ -189,6 +220,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 		// dialog distance timeout set to 200m TODO check how big the distance timeout should be
 		if ((currentLocation != null) && (lastDialogLocation != null)) {
 			if (currentLocation.distanceTo(lastDialogLocation) < 200) {
+				log.debug("isDialogDistanceTimeout(): true");
 				return true;
 			}
 		}
@@ -227,10 +259,9 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	@Override
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
-		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", turning on logging");
-		logSegments = true;
-		locationSimulation.newRouteIsCalculated(newRoute);
-
+		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", (turning on logging)");
+//		logSegments = true;
+		routingSimulation.newRouteIsCalculated();
 	}
 
 	/**
@@ -238,13 +269,13 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	@Override
 	public void routeWasCancelled() {
-		locationSimulation.routeWasCancelled();
+		routingSimulation.routeWasCancelled();
 		if (logSegments && SQLiteLogger
-				.getDatabaseSizeSinceLastStressValue(dataHandler.getTimestampLastStressValue()) >
+				.getDatabaseSizeSinceLastStressValue(DataHandler.getTimestampLastStressValue()) >
 				0) {
-			log.debug("routeWasCancelled(): turning off logging");
+			log.debug("routeWasCancelled(): (turning off logging)");
 			fragmentHandler.showSRDialog(dataHandler);
-			logSegments = false;
+//			logSegments = false;
 		}
 	}
 
@@ -265,7 +296,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 				e.printStackTrace();
 			}
 			if (SQLiteLogger.getDatabaseSizeSinceLastStressValue(
-					dataHandler.getTimestampLastStressValue()) > 0 &&
+					DataHandler.getTimestampLastStressValue()) > 0 &&
 					isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
 				log.debug("run(): speed still zero, show dialog");
 				lastDialogLocation = currentLocation;
