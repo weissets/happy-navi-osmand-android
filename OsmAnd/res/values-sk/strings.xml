@@ -39,7 +39,7 @@
   <string name="poi_filter_food_shop">Potraviny</string>
   <string name="poi_filter_for_tourists">Pre turistov</string>
   <string name="poi_filter_fuel">Palivo</string>
-  <string name="btn_add_tag">Pridať značku</string>
+  <string name="add_tag">Pridať značku</string>
   <string name="btn_advanced_mode">Pokročilý režim…</string>
   <string name="snap_to_road_descr">Prichytenie pozície k cestám počas navigácie</string>
   <string name="snap_to_road">Prichytiť k ceste</string>
@@ -548,8 +548,8 @@
   <string name="install_selected_build">Naozaj chcete nainštalovať OsmAnd - {0} z {1} {2} MB?</string>
   <string name="loading_builds_failed">Prijímanie zoznamu zostáv OsmAndu zlyhalo</string>
   <string name="loading_builds">Načítavajú sa zostavy OsmAndu…</string>
-  <string name="select_build_to_install">Vyberte jednu zo zostáv OsmAndu na nainštalovanie</string>
-  <string name="contribution_activity">Špeciálna aktivita pre kontribútorskú verziu</string>
+  <string name="select_build_to_install">Vyberte zostavu OsmAndu na nainštalovanie</string>
+  <string name="contribution_activity">Nainštalovať verziu</string>
   <string name="gps_status_app_not_found">Aplikácia pre stav GPS nie je nainštalovaná. Nájsť ju v Obchode?</string>
   <string name="voice_is_not_available_msg">"Hlasové navigovanie nie je dostupné, prosím choďte do Nastavenia → \'Všeobecné\' → \'Hlasové povely\'  a zvoľte alebo stiahnite balík hlasových povelov."</string>
   <string name="voice_is_not_available_title">Hlasové údaje nie sú určené</string>
@@ -903,8 +903,8 @@
   <string name="poi_remove_confirm_template">Vymazať {0} (zadajte komentár) ?</string>
   <string name="poi_remove_title">Vymazať POI</string>
   <string name="poi_remove_success">POI bol úspešne vymazaný</string>
-  <string name="poi_action_add">Pridať</string>
-  <string name="poi_action_change">Zmeniť</string>
+  <string name="poi_action_add">pridať</string>
+  <string name="poi_action_change">zmeniť</string>
   <string name="poi_action_succeded_template">Akcia: {0} úspešne ukončená.</string>
   <string name="poi_error_unexpected_template">Vyskytla sa neočakávaná chyba počas vykonávania akcie: {0}.</string>
   <string name="poi_error_io_error_template">Vyskytla sa vstupno/výstupná chyba počas vykonávania akcie: {0}.</string>
@@ -1082,7 +1082,7 @@
     
     
     <string name="map_widget_max_speed">Obmedzenie rýchlosti</string>
-    <string name="monitoring_control_start">spustiť</string>
+    <string name="monitoring_control_start">GPX</string>
     <string name="rendering_attr_noAdminboundaries_name">Skryť hranice</string>
 	<string name="rendering_attr_noAdminboundaries_description">Potlačiť zobrazenie regionálnej hranice (admin úrovne 5-9)</string>
 	<string name="tip_altitude_offset">Korekcia nadmorskej výšky</string>
@@ -1184,7 +1184,7 @@
 \n\t* Podpora hodiniek Pebble
     </string>
     
-	<string name="street_name">Ulica</string>
+	<string name="street_name">Názov ulice</string>
 	<string name="hno">Číslo domu</string>
     <string name="monitoring_settings">Zaznamenávanie výletu</string>
     <string name="monitoring_settings_descr">Konfigurovať ako sa majú zaznamenať vaše výlety</string>
@@ -1807,7 +1807,7 @@ Afganistan, Albánsko, Alžírsko, Andora, Angola, Anguilla, Antigua a Barbuda, 
     <string name="lang_sw">Svahilsky (Kiswahili)</string>
     <string name="lang_he">Hebrejsky (עִבְרִית)</string>
     <string name="forward">Dopredu</string>
-    <string name="home">Domov</string>
+    <string name="home">Úvodný panel</string>
     <string name="live_monitoring_m_descr">Odosielať stopovacie údaje určenej webovej službe ak je zaznamenávanie GPX zapnuté.</string>
 	<string name="live_monitoring_m">Online stopovanie (potrebné GPX)</string>
     <string name="live_monitoring_start">Zapnúť online stopovanie</string>
@@ -2105,7 +2105,7 @@ Afganistan, Albánsko, Alžírsko, Andora, Angola, Anguilla, Antigua a Barbuda, 
 	<string name="shared_string_my_location">Moja poloha</string>
 	<string name="shared_string_my_favorites">Moje obľúbené</string>
 	<string name="shared_string_my_tracks">Moje stopy</string>
-	<string name="shared_string_currently_recording_track">Stopa sa nahráva</string>
+	<string name="shared_string_currently_recording_track">Teraz nahrávaná stopa</string>
 	<string name="delay_to_start_navigation_descr">Zadajte dobu zotrvania na obrazovke plánovania trasy</string>
     <string name="delay_to_start_navigation">Spustiť navigačné pokyny po…</string>
     <string name="shared_string_go">Ísť</string>
@@ -2252,11 +2252,37 @@ Afganistan, Albánsko, Alžírsko, Andora, Angola, Anguilla, Antigua a Barbuda, 
 	<string name="error_message_pattern">Chyba: {0}</string>
 <string name="traffic_warning_hazard">Nebezpečenstvo</string>
     <string name="rendering_value_boldOutline_name">Hrubý obrys</string>
-    <string name="dahboard_options_dialog_title">Nastavenia úvodného panela</string>
+    <string name="dahboard_options_dialog_title">Nastaviť úvodný panel</string>
 	<string name="shared_string_card_was_hidden">Karta bola skrytá</string>
 	<string name="shared_string_undo">KROK SPÄŤ</string>
 	<string name="shared_string_skip">Preskočiť</string>
 	<string name="app_name_osmand">OsmAnd</string>
 	<string name="offline_maps_and_navigation">Offline mapy\n&amp; Navigácia</string>
 <string name="commit_poi">Odoslať POI</string>
+<string name="av_locations_descr">GPX súbor s pozíciami poznámok</string>
+    <string name="av_locations">Pozície</string>
+    <string name="plugin_settings">Zásuvné moduly</string>
+	<string name="routing_attr_avoid_shuttle_train_name">Nepoužiť autovlak</string>
+	<string name="routing_attr_avoid_shuttle_train_description">Nepoužiť autovlak</string>
+    <string name="tab_title_basic">Základné</string>
+	<string name="tab_title_advanced">Rozšírené</string>
+	<string name="building_number">Číslo domu</string>
+	<string name="next_proceed">Ďalší</string>
+	<string name="opening_at">Otvára o</string>
+	<string name="closing_at">Zatvára o</string>
+	<string name="tag_poi_name">názov</string>
+	<string name="tag_poi_amenity">občianska vybavenosť</string>
+	<string name="contact_info">Kontaktné údaje</string>
+	<string name="description">Popis</string>
+	<string name="add_opening_hours">Pridať otváracie hodiny</string>
+	<string name="poi_dialog_poi_type">Typ bodu záujmu</string>
+	<string name="number_of_rows_in_dash">Počet riadkov v bloku %1$s</string>
+	<string name="please_specify_poi_type">Prosím zadajte typ bodu záujmu.</string>
+<string name="poi_action_delete">odstrániť</string>
+	<string name="working_days">Pracovné dni</string>
+	<string name="recent_places">História miest</string>
+	<string name="favourites">Obľúbené</string>
+<string name="saved_at_time">Úspešne uložené na: %1$s</string>
+	<string name="poi_deleted_localy">Bod POI bude vymazaný keď zmeny odošlete</string>
+	<string name="show_gpx">Zobraziť GPX</string>
 </resources>

@@ -265,7 +265,7 @@
     <string name="cancel_navigation">Firma su nàvigu</string>
     <string name="clear_destination">Burra sa destinatzione</string>
     <string name="download_using_mobile_internet">Sa connessione WiFi non est ativa. Boles sighire a iscarrigare impreande sa connessione internet atuale?</string>
-    <string name="street_name">Istrada</string>
+    <string name="street_name">Nùmene istrada</string>
 	<string name="hno">Nùmeru tzivicu</string>
     <string name="website">Giassu web</string>
 	<string name="phone">Telèfonu</string>
@@ -470,7 +470,7 @@
     <string name="context_menu_item_intermediate_point">Annanghelu comente puntu mesanu</string>
     <string name="map_widget_intermediate_distance">Puntu mesanu</string>
     <string name="ending_point_too_far">Puntu finale tropu indedda dae s’istrada prus a curtzu.</string>
-    <string name="btn_add_tag">Annanghe etichetta</string>
+    <string name="add_tag">Annanghe etichetta</string>
     <string name="btn_advanced_mode">Modalidade avantzada…</string>
     <string name="poi_filter_parking">Parchezu</string>
     <string name="poi_filter_emergency">Apretu/Emergèntzia</string>
@@ -2062,10 +2062,27 @@
 	<string name="plugin_settings">Plugins (estensiones)</string>
 	<string name="routing_attr_avoid_shuttle_train_name">Istransi trenu ispola</string>
 	<string name="routing_attr_avoid_shuttle_train_description">Istransi trenu ispola</string>
-    <string name="basic_tab_title">Bàsicu</string>
-	<string name="extended_tab_title">Estesu</string>
+    <string name="tab_title_basic">Bàsicu</string>
+	<string name="tab_title_advanced">Estesu</string>
 	<string name="building_number">Nùmeru tzìvicu</string>
 	<string name="next_proceed">Imbeniente</string>
 	<string name="opening_at">Aberit a sas</string>
 	<string name="closing_at">Serrat a sas</string>
-</resources>
+<string name="av_locations_descr">Documentu gpx cun notas locales</string>
+    <string name="av_locations">Localidades</string>
+    <string name="tag_poi_name">nùmene</string>
+	<string name="contact_info">Informatziones de cuntatu</string>
+	<string name="description">Descritzione</string>
+	<string name="add_opening_hours">Annanghe s’oràriu de abertura</string>
+	<string name="poi_dialog_poi_type">Casta de PDI</string>
+<string name="tag_poi_amenity">atratzione</string>
+	<string name="please_specify_poi_type">Dislinda casta de PDI.</string>
+<string name="number_of_rows_in_dash">Nùmeru de rigas in su pannellu %1$s</string>
+	<string name="poi_action_delete">burra</string>
+	<string name="working_days">Dies de traballu</string>
+	<string name="recent_places">Logos reghentes</string>
+	<string name="favourites">Prefèrridos</string>
+<string name="poi_deleted_localy">Su PDI at a èssere burradu a pustis de su carrigamentu de sas modìficas tuas</string>
+	<string name="show_gpx">Ammustra GPX</string>
+<string name="saved_at_time">Sarbada resèssida in: %1$s</string>
+	</resources>

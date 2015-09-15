@@ -64,7 +64,7 @@
     <string name="keep_intermediate_points">Захаваць прамежкавыя кропкі</string>
     <string name="new_directions_point_dialog">У вас ужо ёсьць набор прамежкавых кропак.</string>
     <string name="context_menu_item_directions_to">Маршрут да</string>
-    <string name="context_menu_item_directions_from">Маршрут ад</string>
+    <string name="context_menu_item_directions_from">Маршрут адсюль</string>
     <string name="route_descr_map_location">Мапа: </string>
     <string name="route_descr_lat_lon">%1$.3f шыр., %2$.3f даў.</string>
     <string name="route_descr_current_location">Бягучае становішча</string>
@@ -125,7 +125,7 @@
     <string name="cancel_navigation">Спыніць навігацыю</string>
     <string name="clear_destination">Сьцерці месца прызначэньня</string>
     <string name="download_using_mobile_internet">Зараз WiFi не падлучаны. Хочаце працягнуць сьцягваньне з бягучым падключэньнем да Інтэрнэту?</string>
-    <string name="street_name">Вуліца</string>
+    <string name="street_name">Назва вуліцы</string>
 	<string name="hno">Нумар дома</string>
     <string name="website">Вэб-сайт</string>
 	<string name="phone">Тэлефон</string>
@@ -289,7 +289,7 @@
     <string name="context_menu_item_intermediate_point">Дадаць як кропку шляху</string>
     <string name="map_widget_intermediate_distance">Кропка шляху</string>
     <string name="ending_point_too_far">Канчатковая кропка занадта далёка ад бліжэйшай дарогі.</string>
-    <string name="btn_add_tag">Дадаць адзнаку</string>
+    <string name="add_tag">Дадаць адзнаку</string>
     <string name="btn_advanced_mode">Пашыраны рэжым…</string>
     <string name="poi_filter_parking">Паркоўка</string>
     <string name="poi_filter_emergency">Аварыйныя службы</string>
@@ -1628,7 +1628,7 @@
     <string name="map_preferred_locale">Пажаданая мова мапы</string>
     <string name="local_map_names">Мясцовыя назвы</string>
     <string name="forward">Наперад</string>
-    <string name="home">Дамоў</string>
+    <string name="home">Панэль кіраваньня</string>
     <string name="keep_navigation_service">Пакінуць</string>
 	<string name="gpx_monitoring_stop">Спыніць запіс GPX</string>
     <string name="live_monitoring_start">Пачаць адсочваньне праз Інтэрнэт</string>
@@ -2060,7 +2060,7 @@
     <string name="traffic_warning_hazard">Небясьпека</string>
     <string name="app_name_osmand">OsmAnd</string>
 	<string name="offline_maps_and_navigation">Аўтаномныя мапы\nі навігацыя</string>
-<string name="dahboard_options_dialog_title">Опцыі Панэлі кіраваньня</string>
+<string name="dahboard_options_dialog_title">Налады Панэлі кіраваньня</string>
 	<string name="shared_string_card_was_hidden">Картка схавана</string>
 	<string name="shared_string_undo">Вярнуць</string>
 	<string name="shared_string_skip">Прапусьціць</string>
@@ -2068,4 +2068,27 @@
 	<string name="commit_poi">Укласьці POI</string>
 <string name="routing_attr_avoid_shuttle_train_name">Пазьбягаць трансфер-цягнікоў</string>
 	<string name="routing_attr_avoid_shuttle_train_description">Пазьбягаць трансфер-цягнікоў</string>
-    </resources>
+    <string name="tab_title_basic">Асноўнае</string>
+	<string name="building_number">Нумар будынка</string>
+	<string name="next_proceed">Далей</string>
+	<string name="opening_at">Адчыняецца ў</string>
+	<string name="closing_at">Зачыняецца ў</string>
+<string name="tab_title_advanced">Пашыранае</string>
+	<string name="tag_poi_name">назва</string>
+	<string name="contact_info">Кантакты</string>
+	<string name="description">Апісаньне</string>
+	<string name="add_opening_hours">Дадаць гадзіны працы</string>
+	<string name="poi_dialog_poi_type">Тып POI</string>
+	<string name="please_specify_poi_type">Калі ласка, пазначце тып POI.</string>
+<string name="av_locations_descr">Gpx-файл з мецазнаходжаньнем заўваг</string>
+    <string name="av_locations">Месцазнаходжаньні</string>
+    <string name="number_of_rows_in_dash">Колькасьць радкоў на галоўным экране %1$s</string>
+	<string name="tag_poi_amenity">грамадзкі аб\'ект</string>
+	<string name="poi_action_delete">выдаліць</string>
+	<string name="working_days">Працоўныя дні</string>
+	<string name="recent_places">Нядаўнія месцы</string>
+	<string name="favourites">Упадабанае</string>
+<string name="saved_at_time">Пасьпяхова захаваны ў: %1$s</string>
+<string name="show_gpx">Паказаць GPX</string>
+<string name="poi_deleted_localy">POI будуць выдаленыя, як толькі вы загрузіце вашы зьмены</string>
+	</resources>

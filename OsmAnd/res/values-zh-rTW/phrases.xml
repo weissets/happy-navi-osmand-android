@@ -508,14 +508,14 @@
 	<string name="poi_hunting_lodge">狩獵小屋</string>
 
 	<string name="poi_place_of_worship">宗教場所</string>
-	<string name="poi_religion_christian">宗教場所：基督教</string>
-	<string name="poi_religion_jewish">宗教場所：猶太教</string>
-	<string name="poi_religion_muslim">宗教場所：回教</string>
-	<string name="poi_religion_sikh">宗教場所：錫克教</string>
-	<string name="poi_religion_buddhist">宗教場所：佛教</string>
-	<string name="poi_religion_hindu">宗教場所：印度教</string>
-	<string name="poi_religion_shinto">宗教場所：日本神道教</string>
-	<string name="poi_religion_taoist">宗教場所：道教</string>
+	<string name="poi_religion_christian">基督教</string>
+	<string name="poi_religion_jewish">猶太教</string>
+	<string name="poi_religion_muslim">回教</string>
+	<string name="poi_religion_sikh">錫克教</string>
+	<string name="poi_religion_buddhist">佛教</string>
+	<string name="poi_religion_hindu">印度教</string>
+	<string name="poi_religion_shinto">神道教</string>
+	<string name="poi_religion_taoist">道教</string>
 
 	<string name="poi_internet_access_wlan">網際網路存取：無線網路</string>
 	<string name="poi_internet_access_terminal">網際網路存取：終端</string>
@@ -940,7 +940,7 @@
 	<string name="poi_access_permissive">容許通行</string>
 	<string name="poi_access_customers">顧客通行</string>
 	<string name="poi_access_delivery">交貨通行</string>
-	<string name="poi_access_agricultural">農用通路</string>
+	<string name="poi_access_agricultural">農產通路</string>
 
 	<string name="poi_monitoring_station">監測站</string>
 	<string name="poi_capital">首都</string>
@@ -1052,4 +1052,200 @@
 	<string name="poi_building">建築物</string>
 
 <string name="poi_military_office">軍事辦公室</string>
+	<string name="poi_office_religion">宗教辦公室</string>
+	<string name="poi_association">社團辦公室</string>
+	<string name="poi_financial">金融辦公室</string>
+	<string name="poi_political_party">政黨辦公室</string>
+	<string name="poi_notary">公證人</string>
+	<string name="poi_foundation">基金會辦公室</string>
+	<string name="poi_tax_advisor">稅務顧問辦公室</string>
+
+	<string name="poi_religion_voodoo">巫毒教</string>
+	<string name="poi_religion_unitarian_universalist">唯一神普教派</string>
+	<string name="poi_religion_multifaith">多元宗教</string>
+	<string name="poi_religion_jain">耆那教</string>
+	<string name="poi_religion_spiritualist">唯靈論教</string>
+	<string name="poi_religion_bahai">巴海大同教</string>
+	<string name="poi_religion_scientologist">山達基教</string>
+	<string name="poi_religion_pagan">異教</string>
+	<string name="poi_religion_tenrikyo">天理教</string>
+	<string name="poi_religion_zoroastrian">祆教</string>
+
+	<string name="poi_denomination_catholic">天主教</string>
+	<string name="poi_denomination_baptist">浸信會</string>
+	<string name="poi_denomination_roman_catholic">羅馬天主教</string>
+	<string name="poi_denomination_orthodox">東正教</string>
+	<string name="poi_denomination_lutheran">路德教派</string>
+	<string name="poi_denomination_sunni">遜尼派</string>
+	<string name="poi_denomination_protestant">基督新教</string>
+	<string name="poi_denomination_methodist">衛理公會</string>
+	<string name="poi_denomination_anglican">英國國教</string>
+	<string name="poi_denomination_presbyterian">長老教會</string>
+	<string name="poi_denomination_evangelical">福音派</string>
+	<string name="poi_denomination_russian_orthodox">俄羅斯東正教</string>
+	<string name="poi_denomination_pentecostal">聖靈降臨派</string>
+	<string name="poi_denomination_mormon">摩門教</string>
+	<string name="poi_denomination_jehovahs_witness">耶和華見證人</string>
+	<string name="poi_denomination_greek_orthodox">希臘正教</string>
+	<string name="poi_denomination_reformed">歸正教會</string>
+	<string name="poi_denomination_seventh_day_adventist">基督復臨安息日會</string>
+	<string name="poi_denomination_episcopal">聖公會</string>
+	<string name="poi_denomination_shia">什葉派</string>
+	<string name="poi_denomination_united">聯合教會</string>
+	<string name="poi_denomination_greek_catholic">希臘天主教</string>
+	<string name="poi_denomination_tibetan">西藏</string>
+	<string name="poi_denomination_united_reformed">英國聯合歸正教會</string>
+	<string name="poi_denomination_church_of_scotland">蘇格蘭長老會</string>
+	<string name="poi_denomination_salvation_army">救世軍</string>
+	<string name="poi_denomination_iglesia_ni_cristo">基督堂教會</string>
+	<string name="poi_denomination_uniting">聯合教會</string>
+	<string name="poi_denomination_mennonite">門諾會</string>
+	<string name="poi_denomination_quaker">貴格會</string>
+	<string name="poi_denomination_bulgarian_orthodox">保加利亞東正教</string>
+	<string name="poi_denomination_new_apostolic">新使徒教派</string>
+	<string name="poi_denomination_church_of_england">英國國教</string>
+	<string name="poi_denomination_assemblies_of_god">神召會</string>
+	<string name="poi_denomination_nondenominational">宗派</string>
+	<string name="poi_denomination_adventist">基督復臨安息日會</string>
+	<string name="poi_denomination_nazarene">基督教徒</string>
+	<string name="poi_denomination_united_methodist">聯合衛理公會</string>
+	<string name="poi_denomination_congregational">公理會</string>
+	<string name="poi_denomination_old_believers">舊教徒</string>
+	<string name="poi_denomination_serbian_orthodox">塞爾維亞東正教</string>
+	<string name="poi_denomination_spiritist">招魂者</string>
+	<string name="poi_denomination_armenian_apostolic">亞美尼亞使徒教會</string>
+	<string name="poi_denomination_dutch_reformed">荷蘭歸正教會</string>
+	<string name="poi_denomination_apostolic">使徒教會</string>
+	<string name="poi_denomination_reform">改革教會</string>
+	<string name="poi_denomination_latter_day_saints">末世聖徒</string>
+	<string name="poi_denomination_church_of_christ">基督教會</string>
+	<string name="poi_denomination_united_church_of_christ">聯合的基督教會</string>
+	<string name="poi_denomination_georgian_orthodox">喬治亞東正教</string>
+	<string name="poi_denomination_scientist">科學家</string>
+	<string name="poi_denomination_romanian_orthodox">羅馬尼亞東正教</string>
+	<string name="poi_denomination_ethiopian_orthodox_tewahedo">衣索比亞東正教</string>
+	<string name="poi_denomination_unitarian">唯一神論教派</string>
+	<string name="poi_denomination_coptic_orthodox">科普特東正教</string>
+	<string name="poi_denomination_wesleyan">衛斯理教派</string>
+	<string name="poi_denomination_shaktism">沙克達教</string>
+	<string name="poi_denomination_shingon_shu">真言宗</string>
+	<string name="poi_denomination_maronite">馬若恩教派</string>
+	<string name="poi_denomination_mahayana">大乘佛教</string>
+
+	<string name="poi_landfill_waste_nuclear">核廢料</string>
+	<string name="poi_brownfield">棕地</string>
+	<string name="poi_greenfield">未開發地</string>
+	<string name="poi_bunker_silo">燃料貯塔</string>
+	<string name="poi_start_date">開始日期</string>
+	<string name="poi_wheelchair">輪椅</string>
+
+	<string name="poi_content_silage">青貯飼料 (內容)</string>
+	<string name="poi_content_water">水 (內容)</string>
+	<string name="poi_content_slurry">礦泥 (內容)</string>
+	<string name="poi_content_oil">油 (內容)</string>
+	<string name="poi_content_fuel">燃料 (內容)</string>
+	<string name="poi_content_manure">肥料 (內容)</string>
+	<string name="poi_content_wine">酒 (內容)</string>
+	<string name="poi_content_sewage">污水 (內容)</string>
+	<string name="poi_content_gas">瓦斯 (內容)</string>
+	<string name="poi_content_biomass">生物質 (內容)</string>
+	<string name="poi_content_wastewater">污水 (內容)</string>
+	<string name="poi_content_crop">農作物 (內容)</string>
+	<string name="poi_content_fodder">飼料 (內容)</string>
+	<string name="poi_content_beer">啤酒 (內容)</string>
+	<string name="poi_content_salt">鹽 (內容)</string>
+	<string name="poi_content_grain">榖物 (內容)</string>
+
+	<string name="poi_wholesale">批發商</string>
+
+	<string name="poi_trade_building_supplies">建材供應商</string>
+	<string name="poi_trade_plumbing">配管供應商</string>
+	<string name="poi_trade_wood">木材供應商</string>
+	<string name="poi_trade_agricultural_supplies">農藝供應商</string>
+	<string name="poi_trade_tile">磚瓦供應商</string>
+
+	<string name="poi_population">人口數</string>
+
+	<string name="poi_parking_underground">地下</string>
+	<string name="poi_parking_multi_storey">多層</string>
+
+	<string name="poi_bicycle_parking_stands">立台</string>
+	<string name="poi_bicycle_parking_wall_loops">壁掛架</string>
+	<string name="poi_bicycle_parking_rack">擱物架</string>
+	<string name="poi_bicycle_parking_building">獨特建築物</string>
+	<string name="poi_bicycle_parking_shed">車棚</string>
+	<string name="poi_bicycle_parking_bollard">系船柱</string>
+	<string name="poi_bicycle_parking_informal">非正式的</string>
+
+	<string name="poi_leaf_type_broadleaved">闊葉樹</string>
+	<string name="poi_leaf_type_needleleaved">針葉樹</string>
+	<string name="poi_leaf_type_mixed">混合林</string>
+	<string name="poi_leaf_type_leafless">無葉植物</string>
+
+	<string name="poi_trees_olive">橄欖樹</string>
+	<string name="poi_trees_apple">蘋果樹</string>
+	<string name="poi_trees_oil">棕櫚油</string>
+	<string name="poi_height">高度</string>
+	<string name="poi_ele">海拔高度</string>
+	<string name="poi_nudism_yes">天體主義：允許</string>
+	<string name="poi_nudism_no">天體主義：禁止</string>
+	<string name="poi_nudism_obligatory">天體主義：強制</string>
+	<string name="poi_nudism_customary">天體主義：慣常</string>
+	<string name="poi_nudism_permissive">天體主義：容許</string>
+
+	<string name="poi_trees_orange">橙色</string>
+	<string name="poi_trees_almond">杏仁</string>
+	<string name="poi_trees_banana">香蕉</string>
+	<string name="poi_trees_hazel">榛樹</string>
+	<string name="poi_trees_coconut">椰子</string>
+	<string name="poi_trees_persimmon">柿子</string>
+	<string name="poi_trees_cherry">櫻桃</string>
+	<string name="poi_trees_walnut">核桃</string>
+	<string name="poi_trees_plum">李子</string>
+	<string name="poi_trees_peach">桃子</string>
+	<string name="poi_trees_tea">茶</string>
+	<string name="poi_trees_coca">古柯</string>
+	<string name="poi_trees_kiwi">獼猴桃</string>
+	<string name="poi_trees_meadow_orchard">草甸果樹園</string>
+	<string name="poi_trees_nectorine">油桃</string>
+	<string name="poi_trees_mango">芒果</string>
+	<string name="poi_trees_rubber">橡膠</string>
+	<string name="poi_trees_date">日期</string>
+	<string name="poi_trees_coffea">咖啡</string>
+	<string name="poi_trees_pomegranate">石榴</string>
+
+	<string name="poi_aerialway_pylon">高架作業臺塔</string>
+
+	<string name="poi_power_tower">高壓輸電塔</string>
+	<string name="poi_power_pole">電線桿</string>
+
+	<string name="poi_cooling_tower">冷卻塔</string>
+	<string name="poi_lighting_tower">照明架塔</string>
+	<string name="poi_species">種類</string>
+	<string name="poi_genus">種屬</string>
+	<string name="poi_taxon">分類</string>
+
+	<string name="poi_urban">城市</string>
+	<string name="poi_rural">農村</string>
+
+	<string name="poi_seats">座位</string>
+	<string name="poi_backrest_yes">靠背：是的</string>
+	<string name="poi_backrest_no">靠背：沒有</string>
+
+	<string name="poi_intermittent">間歇性</string>
+
+	<string name="poi_deadlock">鎖住</string>
+
+	<string name="poi_generator_source_coal">能源：煤炭</string>
+	<string name="poi_generator_source_gas">能源：瓦斯</string>
+	<string name="poi_generator_source_nuclear">能源：核能</string>
+	<string name="poi_generator_source_solar">能源：太陽能</string>
+	<string name="poi_generator_source_hydro">能源：水力</string>
+	<string name="poi_generator_source_wind">能源：風力</string>
+	<string name="poi_generator_source_geothermal">能源：地熱</string>
+	<string name="poi_generator_source_oil">能源：石油</string>
+	<string name="poi_generator_source_diesel">能源：柴油</string>
+
+	<string name="poi_car_wash_self_service">自助服務</string>
+
 	</resources>

@@ -1048,7 +1048,7 @@
     <string name="context_menu_item_intermediate_point">Ajouter comme étape</string>
     <string name="map_widget_intermediate_distance">Étape</string>
     <string name="ending_point_too_far">Point d\'arrivée trop éloigné de la route la plus proche.</string>
-    <string name="btn_add_tag">Ajouter un attribut</string>
+    <string name="add_tag">Ajouter un attribut</string>
     <string name="btn_advanced_mode">Mode avancé…</string>
     <string name="poi_filter_parking">Parking</string>
     <string name="poi_filter_emergency">Urgences</string>
@@ -1204,7 +1204,7 @@
 \n\t* Filtre de Kalman pour la boussole\n\t* Support des montres Pebble "
     </string>
     
-	<string name="street_name">Rue</string>
+	<string name="street_name">Nom de la rue</string>
 	<string name="hno">Numéro de bâtiment</string>
     <string name="tip_recent_changes_1_3_t">"Changements en 1.3 :\n\t* Support des écrans larges comme les tablettes\n\t* Thème Holo\n\t* Options de stabilisation du compas\n\t* Le bouton en haut à gauche de l\'écran remplace le bouton Menu. "</string>
     <string name="monitoring_settings">Enregistrement de traces</string>
@@ -2128,10 +2128,21 @@ Afghanistan, Albanie, Algérie, Allemagne, Andorre, Angola, Anguilla, Antigua-et
 	<string name="offline_maps_and_navigation">Cartes hors-ligne\n&amp; Navigation</string>
 	<string name="commit_poi">Enregistrer le PI</string>
 <string name="plugin_settings">Greffons</string>
-	<string name="basic_tab_title">Basique</string>
-	<string name="extended_tab_title">Étendue</string>
+	<string name="tab_title_basic">Basique</string>
+	<string name="tab_title_advanced">Étendue</string>
 	<string name="building_number">Numéro de bâtiment</string>
 	<string name="next_proceed">Suivant</string>
 	<string name="opening_at">Ouverture à</string>
 	<string name="closing_at">Fermeture à</string>
+<string name="tag_poi_name">nom</string>
+	<string name="description">Description</string>
+	<string name="add_opening_hours">Ajouter des heures d\'ouverture</string>
+	<string name="poi_dialog_poi_type">Type de PI</string>
+<string name="av_locations">Positions</string>
+    <string name="poi_action_delete">Supprimer</string>
+	<string name="contact_info">Contact</string>
+	<string name="please_specify_poi_type">Merci d\'indiquer un type de PI.</string>
+	<string name="working_days">Jours travaillés</string>
+	<string name="recent_places">Emplacements récents</string>
+	<string name="favourites">Favoris</string>
 </resources>

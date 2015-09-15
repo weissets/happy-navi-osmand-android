@@ -130,10 +130,10 @@
   
   
   <string name="osmand_development_plugin_description">Плагин отображает параметры для разработки и отладки функций, таких как, проверка или моделирование маршрута, отображение производительности отрисовки, проверка голосовых подсказок. Эти настройки предназначены для разработчиков и не требуются для обычного пользователя.</string>
-  <string name="plugins_screen">Диспетчер плагинов</string>
+  <string name="plugins_screen">Плагины</string>
   
   <string name="prefs_plugins_descr">Плагины активируют дополнительные возможности приложения</string>
-  <string name="prefs_plugins">Диспетчер плагинов</string>
+  <string name="prefs_plugins">Плагины</string>
   <string name="tip_recent_changes_0_8_0_t">Изменения в 0.8.0:
 		\n\t- *Поддержка плагинов*
 		\n\t- Большая часть функциональности разделена на плагины и может быть включена/выключена в Менеджере плагинов.
@@ -316,7 +316,7 @@
   <string name="local_index_items_restored">%1$d из %2$d объектов успешно активированы.</string>
   <string name="local_index_no_items_to_do">Нет объектов, чтобы %1$s</string>
   <string name="local_index_action_do">Вы собираетесь %1$s %2$s объектов. Вы уверены?</string>
-  <string name="local_index_descr_title">Управление файлами карт</string>
+  <string name="local_index_descr_title">Загрузить карты</string>
   <string name="local_index_mi_restore">Активировать</string>
   <string name="local_index_mi_backup">Архивировать</string>
   
@@ -495,7 +495,7 @@
   
   <string name="general_settings_descr">Настройки экрана, локализации, единиц измерения и другие</string>
   <string name="general_settings">Общие</string>
-  <string name="index_settings">Управление файлами карт</string>
+  <string name="index_settings">Загрузить карты</string>
   <string name="osmand_service">Фоновый режим</string>
   <string name="osmand_service_descr">Запустить OsmAnd в фоновом режиме для записи трека и навигации</string>
   <string name="fast_route_mode">Скоростной маршрут</string>
@@ -843,7 +843,7 @@
   <string name="poi_error_unexpected_template">Произошла неожиданная ошибка при выполнении действия {0}.</string>
   <string name="poi_error_io_error_template">Произошла ошибка ввода/вывода при выполнении действия {0}.</string>
   <string name="poi_error_info_not_loaded">Произошла ошибка при загрузке информации о POI</string>
-  <string name="poi_dialog_name">Имя</string>
+  <string name="poi_dialog_name">Название</string>
   <string name="poi_dialog_opening_hours">Время работы</string>
   <string name="poi_dialog_comment">Комментарий</string>
   <string name="poi_dialog_comment_default">Изменение POI</string>
@@ -1102,7 +1102,7 @@
 <string name="context_menu_item_intermediate_point">Добавить промежуточную точку</string>
 <string name="map_widget_intermediate_distance">Промежуточная точка</string>
 <string name="ending_point_too_far">Начало маршрута слишком далеко от ближайшей дороги.</string>
-<string name="btn_add_tag">Добавить метку</string>
+<string name="add_tag">Добавить метку</string>
 <string name="btn_advanced_mode">Расширенный режим…</string>
 <string name="poi_filter_parking">Парковки</string>
 <string name="poi_filter_emergency">Чрезвычайные обстоятельства</string>
@@ -1197,7 +1197,7 @@
     </string>
     <string name="layer_hillshade">Слой рельефа местности</string>
     
-	<string name="street_name">Улица</string>
+	<string name="street_name">Название улицы</string>
 	<string name="hno">Номер дома</string>
     <string name="download_using_mobile_internet">В настоящее время нет соединения по Wi-Fi. Хотите использовать текущее интернет-соединение для загрузки?</string>
     <string name="tip_recent_changes_1_3_t">Изменения в 1.3:
@@ -1640,7 +1640,7 @@
     <string name="lang_sw">Суахили</string>
     <string name="lang_he">Иврит</string>
     <string name="forward">Вперёд</string>
-    <string name="home">В начало</string>
+    <string name="home">Домашняя страница</string>
     <string name="osmo_group_information">Пожалуйста, прочтите перед созданием группы!</string>
     <string name="osmo_auto_connect_descr">Автоматическое подключение к сервису при запуске приложения</string>
     <string name="osmo_auto_connect">Автоматическое подключение</string>
@@ -2037,12 +2037,12 @@
     <string name="rendering_value_red_name">Красный</string>
     <string name="rendering_value_translucent_red_name">Полупрозрачный красный</string>
     <string name="rendering_value_translucent_orange_name">Полупрозрачный оранжевый</string>
-    <string name="rendering_value_yellow_name">Желтый</string>
+    <string name="rendering_value_yellow_name">Жёлтый</string>
     <string name="rendering_value_translucent_yellow_name">Полупрозрачный жёлтый</string>
-    <string name="rendering_value_lightgreen_name">Светло-зеленый</string>
-    <string name="rendering_value_translucent_lightgreen_name">Полупрозрачный светло-зеленый</string>
-    <string name="rendering_value_green_name">Зеленый</string>
-    <string name="rendering_value_translucent_green_name">Полупрозрачный зеленый</string>
+    <string name="rendering_value_lightgreen_name">Светло-зелёный</string>
+    <string name="rendering_value_translucent_lightgreen_name">Полупрозрачный светло-зелёный</string>
+    <string name="rendering_value_green_name">Зелёный</string>
+    <string name="rendering_value_translucent_green_name">Полупрозрачный зелёный</string>
     <string name="rendering_value_lightblue_name">Голубой</string>
     <string name="rendering_value_translucent_lightblue_name">Полупрозрачный голубой</string>
     <string name="rendering_value_blue_name">Синий</string>
@@ -2054,8 +2054,8 @@
 	<string name="rate_this_app">Оценить приложение</string>
 	<string name="rate_this_app_long">Пожалуйста, дайте оценку OsmAnd на Google Play</string>
 	<string name="user_hates_app_get_feedback_long">Пожалуйста скажите нам что вы хотите изменить в этом приложении.</string>
-<string name="rendering_attr_currentTrackColor_name">GPX цвет</string>
-    <string name="rendering_attr_currentTrackWidth_name">GPX толщина</string>
+<string name="rendering_attr_currentTrackColor_name">Цвет трека GPX</string>
+    <string name="rendering_attr_currentTrackWidth_name">Толщина трека GPX</string>
     <string name="no_updates_available">Нет доступных обновлений</string>
     <string name="failed_to_upload">Не удалось загрузить</string>
 	<string name="delete_change">Удалить изменения</string>
@@ -2067,4 +2067,33 @@
 	<string name="shared_string_undo">ОТМЕНИТЬ</string>
 	<string name="shared_string_skip">Пропустить</string>
 	<string name="app_name_osmand">OsmAnd</string>
+	<string name="plugin_settings">Плагины</string>
+	<string name="offline_maps_and_navigation">Офлайн карты\nи Навигация</string>
+	<string name="building_number">Номер дома</string>
+	<string name="rendering_attr_pisteGrooming_name">Тип лыжной трассы</string>
+    <string name="download_live_updates">Автоматическое обновление</string>
+	<string name="dahboard_options_dialog_title">Настройки домашней страницы</string>
+	<string name="shared_string_card_was_hidden">Карточка была скрыта</string>
+	<string name="commit_poi">Зафиксировать POI</string>
+	<string name="tab_title_basic">Основные</string>
+	<string name="tab_title_advanced">Расширенные</string>
+	<string name="next_proceed">Следующий</string>
+	<string name="opening_at">Открытие в</string>
+	<string name="closing_at">Закрытие в</string>
+	<string name="tag_poi_name">название</string>
+	<string name="contact_info">Контактная информация</string>
+	<string name="description">Описание</string>
+	<string name="add_opening_hours">Добавить часы работы</string>
+	<string name="poi_dialog_poi_type">Тип POI</string>
+	<string name="number_of_rows_in_dash">Количество строк на странице %1$s</string>
+	<string name="please_specify_poi_type">Пожалуйста, укажите тип POI.</string>
+<string name="rendering_value_boldOutline_name">Жирный контур</string>
+    <string name="working_days">Рабочие дни</string>
+	<string name="favourites">Избранное</string>
+<string name="saved_at_time">Успешно сохранён в: %1$s</string>
+<string name="poi_deleted_localy">POI будут удалены после того как вы загрузите ваши изменения</string>
+	<string name="show_gpx">Показать GPX</string>
+<string name="poi_action_delete">удалить</string>
+	<string name="tag_poi_amenity">инфраструктура</string>
+	<string name="recent_places">Недавние места</string>
 	</resources>

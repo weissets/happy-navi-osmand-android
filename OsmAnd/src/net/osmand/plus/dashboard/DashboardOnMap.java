@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,6 +31,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
+import net.osmand.PlatformUtil;
 import net.osmand.data.LatLon;
 import net.osmand.plus.ContextMenuAdapter;
 import net.osmand.plus.ContextMenuAdapter.OnContextMenuClick;
@@ -64,7 +64,8 @@ import java.util.List;
 /**
  */
 public class DashboardOnMap implements ObservableScrollViewCallbacks {
-
+	private static final org.apache.commons.logging.Log LOG =
+			PlatformUtil.getLog(DashboardOnMap.class);
 	private static final String TAG = "DashboardOnMap";
 	public static boolean staticVisible = false;
 	public static DashboardType staticVisibleType = DashboardType.DASHBOARD;
@@ -72,31 +73,31 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 
 	private static final DashFragmentData.ShouldShowFunction rateUsShouldShow = new DashRateUsFragment.RateUsShouldShow();
 	private static final DefaultShouldShow defaultShouldShow = new DefaultShouldShow();
-	private static final DefaultShouldShow errorShouldShow = new ErrorShouldShow();
+	private static final DashFragmentData.ShouldShowFunction errorShouldShow = new ErrorShouldShow();
 	private static final DashFragmentData.ShouldShowFunction firstTimeShouldShow = new FirstTimeShouldShow();
 	private static final DashFragmentData.ShouldShowFunction chooseAppDirShouldShow = new ChooseAppDirShouldShow();
 
 	private static final DashFragmentData[] fragmentsData = new DashFragmentData[]{
 			new DashFragmentData(DashRateUsFragment.TAG, DashRateUsFragment.class,
-					"Rate us", rateUsShouldShow, true, 0),
+					-1, rateUsShouldShow, true, 0),
 			new DashFragmentData(DashFirstTimeFragment.TAG, DashFirstTimeFragment.class,
-					"First time", firstTimeShouldShow, true, 1),
+					-1, firstTimeShouldShow, true, 1),
 			new DashFragmentData(DashChooseAppDirFragment.TAG, DashChooseAppDirFragment.class,
-					"Choose app dir", chooseAppDirShouldShow, true, 2),
+					-1, chooseAppDirShouldShow, true, 2),
 			new DashFragmentData(DashErrorFragment.TAG, DashErrorFragment.class,
-					"Error", errorShouldShow, true, 3),
+					-1, errorShouldShow, true, 3),
 			new DashFragmentData(DashNavigationFragment.TAG, DashNavigationFragment.class,
-					"Navigation", 4),
+					R.string.tip_navigation, 4),
 			new DashFragmentData(DashWaypointsFragment.TAG, DashWaypointsFragment.class,
-					"Waypoints", 6),
+					R.string.waypoints, 6),
 			new DashFragmentData(DashSearchFragment.TAG, DashSearchFragment.class,
-					"Search", 7),
+					R.string.shared_string_search, 7),
 			new DashFragmentData(DashRecentsFragment.TAG, DashRecentsFragment.class,
-					"Recent places", 8),
+					R.string.recent_places, 8),
 			new DashFragmentData(DashFavoritesFragment.TAG, DashFavoritesFragment.class,
-					"Favourites", defaultShouldShow, false, 9, DashFavoritesFragment.ROW_NUMBER_TAG),
+					R.string.favourites, defaultShouldShow, false, 9, DashFavoritesFragment.ROW_NUMBER_TAG),
 			new DashFragmentData(DashPluginsFragment.TAG, DashPluginsFragment.class,
-					"Plugins", 14)
+					R.string.plugin_settings, 14)
 	};
 
 	private MapActivity mapActivity;
@@ -390,9 +391,11 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	public void hideDashboard() {
 		setDashboardVisibility(false, visibleType);
 	}
+
 	public void hideDashboard(boolean animation) {
 		setDashboardVisibility(false, visibleType, animation);
 	}
+
 	public void setDashboardVisibility(boolean visible, DashboardType type) {
 		setDashboardVisibility(visible, type, this.visible ? visibleType : null, true);
 	}
@@ -656,11 +659,9 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 
 
 	private void addOrUpdateDashboardFragments() {
-		Log.v(TAG, "addOrUpdateDashboardFragments(" + ")");
 		OsmandSettings settings = getMyApplication().getSettings();
 		TransactionBuilder builder =
 				new TransactionBuilder(mapActivity.getSupportFragmentManager(), settings, mapActivity);
-		Log.v(TAG, "pluginsCards=" + OsmandPlugin.getPluginsCardsList());
 		builder.addFragmentsData(fragmentsData)
 				.addFragmentsData(OsmandPlugin.getPluginsCardsList())
 				.getFragmentTransaction().commit();
@@ -910,6 +911,12 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 		transaction.show(frag).commit();
 	}
 
+	public boolean hasCriticalMessages() {
+		final OsmandSettings settings = getMyApplication().getSettings();
+		return rateUsShouldShow.shouldShow(settings, mapActivity, DashRateUsFragment.TAG)
+				|| errorShouldShow.shouldShow(null, mapActivity, null);
+	}
+
 	View getParentView() {
 		return dashboardView;
 	}
@@ -921,6 +928,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 					.makeGlobal().get();
 		}
 	}
+
 	public static class DefaultShouldShow extends SettingsShouldShow {
 		@Override
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
@@ -929,11 +937,12 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 		}
 	}
 
-	private static class ErrorShouldShow extends DefaultShouldShow {
+	private static class ErrorShouldShow implements DashFragmentData.ShouldShowFunction {
+		// If settings null. No changes in setting will be made.
 		@Override
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
-			return super.shouldShow(settings, activity, tag) && activity.getMyApplication()
-					.getAppInitializer().checkPreviousRunsForExceptions(activity);
+			return activity.getMyApplication().getAppInitializer()
+					.checkPreviousRunsForExceptions(activity, settings != null);
 		}
 	}
 

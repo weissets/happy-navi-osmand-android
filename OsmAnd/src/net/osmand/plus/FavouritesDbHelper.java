@@ -1,16 +1,7 @@
 package net.osmand.plus;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import android.app.AlertDialog;
+import android.content.Context;
 
 import net.osmand.PlatformUtil;
 import net.osmand.data.FavouritePoint;
@@ -22,8 +13,17 @@ import net.osmand.util.Algorithms;
 
 import org.apache.tools.bzip2.CBZip2OutputStream;
 
-import android.app.AlertDialog;
-import android.content.Context;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class FavouritesDbHelper {
 
@@ -173,7 +173,7 @@ public class FavouritesDbHelper {
 		return true;
 	}
 	
-	public static AlertDialog.Builder checkDublicates(FavouritePoint p, FavouritesDbHelper fdb, Context uiContext) {
+	public static AlertDialog.Builder checkDuplicates(FavouritePoint p, FavouritesDbHelper fdb, Context uiContext) {
 		boolean emoticons = false;
 		String index = "";
 		int number = 0;
@@ -520,7 +520,7 @@ public class FavouritesDbHelper {
 		return null;
 	}
 	
-	public void editFavouriteGroup(FavoriteGroup group, int color, boolean visible) {
+	public void editFavouriteGroup(FavoriteGroup group, String newName, int color, boolean visible) {
 		if(color != 0 && group.color != color) {
 			FavoriteGroup gr = flatGroups.get(group.name);
 			group.color = color;
@@ -534,6 +534,13 @@ public class FavouritesDbHelper {
 			for(FavouritePoint p : gr.points) {
 				p.setVisible(visible);
 			}	
+		}
+		if (!group.name.equals(newName)) {
+			FavoriteGroup gr = flatGroups.get(group.name);
+			group.name = newName;
+			for(FavouritePoint p : gr.points) {
+				p.setCategory(newName);
+			}
 		}
 		saveCurrentPointsIntoFile();
 	}

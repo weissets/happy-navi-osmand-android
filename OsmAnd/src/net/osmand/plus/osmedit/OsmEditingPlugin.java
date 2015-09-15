@@ -28,7 +28,6 @@ import net.osmand.plus.activities.EnumAdapter;
 import net.osmand.plus.activities.EnumAdapter.IEnumWithResource;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.TabActivity;
-import net.osmand.plus.dashboard.DashPluginsFragment;
 import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.myplaces.AvailableGPXFragment;
 import net.osmand.plus.myplaces.AvailableGPXFragment.GpxInfo;
@@ -42,11 +41,13 @@ import java.util.List;
 
 
 public class OsmEditingPlugin extends OsmandPlugin {
+	private static final Log LOG = PlatformUtil.getLog(OsmEditingPlugin.class);
 	private static final String ID = "osm.editing";
 	private OsmandSettings settings;
 	private OsmandApplication app;
 	OpenstreetmapsDbHelper dbpoi;
 	OsmBugsDbHelper dbbug;
+	private EditingPOIDialogProvider poiActions;
 
 	@Override
 	public String getId() {
@@ -136,12 +137,12 @@ public class OsmEditingPlugin extends OsmandPlugin {
 		return SettingsOsmEditingActivity.class;
 	}
 
-//	public EditingPOIDialogProvider getPoiActions(MapActivity activity) {
-//		if (poiActions == null) {
-//			poiActions = new EditingPOIDialogProvider(activity, this);
-//		}
-//		return poiActions;
-//	}
+	public EditingPOIDialogProvider getPoiActions(MapActivity activity) {
+		if (poiActions == null) {
+			poiActions = new EditingPOIDialogProvider(activity, this);
+		}
+		return poiActions;
+	}
 
 	@Override
 	public void registerMapContextMenuActions(final MapActivity mapActivity,
@@ -157,10 +158,8 @@ public class OsmEditingPlugin extends OsmandPlugin {
 					EditPoiFragment editPoiFragment =
 							EditPoiFragment.createAddPoiInstance(latitude, longitude,
 									mapActivity.getMyApplication());
-					mapActivity.getSupportFragmentManager().beginTransaction()
-							.add(R.id.fragmentContainer, editPoiFragment, EditPoiFragment.TAG)
-							.addToBackStack(null)
-							.commit();
+					editPoiFragment.show(mapActivity.getSupportFragmentManager(),
+							EditPoiFragment.TAG);
 				} else if (resId == R.string.context_menu_item_open_bug) {
 					if (osmBugsLayer == null) {
 						registerLayers(mapActivity);
@@ -169,12 +168,9 @@ public class OsmEditingPlugin extends OsmandPlugin {
 				} else if (resId == R.string.poi_context_menu_delete) {
 					new EditPoiFragment.ShowDeleteDialogAsyncTask(mapActivity)
 							.execute((Amenity) selectedObj);
-					// TODO implement delete
-//					getPoiActions(mapActivity).showDeleteDialog((Amenity) selectedObj);
-				}//} else if (resId == R.string.poi_context_menu_modify) {
-					// TODO implement edit
-//					getPoiActions(mapActivity).showEditDialog((Amenity) selectedObj);
-//				}
+				} else if (resId == R.string.poi_context_menu_modify) {
+					EditPoiFragment.showEditInstance((Amenity) selectedObj, mapActivity);
+				}
 				return true;
 			}
 		};
@@ -352,6 +348,7 @@ public class OsmEditingPlugin extends OsmandPlugin {
 
 	@Override
 	public DashFragmentData getCardFragment() {
-		return new DashFragmentData(DashOsmEditsFragment.TAG, DashOsmEditsFragment.class, getName(), 13);
+		return new DashFragmentData(DashOsmEditsFragment.TAG, DashOsmEditsFragment.class,
+				R.string.osm_settings, 13);
 	}
 }

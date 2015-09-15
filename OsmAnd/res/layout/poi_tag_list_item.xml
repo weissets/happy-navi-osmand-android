@@ -4,21 +4,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:paddingTop="16dp">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginRight="16dp"
         android:layout_weight="1">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/tagEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tag"/>
+            android:hint="Tag"
+            tools:text="asdf"/>
 
     </android.support.design.widget.TextInputLayout>
 
