@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import net.osmand.PlatformUtil;
+import net.osmand.plus.BuildConfig;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
@@ -13,6 +14,7 @@ import net.osmand.plus.stressreduction.connectivity.WifiReceiver;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.sensors.SensorHandler;
+import net.osmand.plus.stressreduction.tools.UUIDCreator;
 
 import org.apache.commons.logging.Log;
 
@@ -38,8 +40,7 @@ public class StressReductionPlugin extends OsmandPlugin {
 	public StressReductionPlugin(OsmandApplication osmandApplication) {
 		this.osmandApplication = osmandApplication;
 
-		//		UNIQUE_ID = UUIDCreator.id(osmandApplication);
-		UNIQUE_ID = "Tobi_Test_ID";
+		UNIQUE_ID = UUIDCreator.id(osmandApplication);
 
 		DataHandler dataHandler = new DataHandler(osmandApplication);
 		fragmentHandler = new FragmentHandler(osmandApplication);
@@ -47,8 +48,11 @@ public class StressReductionPlugin extends OsmandPlugin {
 
 		firstRun = true;
 
-		// TODO remove ActivityLifecycleCallbacks (only for test purposes)
-		osmandApplication.registerActivityLifecycleCallbacks(new CurrentActivityCallbacks());
+		// for debugging
+		if (BuildConfig.DEBUG) {
+			UNIQUE_ID = "Tobi_Test_ID";
+			osmandApplication.registerActivityLifecycleCallbacks(new CurrentActivityCallbacks());
+		}
 
 		// enable the plugin by default
 		StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);

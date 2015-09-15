@@ -65,6 +65,9 @@ public class OsmAndMapLayersView extends View {
 		}
 		return mapView.onTouchEvent(event);
 	}
+
+	private DrawSettings drawSettingsDay = new DrawSettings(false, false);
+	private DrawSettings drawSettingsNight = new DrawSettings(true, false);
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -72,8 +75,13 @@ public class OsmAndMapLayersView extends View {
 			return;
 		}
 		boolean nightMode = mapView.getApplication().getDaynightHelper().isNightMode();
-		DrawSettings drawSettings = new DrawSettings(nightMode, false);
-		mapView.drawOverMap(canvas, mapView.getCurrentRotatedTileBox().copy(), drawSettings);
+		//		DrawSettings drawSettings = new DrawSettings(nightMode, false);
+		//		mapView.drawOverMap(canvas, mapView.getCurrentRotatedTileBox().copy(), drawSettings);
+		if (nightMode) {
+			mapView.drawOverMap(canvas, mapView.getCurrentRotatedTileBox().copy(), drawSettingsNight);
+		} else {
+			mapView.drawOverMap(canvas, mapView.getCurrentRotatedTileBox().copy(), drawSettingsDay);
+		}
 	}
 	
 

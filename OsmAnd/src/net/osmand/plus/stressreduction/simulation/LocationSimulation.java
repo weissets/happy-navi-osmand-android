@@ -2,9 +2,7 @@ package net.osmand.plus.stressreduction.simulation;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
-import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.activities.actions.OsmAndDialogs;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.tools.Calculation;
 

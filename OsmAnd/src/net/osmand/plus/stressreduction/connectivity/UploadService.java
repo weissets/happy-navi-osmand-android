@@ -3,6 +3,7 @@ package net.osmand.plus.stressreduction.connectivity;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import net.osmand.PlatformUtil;
+import net.osmand.plus.BuildConfig;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.database.DatabaseBackup;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
@@ -101,23 +102,23 @@ public class UploadService extends WakefulIntentService {
 	 */
 	private int uploadFile(String sourceFileUri, String serverUri) {
 
-		int serverResponseCode = -1;
-
-		HttpURLConnection conn;
-		DataOutputStream dos;
+		HttpURLConnection httpURLConnection;
+		DataOutputStream dataOutputStream;
 		String lineEnd = "\r\n";
 		String twoHyphens = "--";
 		String boundary = "*****";
-		int bytesRead, bytesAvailable, bufferSize;
-		byte[] buffer;
+		int serverResponseCode = -1;
+		int bytesRead;
+		int bytesAvailable;
+		int bufferSize;
 		int maxBufferSize = 1024 * 1024;
+		byte[] buffer;
 		File sourceFile = new File(sourceFileUri);
 
 		if (!sourceFile.isFile()) {
 			log.error("uploadFile(): ERROR! could not find database file");
 		} else {
 			try {
-
 				// open a URL connection
 				FileInputStream fileInputStream = new FileInputStream(sourceFile);
 
@@ -125,24 +126,24 @@ public class UploadService extends WakefulIntentService {
 				URL url = new URL(serverUri);
 
 				// Open a HTTP connection to the URL
-				conn = (HttpURLConnection) url.openConnection();
-				conn.setDoInput(true); // Allow Inputs
-				conn.setDoOutput(true); // Allow Outputs
-				conn.setUseCaches(false); // Don't use a Cached Copy
-				conn.setRequestMethod("POST");
-				conn.setRequestProperty("Connection", "Keep-Alive");
-				conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-				conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" +
+				httpURLConnection = (HttpURLConnection) url.openConnection();
+				httpURLConnection.setDoInput(true); // Allow Inputs
+				httpURLConnection.setDoOutput(true); // Allow Outputs
+				httpURLConnection.setUseCaches(false); // Don't use a Cached Copy
+				httpURLConnection.setRequestMethod("POST");
+				httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+				httpURLConnection.setRequestProperty("ENCTYPE", "multipart/form-data");
+				httpURLConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" +
 						boundary);
-				conn.setRequestProperty("database", sourceFileUri);
+				httpURLConnection.setRequestProperty("database", sourceFileUri);
 
-				dos = new DataOutputStream(conn.getOutputStream());
+				dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
 
-				dos.writeBytes(twoHyphens + boundary + lineEnd);
-				dos.writeBytes("Content-Disposition: form-data; name=\"database\";filename=\"" +
+				dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
+				dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"database\";filename=\"" +
 						sourceFileUri + "\"" + lineEnd);
 
-				dos.writeBytes(lineEnd);
+				dataOutputStream.writeBytes(lineEnd);
 
 				// create a buffer of maximum size
 				bytesAvailable = fileInputStream.available();
@@ -155,7 +156,7 @@ public class UploadService extends WakefulIntentService {
 
 				while (bytesRead > 0) {
 
-					dos.write(buffer, 0, bufferSize);
+					dataOutputStream.write(buffer, 0, bufferSize);
 					bytesAvailable = fileInputStream.available();
 					bufferSize = Math.min(bytesAvailable, maxBufferSize);
 					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
@@ -163,25 +164,25 @@ public class UploadService extends WakefulIntentService {
 				}
 
 				// send multipart form data necessary after file data
-				dos.writeBytes(lineEnd);
-				dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+				dataOutputStream.writeBytes(lineEnd);
+				dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
 				// Responses from the server (code and message)
-				serverResponseCode = conn.getResponseCode();
-				String serverResponseMessage = conn.getResponseMessage();
+				serverResponseCode = httpURLConnection.getResponseCode();
+				String serverResponseMessage = httpURLConnection.getResponseMessage();
 
 				log.debug("uploadFile(): HTTP Response is : " + serverResponseMessage + ": " +
 						serverResponseCode);
 
-				for (int i = 0; i < conn.getHeaderFields().size(); i++) {
-					log.debug("uploadFile(): Header" + i + "=" + conn.getHeaderField(i) + " " +
-							conn.getHeaderFieldKey(i));
+				for (int i = 0; i < httpURLConnection.getHeaderFields().size(); i++) {
+					log.debug("uploadFile(): Header" + i + "=" + httpURLConnection.getHeaderField(i) + " " +
+							httpURLConnection.getHeaderFieldKey(i));
 				}
 
 				// close the streams
 				fileInputStream.close();
-				dos.flush();
-				dos.close();
+				dataOutputStream.flush();
+				dataOutputStream.close();
 
 			} catch (Exception e) {
 				//				log.error("uploadFile(): Error: " + e.getMessage(), e);
@@ -197,7 +198,6 @@ public class UploadService extends WakefulIntentService {
 	private class UploadTask extends AsyncTask<SQLiteLogger, String, String> {
 
 		SQLiteLogger sqLiteLogger = null;
-		SQLiteDatabase sqLiteDatabase = null;
 
 		/*
 		 * (non-Javadoc)
@@ -208,22 +208,25 @@ public class UploadService extends WakefulIntentService {
 		protected String doInBackground(SQLiteLogger... params) {
 
 			sqLiteLogger = params[0];
-			sqLiteDatabase = sqLiteLogger.getReadableDatabase();
+			final String databasePath = sqLiteLogger.getReadableDatabase().getPath();
+			int status;
 
 			log.debug("UploadTask: doInBackground(): start uploading with async task...");
-			final String databasePath = sqLiteDatabase.getPath();
-			int status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
+			if (!BuildConfig.DEBUG) {
+				status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD);
+			} else {
+				log.debug("UploadTask: doInBackground(): debug upload, trying emulator upload");
+				status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
+				if (status != 200) {
+					log.debug("UploadTask: doInBackground(): debug upload, trying device upload");
+					status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
+				}
+			}
 
 			if (status == 200) {
 				return "OK";
 			} else {
-				int preStatus = status;
-				status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
-				if (status == 200) {
-					return "OK";
-				} else {
-					return "ERROR: Status Codes = " + preStatus + ", " + status;
-				}
+				return "ERROR: Status Code = " + status;
 			}
 		}
 
@@ -245,7 +248,7 @@ public class UploadService extends WakefulIntentService {
 						"ERROR=" + result);
 			}
 		}
-
 	}
 
 }
+

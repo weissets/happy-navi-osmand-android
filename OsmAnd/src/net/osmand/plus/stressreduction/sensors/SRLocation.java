@@ -20,7 +20,6 @@ import net.osmand.router.RouteSegmentResult;
 
 import org.apache.commons.logging.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 		routingSimulation = new RoutingSimulation(osmandApplication, fragmentHandler);
 		currentPositionHelper = new CurrentPositionHelper(osmandApplication);
 		isDriving = false;
-//		logSegments = false;
+		//		logSegments = false;
 		logSegments = true;
 		timerLocation = 0;
 		timerDialog = 0;
@@ -122,15 +121,16 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			// route data object or the last known route segment
 			RouteDataObject routeDataObject;
 			RouteSegmentResult routeSegmentResult = routingHelper.getCurrentSegmentResult();
+			log.debug("updateLocation(): looking for rdo from routingHelper...");
 			if (routeSegmentResult != null) {
 				routeDataObject = routeSegmentResult.getObject();
-				log.debug("updateLocation(): found rdo in first try");
 			} else {
-				routeDataObject = osmAndLocationProvider.getLastKnownRouteSegment();
-				log.debug("updateLocation(): found rdo in second try");
+				log.debug("updateLocation(): looking for rdo from currentPositionHelper...");
+				routeDataObject = currentPositionHelper.getLastKnownRouteSegment(location);
 			}
 
 			if (routeDataObject != null) {
+				log.debug("updateLocation(): found rdo!");
 				// check if current segment is the same as last segment
 				if (routeDataObject.getId() == lastLoggedSegmentID) {
 					log.debug("updateLocation(): same id as last logged segment");
@@ -152,37 +152,6 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 						)));
 				segmentSpeedList.clear();
 				lastLoggedSegmentID = routeDataObject.getId();
-			} else {
-				log.debug("updateLocation(): RouteDataObject is NULL, trying native search...");
-//				try {
-//					routeDataObject = currentPositionHelper.runUpdateInThread(location.getLatitude(),
-//							location.getLongitude());
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-				if (routeDataObject != null) {
-					// TODO log segment when not navigating
-					if (routeDataObject.getId() == lastLoggedSegmentID) {
-						log.debug("updateLocation(): same id as last logged segment");
-						return;
-					}
-					log.debug("updateLocation(): logging: UniqueID=" + StressReductionPlugin.getUUID
-							() +
-							", SegmentID=" + routeDataObject.getId() + ", Name=" +
-							routeDataObject.getName() + ", Highway=" + routeDataObject.getHighway() +
-							", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" +
-							Math.round(routeDataObject.getMaximumSpeed() * Constants.MS_TO_KMH) +
-							", Oneway=" + routeDataObject.getOneway() + ", Ref=" +
-							routeDataObject.getRef() + ", Route=" + routeDataObject.getRoute() +
-							", Restrictions=" + routeDataObject.getRestrictionLength() +
-							", Current Speed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
-							"," + location.getLongitude());
-//					dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
-//							Calculation.convertMsToKmh(Calculation.getAverageValue(segmentSpeedList)
-//							)));
-					segmentSpeedList.clear();
-					lastLoggedSegmentID = routeDataObject.getId();
-				}
 			}
 		}
 
@@ -260,7 +229,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	@Override
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
 		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", (turning on logging)");
-//		logSegments = true;
+		//		logSegments = true;
 		routingSimulation.newRouteIsCalculated();
 	}
 
@@ -275,7 +244,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 				0) {
 			log.debug("routeWasCancelled(): (turning off logging)");
 			fragmentHandler.showSRDialog(dataHandler);
-//			logSegments = false;
+			//			logSegments = false;
 		}
 	}
 

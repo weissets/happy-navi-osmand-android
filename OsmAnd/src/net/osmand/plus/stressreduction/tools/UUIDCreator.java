@@ -20,7 +20,7 @@ import org.apache.commons.logging.Log;
  *
  * @author Tobias
  */
-class UUIDCreator {
+public class UUIDCreator {
 
 	private static final String INSTALLATION = "unique_identifier";
 	private static final Log log = PlatformUtil.getLog(UUIDCreator.class);

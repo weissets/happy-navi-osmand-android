@@ -52,6 +52,15 @@ public class Constants {
 	/** identifier for the upload mode after app was incorrect closed */
 	public static final String UPLOAD_MODE_INCORRECT_CLOSE = "upload_mode_incorrect_close";
 
+	/** value of the lowest stress value */
+	public static final int STRESS_VALUE_LOW = 2;
+
+	/** value of the medium stress value */
+	public static final int STRESS_VALUE_MEDIUM = 1;
+
+	/** value of the highest stress value */
+	public static final int STRESS_VALUE_HIGH = 0;
+
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
 			"http://maps.hcilab.org/stressreduction/db_upload_include.php";
@@ -100,6 +109,11 @@ public class Constants {
 	public static final String COLUMN_LOCATION_ACCELERATION_Z = "location_accelerationZ";
 	public static final String COLUMN_LOCATION_DIRECTION = "location_direction";
 	public static final String COLUMN_LOCATION_TIMESTAMP = "location_timestamp";
+
+	public static final String TABLE_TIMES = "times";
+	public static final String COLUMN_TIMES_START = "times_start";
+	public static final String COLUMN_TIMES_END_CALCULATED = "times_end_calculated";
+	public static final String COLUMN_TIMES_END_REAL = "times_end_real";
 
 	public static final String COLUMN_PHONE_ID = "phone_id";
 }

@@ -21,7 +21,6 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 
 	private static final Log log = PlatformUtil.getLog(SQLiteLogger.class);
 
-	//	private static final String DATABASE_NAME = "stress_reduction_DEBUG.db";
 	private static final String DATABASE_NAME = "stress_reduction.db";
 	private static final String DATABASE_SEGMENT_CREATE =
 			"create table " + Constants.TABLE_SEGMENT_INFOS + " ("
@@ -36,13 +35,12 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 					Constants.COLUMN_SEGMENT_ONEWAY + " integer, " +
 					Constants.COLUMN_SEGMENT_REFERENCES + " text, " +
 					Constants.COLUMN_SEGMENT_ROUTE + " text, "
-					// + Constants.COLUMN_SEGMENT_RESTRICTIONS + " text, "
 					+ Constants.COLUMN_SEGMENT_TIMESTAMP + " text, " +
-					Constants.COLUMN_SEGMENT_STRESSFUL + " integer);"; //$NON-NLS-1$
+					Constants.COLUMN_SEGMENT_STRESSFUL + " integer);";
 	private static final String DATABASE_LOCATION_CREATE =
 			"create table " + Constants.TABLE_LOCATION_INFOS + " ("
 					//			+ Constants.COLUMN_LOCATION_COUNT
-					//			+ " integer primary key, "
+					//			+ " integer primary key, "      #automatically assigned
 					+ Constants.COLUMN_PHONE_ID + " text, " + Constants.COLUMN_LOCATION_LATITUDE +
 					" double, " + Constants.COLUMN_LOCATION_LONGITUDE + " double, " +
 					Constants.COLUMN_LOCATION_CURRENTSPEED + " double, " +
@@ -50,9 +48,10 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 					Constants.COLUMN_LOCATION_ACCELERATION_Y + " double, " +
 					Constants.COLUMN_LOCATION_ACCELERATION_Z + " double, " +
 					Constants.COLUMN_LOCATION_DIRECTION + " double, " +
-					Constants.COLUMN_LOCATION_TIMESTAMP + " text);"; //$NON-NLS-1$
+					Constants.COLUMN_LOCATION_TIMESTAMP + " text);";
+//	private static final String DATABASE_TIMES_CREATE = "create table " + Constants
+//			.TABLE_TIMES + " (" +
 	private static SQLiteLogger sqLiteLogger;
-	private static int DATABASE_VERSION = 1;
 
 	private SQLiteLogger(Context context) {
 		super(context, DATABASE_NAME, null, 1);
@@ -122,8 +121,6 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 		contentValues.put(Constants.COLUMN_SEGMENT_LANES, segmentInfo.getLanes());
 		contentValues.put(Constants.COLUMN_SEGMENT_MAXSPEED,
 				Math.round(segmentInfo.getMaximumSpeed() * Constants.MS_TO_KMH));
-		//		contentValues.put(Constants.COLUMN_SEGMENT_CURRENTSPEED,
-		//				segmentInfo.getCurrentSpeed());
 		contentValues.put(Constants.COLUMN_SEGMENT_AVERAGESPEED, segmentInfo.getAverageSpeed());
 		contentValues.put(Constants.COLUMN_SEGMENT_ONEWAY, segmentInfo.getOneway());
 		contentValues.put(Constants.COLUMN_SEGMENT_REFERENCES, segmentInfo.getRef());
@@ -133,7 +130,7 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 
 		getWritableDatabase().insert(Constants.TABLE_SEGMENT_INFOS, null, contentValues);
 
-		log.debug("insertSegmentInfo(): Added Segment Info to Database");
+//		log.debug("insertSegmentInfo(): Added Segment Info to Database");
 	}
 
 	public void updateStressValueInSegmentInfos(String startTimestamp, String endTimestamp,
