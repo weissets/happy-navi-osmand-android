@@ -2,8 +2,11 @@ package net.osmand.plus.stressreduction.simulation;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
+import net.osmand.binary.RouteDataObject;
+import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.routing.RoutingHelper;
+import net.osmand.plus.stressreduction.sensors.SRLocation;
 import net.osmand.plus.stressreduction.tools.Calculation;
 
 import org.apache.commons.logging.Log;
@@ -29,21 +32,24 @@ public class LocationSimulation {
 	private final OsmandApplication osmandApplication;
 	private final RoutingHelper routingHelper;
 	private final SimulationThread simulationThread;
+	private final CurrentPositionHelper currentPositionHelper;
 
 	private List<Location> locationList;
 	private final int SIMULATION_SPEED;
 
-	LocationSimulation (OsmandApplication osmandApplication, List<Location> locationList, int
-			speed) {
+	LocationSimulation(OsmandApplication osmandApplication, List<Location> locationList,
+	                   int speed) {
 		this.osmandApplication = osmandApplication;
 		routingHelper = osmandApplication.getRoutingHelper();
 		this.locationList = locationList;
+		currentPositionHelper = new CurrentPositionHelper(osmandApplication);
 		SIMULATION_SPEED = speed;
 		simulationThread = new SimulationThread();
 		simulationThread.start();
 	}
 
 	private class SimulationThread extends Thread {
+
 		/**
 		 * Calls the <code>run()</code> method of the Runnable object the receiver
 		 * holds. If no Runnable is set, does nothing.
@@ -62,7 +68,7 @@ public class LocationSimulation {
 
 			List<Location> interpolatedLocationList = new ArrayList<>();
 			long timer = System.currentTimeMillis();
-			float lastSegmentSpeed = 50;
+			float lastSegmentSpeed = Calculation.convertKmhToMs(50f);
 
 			while (thisThread == simulationThread && locationList.size() > 1) {
 				log.debug("run(): locationList.size():" + locationList.size());
@@ -73,15 +79,22 @@ public class LocationSimulation {
 							interpolatedLocationList.size());
 				}
 				float currentBearing = locationList.get(0).bearingTo(locationList.get(1));
-				locationList.remove(0);
+
 				float LOCATION_SPEED;
 				if (routingHelper.getCurrentMaxSpeed() > 0) {
+					// this is speed in m/s
 					LOCATION_SPEED = routingHelper.getCurrentMaxSpeed();
+					log.debug("run(): found max speed = " + LOCATION_SPEED);
 					lastSegmentSpeed = LOCATION_SPEED;
+				} else if (currentPositionHelper.getLastKnownRouteSegment(locationList.get(0))
+						.getMaximumSpeed(true) > 0) {
+					LOCATION_SPEED =
+							currentPositionHelper.getLastKnownRouteSegment(locationList.get(0))
+									.getMaximumSpeed(true);
 				} else {
 					LOCATION_SPEED = lastSegmentSpeed;
 				}
-				LOCATION_SPEED = Calculation.convertKmhToMs(LOCATION_SPEED);
+				locationList.remove(0);
 				for (Location loc : interpolatedLocationList) {
 					// simulate points
 					android.location.Location loc2 = new android.location.Location("gps");
@@ -91,7 +104,7 @@ public class LocationSimulation {
 					loc2.setLatitude(loc.getLatitude());
 					loc2.setAccuracy(5.0f);
 					loc2.setBearing(currentBearing);
-					loc2.setSpeed((LOCATION_SPEED /*+ speedVar*/));
+					loc2.setSpeed((LOCATION_SPEED));
 
 					locationManager.setTestProviderLocation("gps", loc2);
 					try {
@@ -100,7 +113,7 @@ public class LocationSimulation {
 						e.printStackTrace();
 					}
 				}
-				if (System.currentTimeMillis() - timer > Math.round(30000/SIMULATION_SPEED)) {
+				if (System.currentTimeMillis() - timer > Math.round(30000 / SIMULATION_SPEED)) {
 					android.location.Location locWait = new android.location.Location("gps");
 					locWait.setLongitude(
 							interpolatedLocationList.get(interpolatedLocationList.size() - 1)
@@ -125,6 +138,7 @@ public class LocationSimulation {
 			}
 			locationManager.setTestProviderEnabled("gps", false);
 			locationManager.removeTestProvider("gps");
+			SRLocation.SIMULATION_SPEED = 1;
 		}
 
 		List<Location> interpolateLocations(Location loc1, Location loc2) {
@@ -154,7 +168,7 @@ public class LocationSimulation {
 				currentLocation.setLongitude(currentLocation.getLongitude() + stepLon);
 				interpolatedLocations.add(currentLocation);
 			}
-			return interpolatedLocations.subList(0, interpolatedLocations.size()-2);
+			return interpolatedLocations.subList(0, interpolatedLocations.size() - 2);
 		}
 
 		boolean isFinished(Location currentLoc, Location finalLoc, boolean finishedIfLess,

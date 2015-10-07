@@ -67,4 +67,9 @@ public class ConnectionHandler {
 		WakefulIntentService.sendWakefulWork(osmandApplication, uploadIntent);
 	}
 
+	public static void downloadSRData(final OsmandApplication osmandApplication) {
+		Intent downloadIntent = new Intent(osmandApplication, DownloadService.class);
+		WakefulIntentService.sendWakefulWork(osmandApplication, downloadIntent);
+	}
+
 }

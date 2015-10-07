@@ -3,24 +3,32 @@ package net.osmand.plus.stressreduction.sensors;
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
 import net.osmand.ValueHolder;
+import net.osmand.binary.OsmandOdb;
 import net.osmand.binary.RouteDataObject;
+import net.osmand.data.LatLon;
 import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.routing.RouteCalculationResult;
+import net.osmand.plus.routing.RouteProvider;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.StressReductionPlugin;
 import net.osmand.plus.stressreduction.database.DataHandler;
+import net.osmand.plus.stressreduction.database.RoutingLog;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
 import net.osmand.plus.stressreduction.database.SegmentInfo;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.simulation.RoutingSimulation;
 import net.osmand.plus.stressreduction.tools.Calculation;
+import net.osmand.router.BinaryRoutePlanner;
 import net.osmand.router.RouteSegmentResult;
 
 import org.apache.commons.logging.Log;
+import org.apache.http.conn.routing.RouteInfo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +36,7 @@ import java.util.List;
  *
  * @author Tobias
  */
-class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
+public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 		RoutingHelper.IRouteInformationListener {
 
 	private static final Log log = PlatformUtil.getLog(SRLocation.class);
@@ -41,6 +49,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	private final CurrentPositionHelper currentPositionHelper;
 	private Location currentLocation;
 	private Location lastDialogLocation;
+	private RoutingLog routingLog;
 	private long lastLoggedSegmentID;
 	private long lastDialogSegmentID;
 	private long timerLocation;
@@ -48,6 +57,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	private boolean isDriving;
 	private boolean logSegments;
 	private final List<Float> segmentSpeedList = new ArrayList<>();
+	public static int SIMULATION_SPEED = 1;
 
 	/**
 	 * Constructor
@@ -121,11 +131,12 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			// route data object or the last known route segment
 			RouteDataObject routeDataObject;
 			RouteSegmentResult routeSegmentResult = routingHelper.getCurrentSegmentResult();
-			log.debug("updateLocation(): looking for rdo from routingHelper...");
 			if (routeSegmentResult != null) {
+				log.debug("updateLocation(): looking for rdo from routingHelper...");
 				routeDataObject = routeSegmentResult.getObject();
 			} else {
-				log.debug("updateLocation(): looking for rdo from currentPositionHelper...");
+				log.debug("updateLocation(): routingHelper did not return rdo, now looking for " +
+						"rdo from currentPositionHelper...");
 				routeDataObject = currentPositionHelper.getLastKnownRouteSegment(location);
 			}
 
@@ -140,16 +151,16 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 						() +
 						", SegmentID=" + routeDataObject.getId() + ", Name=" +
 						routeDataObject.getName() + ", Highway=" + routeDataObject.getHighway() +
-						", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" +
-						Math.round(routeDataObject.getMaximumSpeed() * Constants.MS_TO_KMH) +
+						", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" + Math.round(
+						routeDataObject.getMaximumSpeed(routeSegmentResult == null ||
+								routeSegmentResult.isForwardDirection()) * Constants.MS_TO_KMH) +
 						", Oneway=" + routeDataObject.getOneway() + ", Ref=" +
 						routeDataObject.getRef() + ", Route=" + routeDataObject.getRoute() +
 						", Restrictions=" + routeDataObject.getRestrictionLength() +
 						", Current Speed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
 						"," + location.getLongitude());
 				dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
-						Calculation.convertMsToKmh(Calculation.getAverageValue(segmentSpeedList)
-						)));
+						Calculation.convertMsToKmh(Calculation.getAverageValue(segmentSpeedList))));
 				segmentSpeedList.clear();
 				lastLoggedSegmentID = routeDataObject.getId();
 			}
@@ -161,7 +172,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			log.debug("updateLocation(): speed below dialog speed limit, " +
 					"starting SpeedWatcher thread...");
 			isDriving = false;
-			new Thread(new SpeedWatcher()).start();//new SpeedWatcher().run();
+			new Thread(new SpeedWatcher()).start();
 		}
 	}
 
@@ -172,7 +183,8 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 */
 	private boolean isDialogTimeout() {
 		// dialog timeout set to 30s TODO check how big the timeout should be
-		if (System.currentTimeMillis() - timerDialog < 30000) {
+		if (System.currentTimeMillis() - timerDialog <
+				(Constants.DIALOG_TIMEOUT / SIMULATION_SPEED)) {
 			log.debug("isDialogTimeout(): true");
 			return true;
 		}
@@ -188,7 +200,8 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	private boolean isDialogDistanceTimeout() {
 		// dialog distance timeout set to 200m TODO check how big the distance timeout should be
 		if ((currentLocation != null) && (lastDialogLocation != null)) {
-			if (currentLocation.distanceTo(lastDialogLocation) < 200) {
+			if (currentLocation.distanceTo(lastDialogLocation) <
+					Constants.DIALOG_DISTANCE_TIMEOUT) {
 				log.debug("isDialogDistanceTimeout(): true");
 				return true;
 			}
@@ -231,7 +244,19 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", (turning on logging)");
 		//		logSegments = true;
 		routingSimulation.newRouteIsCalculated();
+		// write data to routing log
+		if (newRoute) {
+			int size = routingHelper.getRoute().getOriginalRoute().size();
+			LatLon start = routingHelper.getRoute().getOriginalRoute().get(0).getStartPoint();
+			LatLon end = routingHelper.getRoute().getOriginalRoute().get(size - 1).getEndPoint();
+			String timeArrivalPreCalc = Calculation.getSpecificDateTime(
+					(routingHelper.getLeftTime() * 1000) + System.currentTimeMillis());
+			String timeRoutingStart = Calculation.getCurrentDateTime();
+			routingLog = new RoutingLog(start, end, timeArrivalPreCalc, timeRoutingStart);
+		}
 	}
+
+	// TODO routing log auch bei abbruch durch nutzer loggen, abbruch location, zeit, dist zum ende
 
 	/**
 	 * Called if the current active route is cancelled.
@@ -240,11 +265,31 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	public void routeWasCancelled() {
 		routingSimulation.routeWasCancelled();
 		if (logSegments && SQLiteLogger
-				.getDatabaseSizeSinceLastStressValue(DataHandler.getTimestampLastStressValue()) >
+				.getDatabaseSizeSegmentsSinceLastStressValue(
+						DataHandler.getTimestampLastStressValue()) >
 				0) {
-			log.debug("routeWasCancelled(): (turning off logging)");
+			log.debug("routeWasCancelled(): (turning off logging), left distance="+routingHelper
+					.getLeftDistance()+", last latlon="+routingHelper.getLastProjection()
+					.getLatitude()+","+routingHelper.getLastProjection().getLongitude());
 			fragmentHandler.showSRDialog(dataHandler);
 			//			logSegments = false;
+		}
+		if (routingLog != null) {
+			routingLog.setTimeRoutingEnd(Calculation.getCurrentDateTime());
+			if (routingLog.isLogComplete()) {
+				dataHandler.writeRoutingLogToDatabase(routingLog);
+				routingLog = null;
+			}
+		}
+	}
+
+	public void onDestinationReached() {
+		if (routingLog != null) {
+			routingLog.setTimeArrivalReal(Calculation.getCurrentDateTime());
+			if (routingLog.isLogComplete()) {
+				dataHandler.writeRoutingLogToDatabase(routingLog);
+				routingLog = null;
+			}
 		}
 	}
 
@@ -257,6 +302,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 	 * @author Tobias
 	 */
 	private class SpeedWatcher implements Runnable {
+
 		@Override
 		public void run() {
 			try {
@@ -264,7 +310,7 @@ class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener,
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (SQLiteLogger.getDatabaseSizeSinceLastStressValue(
+			if (SQLiteLogger.getDatabaseSizeSegmentsSinceLastStressValue(
 					DataHandler.getTimestampLastStressValue()) > 0 &&
 					isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
 				log.debug("run(): speed still zero, show dialog");

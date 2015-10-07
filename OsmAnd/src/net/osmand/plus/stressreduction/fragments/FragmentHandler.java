@@ -73,7 +73,8 @@ public class FragmentHandler {
 	public void showSRDialog(DataHandler dataHandler) {
 		if ((mapActivity != null) && (mapActivity.getSupportFragmentManager()
 				.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG) == null) && SQLiteLogger
-				.getDatabaseSizeSinceLastStressValue(DataHandler.getTimestampLastStressValue()) >
+				.getDatabaseSizeSegmentsSinceLastStressValue(
+						DataHandler.getTimestampLastStressValue()) >
 				0) {
 			boolean playSound = osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get();
 			FragmentSRDialog fragmentSRDialog =

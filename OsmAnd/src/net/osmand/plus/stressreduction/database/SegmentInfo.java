@@ -1,9 +1,7 @@
 package net.osmand.plus.stressreduction.database;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import net.osmand.binary.RouteDataObject;
+import net.osmand.plus.stressreduction.tools.Calculation;
 
 /**
  * This class represents the information about a single route segment
@@ -34,8 +32,7 @@ public class SegmentInfo extends RouteDataObject {
 		super(routeDataObject);
 		this.routeDataObject = routeDataObject;
 		this.averageSpeed = averageSpeed;
-		this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
-				.format(new java.util.Date());
+		this.timestamp = Calculation.getCurrentDateTime();
 		stressValue = -99;
 	}
 

@@ -12,8 +12,10 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.stressreduction.connectivity.ConnectionHandler;
 import net.osmand.plus.stressreduction.connectivity.WifiReceiver;
 import net.osmand.plus.stressreduction.database.DataHandler;
+import net.osmand.plus.stressreduction.database.SQLiteLogger;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.sensors.SensorHandler;
+import net.osmand.plus.stressreduction.tools.Calculation;
 import net.osmand.plus.stressreduction.tools.UUIDCreator;
 
 import org.apache.commons.logging.Log;
@@ -26,8 +28,6 @@ import org.apache.commons.logging.Log;
 public class StressReductionPlugin extends OsmandPlugin {
 
 	private static final Log log = PlatformUtil.getLog(StressReductionPlugin.class);
-
-	public static final String ID = "net.osmand.plus.stressreduction.plugin";
 
 	private static String UNIQUE_ID;
 
@@ -56,6 +56,13 @@ public class StressReductionPlugin extends OsmandPlugin {
 
 		// enable the plugin by default
 		StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);
+
+		// write uuid to database
+		dataHandler.writeUserToDatabase();
+		dataHandler.writeAppLogToDatabase(Calculation.getCurrentDateTime());
+
+		// download stress reduction database
+		ConnectionHandler.downloadSRData(osmandApplication);
 	}
 
 	/**
@@ -124,7 +131,7 @@ public class StressReductionPlugin extends OsmandPlugin {
 
 	@Override
 	public String getId() {
-		return ID;
+		return Constants.PLUGIN_ID;
 	}
 
 	@Override
@@ -147,6 +154,11 @@ public class StressReductionPlugin extends OsmandPlugin {
 		return 0;
 	}
 
+	@Override
+	public boolean destinationReached() {
+		sensorHandler.onDestinationReached();
+		return true;
+	}
 
 	@Override
 	public void mapActivityResume(MapActivity activity) {
@@ -195,10 +207,7 @@ public class StressReductionPlugin extends OsmandPlugin {
 	}
 
 	/**
-	 * This class is a speed watcher which gets activated if the speed is below a certain
-	 * threshold.
-	 * If the current speed is still below the threshold after 2 seconds the SRDialog is
-	 * initialized.
+	 * This class watches the map activity and triggers the data upload if map activity was closed.
 	 *
 	 * @author Tobias
 	 */

@@ -1,5 +1,7 @@
 package net.osmand.plus.stressreduction.database;
 
+import net.osmand.plus.stressreduction.tools.Calculation;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -54,8 +56,7 @@ public class LocationInfo {
 		this.accelerationY = accelerationY;
 		this.accelerationZ = accelerationZ;
 		this.direction = direction;
-		this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
-				.format(new java.util.Date());
+		this.timestamp = Calculation.getCurrentDateTimeMs();
 	}
 
 	/**

@@ -6,6 +6,7 @@ import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.fragments.FragmentLocationSimulationDialog;
+import net.osmand.plus.stressreduction.sensors.SRLocation;
 import net.osmand.plus.stressreduction.tools.Calculation;
 
 import org.apache.commons.logging.Log;
@@ -67,6 +68,7 @@ public class RoutingSimulation
 	@Override
 	public void startSimulation(int speed, boolean routing) {
 		if (simulationThread == null) {
+			SRLocation.SIMULATION_SPEED = speed;
 			if (!routing) {
 				new LocationSimulation(osmandApplication, locationList, speed);
 				routingHelper.clearCurrentRoute(null, null);
@@ -98,9 +100,8 @@ public class RoutingSimulation
 			locationManager.setTestProviderEnabled("gps", true);
 
 			List<Location> interpolatedLocationList = new ArrayList<>();
-//			Random random = new Random();
 			long timer = System.currentTimeMillis();
-			float lastSegmentSpeed = 50;
+			float lastSegmentSpeed = Calculation.convertKmhToMs(50f);
 
 			while (thisThread == simulationThread && locationList.size() > 1) {
 				log.debug("run(): locationList.size():" + locationList.size());
@@ -112,15 +113,14 @@ public class RoutingSimulation
 				}
 				float currentBearing = locationList.get(0).bearingTo(locationList.get(1));
 				locationList.remove(0);
-//				float speedVar = (random.nextFloat() - 0.5f) * 10f / 3.6f;
 				float LOCATION_SPEED;
 				if (routingHelper.getCurrentMaxSpeed() > 0) {
+					// this is speed in m/s
 					LOCATION_SPEED = routingHelper.getCurrentMaxSpeed();
 					lastSegmentSpeed = LOCATION_SPEED;
 				} else {
 					LOCATION_SPEED = lastSegmentSpeed;
 				}
-				LOCATION_SPEED = Calculation.convertKmhToMs(LOCATION_SPEED);
 				for (Location loc : interpolatedLocationList) {
 					// simulate points
 					android.location.Location loc2 = new android.location.Location("gps");
@@ -130,7 +130,7 @@ public class RoutingSimulation
 					loc2.setLatitude(loc.getLatitude());
 					loc2.setAccuracy(5.0f);
 					loc2.setBearing(currentBearing);
-					loc2.setSpeed((LOCATION_SPEED /*+ speedVar*/));
+					loc2.setSpeed(LOCATION_SPEED);
 
 					locationManager.setTestProviderLocation("gps", loc2);
 					try {
@@ -166,6 +166,7 @@ public class RoutingSimulation
 			locationManager.removeTestProvider("gps");
 //			simulationThread = null;
 			routeWasCancelled();
+			SRLocation.SIMULATION_SPEED = 1;
 		}
 
 		List<Location> interpolateLocations(Location loc1, Location loc2) {

@@ -10,6 +10,7 @@ import android.view.View;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.R;
+import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.fragments.FragmentSRDialog;
 
 import org.apache.commons.logging.Log;
@@ -36,12 +37,24 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 				.format(new java.util.Date());
 	}
 
+	public void writeUserToDatabase() {
+		sqLiteLogger.insertUser();
+	}
+
 	public void writeLocationInfoToDatabase(LocationInfo locationInfo) {
 		sqLiteLogger.insertLocationInfo(locationInfo);
 	}
 
 	public void writeSegmentInfoToDatabase(SegmentInfo segmentInfo) {
 		sqLiteLogger.insertSegmentInfo(segmentInfo);
+	}
+
+	public void writeAppLogToDatabase(String timestamp) {
+		sqLiteLogger.insertAppLog(timestamp);
+	}
+
+	public void writeRoutingLogToDatabase(RoutingLog routingLog) {
+		sqLiteLogger.insertRoutingLog(routingLog);
 	}
 
 	private void updateStressValueInDatabase(int stressValue, String endTimestamp) {
@@ -57,15 +70,15 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 		switch (id) {
 			case R.id.imageButtonFaceHappy:
 				log.debug("onSRButtonClick(): Face Happy clicked");
-				stressValue = 2;
+				stressValue = Constants.STRESS_VALUE_LOW;
 				break;
 			case R.id.imageButtonFaceNeutral:
 				log.debug("onSRButtonClick(): Face Neutral clicked");
-				stressValue = 1;
+				stressValue = Constants.STRESS_VALUE_MEDIUM;
 				break;
 			case R.id.imageButtonFaceSad:
 				log.debug("onSRButtonClick(): Face Sad clicked");
-				stressValue = 0;
+				stressValue = Constants.STRESS_VALUE_HIGH;
 				break;
 		}
 		updateStressValueInDatabase(stressValue, timestamp);

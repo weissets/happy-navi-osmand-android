@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import net.osmand.PlatformUtil;
+import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
@@ -66,8 +67,7 @@ public class WifiReceiver extends BroadcastReceiver {
 			NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
 			log.debug("onReceive(): Connectivity is " + ((networkInfo != null &&
-					networkInfo.getType() == ConnectivityManager.TYPE_WIFI) ? "Wifi" :
-					"not " + "Wifi"));
+					networkInfo.getType() == ConnectivityManager.TYPE_WIFI) ? "Wifi" : "not Wifi"));
 
 			// check if intent contains a connectivity extra
 			if (!intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)) {
@@ -77,6 +77,7 @@ public class WifiReceiver extends BroadcastReceiver {
 					log.debug("onReceive(): Wifi is available, starting upload...");
 					disableReceiver(context);
 					Intent uploadIntent = new Intent(context, UploadService.class);
+					uploadIntent.putExtra(Constants.WIFI_RECEIVER_UPLOAD, true);
 					WakefulIntentService.sendWakefulWork(context, uploadIntent);
 				}
 			}

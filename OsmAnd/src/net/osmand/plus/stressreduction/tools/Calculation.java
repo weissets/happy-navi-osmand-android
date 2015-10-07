@@ -2,7 +2,9 @@ package net.osmand.plus.stressreduction.tools;
 
 import net.osmand.plus.stressreduction.Constants;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This class is a helper class for different calculations
@@ -44,6 +46,36 @@ public class Calculation {
 			sum = sum + values.get(i);
 		}
 		return (sum / size);
+	}
+
+	/**
+	 * Calculate the current date and time
+	 *
+	 * @return The current date and time as string
+	 */
+	public static String getCurrentDateTime() {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+				.format(new java.util.Date());
+	}
+
+	/**
+	 * Calculate the current date and time
+	 *
+	 * @return The current date and time as string
+	 */
+	public static String getCurrentDateTimeMs() {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
+				.format(new java.util.Date());
+	}
+
+	/**
+	 * Calculate the current date and time
+	 *
+	 * @return The current date and time as string
+	 */
+	public static String getSpecificDateTime(long timeInMs) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+				.format(new java.util.Date(timeInMs));
 	}
 
 }

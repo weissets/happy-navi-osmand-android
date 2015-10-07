@@ -1,43 +1,43 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-<!--  categories -->
+	<!--  categories -->
 	<string name="poi_shop">Shop</string>
-		<string name="poi_shop_food">Food store</string>
+	<string name="poi_shop_food">Food store</string>
 	<string name="poi_emergency">Emergency</string>
 	<string name="poi_transportation">Transportation</string>
-		<string name="poi_road_obstacle">Road obstacle</string>
-		<string name="poi_filling_station">Filling station</string>
-		<string name="poi_personal_transport">Personal transport</string>
-		<string name="poi_public_transport">Public transport</string>
-		<string name="poi_air_transport">Air transport</string>
-		<string name="poi_water_transport">Water transport</string>
-		<string name="poi_bicycle_transport">Bicycle transport</string>
-		<string name="poi_aerialway_transport">Aerialway transport</string>
-		<string name="poi_node_networks">Hiking/cycling network nodes</string>
-		<string name="poi_hiking_routes">Hiking routes</string>
-		<string name="poi_traffic_enforcement">Traffic enforcement</string>
+	<string name="poi_road_obstacle">Road obstacle</string>
+	<string name="poi_filling_station">Filling station</string>
+	<string name="poi_personal_transport">Personal transport</string>
+	<string name="poi_public_transport">Public transport</string>
+	<string name="poi_air_transport">Air transport</string>
+	<string name="poi_water_transport">Water transport</string>
+	<string name="poi_bicycle_transport">Bicycle transport</string>
+	<string name="poi_aerialway_transport">Aerialway transport</string>
+	<string name="poi_node_networks">Hiking/cycling network nodes</string>
+	<string name="poi_hiking_routes">Hiking routes</string>
+	<string name="poi_traffic_enforcement">Traffic enforcement</string>
 	<string name="poi_man_made">Man made</string>
-		<string name="poi_transport_construction">Transport construction</string>
-		<string name="poi_water_supply">Water supply</string>
-		<string name="poi_power">Power</string>
-		<string name="poi_communication">Communication</string>
-		<string name="poi_trash_disposal">Trash disposal</string>
-		<string name="poi_landuse">Landuse</string>
+	<string name="poi_transport_construction">Transport construction</string>
+	<string name="poi_water_supply">Water supply</string>
+	<string name="poi_power">Power</string>
+	<string name="poi_communication">Communication</string>
+	<string name="poi_trash_disposal">Trash disposal</string>
+	<string name="poi_landuse">Landuse</string>
 	<string name="poi_education">Education</string>
 	<string name="poi_administrative">Administrative</string>
 	<string name="poi_healthcare">Healthcare</string>
 	<string name="poi_office">Office</string>
 	<string name="poi_sport">Sport</string>
 	<string name="poi_tourism">Tourism</string>
-		<string name="poi_sightseeing">Sightseeing</string>
-		<string name="poi_accomodation">Accommodation</string>
-		<string name="poi_internet_access">Internet access</string>
+	<string name="poi_sightseeing">Sightseeing</string>
+	<string name="poi_accomodation">Accommodation</string>
+	<string name="poi_internet_access">Internet access</string>
 	<string name="poi_entertainment">Leisure</string>
-		<string name="poi_club">Club</string>
+	<string name="poi_club">Club</string>
 	<string name="poi_sustenance">Food</string>
 	<string name="poi_cafe_and_restaurant">Cafe and restaurant</string>
 	<string name="poi_service">Service</string>
-		<string name="poi_craft">Craft</string>
+	<string name="poi_craft">Craft</string>
 	<string name="poi_finance">Finance</string>
 	<string name="poi_natural">Natural</string>
 	<string name="poi_seamark">Nautical</string>
@@ -1293,7 +1293,6 @@
 	<string name="poi_smoking_isolated">Smoking is allowed in a separate room with effective separation</string>
 	<string name="poi_smoking_dedicated">Dedicated to smokers</string>
 
-	<string name="poi_toll_yes">Payment of tolls is charged</string>
 	<string name="poi_toll_no">Payment of tolls is not charged</string>
 	<string name="poi_toll_yes">Payment of tolls is charged for HGV</string>
 	<string name="poi_tactile_paving_yes">With tactile paving</string>

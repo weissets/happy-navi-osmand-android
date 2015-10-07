@@ -1043,7 +1043,6 @@
 	<string name="poi_smoking_isolated">Курение разрешено в отдельном помещении с эффективым отделением</string>
 	<string name="poi_smoking_dedicated">Специализированное заведение для курящих</string>
 
-	<string name="poi_toll_yes">Оплата за проезд взимается</string>
 	<string name="poi_toll_no">Оплата за проезд не взимается</string>
 	<string name="poi_toll_yes">Оплата за проезд взимается для грузовых автомобилей</string>
 	<string name="poi_tactile_paving_yes">С тактильным покрытием</string>

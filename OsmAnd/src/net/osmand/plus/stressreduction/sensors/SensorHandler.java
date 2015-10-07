@@ -30,4 +30,7 @@ public class SensorHandler {
 		accelerometer.stopAccelerometerSensor();
 	}
 
+	public void onDestinationReached() {
+		location.onDestinationReached();
+	}
 }

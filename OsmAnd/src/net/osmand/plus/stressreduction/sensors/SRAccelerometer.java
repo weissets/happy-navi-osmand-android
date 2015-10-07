@@ -7,11 +7,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import net.osmand.Location;
+import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.database.LocationInfo;
 import net.osmand.plus.stressreduction.tools.Calculation;
+
+import org.apache.commons.logging.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.List;
  * @author Tobias
  */
 class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
+
+	private static final Log log = PlatformUtil.getLog(SRAccelerometer.class);
 
 	private final DataHandler dataHandler;
 	private final SensorManager sensorManager;
@@ -67,42 +72,61 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 	 */
 	private class AccelerometerListener implements SensorEventListener {
 
+		long timer = System.currentTimeMillis();
+		long timer2 = System.currentTimeMillis();
+
 		final List<Float> accelerationXList = new ArrayList<>();
 		final List<Float> accelerationYList = new ArrayList<>();
 		final List<Float> accelerationZList = new ArrayList<>();
 		final List<Float> locationSpeedList = new ArrayList<>();
 		final List<Float> directionList = new ArrayList<>();
 
+		// TODO log alle 0,2s und bereinigte acc sensor daten (android version 4.x)
+
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			if (currentLocation != null) {
 				if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-					// get acceleration values for all three axes
-					accelerationXList.add(event.values[0]);
-					accelerationYList.add(event.values[1]);
-					accelerationZList.add(event.values[2]);
-					// get the direction of heading (0=North, 90=East,
-					// 180=South, 270=West)
-					directionList.add(currentLocation.getBearing());
-					locationSpeedList.add(currentLocation.getSpeed());
-				}
-				// get average values to reduce data size
-				if (accelerationXList.size() == 10) {
-					dataHandler.writeLocationInfoToDatabase(
-							new LocationInfo(currentLocation.getLatitude(),
-									currentLocation.getLongitude(), Calculation
-									.convertMsToKmh(Calculation.getAverageValue
-											(locationSpeedList)),
-									Calculation.getAverageValue(accelerationXList),
-									Calculation.getAverageValue(accelerationYList),
-									Calculation.getAverageValue(accelerationZList),
-									Calculation.getAverageValue(directionList)));
+					if (System.currentTimeMillis() - timer > 5000) {
+						timer = System.currentTimeMillis();
+						log.debug("onSensorChanged(): NORMAL: x-Axis=" + event.values[0] + ", " +
+								"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
+					}
+					//					// get acceleration values for all three axes
+					//					accelerationXList.add(event.values[0]);
+					//					accelerationYList.add(event.values[1]);
+					//					accelerationZList.add(event.values[2]);
+					//					// get the direction of heading (0=North, 90=East,
+					//					// 180=South, 270=West)
+					//					directionList.add(currentLocation.getBearing());
+					//					locationSpeedList.add(currentLocation.getSpeed());
+					//				}
+					//				// get average values to reduce data size
+					//				if (accelerationXList.size() == 10) {
+					//					dataHandler.writeLocationInfoToDatabase(
+					//							new LocationInfo(currentLocation.getLatitude(),
+					//									currentLocation.getLongitude(), Calculation
+					//									.convertMsToKmh(Calculation.getAverageValue
+					//											(locationSpeedList)),
+					//									Calculation.getAverageValue(accelerationXList),
 
-					accelerationXList.clear();
-					accelerationYList.clear();
-					accelerationZList.clear();
-					locationSpeedList.clear();
-					directionList.clear();
+					//									Calculation.getAverageValue(accelerationYList),
+					//									Calculation.getAverageValue(accelerationZList),
+					//									Calculation.getAverageValue(directionList)));
+					//
+					//					accelerationXList.clear();
+					//					accelerationYList.clear();
+					//					accelerationZList.clear();
+					//					locationSpeedList.clear();
+					//					directionList.clear();
+					//				}
+				}
+				if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+					if (System.currentTimeMillis() - timer2 > 5000) {
+						timer2 = System.currentTimeMillis();
+						log.debug("onSensorChanged(): LINEAR: x-Axis=" + event.values[0] + ", " +
+								"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
+					}
 				}
 			}
 		}

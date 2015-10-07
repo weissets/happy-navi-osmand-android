@@ -31,13 +31,15 @@ public class UploadService extends WakefulIntentService {
 	private static final Log log = PlatformUtil.getLog(UploadService.class);
 
 	private long timeout;
+	private boolean isWifiReceiverUpload;
 
 	/**
-	 *
+	 * Constructor
 	 */
 	public UploadService() {
 		super("UploadService");
 		timeout = 0;
+		isWifiReceiverUpload = false;
 	}
 
 	/*
@@ -51,39 +53,18 @@ public class UploadService extends WakefulIntentService {
 	protected void doWakefulWork(Intent intent) {
 		SQLiteLogger sqLiteLogger = SQLiteLogger.getSQLiteLogger(this);
 		log.debug("doWakefulWork(): checking if there is data to upload...");
-		if (checkForData(sqLiteLogger.getReadableDatabase()) &&
+		if (SQLiteLogger.checkForData() &&
 				((System.currentTimeMillis() - timeout) > 10000)) {
 			timeout = System.currentTimeMillis();
-			//			Log.d(StressReductionPlugin.TAG, "#DEBUG# UploadService.java:
-			// doWakefulWork(): copy database to sdcard...");
-			//			copyDatabaseToSDCard();
+			//	Log.d(StressReductionPlugin.TAG, "#DEBUG# UploadService.java:
+			//      doWakefulWork(): copy database to sdcard...");
+			//	copyDatabaseToSDCard();
 			log.debug("doWakefulWork(): found data in database, start uploading...");
+			isWifiReceiverUpload = intent.getBooleanExtra(Constants.WIFI_RECEIVER_UPLOAD, false);
 			new UploadTask().execute(sqLiteLogger);
 		} else {
 			log.debug("doWakefulWork(): there is no data to upload");
 		}
-	}
-
-	/**
-	 * Check if there are entries in the database
-	 *
-	 * @param sqLiteDatabase the database to check for entries
-	 * @return true if there are entries in the database, otherwise false
-	 */
-	private boolean checkForData(SQLiteDatabase sqLiteDatabase) {
-		if (sqLiteDatabase != null) {
-			String[] columns = {Constants.COLUMN_PHONE_ID};
-			Cursor cursor = sqLiteDatabase
-					.query(Constants.TABLE_LOCATION_INFOS, columns, null, null, null, null, null);
-			int count = cursor.getCount();
-			cursor.close();
-			log.debug("checkForData(): found " + count + " entries in database table location " +
-					"infos");
-			if (count > 0) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void copyDatabaseToSDCard() {
@@ -98,6 +79,7 @@ public class UploadService extends WakefulIntentService {
 	 * Upload the given file to the server
 	 *
 	 * @param sourceFileUri Path to the file which should be uploaded
+	 * @param serverUri Uri of the server
 	 * @return The response code of the server
 	 */
 	private int uploadFile(String sourceFileUri, String serverUri) {
@@ -122,7 +104,6 @@ public class UploadService extends WakefulIntentService {
 				// open a URL connection
 				FileInputStream fileInputStream = new FileInputStream(sourceFile);
 
-				// URL url = new URL(Constants.URI_DATABASE_UPLOAD);
 				URL url = new URL(serverUri);
 
 				// Open a HTTP connection to the URL
@@ -185,7 +166,6 @@ public class UploadService extends WakefulIntentService {
 				dataOutputStream.close();
 
 			} catch (Exception e) {
-				//				log.error("uploadFile(): Error: " + e.getMessage(), e);
 				log.error("uploadFile(): Error: " + e.getMessage());
 			}
 		}
@@ -195,7 +175,7 @@ public class UploadService extends WakefulIntentService {
 	/**
 	 * @author Tobias
 	 */
-	private class UploadTask extends AsyncTask<SQLiteLogger, String, String> {
+	private class UploadTask extends AsyncTask<SQLiteLogger, String, Integer> {
 
 		SQLiteLogger sqLiteLogger = null;
 
@@ -205,7 +185,7 @@ public class UploadService extends WakefulIntentService {
 		 * @see android.os.AsyncTask#doInBackground(Params[])
 		 */
 		@Override
-		protected String doInBackground(SQLiteLogger... params) {
+		protected Integer doInBackground(SQLiteLogger... params) {
 
 			sqLiteLogger = params[0];
 			final String databasePath = sqLiteLogger.getReadableDatabase().getPath();
@@ -217,17 +197,12 @@ public class UploadService extends WakefulIntentService {
 			} else {
 				log.debug("UploadTask: doInBackground(): debug upload, trying emulator upload");
 				status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
-				if (status != 200) {
+				if (status != HttpURLConnection.HTTP_OK) {
 					log.debug("UploadTask: doInBackground(): debug upload, trying device upload");
 					status = uploadFile(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
 				}
 			}
-
-			if (status == 200) {
-				return "OK";
-			} else {
-				return "ERROR: Status Code = " + status;
-			}
+			return status;
 		}
 
 		/*
@@ -236,16 +211,19 @@ public class UploadService extends WakefulIntentService {
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Integer result) {
 			// delete uploaded entries in the database
-			if (result.equalsIgnoreCase("OK")) {
+			if (result == HttpURLConnection.HTTP_OK) {
 				log.debug("UploadTask: onPostExecute(): Upload OK: clearing database...");
 				sqLiteLogger.clearDatabase();
 			}
-			// if there was an error close application
 			else {
 				log.error("UploadTask: onPostExecute(): Error: data not uploaded, " +
-						"ERROR=" + result);
+						"ERROR Code = " + result);
+			}
+			if (isWifiReceiverUpload) {
+				System.runFinalization();
+				System.exit(0);
 			}
 		}
 	}
