@@ -253,7 +253,7 @@
   <string name="favorite_home_category">Doma</string>
   <string name="favorite_friends_category">Přátelé</string>
   <string name="favorite_places_category">Místa</string>
-  <string name="favorite_default_category">Ostatní</string>
+  <string name="shared_string_others">Ostatní</string>
   <string name="shared_string_no_thanks">Není potřeba</string>
   <string name="basemap_missing">Chybí základní mapa světa. Prosím stáhněte ji pro správnou funkci programu.</string>
   <string name="vector_data_missing">Na SD kartě nejsou uložena žádná offline data. Prosím stáhněte je pro použití map v offline módu.</string>
@@ -543,7 +543,7 @@
   <string name="background_service_provider_descr">Vybrat poskytovatele polohy pro službu na pozadí</string>
   <string name="background_service_provider">Poskytovatel polohy</string>
   <string name="background_router_service_descr">Spustí OsmAnd na pozadí, aby bylo možno zaznamenávat pozici i při vypnuté obrazovce</string>
-  <string name="background_router_service">Sledování polohy</string>
+  <string name="background_router_service">Sledování polohy na pozadí</string>
   <string name="off_router_service_no_gps_available">Služba pro navigaci na pozadí vyžaduje zapnutý zdroj polohy.</string>
   <string name="hide_poi_filter">Skrýt filtr</string>
   <string name="show_poi_filter">Zobrazit filtr</string>
@@ -1266,7 +1266,7 @@
     
 	
     <string name="speak_speed_limit">Rychlostní omezení</string>
-    <string name="speak_cameras">Radary</string>
+    <string name="speak_cameras">Rychlostní radary</string>
 	<string name="speak_traffic_warnings">Dopravní varování</string>
 	
 	<string name="osb_author_dialog_password">Heslo OSM (volitelné)</string>
@@ -1556,7 +1556,7 @@ s často kladenými otázkami.</string>
 	<string name="import_file_favourites">Uložit body jako GPX soubor nebo je importovat do oblíbených?</string>
 	
 	<string name="shared_string_share">Sdílet</string>
-	<string name="share_fav_subject">Oblíbené sdílené přes OsmAnd</string>
+	<string name="share_fav_subject">Oblíbené body sdílené přes OsmAnd</string>
 	<string name="navigation_intent_invalid">Neplatný formát: %s</string>
 <string name="osmo_follow">Sledovat</string>
     <string name="osmo_sign_in">Přihlásit se</string>
@@ -1643,9 +1643,9 @@ s často kladenými otázkami.</string>
     <string name="home">Domovská stránka</string>
     <string name="keep_navigation_service">Ponechat</string>
 	<string name="stop_navigation_service">Přerušit</string>
-	<string name="enable_sleep_mode">Zapnout režim spánku GPS</string>
+	<string name="enable_sleep_mode">Zapnout GPS v režimu na pozadí</string>
 	<string name="gps_wake_up_timer">Interval probouzení GPS</string>
-	<string name="sleep_mode_stop_dialog">Přerušit režim spánku GPS?</string>
+	<string name="sleep_mode_stop_dialog">Přerušit GPS běžící na pozadí?</string>
 	<string name="map_preferred_locale_descr">Preferovaný jazyk pro nápisy na mapě (pokud není dostupný budou použité anglické nebo lokální názvy)</string>
     <string name="map_preferred_locale">Preferovaný jazyk mapy</string>
     <string name="local_map_names">Lokální názvy</string>
@@ -1808,7 +1808,7 @@ s často kladenými otázkami.</string>
     <string name="rendering_value_americanRoadAtlas_name">Americký Atlas cest</string>
     <string name="routing_attr_no_new_routing_name">Nepoužívat routovací pravidla v1.9</string>
     <string name="routing_attr_no_new_routing_description">Nepoužívat pravidla výpočtu trasy zavedené ve verzi 1.9</string>
-    <string name="speak_pedestrian">Oznamovat přechody pro chodce</string>
+    <string name="speak_pedestrian">Přechody pro chodce</string>
     
 	<string name="gps_status">GPS stav</string>
     <string name="version_settings_descr">Stáhnout vývojové verze</string>
@@ -1943,7 +1943,7 @@ s často kladenými otázkami.</string>
     <string name="storage_directory">Úložiště map</string>
     <string name="shared_string_copy">Kopírovat</string>
     <string name="rendering_attr_hideHouseNumbers_name">Skrýt popisná čísla domů</string>
-    <string name="routing_attr_avoid_borders_name">Nepřekračovat hranice</string>
+    <string name="routing_attr_avoid_borders_name">Vyhnout se překročení hranic</string>
 	<string name="routing_attr_avoid_borders_description">Nepřekračovat hranice do jiné země</string>
 	<string name="routing_attr_height_name">Výškové omezení</string>
 	<string name="routing_attr_height_description">Zadejte výšku vozidla, jaká má být povolena na cestách</string>
@@ -1953,7 +1953,7 @@ s často kladenými otázkami.</string>
     <string name="shared_string_logoff">Odhlásit</string>
     <string name="shared_string_import2osmand">Importovat do OsmAnd</string>
     <string name="read_full_article">Přečíst celý článek (online)</string>
-    <string name="download_wikipedia_item">Wikipedie</string>
+    <string name="shared_string_wikipedia">Wikipedie</string>
     <string name="local_indexes_cat_wiki">Wikipedie</string>
     <string name="shared_string_show_details">Zobrazit detaily</string>
     <string name="osm_edit_context_menu_delete">Smazat OSM změnu</string>
@@ -1989,7 +1989,7 @@ s často kladenými otázkami.</string>
     <string name="download_wikipedia_files">Chcete stáhnout dodatečná Wikipedia data (%1$s MB) ?</string>
     <string name="gps_network_not_enabled">Služba zjištění polohy není zapnuta. Chcete ji aktivovat?</string>
     <string name="disable_recording_once_app_killed">Zabránit samostatnému logování</string>
-    <string name="disable_recording_once_app_killed_descrp">Pozastaví záznam trasy pokud je aplikace ukončena (přes nedávné aplikace). (OsmAnd indikátor zmizí ze stavového řádku Androidu.)</string>
+    <string name="disable_recording_once_app_killed_descrp">Pozastaví záznam GPX trasy pokud je aplikace ukončena (přes nedávné aplikace). (OsmAnd indikátor zmizí ze stavového řádku Androidu.)</string>
     <string name="download_live_updates">Živé aktualizace</string>
 	<string name="no_updates_available">Nejsou dostupné žádné aktualizace</string>
     <string name="traffic_warning_hazard">Nebezpečí</string>
@@ -2012,7 +2012,7 @@ s často kladenými otázkami.</string>
 	<string name="plugin_settings">Moduly</string>
 	<string name="av_locations_descr">GPX soubor s poznámkou umístění</string>
     <string name="av_locations">Umístění</string>
-    <string name="routing_attr_avoid_shuttle_train_name">Nepoužít kyvadlový vlak</string>
+    <string name="routing_attr_avoid_shuttle_train_name">Vyhnout se kyvadlovému vlaku</string>
 	<string name="routing_attr_avoid_shuttle_train_description">Nepoužít kyvadlový vlak</string>
     <string name="lang_la">Latinsky</string>
     <string name="poi_action_delete">smazat</string>
@@ -2067,4 +2067,39 @@ s často kladenými otázkami.</string>
     <string name="tag_poi_amenity">občanská vybavenost</string>
 	<string name="opening_at">Otevřeno od</string>
 	<string name="closing_at">Otevřeno do</string>
-	</resources>
+	<string name="count_of_lines">Počet řádků</string>
+<string name="show_on_start">Zobrazit po spuštění</string>
+	<string name="address_unknown">Adresa ještě není známa</string>
+    <string name="are_you_sure">Jste si jisti?</string>
+	<string name="unsaved_changes_will_be_lost">Neuložené změny budou ztraceny. Pokračovat?</string>
+<string name="srtm_plugin_disabled">Vrstevnice vypnuté</string>
+    <string name="favorite_category_add_new">Přidat nový</string>
+    <string name="favorite_category_select">Zvolte kategorii</string>
+    <string name="default_speed_system_descr">Zvolte způsob měření rychlosti</string>
+    <string name="default_speed_system">Měření rychlosti</string>
+    <string name="nm">nm</string>
+    <string name="si_nm">Námořní míle</string>
+    <string name="si_kmh">Kilometry za hodinu</string>
+    <string name="si_mph">Míle za hodinu</string>
+    <string name="si_m_s">Metrů za sekundu</string>
+    <string name="si_min_km">Minut za kilometr</string>
+    <string name="si_min_m">Minut za míli</string>
+    <string name="si_nm_h">Námořní míle za hodinu (uzly)</string>
+    <string name="nm_h">nm/h</string>
+    <string name="min_mile">min/m</string>
+    <string name="min_km">min/km</string>
+    <string name="m_s">m/s</string>
+    
+    <string name="shared_string_trip_recording">Záznam cesty</string>
+    <string name="shared_string_navigation">Navigace</string>
+    <string name="osmand_running_in_background">Běh na pozadí</string>
+    <string name="favourites_edit_dialog_title">Informace o oblíbeném bodu</string>
+    <string name="simulate_your_location_stop_descr">Ukončit simulaci vaší polohy</string>
+    <string name="simulate_your_location_descr">Simulovat pomocí zaznamenané GPX nebo vypočítané trasy</string>
+    <string name="favourites_context_menu_add">Přidat oblíbený bod</string>
+	<string name="downloads_left_template">%1$s stahování zbývá</string>
+	<string name="roads">Cesty</string>
+    <string name="downloading_number_of_files">Stahování - soubor %1$d</string>
+    <string name="buy">KOUPIT</string>
+<string name="hillshade_layer_disabled">Vrstva stínování vypnutá</string>
+    </resources>

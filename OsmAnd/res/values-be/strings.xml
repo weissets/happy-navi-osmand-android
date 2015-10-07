@@ -45,13 +45,13 @@
 	<string name="driving_region_uk">Вялікабрытанія, Індыія, Аўстралія ды іншыя</string>
 	    
     
-    <string name="announce_gpx_waypoints">Агалошваць маршрутныя пункты GPX</string>
+    <string name="announce_gpx_waypoints">Маршрутныя пункты GPX</string>
     <string name="speak_title">Агалошваць…</string>
 	<string name="speak_descr">Агалошваць назвы вуліц, дарожныя перасьцярогі (вымушаныя прыпынкі, ляжачыя паліцэйскія), перасьцярогі аб камерах хуткасьці, абмежаваньні хуткасьці</string>
-	<string name="speak_street_names">Агалошваць назвы вуліц (TTS)</string>
-    <string name="speak_speed_limit">Папярэджваць пра абмежаваньне хуткасьці</string>
-    <string name="speak_cameras">Папярэджваць пра камэры хуткасьці</string>
-	<string name="speak_traffic_warnings">Папярэджваць пра перашкоды руху</string>
+	<string name="speak_street_names">Назвы вуліц (TTS)</string>
+    <string name="speak_speed_limit">Абмежаваньне хуткасьці</string>
+    <string name="speak_cameras">Камэры хуткасьці</string>
+	<string name="speak_traffic_warnings">Перасьцярогі руху</string>
     <string name="tip_recent_changes_1_5_t">Зьмены ў 1.5:
 	\n\t* Галасавыя папярэджваньні аб абмежаваньні хуткасьці і камерах
 	\n\t* Больш галасавых падказкак (агалошэньне назваў вуліц)
@@ -345,7 +345,7 @@
 	<string name="map_widget_transparent">Празрыстае афармленьне</string>
 	
 	
-	<string name="bg_service_sleep_mode_off">Уключыць\n фонавы рэжым</string>
+	<string name="bg_service_sleep_mode_off">Запусьціць у\n фонавым рэжыме</string>
 	<string name="bg_service_sleep_mode_on">Спынiць\n фонавы рэжым</string>
 	<string name="gps_wakeup_interval">Iнтэрвал абуджэньня GPS: %s</string>
 	<string name="int_continuosly">Безперапынны</string>
@@ -375,7 +375,7 @@
 	<string name="bg_service_interval">Задайце інтэрвал абуджэньня:</string>
 	<string name="show_cameras">Камэры хуткасьці</string>
 	<string name="show_traffic_warnings">Абмежаваньне руху</string>
-	<string name="avoid_toll_roads">Пазьбягаць платных дарог</string>
+	<string name="avoid_toll_roads">Пазьбягаць платныя дарогі</string>
 	<string name="continue_follow_previous_route_auto">Папярэдняя навігацыя не была скончаная. Працягваць кіравацца ёю? (%1$s сэкундаў)</string>
 	<string name="route_updated_loc_found">Маршрут будзе разлічвацца як толькі вызначыцца становішча</string>
 	<string name="osmand_parking_hours">Гадзін</string>
@@ -632,7 +632,7 @@
 	<string name="user_password">Ваш пароль OSM</string>
 	<string name="user_password_descr">Патрэбна для прадстаўленьня ў openstreetmap.org</string>
 	<string name="osmand_service">Фонавы рэжым</string>
-	<string name="osmand_service_descr">Ужываць каб OsmAnd працавала падчас выключанага экрану</string>
+	<string name="osmand_service_descr">OsmAnd працуе ў фоне падчас выключанага экрану</string>
 	<string name="tip_rotation_switching">Арыентацыя мапы</string>
 	<string name="tip_rotation_switching_t_v2">"Націснуўшы на значок компаса на экране з мапай Вы можаце зьмяніць рэжым павароту мапы. ↵
 \n\nДаступныя варыянты: ↵
@@ -736,7 +736,7 @@
 	<string name="favorite_home_category">Дом</string>
 	<string name="favorite_friends_category">Сябры</string>
 	<string name="favorite_places_category">Месцы</string>
-	<string name="favorite_default_category">Іншае</string>
+	<string name="shared_string_others">Іншае</string>
 	<string name="favourites_edit_dialog_name">Назва</string>
 	<string name="favourites_edit_dialog_category">Катэгорыя</string>
 	<string name="shared_string_no_thanks">Не, дзякуй</string>
@@ -993,7 +993,7 @@
 	<string name="background_service_provider_descr">Абярыце крыніцу каардынат для выкарыстаньня фонавым сэрвісам</string>
 	<string name="background_service_provider">Крыніца каардынат</string>
 	<string name="background_router_service_descr">Запускае OsmAnd ў фонавым рэжыме для адсочваньня становішча пры выключаным экране</string>
-	<string name="background_router_service">Працаваць ў фонавым рэжыме</string>
+	<string name="background_router_service">Запусьціць OsmAnd у фоне</string>
 	<string name="off_router_service_no_gps_available">Фонаваму сэрвісу неабходная інфармацыя пра месцазнаходжаньне.</string>
 	<string name="hide_poi_filter">Схаваць фільтр</string>
 	<string name="show_poi_filter">Паказаць фільтр</string>
@@ -1313,11 +1313,11 @@
     <string name="routing_attr_prefer_motorway_name">Аддаваць перавагу аўтамагістралям</string>
 	<string name="routing_attr_short_way_name">Самы кароткі шлях</string>
 	<string name="routing_attr_short_way_description">Выкарыстоўваць кароткі шлях</string>
-	<string name="routing_attr_avoid_toll_name">Пазьбягаць платных дарог</string>
+	<string name="routing_attr_avoid_toll_name">Пазьбягаць платныя дарогі</string>
 	<string name="routing_attr_avoid_toll_description">Пазьбягаць платных дарог</string>
-	<string name="routing_attr_avoid_unpaved_name">Пазбягаць грунтавыя дарогі</string>
+	<string name="routing_attr_avoid_unpaved_name">Пазьбягаць грунтавыя дарогі</string>
 	<string name="routing_attr_avoid_unpaved_description">Пазбягаць грунтавыя дарогі</string>
-	<string name="routing_attr_avoid_ferries_name">Пазьбягаць пераправы</string>
+	<string name="routing_attr_avoid_ferries_name">Пазьбягаць паромныя пераправы</string>
 	<string name="routing_attr_avoid_ferries_description">Пазбягаць пераправы</string>
 	<string name="routing_attr_avoid_motorway_name">Пазьбягаць аўтамагістралі</string>
 	<string name="routing_attr_avoid_motorway_description">Пазьбягаць аўтамагістралі</string>
@@ -1459,7 +1459,7 @@
     <string name="osmo_mode_on">Спыніць сэсыю OsMo</string>    
     <string name="osmo_mode_off">Запусьціць сэсыю OSMo</string>
     
-	<string name="share_fav_subject">Выбранае адаслана праз OsmAnd</string>
+	<string name="share_fav_subject">Упадабанае адаслана праз OsmAnd</string>
 	<string name="use_points_as_intermediates">Разлічыць маршрут паміж кропкамі</string>
     <string name="tip_recent_changes_1_8_alpha">Зьмены ў 1.8:
 	* Разьлік маршруту паміж маршрутнымі пунктамі GPX-сьледу
@@ -1669,8 +1669,8 @@
     
     <string name="waypoints">Кропкі шляху</string>
     <string name="way_alarms">Дарожныя папярэджаньні</string>
-    <string name="speak_favorites">Абвяшчаць выбраныя паблізу</string>
-    <string name="speak_poi">Абвяшчаць навакольныя POI</string>
+    <string name="speak_favorites">Упадабаныя паблізу</string>
+    <string name="speak_poi">Навакольныя POI</string>
     <string name="targets">Цэлі</string>
     <string name="shared_string_all">Усе</string>
     <string name="index_tours">Паездкі</string>
@@ -1769,7 +1769,7 @@
     <string name="traffic_warning_pedestrian">Пешаходны пераход</string>
 	<string name="traffic_warning_railways">Чыгуначны пераезд</string>
 	<string name="show_railway_warnings">Паказваць чыгуначныя пераезды</string>
-	<string name="speak_pedestrian">Папярэджваць пра пешаходныя пераходы</string>
+	<string name="speak_pedestrian">Пешаходныя пераходы</string>
     
 	<string name="save_track_to_gpx_globally_headline">Запіс сьледу па запатрабаваньні</string>
 	<string name="avoid_roads_msg">Вы можаце абраць іншы маршрут, пазначыўшы дарогі, якія варта пазьбягаць</string>
@@ -1966,7 +1966,7 @@
     <string name="storage_directory_multiuser">Агульнае сховішча</string>
     <string name="application_dir_change_warning3">Вы хочаце, каб OsmAnd таксама скапіяваў свае файлы дадзеных у новае месца прызначэньня?</string>
     <string name="rendering_attr_hideHouseNumbers_name">Схаваць нумары дамоў</string>
-    <string name="routing_attr_avoid_borders_name">Пазьбягаць перасячэньня мяжы</string>
+    <string name="routing_attr_avoid_borders_name">Пазьбягаць перасячэньне мяжы</string>
 	<string name="routing_attr_avoid_borders_description">Пазьбягаць перасячэньня мяжы іншай краіны</string>
 	<string name="routing_attr_height_name">Абмежаваньне па вышыні</string>
 	<string name="routing_attr_height_description">Пазначце вышыню транспартнага сродку для разьліку маршруту</string>
@@ -2066,7 +2066,7 @@
 	<string name="shared_string_skip">Прапусьціць</string>
 	<string name="plugin_settings">Модулі</string>
 	<string name="commit_poi">Укласьці POI</string>
-<string name="routing_attr_avoid_shuttle_train_name">Пазьбягаць трансфер-цягнікоў</string>
+<string name="routing_attr_avoid_shuttle_train_name">Пазьбягаць трансфер-цягнік</string>
 	<string name="routing_attr_avoid_shuttle_train_description">Пазьбягаць трансфер-цягнікоў</string>
     <string name="tab_title_basic">Асноўнае</string>
 	<string name="building_number">Нумар будынка</string>
@@ -2080,15 +2080,57 @@
 	<string name="add_opening_hours">Дадаць гадзіны працы</string>
 	<string name="poi_dialog_poi_type">Тып POI</string>
 	<string name="please_specify_poi_type">Калі ласка, пазначце тып POI.</string>
-<string name="av_locations_descr">Gpx-файл з мецазнаходжаньнем заўваг</string>
+<string name="av_locations_descr">GPX-файл зь мецазнаходжаньнем заўваг</string>
     <string name="av_locations">Месцазнаходжаньні</string>
     <string name="number_of_rows_in_dash">Колькасьць радкоў на галоўным экране %1$s</string>
 	<string name="tag_poi_amenity">грамадзкі аб\'ект</string>
 	<string name="poi_action_delete">выдаліць</string>
 	<string name="working_days">Працоўныя дні</string>
 	<string name="recent_places">Нядаўнія месцы</string>
-	<string name="favourites">Упадабанае</string>
+	<string name="favourites">Упадабаныя</string>
 <string name="saved_at_time">Пасьпяхова захаваны ў: %1$s</string>
 <string name="show_gpx">Паказаць GPX</string>
 <string name="poi_deleted_localy">POI будуць выдаленыя, як толькі вы загрузіце вашы зьмены</string>
-	</resources>
+	<string name="show_on_start">Паказваць пры запуску</string>
+	<string name="count_of_lines">Колькасьць радкоў</string>
+<string name="address_unknown">Адрас пакуль невядомы</string>
+    <string name="are_you_sure">Вы ўпэўненыя?</string>
+	<string name="unsaved_changes_will_be_lost">Усе незахаваныя зьмены будуць страчаны. Працягваць?</string>
+<string name="simulate_your_location_stop_descr">Спыніць эмуляцыю свайго становішча</string>
+    <string name="simulate_your_location_descr">Эмуляваць, выкарыстоўваючы запісаны GPX або разьлічаны маршрут</string>
+    <string name="downloads_left_template">%1$s сьцягваньняў засталося</string>
+<string name="shared_string_wikipedia">Вікіпэдыя</string>
+    <string name="roads">Дарогі</string>
+<string name="favourites_edit_dialog_title">Зьвесткі пра ўпадабанае</string>
+    <string name="favourites_context_menu_add">Дадаць упадабанае</string>
+	<string name="shared_string_trip_recording">Запіс падарожжа</string>
+    <string name="shared_string_navigation">Навігацыя</string>
+    <string name="osmand_running_in_background">Працуе ў фоне</string>
+    <string name="favorite_category_add_new">Дадаць новую</string>
+    <string name="favorite_category_select">Абраць катэгорыю</string>
+    <string name="default_speed_system_descr">Вызначыць сыстэму вымярэньня хуткасьці</string>
+    <string name="default_speed_system">Вымярэньне хуткасьці</string>
+    <string name="nm">м.мілі</string>
+    <string name="si_nm">Марскія мілі</string>
+    <string name="si_kmh">Кілямэтраў за гадзіну</string>
+    <string name="si_mph">Міляў за гадзіну</string>
+    <string name="si_m_s">Мэтраў за сэкунду</string>
+    <string name="si_min_km">Хвілін на кілямэтар</string>
+    <string name="si_min_m">Хвілін на мілю</string>
+    <string name="si_nm_h">Марскіх міль за гадзіну (вузлоў)</string>
+    <string name="nm_h">м.міль/г</string>
+    <string name="min_mile">хв/м</string>
+    <string name="min_km">хв/км</string>
+    <string name="m_s">м/с</string>
+    
+    <string name="srtm_plugin_disabled">Ізалініі вышынь адключаны</string>
+    <string name="downloading_number_of_files">Сьцягваецца - %1$d файл</string>
+    <string name="show_free_version_banner_description">Нават калі вы маеце платную вэрсію вы можаце ўбачыць банэр бясплатнай вэрсіі</string>
+<string name="show_free_version_banner">Паказваць банэр бясплатнай вэрсіі</string>
+    <string name="buy">НАБЫЦЬ</string>
+    <string name="later">Пазьней</string>
+    <string name="get_full_version">Атрымаць паўнавартасную вэрсію</string>
+<string name="hillshade_layer_disabled">Зацяненьне рэльефу адключана</string>
+    <string name="activate_srtm_plugin">Калі ласка, актывуйце модуль SRTM</string>
+    <string name="activate_seamarks_plugin">Калі ласка, актывуйце модуль Навігацыйныя знакі</string>
+    </resources>

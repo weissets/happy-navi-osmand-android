@@ -1,6 +1,10 @@
 package net.osmand.util;
 
 
+import net.osmand.PlatformUtil;
+
+import org.apache.commons.logging.Log;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.EOFException;
@@ -11,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,10 +22,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import net.osmand.PlatformUtil;
-
-import org.apache.commons.logging.Log;
 
 
 /**
@@ -35,7 +34,19 @@ public class Algorithms {
 	public static boolean isEmpty(String s){
 		return s == null || s.length() == 0;
 	}
-	
+
+	public static boolean stringsEqual(String s1, String s2) {
+		if (s1 == null && s2 == null) {
+			return true;
+		} else if (s1 == null) {
+			return false;
+		} else if (s2 == null) {
+			return false;
+		} else {
+			return s2.equals(s1);
+		}
+	}
+
 	public static long parseLongSilently(String input, long def) {
 		if(input != null && input.length() > 0) {
 			try {
@@ -208,6 +219,13 @@ public class Algorithms {
     	public static int parseColor(String colorString) {
         	if (colorString.charAt(0) == '#') {
             	// Use a long to avoid rollovers on #ffXXXXXX
+        		if (colorString.length() == 4) {
+            		colorString = "#" + 
+            				colorString.charAt(1) + colorString.charAt(1) +
+            				colorString.charAt(2) + colorString.charAt(2) +
+            				colorString.charAt(3) + colorString.charAt(3);
+            				
+            	}
             	long color = Long.parseLong(colorString.substring(1), 16);
             	if (colorString.length() == 7) {
 	                // Set the alpha value
@@ -490,6 +508,21 @@ public class Algorithms {
 			}
 			int hours = minutes / 60;
 			return hours + ":" + min + ":" + sec;
+		}
+	}
+
+	public static String formatMinutesDuration(int minutes) {
+		if (minutes < 60) {
+			return String.valueOf(minutes);
+		} else {
+			String min;
+			if (minutes % 60 < 10) {
+				min = "0" + (minutes % 60);
+			} else {
+				min = (minutes % 60) + "";
+			}
+			int hours = minutes / 60;
+			return hours + ":" + min;
 		}
 	}
 	

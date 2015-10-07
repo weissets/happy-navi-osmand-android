@@ -891,15 +891,15 @@
 	<string name="poi_tree">Arbre</string>
 	<string name="poi_highway_crossing">Pas de vianants</string>
 
-	<string name="poi_icn_ref">Xarxa de nodes d\'una ruta ciclista internacional</string>
-	<string name="poi_ncn_ref">Xarxa de nodes d\'una ruta ciclista nacional</string>
-	<string name="poi_rcn_ref">Xarxa de nodes d\'una ruta ciclista regional</string>
-	<string name="poi_lcn_ref">Xarxa de nodes d\'una ruta ciclista local</string>
+	<string name="poi_icn_ref">Xarxa internacional de rutes ciclistes</string>
+	<string name="poi_ncn_ref">Node de la xarxa ciclista nacional</string>
+	<string name="poi_rcn_ref">Node de la xarxa ciclista regional</string>
+	<string name="poi_lcn_ref">Node de la xarxa ciclista local</string>
 
-	<string name="poi_iwn_ref">Xarxa de nodes d\'una ruta senderista internacional</string>
-	<string name="poi_nwn_ref">Xarxa de nodes d\'una ruta senderista nacional</string>
-	<string name="poi_rwn_ref">Xarxa de nodes d\'una ruta senderista regional</string>
-	<string name="poi_lwn_ref">Xarxa de nodes d\'una ruta senderista local</string>
+	<string name="poi_iwn_ref">Node de la xarxa de senderisme internacional</string>
+	<string name="poi_nwn_ref">Node de la xarxa senderista nacional</string>
+	<string name="poi_rwn_ref">Node de la xarxa senderista regional</string>
+	<string name="poi_lwn_ref">Node de la xarxa senderista local</string>
 
 	<string name="poi_opening_hours">Horari de servei</string>
 	<string name="poi_collection_times">Horari de recollida</string>
@@ -915,11 +915,11 @@
 	<string name="poi_operator">Operador</string>
 	<string name="poi_brand">Marca</string>
 
-	<string name="poi_enforcement_traffic_signals">Control de tràfic: obeir el semàfor</string>
+	<string name="poi_enforcement_traffic_signals">Control de tràfic: semàfor</string>
 	<string name="poi_enforcement_maxspeed">Control de trànsit: velocitat màxima</string>
 	<string name="poi_enforcement_maxheight">Control de trànsit: alçada màxima</string>
 	<string name="poi_enforcement_mindistance">Control de trànsit: distància mínima</string>
-	<string name="poi_enforcement_check">Control de trànsit</string>
+	<string name="poi_enforcement_check">Control de trànsit: control</string>
 	<string name="poi_enforcement_access">Control de trànsit: accés</string>
 	<string name="poi_enforcement_toll">Control de trànsit: peatge</string>
 
@@ -961,8 +961,8 @@
 	<string name="poi_animal_shelter_dog_cat">Refugi per a gossos i gats</string>
 	<string name="poi_animal_shelter_bird">Refugi per a ocells</string>
 
-<string name="poi_recycling_centre">Deixalleria</string>
-	<string name="poi_recycling_container">Contenidor</string>
+<string name="poi_recycling_centre">Tipus: deixalleria</string>
+	<string name="poi_recycling_container">Tipus: contenidor</string>
 	<string name="poi_recycling_glass">Vidre</string>
 	<string name="poi_recycling_paper">Paper</string>
 	<string name="poi_recycling_clothes">Roba</string>
@@ -1017,8 +1017,8 @@
 	<string name="poi_recycling_bicycles">Bicicletes</string>
 
 	<string name="poi_shower">Dutxa</string>
-	<string name="poi_drinking_water_yes">Aigua potable</string>
-	<string name="poi_drinking_water_no">Aigua no potable</string>
+	<string name="poi_drinking_water_yes">Aigua potable: sí</string>
+	<string name="poi_drinking_water_no">Aigua potable: no</string>
 	<string name="poi_seasonal_yes">De temporada</string>
 	<string name="poi_seasonal_no">Tot l\'any</string>
 	<string name="poi_seasonal_dry_season">Estació seca</string>
@@ -1040,7 +1040,7 @@
 	<string name="poi_recycling_diapers">Bolquers</string>
 	<string name="poi_supervised_yes">Supervisat</string>
 	<string name="poi_supervised_no">No supervisat</string>
-	<string name="poi_crossing_traffic_signals">Encreuament senyalitzat</string>
+	<string name="poi_crossing_traffic_signals">Amb llums de parada</string>
 	<string name="poi_crossing_uncontrolled">Encreuament no controlat</string>
 	<string name="poi_crossing_unmarked">Encreuament no senyalitzat</string>
 
@@ -1050,7 +1050,7 @@
 	<string name="poi_mill_pond">Bassa del molí</string>
 	<string name="poi_twitter">Twitter</string>
 	<string name="poi_skype">Skype</string>
-	<string name="poi_youtube">Youtube</string>
+	<string name="poi_youtube">YouTube</string>
 	<string name="poi_instagram">Instagram</string>
 	<string name="poi_vk">VKontakte</string>
 	<string name="poi_google_plus">Google+</string>
@@ -1093,7 +1093,7 @@
 	<string name="poi_denomination_pentecostal">Pentecostal</string>
 	<string name="poi_denomination_mormon">Mormó</string>
 	<string name="poi_denomination_jehovahs_witness">Testimonis de Jehovà</string>
-	<string name="poi_denomination_greek_orthodox">Ortodox grec</string>
+	<string name="poi_denomination_greek_orthodox">Ortodoxa grega</string>
 	<string name="poi_denomination_reformed">Calvinisme</string>
 	<string name="poi_denomination_seventh_day_adventist">Adventisme del setè dia</string>
 	<string name="poi_denomination_new_apostolic">Nova apostòlica</string>
@@ -1170,5 +1170,147 @@
 	<string name="poi_ele">Alçada sobre el nivell del mar</string>
 	<string name="poi_wholesale">Venda majorista</string>
 
-	<string name="poi_content_water">Aigua (contingut)</string>
+	<string name="poi_content_water">Contingut: aigua</string>
+	<string name="poi_doors">Portes</string>
+	<string name="poi_ford_stepping_stones">Pas sobre pedres</string>
+	<string name="poi_lighting_tower">Torre d\'il·luminació</string>
+	<string name="poi_greenfield">Zona de desenvolupament urbà</string>
+	<string name="poi_content_wine">Contingut: vi</string>
+	<string name="poi_content_sewage">Contingut: aigües residuals</string>
+	<string name="poi_description_payment">Descripció de pagament</string>
+
+	<string name="poi_payment_gift_card_yes">S\'accepta targes de regal</string>
+	<string name="poi_payment_gift_card_no">No s\'accepta targes de regal</string>
+	<string name="poi_paediatrics">Pediatria</string>
+
+	<string name="poi_internet_access_yes">Accés a Internet: sí</string>
+	<string name="poi_internet_access_no">Accés a Internet: no</string>
+
+	<string name="poi_wheelchair_no">Cadira de rodes: no permesa</string>
+	<string name="poi_wheelchair_limited">Cadira de rodes: restringida</string>
+	<string name="poi_content_fuel">Contingut: carburant</string>
+	<string name="poi_content_gas">Contingut: gas</string>
+	<string name="poi_content_biomass">Contingut: biomassa</string>
+	<string name="poi_content_wastewater">Contingut: aigües residuals</string>
+	<string name="poi_content_beer">Contingut: cervesa</string>
+	<string name="poi_content_salt">Contingut: sal</string>
+	<string name="poi_content_grain">Contingut: gra</string>
+
+	<string name="poi_nudism_yes">Nudisme: permès</string>
+	<string name="poi_nudism_no">Nudisme: prohibit</string>
+	<string name="poi_nudism_obligatory">Nudisme: obligatori</string>
+	<string name="poi_population">Població</string>
+	<string name="poi_bicycle_parking_building">Edifici especial</string>
+	<string name="poi_bicycle_parking_bollard">Pilona</string>
+	<string name="poi_bicycle_parking_informal">Informal</string>
+
+	<string name="poi_inscription">Inscripció</string>
+
+<string name="poi_memorial_obelisk">Obelisc</string>
+
+	<string name="poi_memorial_vehicle">Vehicle</string>
+	<string name="poi_memorial_stone">Roc</string>
+	<string name="poi_memorial_statue">Estàtua</string>
+	<string name="poi_memorial_bust">Bust</string>
+	<string name="poi_memorial_cross">Creu</string>
+	<string name="poi_memorial_plaque">Placa</string>
+	<string name="poi_memorial_war">Memorial de guerra</string>
+	<string name="poi_vending_bread">Pa</string>
+	<string name="poi_vending_chewing_gums">Xiclets</string>
+	<string name="poi_vending_parking_tickets_public_transport_tickets">Tiquets d\'aparcament; bitllets de transport públic</string>
+	<string name="poi_vending_coffee">Cafè</string>
+	<string name="poi_vending_tickets">Venda de tiquets</string>
+	<string name="poi_vending_water">Venda d\'aigua</string>
+	<string name="poi_bunker_silo">Sitja búnquer</string>
+	<string name="poi_vending_dvd">DVD</string>
+	<string name="poi_vending_candles">Espelmes</string>
+	<string name="poi_vending_toys">Joguines</string>
+	<string name="poi_vending_ice_cream">Gelat</string>
+	<string name="poi_vending_sim_cards">Targes SIM</string>
+
+	<string name="poi_nudism_customary">Nudisme: habitual</string>
+	<string name="poi_nudism_permissive">Nudisme: permissiu</string>
+
+	<string name="poi_parking_underground">Subterrani</string>
+	<string name="poi_bicycle_parking_anchors">Ancoratges</string>
+	<string name="poi_leaf_type_leafless">Sense fulles</string>
+	<string name="poi_species">Espècies</string>
+	<string name="poi_genus">Gènere</string>
+	<string name="poi_trees_olive">Olivera</string>
+	<string name="poi_trees_apple">Pomer</string>
+	<string name="poi_trees_orange">Taronger</string>
+	<string name="poi_trees_almond">Ametller</string>
+	<string name="poi_trees_banana">Bananer</string>
+	<string name="poi_trees_hazel">Avellaner</string>
+	<string name="poi_trees_coconut">Cocoter</string>
+	<string name="poi_trees_cherry">Cirerer</string>
+	<string name="poi_trees_walnut">Noguera</string>
+	<string name="poi_trees_plum">Pruner</string>
+	<string name="poi_trees_peach">Presseguer</string>
+	<string name="poi_trees_tea">Te</string>
+	<string name="poi_trees_pomegranate">Magraner</string>
+
+	<string name="poi_urban">Urbà</string>
+	<string name="poi_rural">Rural</string>
+
+	<string name="poi_int_name">Nom internacional</string>
+	<string name="poi_nat_name">Nom nacional</string>
+	<string name="poi_reg_name">Nom regional</string>
+	<string name="poi_loc_name">Nom local</string>
+	<string name="poi_old_name">Nom antic</string>
+	<string name="poi_alt_name">Nom alternatiu</string>
+
+	<string name="poi_pump_manual">Bomba manual</string>
+	<string name="poi_pump_powered">Bomba motoritzada</string>
+	<string name="poi_pump_no">Sense bomba</string>
+	<string name="poi_pump">Bomba</string>
+
+	<string name="poi_water_characteristic_mineral">Característica de l\'aigua: mineral</string>
+	<string name="poi_water_characteristic_mud">Característica de l\'aigua: argilosa</string>
+	<string name="poi_water_characteristic_sulfuric">Característica de l\'aigua: sulfúrica</string>
+
+	<string name="poi_cuisine">Cuina</string>
+
+	<string name="poi_information_board">Panell d\'informació</string>
+	<string name="poi_information_map">Mapa</string>
+	<string name="poi_information_office">Oficina d\'informació</string>
+	<string name="poi_information_terminal">Terminal d\'informació</string>
+	<string name="poi_information_route_marker">Marcador de ruta</string>
+	<string name="poi_information_hikingmap">Mapa de senderisme</string>
+	<string name="poi_information_audioguide">Audioguia</string>
+	<string name="poi_information_bicyclemap">Mapa ciclista</string>
+	<string name="poi_information_tactile_model">Model tàctil</string>
+	<string name="poi_information_tactile_map">Mapa tàctil</string>
+	<string name="poi_board_type_notice">Tauler d\'anuncis</string>
+	<string name="poi_vending_drinks_sweets">Begudes i dolços</string>
+	<string name="poi_vending_animal_food">Menjar per animals</string>
+	<string name="poi_resource_uranium">Urani</string>
+	<string name="poi_resource_vanadium">Vanadi</string>
+	<string name="poi_resource_water">Aigua</string>
+	<string name="poi_resource_zinc">Zinc</string>
+	<string name="poi_resource_zircon">Zircó</string>
+
+<string name="poi_resource_iron_ore">Mena de ferro</string>
+	<string name="poi_resource_lead">Plom</string>
+	<string name="poi_resource_lignite">Lignit</string>
+	<string name="poi_resource_limestone">Pedra calcària</string>
+	<string name="poi_resource_marble">Marbre</string>
+	<string name="poi_resource_mercury">Mercuri</string>
+	<string name="poi_resource_mica">Mica</string>
+	<string name="poi_resource_nickel">Níquel</string>
+	<string name="poi_resource_opal">Òpal</string>
+	<string name="poi_resource_peat">Torba</string>
+	<string name="poi_resource_platinum">Platí</string>
+	<string name="poi_resource_radium">Radi</string>
+	<string name="poi_resource_ruby">Robí</string>
+	<string name="poi_resource_rutile">Rútil</string>
+	<string name="poi_resource_salt">Sal</string>
+	<string name="poi_resource_sand">Sorra</string>
+	<string name="poi_resource_sandstone">Gres</string>
+	<string name="poi_resource_silica">Sílice</string>
+	<string name="poi_resource_silver">Plata</string>
+	<string name="poi_resource_slate">Pissarra</string>
+	<string name="poi_resource_stone">Pedra</string>
+	<string name="poi_resource_tin">Estany</string>
+	<string name="poi_resource_tuff">Tuf</string>
 	</resources>

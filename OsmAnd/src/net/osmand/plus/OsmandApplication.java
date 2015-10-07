@@ -89,13 +89,15 @@ public class OsmandApplication extends Application {
 	CommandPlayer player;
 	GpxSelectionHelper selectedGpxHelper;
 	SavingTrackHelper savingTrackHelper;
+	NotificationHelper notificationHelper;
 	LiveMonitoringHelper liveMonitoringHelper;
 	TargetPointsHelper targetPointsHelper;
 	WaypointHelper waypointHelper;
 	AvoidSpecificRoads avoidSpecificRoads;
 	BRouterServiceConnection bRouterServiceConnection;
 	OsmandRegions regions;
-	
+	WorldRegion worldRegion;
+
 
 	RoutingConfiguration.Builder defaultRoutingConfig;
 	private Locale preferredLocale = null;
@@ -165,7 +167,7 @@ public class OsmandApplication extends Application {
 	public IconsCache getIconsCache() {
 		return iconsCache;
 	}
-
+	
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
@@ -175,6 +177,7 @@ public class OsmandApplication extends Application {
         if(DashRateUsFragment.shouldShow(osmandSettings)) {
             osmandSettings.RATE_US_STATE.set(DashRateUsFragment.RateUsState.IGNORED);
         }
+        getNotificationHelper().removeServiceNotification();
 	}
 
 	public RendererRegistry getRendererRegistry() {
@@ -217,6 +220,10 @@ public class OsmandApplication extends Application {
 
 	public SavingTrackHelper getSavingTrackHelper() {
 		return savingTrackHelper;
+	}
+	
+	public NotificationHelper getNotificationHelper() {
+		return notificationHelper;
 	}
 
 	public LiveMonitoringHelper getLiveMonitoringHelper() {
@@ -647,7 +654,10 @@ public class OsmandApplication extends Application {
 	public OsmandRegions getRegions() {
 		return regions;
 	}
-	
+	public WorldRegion getWorldRegion() {
+		return worldRegion;
+	}
+
 	public boolean accessibilityExtensions() {
 		return (Build.VERSION.SDK_INT < 14) ? getSettings().ACCESSIBILITY_EXTENSIONS.get() : false;
 	}
@@ -699,7 +709,8 @@ public class OsmandApplication extends Application {
 			//TODO: fallback to custom USED_BY_GPX interval in case all other sleep mode purposes have been stopped
 			getSettings().SERVICE_OFF_INTERVAL.set(0);
 			getNavigationService().addUsageIntent(intent);
-		}		
+			getNotificationHelper().showNotification();
+		}	
 	}
 
 

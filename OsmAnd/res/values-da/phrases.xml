@@ -5,7 +5,7 @@
         <string name="poi_convenience">Nærbutik</string>
         <string name="poi_mall">Butikscenter</string>
         <string name="poi_beverages">Drikkevarer</string>
-        <string name="poi_butcher">Kødmarked</string>
+        <string name="poi_butcher">Slagter</string>
         <string name="poi_deli">Delikatesse</string>
         <string name="poi_farm">Gårdbutik</string>
         <string name="poi_greengrocer">Grønthandler</string>
@@ -117,7 +117,7 @@
         <string name="poi_traffic_calming_rumble_strip">Rumlestriber</string>
         <string name="poi_traffic_calming_table">Plateau bumb</string>
         <string name="poi_traffic_calming_choker">Indsnævring</string>
-        <string name="poi_traffic_signals">Trafiklys</string>
+        <string name="poi_traffic_signals">Lyskryds</string>
 
         <string name="poi_car_repair">Autoværksted</string>
         <string name="poi_service_tyres">Dækservice</string>
@@ -201,7 +201,7 @@
         <string name="poi_communication_tower">Kommunikationstårn</string>
         <string name="poi_telephone_exchange">Telefoncentral</string>
 
-        <string name="poi_recycling">Genbrugsplads</string>
+        <string name="poi_recycling">Genbrug</string>
         <string name="poi_landfill">Losseplads</string>
         <string name="poi_waste_disposal">Affaldsbortskaffelse</string>
         <string name="poi_waste_basket">Skraldespand</string>
@@ -262,7 +262,7 @@
         <string name="poi_research">Forskning</string>
         <string name="poi_it">IT kontor</string>
         <string name="poi_newspaper">Avisredaktion</string>
-        <string name="poi_architect">Arkitekt</string>
+        <string name="poi_architect">Arkitektkontor</string>
         <string name="poi_advertising_agency">Reklamebureau</string>
         <string name="poi_educational_institution">Uddannelsesinstitution</string>
         <string name="poi_studio">Lydstudio</string>
@@ -672,8 +672,8 @@
 	<string name="poi_child_clothes">Børnetøj</string>
 	<string name="poi_apartment">Lejlighed</string>
 
-	<string name="poi_public_transport_stop_position">Offentlig transport stopposition</string>
-	<string name="poi_halt">Jernbane stop</string>
+	<string name="poi_public_transport_stop_position">Offentlig transport stoppested</string>
+	<string name="poi_halt">Trinbræt</string>
 	<string name="poi_lodging">Logi</string>
 	<string name="poi_internet_access_wlan">Internetadgang: wlan</string>
 	<string name="poi_internet_access_terminal">Internetadgang: terminal</string>
@@ -931,13 +931,13 @@
 	<string name="poi_service_times">Service-tider</string>
 	<string name="poi_brand">Varemærke</string>
 
-	<string name="poi_enforcement_traffic_signals">Trafiksignaler</string>
-	<string name="poi_enforcement_maxspeed">Hastighedskontrol</string>
-	<string name="poi_enforcement_maxheight">Højdekontrol</string>
-	<string name="poi_enforcement_mindistance">Afstandskontrol</string>
-	<string name="poi_enforcement_check">Trafikontrol</string>
-	<string name="poi_enforcement_access">Adgangskontrol</string>
-	<string name="poi_enforcement_toll">Vejafgiftskontrol</string>
+	<string name="poi_enforcement_traffic_signals">Kontrol: stoplys</string>
+	<string name="poi_enforcement_maxspeed">Kontrol: max. hastighed</string>
+	<string name="poi_enforcement_maxheight">Kontrol: max. højde</string>
+	<string name="poi_enforcement_mindistance">Kontrol: min. afstand</string>
+	<string name="poi_enforcement_check">Kontrol: tjek</string>
+	<string name="poi_enforcement_access">Kontrol: adgang</string>
+	<string name="poi_enforcement_toll">Kontrol: vejafgift</string>
 
 <string name="poi_country">Landlig</string>
 	<string name="poi_fee_yes">Gebyr</string>
@@ -955,8 +955,8 @@
 	<string name="poi_access_private">Adgang privat</string>
 	<string name="poi_access_no">Ingen adgang</string>
 	<string name="poi_access_destination">Adgang destination</string>
-	<string name="poi_access_permissive">Adgang tolerant</string>
-	<string name="poi_access_customers">Adgang for kunde</string>
+	<string name="poi_access_permissive">Adgang med tilladelse</string>
+	<string name="poi_access_customers">Kundenadgang</string>
 	<string name="poi_access_delivery">Adgang for levering</string>
 	<string name="poi_access_agricultural">Adgang for landbrug</string>
 
@@ -974,8 +974,8 @@
 	<string name="poi_animal_shelter_bird">Fugleinternat</string>
 
 <string name="poi_shower">Bruser</string>
-	<string name="poi_recycling_centre">Centrum</string>
-	<string name="poi_recycling_container">Container</string>
+	<string name="poi_recycling_centre">Type: genbrugsplads</string>
+	<string name="poi_recycling_container">Type: container</string>
 	<string name="poi_recycling_glass">Glas</string>
 	<string name="poi_recycling_paper">Papir</string>
 	<string name="poi_recycling_clothes">Tøj</string>
@@ -1042,8 +1042,8 @@
 	<string name="poi_recycling_cars">Biler</string>
 	<string name="poi_recycling_bicycles">Cykler</string>
 
-	<string name="poi_drinking_water_yes">Drikkevand</string>
-	<string name="poi_drinking_water_no">Ikke drikkevand</string>
+	<string name="poi_drinking_water_yes">Drikkevand: ja</string>
+	<string name="poi_drinking_water_no">Drikkevand: nej</string>
 	<string name="poi_supervised_yes">Overvåget</string>
 	<string name="poi_supervised_no">Ikke overvåget</string>
 	<string name="poi_seasonal_yes">Sæsonbestemt</string>
@@ -1055,14 +1055,14 @@
 	<string name="poi_seasonal_autumn">Efterår</string>
 	<string name="poi_seasonal_winter">Vinter</string>
 
-	<string name="poi_crossing_traffic_signals">Med trafiksignaler</string>
+	<string name="poi_crossing_traffic_signals">Med stoplys</string>
 	<string name="poi_crossing_uncontrolled">Ikke kontrolleret</string>
 	<string name="poi_crossing_unmarked">Ikke markeret</string>
 
 	<string name="poi_mill_pond">Mølledam</string>
 	<string name="poi_twitter">Twitter</string>
 	<string name="poi_skype">Skype</string>
-	<string name="poi_youtube">Youtube</string>
+	<string name="poi_youtube">YouTube</string>
 	<string name="poi_instagram">Instagram</string>
 	<string name="poi_vk">VKontakte</string>
 	<string name="poi_google_plus">Google+</string>
@@ -1155,22 +1155,22 @@
 	<string name="poi_start_date">Startdato</string>
 	<string name="poi_wheelchair">Kørestol</string>
 
-	<string name="poi_content_silage">Ensilage (indhold)</string>
-	<string name="poi_content_water">Vand (indhold)</string>
-	<string name="poi_content_slurry">Gylle (indhold)</string>
-	<string name="poi_content_oil">Olie (indhold)</string>
-	<string name="poi_content_fuel">Brændstof (indhold)</string>
-	<string name="poi_content_manure">Gødning (indhold)</string>
-	<string name="poi_content_wine">Vin (indhold)</string>
-	<string name="poi_content_sewage">Spildevand (indhold)</string>
-	<string name="poi_content_gas">Gas (indhold)</string>
-	<string name="poi_content_biomass">Biomasse (indhold)</string>
-	<string name="poi_content_wastewater">Afløbsvand (indhold)</string>
-	<string name="poi_content_crop">Afgrøde (indhold)</string>
-	<string name="poi_content_fodder">Foder (indhold)</string>
-	<string name="poi_content_beer">Øl (indhold)</string>
-	<string name="poi_content_salt">Salt (indhold)</string>
-	<string name="poi_content_grain">Korn (indhold)</string>
+	<string name="poi_content_silage">Indhold: ensilage</string>
+	<string name="poi_content_water">Indhold: vand</string>
+	<string name="poi_content_slurry">Indhold: gylle</string>
+	<string name="poi_content_oil">Indhold: olie</string>
+	<string name="poi_content_fuel">Indhold: brændstof</string>
+	<string name="poi_content_manure">Indhold: gødning</string>
+	<string name="poi_content_wine">Indhold: vin</string>
+	<string name="poi_content_sewage">Indhold: spildevand</string>
+	<string name="poi_content_gas">Indhold: gas</string>
+	<string name="poi_content_biomass">Indhold: biomasse</string>
+	<string name="poi_content_wastewater">Indhold: afløbsvand</string>
+	<string name="poi_content_crop">Indhold: afgrøde</string>
+	<string name="poi_content_fodder">Indhold: foder</string>
+	<string name="poi_content_beer">Indhold: øl</string>
+	<string name="poi_content_salt">Indhold: salt</string>
+	<string name="poi_content_grain">Indhold: korn</string>
 
 	<string name="poi_bunker_silo">Plansilo</string>
 	<string name="poi_brownfield">Nedlagt industrigrund</string>
@@ -1179,9 +1179,9 @@
 
 	<string name="poi_trade_building_supplies">Byggematerialer</string>
 	<string name="poi_trade_plumbing">VVS materialer</string>
-	<string name="poi_trade_wood">Træmaterialer</string>
-	<string name="poi_trade_agricultural_supplies">Landbrugsmaterialer</string>
-	<string name="poi_trade_tile">Flisematerialer</string>
+	<string name="poi_trade_wood">Tømmer</string>
+	<string name="poi_trade_agricultural_supplies">Grovvarer</string>
+	<string name="poi_trade_tile">Fliser</string>
 
 	<string name="poi_population">Befolkning</string>
 
@@ -1229,7 +1229,7 @@
 	<string name="poi_nudism_no">Naturisme: forbudt</string>
 	<string name="poi_nudism_obligatory">Naturisme: obligatorisk</string>
 	<string name="poi_nudism_customary">Naturisme: sædvane</string>
-	<string name="poi_nudism_permissive">Naturisme: liberalt</string>
+	<string name="poi_nudism_permissive">Naturisme: med tilladelse</string>
 
 	<string name="poi_height">Højde</string>
 	<string name="poi_ele">Højde over havoverfladen</string>
@@ -1256,7 +1256,7 @@
 
 <string name="poi_aerialway_pylon">Svævebanepylon</string>
 
-	<string name="poi_power_tower">Soltårn</string>
+	<string name="poi_power_tower">Højspændingsmast</string>
 	<string name="poi_power_pole">Elmast</string>
 
 	<string name="poi_lighting_tower">Lysmast</string>
@@ -1271,7 +1271,7 @@
 	<string name="poi_alt_name">Alternativt navn</string>
 
 	<string name="poi_pump_manual">Manuel pumpe</string>
-	<string name="poi_pump_powered">Automatisk pumpe</string>
+	<string name="poi_pump_powered">Motordrevet pumpe</string>
 	<string name="poi_pump_no">Ingen pumpe</string>
 
 	<string name="poi_water_characteristic_mineral">Vandkarakteristisk: mineralsk</string>
@@ -1286,27 +1286,604 @@
 
 	<string name="poi_cuisine">Køkken</string>
 
-<string name="poi_information_guidepost">Vejsklt</string>
+<string name="poi_information_guidepost">Vejvisning</string>
 	<string name="poi_information_board">Informationstavle</string>
 	<string name="poi_information_map">Kort</string>
 	<string name="poi_information_office">Informationskontor</string>
 	<string name="poi_information_terminal">Informationsstander</string>
-	<string name="poi_information_route_marker">Rutemarkør</string>
-	<string name="poi_information_hikingmap">Vandreturskort</string>
-	<string name="poi_information_nature">Information om natur</string>
-	<string name="poi_information_wildlife">Information om vildtliv</string>
-	<string name="poi_information_history">Information om historie</string>
+	<string name="poi_information_route_marker">Ruteskilte</string>
+	<string name="poi_information_hikingmap">Vandrekort</string>
+	<string name="poi_information_nature">Informationsmarkør: natur</string>
+	<string name="poi_information_wildlife">Informationsmarkør: dyreliv</string>
+	<string name="poi_information_history">Informationsmarkør: historie</string>
 	<string name="poi_information_sign">Skilt</string>
 	<string name="poi_information_audioguide">Audioguide</string>
 	<string name="poi_information_bicyclemap">Cykelkort</string>
 	<string name="poi_information_tactile_model">Taktilmodel</string>
 	<string name="poi_information_tactile_map">Taktilkort</string>
-	<string name="poi_board_type_plants">Information om planter</string>
-	<string name="poi_board_type_geology">Information om geologi</string>
-	<string name="poi_board_type_public_transport">Information om offentlig transport</string>
-	<string name="poi_board_type_technology">Information om teknologi</string>
-	<string name="poi_board_type_astronomy">Information om astronomi</string>
+	<string name="poi_board_type_plants">Informationsmarkør: planter</string>
+	<string name="poi_board_type_geology">Informationsmarkør: geologi</string>
+	<string name="poi_board_type_public_transport">Informationsmarkør: offentlig transport</string>
+	<string name="poi_board_type_technology">Informationsmarkør: teknologi</string>
+	<string name="poi_board_type_astronomy">Informationsmarkør: astronomi</string>
 
-<string name="poi_information_trail_blaze">Ruteskilte</string>
-	<string name="poi_board_type_notice">Tavle med advarsel</string>
-	</resources>
+<string name="poi_information_trail_blaze">Stiafmærkning</string>
+	<string name="poi_board_type_notice">Opslagstavle</string>
+	<string name="poi_commercial">Forretningsområde</string>
+	<string name="poi_retail">Detailhandelsområde</string>
+
+	<string name="poi_fireplace_yes">Ildsted</string>
+	<string name="poi_fireplace_no">Intet ildsted</string>
+
+	<string name="poi_covered_yes">Overdækket</string>
+	<string name="poi_covered_no">Ikke overdækket</string>
+
+	<string name="poi_smoking_no">Rygning forbudt</string>
+	<string name="poi_smoking_outside">Rygning er kun tilladt udendørs</string>
+	<string name="poi_smoking_yes">Rygning tilladt</string>
+	<string name="poi_smoking_separated">Rygning tilladt i et adskilt lokale</string>
+	<string name="poi_smoking_isolated">Rygning tilladt i et isoleret rum</string>
+	<string name="poi_smoking_dedicated">Dedikeret til rygere</string>
+
+	<string name="poi_toll_no">Ingen vejafgift</string>
+	<string name="poi_toll_yes">Vejafgift</string>
+	<string name="poi_tactile_paving_yes">Med taktilbelægning</string>
+	<string name="poi_tactile_paving_no">Uden taktilbelægning</string>
+	<string name="poi_traffic_signals_sound_yes">Med lydsignal</string>
+	<string name="poi_traffic_signals_sound_no">Uden lydsignal</string>
+	<string name="poi_traffic_signals_sound_walk">Med lydsignal når det er tilladt at gå</string>
+
+<string name="poi_ford_stepping_stones">Trædestensbro</string>
+	<string name="poi_toll_hgv_yes">HGV vejafgift</string>
+	<string name="poi_rescue_station">Redningsstation</string>
+
+<string name="poi_bicycle_parking_anchors">Ankre</string>
+	<string name="poi_services">Serviceområde</string>
+
+<string name="poi_doors">Døre</string>
+	<string name="poi_paediatrics">Pædiatri</string>
+
+	<string name="poi_mini_roundabout">Mini-rundkørsel</string>
+	<string name="poi_railway_crossing">Jernbaneoverskæring</string>
+	<string name="poi_railway_level_crossing">Jernbaneoverskæring</string>
+	<string name="poi_bird_hide">Fugletårn</string>
+	<string name="poi_horse_riding">Ridning</string>
+	<string name="poi_garden">Have</string>
+
+	<string name="poi_heath">Hede</string>
+	<string name="poi_grass">Græs</string>
+	<string name="poi_grassland">Græsslette</string>
+	<string name="poi_scrub">Krat</string>
+	<string name="poi_farmland">Landbrugsjord</string>
+	<string name="poi_logging">Tømmerhugst</string>
+	<string name="poi_sand">Sand</string>
+
+	<string name="poi_windfall">Stormfald</string>
+	<string name="poi_dead_wood">Dødt træ</string>
+
+	<string name="poi_passing_place">Vigeplads</string>
+
+<string name="poi_leisure_common">Fælles rekreativt område</string>
+	<string name="poi_level">Niveau</string>
+
+<string name="poi_rtsa_scale">RTSA skala</string>
+
+<string name="poi_pump">Pumpe</string>
+
+	<string name="poi_piste_difficulty_easy">Pistesværhedsgrad: let</string>
+	<string name="poi_piste_difficulty_intermediate">Pistesværhedsgrad: medium</string>
+	<string name="poi_piste_difficulty_advanced">Pistesværhedsgrad: avanceret</string>
+	<string name="poi_piste_difficulty_novice">Pistesværhedsgrad: nybegynder</string>
+	<string name="poi_piste_difficulty_expert">Pistesværhedsgrad: ekspert</string>
+	<string name="poi_piste_difficulty_freeride">Pistesværhedsgrad: freeride</string>
+	<string name="poi_piste_grooming_classic">Pistepreparering: klassisk</string>
+	<string name="poi_piste_grooming_classic_skating">Pistepreparering: klassisk+skating</string>
+	<string name="poi_piste_grooming_backcountry">Pistepreparering: offpiste</string>
+	<string name="poi_piste_grooming_scooter">Pistepreparering: snescooter</string>
+	<string name="poi_piste_grooming_skating">Pistepreparering: skating</string>
+	<string name="poi_piste_grooming_no">Pistepreparering: nej</string>
+	<string name="poi_piste_grooming_mogul">Pistepreparering: pukkelpist</string>
+
+<string name="poi_garden_type_residential">Havetype: beboelse</string>
+	<string name="poi_garden_type_community">Havetype: fælles</string>
+	<string name="poi_garden_type_private">Havetype: privat</string>
+	<string name="poi_garden_type_botanical">Havetype: botanisk</string>
+
+	<string name="poi_garden_style_french">Havestil: Fransk</string>
+	<string name="poi_garden_style_english">Havestil: Eengelsk</string>
+	<string name="poi_garden_style_japanese">Havestil: Japansk</string>
+
+<string name="poi_garden_style_kitchen">Havestil: køkken</string>
+	<string name="poi_garden_style_rosarium">Havestil: rosen</string>
+	<string name="poi_capacity">Kapacitet</string>
+	<string name="poi_capacity_disabled_yes">Pladser forbeholdt handicappede</string>
+	<string name="poi_capacity_disabled_no">Ingen pladser forbeholdt handicappede</string>
+	<string name="poi_capacity_disabled">Pladser forbeholdt handicappede</string>
+	<string name="poi_capacity_women_yes">Pladser forbeholdt kvinder</string>
+	<string name="poi_capacity_women_no">Ingen pladser forbeholdt kvinder</string>
+	<string name="poi_capacity_women">Pladser forbeholdt kvinder</string>
+	<string name="poi_capacity_pupils">Dedikerede pladser til studerende</string>
+	<string name="poi_capacity_teachers">Pladser forbeholdt lærere</string>
+	<string name="poi_capacity_parent_yes">Pladser forbeholdt forældre</string>
+	<string name="poi_capacity_parent_no">Ingen pladser forbeholdt forældre</string>
+	<string name="poi_capacity_parent">Pladser forbeholdt forældre</string>
+
+	<string name="poi_aerialway_occupancy">Kabine/stol/vogn kapacitet</string>
+	<string name="poi_aerialway_capacity">Kapacitet pr. time</string>
+	<string name="poi_aerialway_duration">Gennemsnitlige rejsetid, minutter</string>
+	<string name="poi_aerialway_bubble_yes">Boble lukket</string>
+	<string name="poi_aerialway_bubble_no">Ikke boble lukket</string>
+	<string name="poi_aerialway_heating_yes">Opvarmet</string>
+	<string name="poi_aerialway_heating_no">Ikke opvarmet</string>
+	<string name="poi_aerialway_bicycle_yes">Cykel: tilladt</string>
+	<string name="poi_aerialway_bicycle_no">Cykel: ikke tilladt</string>
+	<string name="poi_aerialway_bicycle_summer">Cykel: kun tilladt om sommeren</string>
+	<string name="poi_aerialway_access_entry">Kun indgang</string>
+	<string name="poi_aerialway_access_exit">Kun udgang</string>
+	<string name="poi_aerialway_access_both">Ind- og udgang</string>
+	<string name="poi_aerialway_summer_access_entry">Sommeradgang: kun indgang</string>
+	<string name="poi_aerialway_summer_access_exit">Sommeradgang: kun udgang</string>
+	<string name="poi_aerialway_summer_access_both">Sommeradgang: ind- og udgang</string>
+
+<string name="poi_wheelchair_no">Kørestol: ikke tilladt</string>
+	<string name="poi_wheelchair_limited">Kørestol: begrænset</string>
+	<string name="poi_stars_1">Stjerner: 1 (Turist)</string>
+	<string name="poi_stars_1s">Stjerner: 1S (Superior Turist)</string>
+	<string name="poi_stars_2">Stjerner: 2 (Standard)</string>
+	<string name="poi_stars_2s">Stjerner: 2S (Superior Standard)</string>
+	<string name="poi_stars_3">Stjerner: 3 (Komfort)</string>
+	<string name="poi_stars_3s">Stjerner: 3S (Superior Komfort)</string>
+	<string name="poi_stars_4">Stjerner: 4 (Førsteklasse)</string>
+	<string name="poi_stars_4s">Stjerner: 4S (Superior Førsteklasse)</string>
+	<string name="poi_stars_5">Stjerner: 5 (Luksus)</string>
+	<string name="poi_stars_5s">Stjerner: 5S (Superior Luksus)</string>
+	<string name="poi_stars_6">Stjerner: 6</string>
+	<string name="poi_stars_7">Stjerner: 7</string>
+	<string name="poi_rooms">Værelser</string>
+
+	<string name="poi_love_hotel">Kærlighedshotel</string>
+
+<string name="poi_payment_coins_yes">Mønter accepteres</string>
+	<string name="poi_payment_coins_no">Mønter accepteres ikke</string>
+	<string name="poi_payment_coins_0.5">$0,5 mønter accepteres</string>
+	<string name="poi_payment_coins_50c12">50c, 1€, og 2€ mønter accepteres</string>
+	<string name="poi_payment_telephone_cards_yes">Telefonkort accepteres</string>
+	<string name="poi_payment_telephone_cards_no">Telefonkort accepteres ikke</string>
+	<string name="poi_payment_credit_cards_yes">Kreditkort accepteres</string>
+	<string name="poi_payment_credit_cards_no">Kreditkort accepteres ikke</string>
+	<string name="poi_payment_notes_yes">Pengesedler accepteres</string>
+	<string name="poi_payment_notes_no">Pengesedler accepteres ikke</string>
+	<string name="poi_payment_electronic_purses_yes">Elektroniske pengepunge accepteres</string>
+	<string name="poi_payment_electronic_purses_no">Elektroniske pengepunge accepteres ikke</string>
+	<string name="poi_payment_cash_yes">Kontanter accepteres</string>
+	<string name="poi_payment_cash_no">Kontanter accepteres ikke</string>
+	<string name="poi_payment_debit_cards_yes">Betalingskort accepteres</string>
+	<string name="poi_payment_debit_cards_no">Betalingskort accepteres ikke</string>
+	<string name="poi_payment_bitcoin_yes">Bitcoin accepteres</string>
+	<string name="poi_payment_bitcoin_no">Bitcoin accepteres ikke</string>
+	<string name="poi_payment_visa_yes">Visakort accepteres</string>
+	<string name="poi_payment_visa_no">Visakort accepteres ikke</string>
+	<string name="poi_payment_mastercard_yes">MasterCard accepteres</string>
+	<string name="poi_payment_mastercard_no">MasterCard accepteres ikke</string>
+	<string name="poi_payment_none">Vederlagsfrit</string>
+	<string name="poi_payment_account_cards_yes">Kontokort accepteres</string>
+	<string name="poi_payment_account_cards_no">Kontokort accepteres ikke</string>
+	<string name="poi_payment_maestro_yes">Maestro kort accepteres</string>
+	<string name="poi_payment_maestro_no">Maestro kort accepteres ikke</string>
+	<string name="poi_payment_american_express_yes">American Express (AMEX) kort accepteres</string>
+	<string name="poi_payment_american_express_no">American Express (AMEX) kort accepteres ikke</string>
+	<string name="poi_payment_diners_club_yes">Diners Club kort accepteres</string>
+	<string name="poi_payment_diners_club_no">Diners Club kort accepteres ikke</string>
+	<string name="poi_payment_dkv_yes">DKV accepteres</string>
+	<string name="poi_payment_dkv_no">DKV accepteres ikke</string>
+	<string name="poi_payment_uta_yes">UTA kort accepteres</string>
+	<string name="poi_payment_uta_no">UTA kort accepteres ikke</string>
+	<string name="poi_payment_efectivo_yes">Efectivo accepteres</string>
+	<string name="poi_payment_efectivo_no">Efectivo accepteres ikke</string>
+	<string name="poi_payment_girocard_yes">Girokort accepteres</string>
+	<string name="poi_payment_girocard_no">Girokort accepteres ikke</string>
+	<string name="poi_payment_discover_card_yes">Discover kort accepteres</string>
+	<string name="poi_payment_discover_card_no">Discover kort accepteres ikke</string>
+	<string name="poi_payment_visa_electron_yes">Visa Electron kort accepteres</string>
+	<string name="poi_payment_visa_electron_no">Visa Electron kort accepteres ikke</string>
+	<string name="poi_payment_litecoin_yes">Litecoin accepteres</string>
+	<string name="poi_payment_litecoin_no">Litecoins accepteres ikke</string>
+	<string name="poi_payment_cheque_yes">Checks accepteres</string>
+	<string name="poi_payment_cheque_no">Checks accepteres ikke</string>
+	<string name="poi_payment_pikepass_yes">PIKEPASS accepteres</string>
+	<string name="poi_payment_pikepass_no">PIKEPASS accepteres ikke</string>
+	<string name="poi_payment_pikepass_designated">PIKEPASS (udpeget) accepteres</string>
+	<string name="poi_payment_visa_debit_yes">Visa kreditkort accepteres</string>
+	<string name="poi_payment_visa_debit_no">Visa kreditkort accepteres ikke</string>
+	<string name="poi_payment_cryptocurrencies_no">Kryptovalutaer accepteres ikke</string>
+	<string name="poi_payment_others_yes">Andre betalingsformer accepteres</string>
+	<string name="poi_payment_others_no">Andre betalingsformer accepteres ikke</string>
+	<string name="poi_payment_routex_yes">Routex benzinkort accepteres</string>
+	<string name="poi_payment_routex_no">Routex benzinkort accepteres ikke</string>
+	<string name="poi_payment_bancomat_yes">Bancomat accepteres</string>
+	<string name="poi_payment_bancomat_no">Bancomat accepteres ikke</string>
+	<string name="poi_payment_icsf_yes">IC billetkort accepteres</string>
+	<string name="poi_payment_icsf_no">IC billetkort accepteres ikke</string>
+	<string name="poi_payment_prepaid_ticket_yes">Forudbetalte billetter accepteres</string>
+	<string name="poi_payment_jcb_yes">JCB kort accepteres</string>
+	<string name="poi_payment_jcb_no">JCB kort accepteres ikke</string>
+	<string name="poi_payment_laser_yes">Laser kort accepteres</string>
+	<string name="poi_payment_laser_no">Laser kort accepteres ikke</string>
+	<string name="poi_payment_ep_quick_yes">Quick kort accepteres</string>
+	<string name="poi_payment_ep_quick_no">Quick kort accepteres ikke</string>
+	<string name="poi_payment_eurowag_yes">Eurowag kort accepteres</string>
+	<string name="poi_payment_eurowag_no">Eurowag kort accepteres accepteres</string>
+	<string name="poi_payment_e_zpass_yes">E‑ZPass accepteres</string>
+	<string name="poi_payment_e_zpass_no">E‑ZPass accepteres ikke</string>
+	<string name="poi_payment_euroshell_yes">Euroshell benzinkort accepteres</string>
+	<string name="poi_payment_euroshell_no">Euroshell benzinkort accepteres ikke</string>
+	<string name="poi_payment_kitcard_yes">KITCard accepteres</string>
+	<string name="poi_payment_kitcard_no">KITCard accepteres ikke</string>
+	<string name="poi_payment_westfalen_card_yes">Westfalen kort accepteres</string>
+	<string name="poi_payment_westfalen_card_no">Westfalen kort accepteres ikke</string>
+	<string name="poi_payment_v_pay_yes">V PAY kort accepteres</string>
+	<string name="poi_payment_v_pay_no">V PAY kort accepteres ikke</string>
+	<string name="poi_payment_dogecoin_yes">Dogecoin accepteres</string>
+	<string name="poi_payment_dogecoin_no">Dogecoin accepteres ikke</string>
+	<string name="poi_payment_cibus_yes">Cibus kort accepteres</string>
+	<string name="poi_payment_cibus_no">Cibus kort accepteres ikke</string>
+	<string name="poi_payment_wire_transfer_yes">Bankoverførsler accepteres</string>
+	<string name="poi_payment_wire_transfer_no">Bankoverførsler accepteres ikke</string>
+	<string name="poi_payment_ep_cash_yes">Hævekort (Geldkarte) accepteres</string>
+	<string name="poi_payment_ep_cash_no">Hævekort (Geldkarte) accepteres ikke</string>
+	<string name="poi_payment_ep_proton_yes">Proton kort accepteres</string>
+	<string name="poi_payment_ep_proton_no">Proton kort accepteres ikke</string>
+	<string name="poi_payment_ep_avant_yes">AvantCard accepteres</string>
+	<string name="poi_payment_ep_avant_no">AvantCard accepteres ikke</string>
+	<string name="poi_payment_ep_mep_yes">MEP accepteres</string>
+	<string name="poi_payment_ep_mep_no">MEP accepteres ikke</string>
+	<string name="poi_payment_ep_minipay_yes">Minipay accepteres</string>
+	<string name="poi_payment_ep_minipay_no">Minipay accepteres ikke</string>
+	<string name="poi_payment_ep_minicash_yes">MiniCash accepteres</string>
+	<string name="poi_payment_ep_minicash_no">MiniCash accepteres ikke</string>
+	<string name="poi_payment_ep_moneo_yes">Moneo accepteres</string>
+	<string name="poi_payment_ep_moneo_no">Moneo accepteres ikke</string>
+	<string name="poi_payment_ep_monedero4b_yes">Monedero 4B accepteres</string>
+	<string name="poi_payment_ep_monedero4b_no">Monedero 4B accepteres ikke</string>
+	<string name="poi_payment_ep_monedero_yes">Monedero accepteres</string>
+	<string name="poi_payment_ep_monedero_no">Monedero accepteres ikke</string>
+	<string name="poi_payment_bankaxess_yes">BankAxess accepteres</string>
+	<string name="poi_payment_bankaxess_no">BankAxess accepteres ikke</string>
+	<string name="poi_payment_coinkite_yes">Coinkite accepteres</string>
+	<string name="poi_payment_coinkite_no">Coinkite accepteres ikke</string>
+	<string name="poi_payment_roadrunner_yes">Roadrunner kort accepteres</string>
+	<string name="poi_payment_roadrunner_no">Roadrunner kort accepteres ikke</string>
+	<string name="poi_payment_svg_yes">SVG accepteres</string>
+	<string name="poi_payment_svg_no">SVG accepteres ikke</string>
+	<string name="poi_payment_sms_yes">SMS betalinger accepteres</string>
+	<string name="poi_payment_sms_no">SMS betalinger accepteres ikke</string>
+	<string name="poi_payment_ov_chipkaart_yes">OV-Chipkaart accepteres</string>
+	<string name="poi_payment_ov_chipkaart_no">OV-Chipkaart accepteres ikke</string>
+	<string name="poi_payment_oyster_yes">Oyster kort accepteres</string>
+	<string name="poi_payment_oyster_no">Oyster kort accepteres ikke</string>
+	<string name="poi_payment_sube_yes">SUBE kort accepteres</string>
+	<string name="poi_payment_sube_no">SUBE kort accepteres ikke</string>
+	<string name="poi_payment_via_verde_yes">Via Verde accepteres</string>
+	<string name="poi_payment_via_verde_no">Via Verde accepteres ikke</string>
+	<string name="poi_payment_meal_voucher_yes">Spisebilletter accepteres</string>
+	<string name="poi_payment_meal_voucher_no">Spisebilletter accepteres ikke</string>
+	<string name="poi_payment_paypal_yes">PayPal accepteres</string>
+	<string name="poi_payment_paypal_no">PayPal accepteres ikke</string>
+	<string name="poi_payment_u_key_yes">U-Key accepteres</string>
+	<string name="poi_payment_u_key_no">U-Key accepteres ikke</string>
+	<string name="poi_payment_token_yes">Poletter accepteres</string>
+	<string name="poi_payment_token_no">Poletter accepteres ikke</string>
+	<string name="poi_payment_gift_card_yes">Gavekort accepteres</string>
+	<string name="poi_payment_gift_card_no">Gavekort accepteres ikke</string>
+	<string name="poi_payment_golden_crown_yes">Golden Crown kort accepteres</string>
+	<string name="poi_payment_golden_crown_no">Golden Crown kort accepteres ikke</string>
+	<string name="poi_payment_pro100_yes">PRO100 kort accepteres</string>
+	<string name="poi_payment_pro100_no">PRO100 kort accepteres ikke</string>
+	<string name="poi_payment_union_card_yes">Union kort accepteres</string>
+	<string name="poi_payment_union_card_no">Union kort accepteres ikke</string>
+	<string name="poi_payment_mtsmoney_yes">MTS-Money accepteres</string>
+	<string name="poi_payment_mtsmoney_no">MTS-Money accepteres ikke</string>
+	<string name="poi_payment_yandexmoney_yes">Yandex.Money accepteres</string>
+	<string name="poi_payment_yandexmoney_no">Yandex.Money accepteres ikke</string>
+	<string name="poi_description_payment">Beskrivelse af betalingsmetoder</string>
+
+<string name="poi_internet_access_yes">Internetadgang: Ja</string>
+	<string name="poi_internet_access_no">Internet access: nej</string>
+
+	<string name="poi_internet_access_fee_yes">Internetadgang - gebyr</string>
+	<string name="poi_internet_access_fee_no">Internetadgang - inget gebyr</string>
+
+<string name="poi_diet_vegetarian_only">Kun vegetarkost</string>
+	<string name="poi_diet_vegetarian_yes">Vegetarkost</string>
+	<string name="poi_diet_vegetarian_no">Vegetarkost: nej</string>
+	<string name="poi_diet_vegetarian_few">Vegetarkost: kun få</string>
+	<string name="poi_diet_vegan_only">Kun veganerkost</string>
+	<string name="poi_diet_vegan_yes">Veganerkost</string>
+	<string name="poi_diet_vegan_no">Veganerkost: nej</string>
+	<string name="poi_diet_gluten_free_only">Kun glutenfri kost</string>
+	<string name="poi_diet_gluten_free_yes">Glutenfri kost</string>
+	<string name="poi_diet_gluten_free_no">Glutenfri kost: nej</string>
+	<string name="poi_diet_kosher_only">Kun kosher kost</string>
+	<string name="poi_diet_kosher_yes">Kosher kost</string>
+	<string name="poi_diet_kosher_no">Kosher kost: nej</string>
+	<string name="poi_diet_halal_only">Kun halal kost</string>
+	<string name="poi_diet_halal_yes">Halal kost</string>
+	<string name="poi_diet_halal_no">Halal kost: nej</string>
+	<string name="poi_diet_lactose_free_only">Kun laktosefri kost</string>
+	<string name="poi_diet_lactose_free_yes">Laktosefri kost</string>
+	<string name="poi_diet_lactose_free_no">Laktosefri kost: nej</string>
+	<string name="poi_diet_pescetarian_yes">pesco-vegetarkost</string>
+
+	<string name="poi_drive_in_yes">Drive-in: ja</string>
+	<string name="poi_drive_in_no">Drive-in: nej</string>
+	<string name="poi_drive_through_yes">Drive-through: ja</string>
+	<string name="poi_drive_through_no">Drive-through: nej</string>
+
+	<string name="poi_brewery_additional">Bryggerinavn</string>
+	<string name="poi_microbrewery_yes">Mikrobryggeri</string>
+	<string name="poi_microbrewery_no">Ingen mikrobryggeri</string>
+
+	<string name="poi_takeaway_yes">Takeway</string>
+	<string name="poi_takeaway_no">Ingen takeaway</string>
+	<string name="poi_takeaway_only">Kun takeaway</string>
+
+	<string name="poi_delivery_yes">Levering</string>
+	<string name="poi_delivery_no">Ingen levering</string>
+	<string name="poi_delivery_only">Kun levering</string>
+
+	<string name="poi_outdoor_seating_yes">Udendørsservering</string>
+	<string name="poi_outdoor_seating_no">Ingen udendørsservering</string>
+	<string name="poi_outdoor_seating_terrace">Udendørsservering: terrasse</string>
+	<string name="poi_outdoor_seating_sidewalk">Udendørsservering: fortov</string>
+	<string name="poi_outdoor_seating_pedestrian_zone">Udendørsservering: gågade</string>
+	<string name="poi_outdoor_seating_garden">Udendørsservering: have</string>
+	<string name="poi_outdoor_seating_patio">Udendørsservering: gårdhave</string>
+
+	<string name="poi_cocktails_yes">Cocktails</string>
+
+	<string name="poi_second_hand_yes">Brugte varer</string>
+	<string name="poi_second_hand_no">Ingen brugte varer</string>
+	<string name="poi_second_hand_only">Kun brugte varer</string>
+
+	<string name="poi_service_parts">Dele</string>
+	<string name="poi_service_dealer">Forhandler</string>
+	<string name="poi_service_repair">Reparation</string>
+	<string name="poi_service_repair_no">Ingen reparation</string>
+	<string name="poi_service_electrical">Reparation af elektriske køretøjer</string>
+	<string name="poi_motorcycle_repair">Motorcykel reparation</string>
+	<string name="poi_self_service_yes">Selvbetjening</string>
+	<string name="poi_self_service_no">Ingen selvbetjening</string>
+	<string name="poi_automated_yes">Automatiseret</string>
+	<string name="poi_automated_no">Ikke automatiseret</string>
+	<string name="poi_full_service_yes">Fuld service</string>
+	<string name="poi_brushless_yes">Børsteløs</string>
+	<string name="poi_brushless_no">Børsteløs: nej</string>
+
+	<string name="poi_aeroway_fuel">Fly tankstation</string>
+	<string name="poi_public_bath">Offentligt bad</string>
+
+	<string name="poi_male_yes">Mand</string>
+	<string name="poi_male_no">Forbudt for mænd</string>
+	<string name="poi_female_yes">Kvinde</string>
+	<string name="poi_female_no">Forbudt for kvinder</string>
+	<string name="poi_indoor_yes">Indendørs</string>
+	<string name="poi_indoor_no">Udendørs</string>
+	<string name="poi_toilets_yes">Med toiletter</string>
+	<string name="poi_toilets_no">Uden toiletter</string>
+	<string name="poi_toilets_wheelchair_yes">Adgang til toiletter for kørestole: ja</string>
+	<string name="poi_toilets_wheelchair_no">Adgang til toiletter for kørestole: nej</string>
+	<string name="poi_toilets_access_customers">Toiletadgang: kunder</string>
+	<string name="poi_toilets_access_permissive">Toiletadgang: med tilladelse</string>
+	<string name="poi_toilets_access_community">Toiletadgang: fælles</string>
+	<string name="poi_toilets_access_public">Toiletadgang: offentlig</string>
+
+	<string name="poi_diaper_yes">Puslebord</string>
+	<string name="poi_diaper_no">Ingen puslebord</string>
+	<string name="poi_diaper_room">Puslerum</string>
+
+<string name="poi_events_venue">Kulturhus</string>
+
+	<string name="poi_car_wash_no">Bilvask: nej</string>
+
+	<string name="poi_maxstay">Parkering tidsgrænse</string>
+
+	<string name="poi_vending_parking_tickets">Parkeringsbilletter</string>
+	<string name="poi_vending_cigarettes">Cigaretter</string>
+	<string name="poi_vending_public_transport_tickets">Billetter til offentlig transport</string>
+	<string name="poi_vending_drinks">Drikkevarer</string>
+	<string name="poi_vending_sweets">Slik</string>
+	<string name="poi_vending_parcel_pickup_mail_in">Pakke afhentning og post Indsendelsesservice</string>
+	<string name="poi_vending_condoms">Kondomer</string>
+	<string name="poi_vending_stamps">Frimærker</string>
+	<string name="poi_vending_bicycle_tube">Cykelslanger</string>
+	<string name="poi_vending_food">Mad</string>
+	<string name="poi_vending_drinks_food">Drikkevarer og mad</string>
+	<string name="poi_vending_fuel">Benzinautomat</string>
+	<string name="poi_vending_parcel_pickup">Pakke afhentning</string>
+	<string name="poi_vending_parcel_mail_in">Pakke Indsendelsesservice</string>
+	<string name="poi_vending_milk">Mælk</string>
+	<string name="poi_vending_elongated_coin">Souvenirmønt</string>
+	<string name="poi_vending_bread">Brød</string>
+	<string name="poi_vending_chewing_gums">Tyggegummi</string>
+	<string name="poi_vending_parking_tickets_public_transport_tickets">Parkeringsbilletter; billetter til offentlig transport</string>
+	<string name="poi_vending_coffee">Kaffe</string>
+	<string name="poi_vending_toll">Vejafgiftautomat</string>
+	<string name="poi_vending_tickets">Billetautomat</string>
+	<string name="poi_vending_water">Vandautomat</string>
+	<string name="poi_vending_telephone_vouchers">Telekort</string>
+	<string name="poi_vending_animal_food">Dyrefoder</string>
+	<string name="poi_vending_public_transport_plans">Køreplaner</string>
+	<string name="poi_vending_drinks_sweets">Drikkevarer og slik</string>
+	<string name="poi_vending_vouchers">Gavekort</string>
+	<string name="poi_vending_dvd">DVD</string>
+	<string name="poi_vending_candles">Stearinlys</string>
+	<string name="poi_vending_toys">Legetøj</string>
+	<string name="poi_vending_ice_cream">Is</string>
+	<string name="poi_vending_sim_cards">SIM-kort</string>
+
+	<string name="poi_branch">Branche</string>
+
+	<string name="poi_memorial_war">Krigsmindesmærke</string>
+	<string name="poi_memorial_plaque">Plakette</string>
+	<string name="poi_memorial_statue">Statue</string>
+	<string name="poi_memorial_stone">Sten</string>
+	<string name="poi_memorial_stele">Stele</string>
+	<string name="poi_memorial_bust">Buste</string>
+	<string name="poi_memorial_koshinto">Koshinto</string>
+	<string name="poi_memorial_blue_plaque">"Blå  plakette"</string>
+	<string name="poi_memorial_jizo">Jizo</string>
+	<string name="poi_memorial_cross">Kors</string>
+	<string name="poi_memorial_vehicle">Køretøj</string>
+	<string name="poi_memorial_obelisk">Obelisk</string>
+
+<string name="poi_vending_excrement_bags">Hundeposer</string>
+	<string name="poi_inscription">Inskription</string>
+
+<string name="poi_historic_quarry">Historiske stenbrud</string>
+
+	<string name="poi_resource_aggregate">Tilslag</string>
+	<string name="poi_resource_antimony">Antimon</string>
+	<string name="poi_resource_asbestos">Asbest</string>
+	<string name="poi_resource_barite">Baryt</string>
+	<string name="poi_resource_basalt">Basalt</string>
+	<string name="poi_resource_bauxite">Bauxit</string>
+	<string name="poi_resource_beryl">Beryl</string>
+	<string name="poi_resource_bismuth">Bismuth</string>
+	<string name="poi_resource_cereal">Korn</string>
+	<string name="poi_resource_chromite">Kromit</string>
+	<string name="poi_resource_clay">Ler</string>
+	<string name="poi_resource_coal">Kul</string>
+	<string name="poi_resource_copper">Kobber</string>
+	<string name="poi_resource_diamond">Diamant</string>
+	<string name="poi_resource_dimension_stone">Kvadersten</string>
+	<string name="poi_resource_dolomite">Dolomit</string>
+	<string name="poi_resource_gas">Gas</string>
+	<string name="poi_resource_gold">Guld</string>
+	<string name="poi_resource_graphite">Grafit</string>
+	<string name="poi_resource_gravel">Grus</string>
+	<string name="poi_resource_gypsum">Gips</string>
+	<string name="poi_resource_iron_ore">Jernmalm</string>
+	<string name="poi_resource_lead">Bly</string>
+	<string name="poi_resource_lignite">Brunkul</string>
+	<string name="poi_resource_limestone">Kalksten</string>
+	<string name="poi_resource_marble">Marmor</string>
+	<string name="poi_resource_mercury">Kviksølv</string>
+	<string name="poi_resource_mica">Glimmer</string>
+	<string name="poi_resource_mineral_oil">Mineralsk olie</string>
+	<string name="poi_resource_nickel">Nikkel</string>
+	<string name="poi_resource_oil">Olie</string>
+	<string name="poi_resource_opal">Opal</string>
+	<string name="poi_resource_peat">Tørv</string>
+	<string name="poi_resource_platinum">Platin</string>
+	<string name="poi_resource_radium">Radium</string>
+	<string name="poi_resource_ruby">Rubin</string>
+	<string name="poi_resource_rutile">Rutil</string>
+	<string name="poi_resource_salt">Salt</string>
+	<string name="poi_resource_sand">Sand</string>
+	<string name="poi_resource_sandstone">Sandsten</string>
+	<string name="poi_resource_silica">Siliciumdioxid</string>
+	<string name="poi_resource_silver">Sølv</string>
+	<string name="poi_resource_slate_iron_ore_copper">Skifer, jernmalm, kobber</string>
+	<string name="poi_resource_slate">Skifer</string>
+	<string name="poi_resource_stone">Sten</string>
+	<string name="poi_resource_tin">Tin</string>
+	<string name="poi_resource_tuff">Tuf</string>
+	<string name="poi_resource_uranium">Uran</string>
+	<string name="poi_resource_vanadium">Vanadium</string>
+	<string name="poi_resource_water">Vand</string>
+	<string name="poi_resource_zinc">Zink</string>
+	<string name="poi_resource_zircon">Zirkon</string>
+
+<string name="poi_wetland_wet_meadow">Vådområde</string>
+	<string name="poi_wetland_bog">Mose</string>
+	<string name="poi_wetland_marsh">Marsk</string>
+	<string name="poi_wetland_reedbed">Rørskov</string>
+	<string name="poi_wetland_swamp">Sump</string>
+	<string name="poi_wetland_saltern">Saltdamme</string>
+	<string name="poi_wetland_tidalflat">Vade</string>
+	<string name="poi_wetland_saltmarsh">Strandeng</string>
+	<string name="poi_wetland_mangrove">Mangrove</string>
+	<string name="poi_wetland_string_bog">Højmose</string>
+	<string name="poi_wetland_fen">Lavmose</string>
+	<string name="poi_wetland_palsa_bog">Pals</string>
+	<string name="poi_wetland_mud">Mudder</string>
+
+	<string name="poi_beach_sand">Strandtype: sand</string>
+	<string name="poi_beach_shingle">Strandtype: rullesten</string>
+	<string name="poi_beach_rocky">Strandtype: stenet</string>
+
+	<string name="poi_chimney">Skorsten</string>
+	<string name="poi_palm">Palme</string>
+	<string name="poi_cypress">Cypres</string>
+	<string name="poi_flagpole">Flagstang</string>
+
+<string name="poi_bench_yes">Med bænk</string>
+	<string name="poi_bench_no">Uden bænk</string>
+	<string name="poi_waste_basket_yes">Med kurv</string>
+	<string name="poi_waste_basket_no">Uden kurv</string>
+
+	<string name="poi_shelter_type_public_transport">Sheltertype: stoppested</string>
+	<string name="poi_shelter_type_picnic_shelter">Sheltertype: skovtur</string>
+	<string name="poi_shelter_type_weather_shelter">Sheltertype: Tarp</string>
+	<string name="poi_shelter_type_lean_to">Sheltertype: Bivuak</string>
+	<string name="poi_shelter_type_basic_hut">Sheltertype: hytte</string>
+	<string name="poi_shelter_type_building">Sheltertype: bygning</string>
+	<string name="poi_shelter_type_wildlife_hide">Sheltertype: vildtskjul</string>
+	<string name="poi_shelter_type_rock_shelter">Sheltertype: klippehule</string>
+	<string name="poi_shelter_type_sun_shelter">Sheltertype: solafskærming</string>
+	<string name="poi_shelter_type_field_shelter">Sheltertype: feltly</string>
+	<string name="poi_shelter_type_tent">Sheltertype: telt</string>
+	<string name="poi_shelter_type_abandoned">Sheltertype: forladt</string>
+
+	<string name="poi_internet_access_type_wlan">Internetadgang: wlan</string>
+	<string name="poi_internet_access_type_terminal">Internetadgangs: terminal</string>
+	<string name="poi_internet_access_type_wired">Internet adgangstype: kablet</string>
+	<string name="poi_internet_access_type_public">Internetadgang: offentlig</string>
+	<string name="poi_internet_access_type_service">Internetadgang: tjeneste</string>
+	<string name="poi_internet_access_type_no">Internetadgang: ingen</string>
+
+<string name="poi_maxwidth">Max. bredde</string>
+	<string name="poi_iata">IATA kode</string>
+	<string name="poi_icao">ICAO kode</string>
+	<string name="poi_faa">FAA kode</string>
+	
+	<string name="poi_artwork_type_sculpture">Kunstværk: skulptur</string>
+	<string name="poi_artwork_type_statue">Kunstværk: statue</string>
+	<string name="poi_artwork_type_mural">Kunstværk: vægmaleri</string>
+	<string name="poi_artwork_type_architecture">Kunstværk: arkitektur</string>
+	<string name="poi_artwork_type_painting">Kunstværk: maleri</string>
+	<string name="poi_artwork_type_stone">Kunstværk: sten</string>
+	<string name="poi_artwork_type_bust">Kunstværk: buste</string>
+	<string name="poi_artwork_type_installation">Kunstværk: installation</string>
+	<string name="poi_artwork_type_mosaic">Kunstværk: mosaik</string>
+	<string name="poi_artwork_type_relief">Kunstværk: relief</string>
+	<string name="poi_artwork_type_graffiti">Kunstværk: graffiti</string>
+	<string name="poi_artwork_type_stele">Kunstværk: stele</string>
+	<string name="poi_artwork_type_fountain">Kunstværk: springvand</string>
+
+<string name="poi_width">Bredde</string>
+
+	<string name="poi_architect_name">Arkitekt</string>
+
+	<string name="poi_architecture_modern">Arkitektur: moderne</string>
+	<string name="poi_architecture_stalinist_neoclassicism">Arkitektur: stalinistisk nyklassicisme</string>
+	<string name="poi_architecture_eclectic">Arkitektur: eklecticisme</string>
+	<string name="poi_architecture_new_objectivity">Arkitektur: ny objektivitet</string>
+	<string name="poi_architecture_contemporary">Arkitektur: moderne</string>
+	<string name="poi_architecture_constructivism">Arkitektur: konstruktivisme</string>
+	<string name="poi_architecture_umgebinde">Arkitektur: umgebindehaus</string>
+	<string name="poi_architecture_timber_frame">Arkitektur: træskelet</string>
+	<string name="poi_architecture_art_nouveau">Arkitektur: jugendstil</string>
+	<string name="poi_architecture_neoclassicism">Arkitektur: nyklassicisme</string>
+	<string name="poi_architecture_victorian">Arkitektur: victoriansk</string>
+	<string name="poi_architecture_brutalism">Arkitektur: brutalisme</string>
+	<string name="poi_architecture_classicism">Arkitektur: klassicisme</string>
+	<string name="poi_architecture_gothic">Arkitektur: gotik</string>
+	<string name="poi_architecture_oldrussian">Arkitektur: gammelrussisk</string>
+	<string name="poi_architecture_baroque">Arkitektur: barok</string>
+	<string name="poi_architecture_postconstructivism">Arkitektur: postkonstruktivisme</string>
+	<string name="poi_architecture_wilhelminian_style">Arkitektur: wilheminsk stil</string>
+	<string name="poi_architecture_renaissance">Arkitektur: renæssance</string>
+	<string name="poi_architecture_romanesque">Arkitektur: romansk stil</string>
+
+</resources>

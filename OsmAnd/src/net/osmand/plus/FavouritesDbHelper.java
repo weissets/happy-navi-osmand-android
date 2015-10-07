@@ -180,7 +180,10 @@ public class FavouritesDbHelper {
 		String name = checkEmoticons(p.getName());
 		String category = checkEmoticons(p.getCategory());
 		p.setCategory(category);
-		String description = checkEmoticons(p.getDescription());
+		String description = null;
+		if (p.getDescription() != null) {
+			description = checkEmoticons(p.getDescription());
+		}
 		p.setDescription(description);
 		if (name.length() != p.getName().length()) {
 			emoticons = true;
@@ -189,7 +192,7 @@ public class FavouritesDbHelper {
 		while (fl) {
 			fl = false;
 			for (FavouritePoint fp : fdb.getFavouritePoints()) {
-				if (fp.getName().equals(name)) {
+				if (fp.getName().equals(name) && p.getLatitude() != fp.getLatitude() && p.getLongitude() != fp.getLongitude()) {
 					number++;
 					index = " (" + number + ")";
 					name = p.getName() + index;
@@ -423,7 +426,22 @@ public class FavouritesDbHelper {
 	public List<FavoriteGroup> getFavoriteGroups() {
 		return favoriteGroups;
 	}
-	
+
+	public FavoriteGroup getGroup(FavouritePoint p) {
+		if (flatGroups.containsKey(p.getCategory())) {
+			return flatGroups.get(p.getCategory());
+		} else {
+			return null;
+		}
+	}
+
+	public FavoriteGroup getGroup(String name) {
+		if (flatGroups.containsKey(name)) {
+			return flatGroups.get(name);
+		} else {
+			return null;
+		}
+	}
 
 	private FavouritePoint findFavoriteByAllProperties(String category, String name, double lat, double lon){
 		if (flatGroups.containsKey(category)) {
@@ -494,10 +512,13 @@ public class FavouritesDbHelper {
 	}
 	
 
-	private String loadGPXFile(File file, Map<String, FavouritePoint> points) {
+	private boolean loadGPXFile(File file, Map<String, FavouritePoint> points) {
+		if(!file.exists()) {
+			return false;
+		}
 		GPXFile res = GPXUtilities.loadGPXFile(context, file);
 		if (res.warning != null) {
-			return res.warning;
+			return false;
 		}
 		for (WptPt p : res.points) {
 			int c;
@@ -517,7 +538,7 @@ public class FavouritesDbHelper {
 			fp.setVisible(!p.getExtensionsToRead().containsKey(HIDDEN));
 			points.put(getKey(fp), fp);
 		}
-		return null;
+		return true;
 	}
 	
 	public void editFavouriteGroup(FavoriteGroup group, String newName, int color, boolean visible) {
@@ -549,7 +570,7 @@ public class FavouritesDbHelper {
 		addEmptyCategory(context.getString(R.string.favorite_home_category));
 		addEmptyCategory(context.getString(R.string.favorite_friends_category));
 		addEmptyCategory(context.getString(R.string.favorite_places_category));
-		addEmptyCategory(context.getString(R.string.favorite_default_category));
+		addEmptyCategory(context.getString(R.string.shared_string_others));
 	}
 
 	private FavoriteGroup getOrCreateGroup(FavouritePoint p, int defColor) {

@@ -1,6 +1,8 @@
 package net.osmand.plus.download;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
@@ -104,7 +106,7 @@ public class DownloadOsmandIndexesHelper {
 			log.debug("Start loading list of index files"); //$NON-NLS-1$
 			try {
 				String strUrl = ctx.getAppCustomization().getIndexesUrl();
-				
+
 				log.info(strUrl);
 				XmlPullParser parser = XmlPullParserFactory.newInstance().newPullParser();
 				URLConnection connection = NetworkUtils.getHttpURLConnection(strUrl);

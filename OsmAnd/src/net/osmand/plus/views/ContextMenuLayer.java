@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Build;
 import android.text.Html;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.FrameLayout.LayoutParams;
@@ -62,8 +63,6 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	private LatLon latLon;
 	private String description;
 	private Map<Object, IContextMenuProvider> selectedObjects = new ConcurrentHashMap<Object, IContextMenuProvider>();
-	private Object selectedObj;
-	private IContextMenuProvider contextObject;
 
 	private TextView textView;
 	private ImageView closeButton;
@@ -77,8 +76,11 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	private boolean showContextMarker;
 	private ImageView contextMarker;
 
+	private GestureDetector movementListener;
+
 	public ContextMenuLayer(MapActivity activity){
 		this.activity = activity;
+		movementListener = new GestureDetector(activity, new MenuLayerOnGestureListener());
 		if(activity.getLastNonConfigurationInstanceByKey(KEY_LAT_LAN) != null) {
 			latLon = (LatLon) activity.getLastNonConfigurationInstanceByKey(KEY_LAT_LAN);
 			description = (String) activity.getLastNonConfigurationInstanceByKey(KEY_DESCRIPTION);
@@ -181,6 +183,7 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	
 	
 	public void setSelectOnMap(CallbackWithObject<LatLon> selectOnMap) {
+		hideMapContextMenuMarker();
 		this.selectOnMap = selectOnMap;
 	}
 	
@@ -202,6 +205,12 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	public void showMapContextMenuMarker() {
 		showContextMarker = true;
 		view.refreshMap();
+	}
+
+	public void showMapContextMenuMarker(LatLon latLon) {
+		activity.getContextMenu().hide();
+		this.latLon = latLon;
+		showMapContextMenuMarker();
 	}
 
 	public void hideMapContextMenuMarker() {
@@ -266,27 +275,39 @@ public class ContextMenuLayer extends OsmandMapLayer {
 		if (disableLongPressOnMap()) {
 			return false;
 		}
+		showContextMenu(point, tileBox, true);
+		view.refreshMap();
+		return true;
+	}
+
+	public boolean showContextMenu(double latitude, double longitude, boolean showUnknownLocation) {
+		RotatedTileBox cp = activity.getMapView().getCurrentRotatedTileBox().copy();
+		float x = cp.getPixXFromLatLon(latitude, longitude);
+		float y = cp.getPixYFromLatLon(latitude, longitude);
+		return showContextMenu(new PointF(x, y), activity.getMapView().getCurrentRotatedTileBox(), showUnknownLocation);
+	}
+
+	public boolean showContextMenu(PointF point, RotatedTileBox tileBox, boolean showUnknownLocation) {
 		LatLon latLon = selectObjectsForContextMenu(tileBox, point);
 		if (latLon != null) {
 			if (selectedObjects.size() == 1) {
 				setLocation(null, "");
-				selectedObj = selectedObjects.keySet().iterator().next();
-				contextObject = selectedObjects.get(selectedObj);
-				showMapContextMenu(latLon);
+				Object selectedObj = selectedObjects.keySet().iterator().next();
+				IContextMenuProvider contextObject = selectedObjects.get(selectedObj);
+				showMapContextMenu(latLon, selectedObj, contextObject);
+				return true;
 			} else if (selectedObjects.size() > 1) {
 				showContextMenuForSelectedObjects(latLon);
+				return true;
 			}
-		} else {
+		} else if (showUnknownLocation) {
 			setLocation(null, "");
 			final double lat = tileBox.getLatFromPixel((int) point.x, (int) point.y);
 			final double lon = tileBox.getLonFromPixel((int) point.x, (int) point.y);
-			selectedObj = null;
-			contextObject = null;
 			showMapContextMenu(new LatLon(lat, lon));
-			//setLocation(new LatLon(lat, lon), null);
+			return true;
 		}
-		view.refreshMap();
-		return true;
+		return false;
 	}
 
 	public boolean disableSingleTap() {
@@ -424,7 +445,7 @@ public class ContextMenuLayer extends OsmandMapLayer {
 	@Override
 	public boolean onSingleTap(PointF point, RotatedTileBox tileBox) {
 		if (pressedContextMarker(tileBox, point.x, point.y)) {
-			showMapContextMenu(latLon);
+			showMapContextMenu();
 			return true;
 		}
 
@@ -433,9 +454,9 @@ public class ContextMenuLayer extends OsmandMapLayer {
 		if(selectOnMap != null) {
 			LatLon latlon = tileBox.getLatLonFromPixel(point.x, point.y);
 			CallbackWithObject<LatLon> cb = selectOnMap;
-			selectOnMap = null;
 			cb.processResult(latlon);
-			setLocation(latlon, null);
+			showMapContextMenu(latlon);
+			selectOnMap = null;
 			return true;
 		}
 		if (val == 2) {
@@ -450,19 +471,13 @@ public class ContextMenuLayer extends OsmandMapLayer {
 			}
 			return true;
 		} else if (!disableSingleTap()) {
-			LatLon latLon = selectObjectsForContextMenu(tileBox, point);
-			if (latLon != null) {
-				if (selectedObjects.size() == 1) {
-					setLocation(null, "");
-					selectedObj = selectedObjects.keySet().iterator().next();
-					contextObject = selectedObjects.get(selectedObj);
-					showMapContextMenu(latLon);
-				} else if (selectedObjects.size() > 1) {
-					showContextMenuForSelectedObjects(latLon);
-					return true;
-				}
+			boolean res = showContextMenu(point, tileBox, false);
+			if (res) {
+				return true;
 			}
 		}
+
+		activity.getContextMenu().hide();
 		return false;
 	}
 
@@ -482,20 +497,36 @@ public class ContextMenuLayer extends OsmandMapLayer {
 			builder.setItems(d, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					selectedObj = s.get(which);
-					contextObject = selectedObjects.get(selectedObj);
-					showMapContextMenu(l);
+					Object selectedObj = s.get(which);
+					IContextMenuProvider contextObject = selectedObjects.get(selectedObj);
+					showMapContextMenu(l, selectedObj, contextObject);
 				}
 			});
 			builder.show();
 		} else {
-			selectedObj = selectedObjects.keySet().iterator().next();
-			contextObject = selectedObjects.get(selectedObj);
-			showMapContextMenu(l);
+			Object selectedObj = selectedObjects.keySet().iterator().next();
+			IContextMenuProvider contextObject = selectedObjects.get(selectedObj);
+			showMapContextMenu(l, selectedObj, contextObject);
 		}
 	}
 
-	private void showMapContextMenu(LatLon latLon) {
+	public void showMapContextMenu() {
+		activity.getContextMenu().show();
+	}
+
+	public void showMapContextMenu(LatLon latLon) {
+		showMapContextMenu(latLon, null);
+	}
+
+	public void showMapContextMenu(LatLon latLon, String title) {
+		showMapContextMenu(latLon, title, null, null);
+	}
+
+	public void showMapContextMenu(LatLon latLon, Object selectedObj, IContextMenuProvider contextObject) {
+		showMapContextMenu(latLon, null, selectedObj, contextObject);
+	}
+
+	public void showMapContextMenu(LatLon latLon, String title, Object selectedObj, IContextMenuProvider contextObject) {
 		PointDescription pointDescription;
 		if (selectedObj != null && contextObject != null) {
 			pointDescription = contextObject.getObjectName(selectedObj);
@@ -504,16 +535,30 @@ public class ContextMenuLayer extends OsmandMapLayer {
 			pointDescription.setLon(objLocation.getLongitude());
 		} else {
 			pointDescription = new PointDescription(latLon.getLatitude(), latLon.getLongitude());
+			if (title != null) {
+				pointDescription.setName(title);
+			}
 		}
 		this.latLon = new LatLon(pointDescription.getLat(), pointDescription.getLon());
 
 		showMapContextMenuMarker();
-		activity.getContextMenu().show(activity, pointDescription, selectedObj);
+		if (selectOnMap != null) {
+			activity.getContextMenu().init(pointDescription, selectedObj);
+		} else {
+			activity.getContextMenu().show(pointDescription, selectedObj);
+		}
 	}
 
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event, RotatedTileBox tileBox) {
+
+		if (movementListener.onTouchEvent(event)) {
+			if (activity.getContextMenu().isMenuVisible()) {
+				activity.getContextMenu().hide();
+			}
+		}
+
 		if (latLon != null) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				int vl = pressedInTextView(tileBox, event.getX(), event.getY());
@@ -563,4 +608,16 @@ public class ContextMenuLayer extends OsmandMapLayer {
 		map.put(KEY_DESCRIPTION, textView.getText().toString());
 	}
 
+	private class MenuLayerOnGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+			return true;
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+			return true;
+		}
+	}
 }

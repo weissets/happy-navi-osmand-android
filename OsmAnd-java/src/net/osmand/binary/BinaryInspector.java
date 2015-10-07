@@ -68,15 +68,15 @@ public class BinaryInspector {
 			in.inspector(new String[]{
 //				"-vpoi",
 //				"-vmap", "-vmapobjects", // "-vmapcoordinates", 
-//				"-vrouting",
-				"-vaddress", "-vcities",//"-vstreetgroups", 
+				"-vrouting",
+//				"-vaddress", "-vcities",//"-vstreetgroups", 
 //				"-vstreets", "-vbuildings", "-vintersections", 
 //				"-zoom=15",
 //				"-bbox=1.74,51.17,1.75,51.16",
 //				"-vstats",
 //				"/Users/victorshcherb/osmand/maps/Synthetic_test_rendering.obf"
-				"/Users/victorshcherb/osmand/maps/Netherlands_gelderland_europe_2.obf"
-//				"/Users/victorshcherb/osmand/temp/Czech-republic_jihovychod_europe_2.road.obf"
+//				"/Users/victorshcherb/osmand/maps/Netherlands_europe_2.road.obf"
+				"/Users/victorshcherb/osmand/maps/Map.obf"
 					});
 		} else {
 			in.inspector(args);
@@ -535,16 +535,15 @@ public class BinaryInspector {
 				b.setLength(0);
 				b.append("Road ");
 				b.append(obj.id);
-				for(int i = 0; i < obj.getTypes().length; i++) {
+				for (int i = 0; i < obj.getTypes().length; i++) {
 					RouteTypeRule rr = obj.region.quickGetEncodingRule(obj.getTypes()[i]);
 					b.append(" ").append(rr.getTag()).append("='").append(rr.getValue()).append("'");
 				}
-				if (obj.getNames() != null) {
-					TIntObjectIterator<String> it = obj.getNames().iterator();
-					while (it.hasNext()) {
-						it.advance();
-						RouteTypeRule rr = obj.region.quickGetEncodingRule(it.key());
-						b.append(" ").append(rr.getTag()).append("='").append(it.value()).append("'");
+				int[] nameIds = obj.getNameIds();
+				if (nameIds != null) {
+					for (int key : nameIds) {
+						RouteTypeRule rr = obj.region.quickGetEncodingRule(key);
+						b.append(" ").append(rr.getTag()).append("='").append(obj.getNames().get(key)).append("'");
 					}
 				}
 				println(b.toString());

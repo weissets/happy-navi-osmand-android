@@ -312,28 +312,22 @@ public class OsmandSettings {
 			return ch;
 		}
 		
-		public T getProfileDefaultValue(){
+		public T getProfileDefaultValue(ApplicationMode mode){
 			if(global){
 				return defaultValue;
 			}
-			if(defaultValues != null && defaultValues.containsKey(currentMode)){
-				return defaultValues.get(currentMode);
-			}
-			return defaultValue;
-		}
-		
-		protected T getDefaultValue(){
-			if(global){
-				return defaultValue;
-			}
-			if(defaultValues != null && defaultValues.containsKey(currentMode)){
-				return defaultValues.get(currentMode);
+			if(defaultValues != null && defaultValues.containsKey(mode)){
+				return defaultValues.get(mode);
 			}
 			if(settingsAPI.contains(defaultProfilePreferences, getId())) {
 				return getValue(defaultProfilePreferences, defaultValue);
 			} else {
 				return defaultValue;
 			}
+		}
+		
+		protected T getDefaultValue(){
+			return getProfileDefaultValue(currentMode);
 		}
 		
 		@Override
@@ -351,10 +345,7 @@ public class OsmandSettings {
 			if(global) {
 				return get();
 			}
-			T defaultV = defaultValue;
-			if(defaultValues != null && defaultValues.containsKey(currentMode)){
-				defaultV = defaultValues.get(currentMode);
-			}
+			T defaultV = getProfileDefaultValue(mode);
 			return getValue(getProfilePreferences(mode), defaultV);
 		}
 
@@ -364,7 +355,7 @@ public class OsmandSettings {
 				return cachedValue;
 			}
 			cachedPreference = getPreferences();
-			cachedValue = getValue(cachedPreference, getDefaultValue());
+			cachedValue = getValue(cachedPreference, getProfileDefaultValue(currentMode));
 			return cachedValue;
 		}
 
@@ -375,10 +366,7 @@ public class OsmandSettings {
 		
 		@Override
 		public void resetToDefault(){
-			T o = defaultValue; 
-			if(defaultValues != null && defaultValues.containsKey(currentMode)){
-				o = defaultValues.get(currentMode);
-			}
+			T o = getProfileDefaultValue(currentMode); 
 			set(o);
 		}
 
@@ -707,6 +695,33 @@ public class OsmandSettings {
 		};
 	}.makeGlobal().cache();
 	
+	
+	public final OsmandPreference<SpeedConstants> SPEED_SYSTEM = new EnumIntPreference<SpeedConstants>(
+			"default_speed_system", SpeedConstants.KILOMETERS_PER_HOUR, SpeedConstants.values()) {
+		
+		@Override
+		public SpeedConstants getProfileDefaultValue(ApplicationMode mode) {
+			MetricsConstants mc = METRIC_SYSTEM.get();
+			if(mode.isDerivedRoutingFrom(ApplicationMode.PEDESTRIAN)) {
+				if(mc == MetricsConstants.KILOMETERS_AND_METERS) {
+					return SpeedConstants.MINUTES_PER_KILOMETER;
+				} else {
+					return SpeedConstants.MILES_PER_HOUR;
+				}	
+			}
+			if(mode.isDerivedRoutingFrom(ApplicationMode.BOAT)) {
+				return SpeedConstants.NAUTICALMILES_PER_HOUR;
+			}
+			if(mc == MetricsConstants.NAUTICAL_MILES) {
+				return SpeedConstants.NAUTICALMILES_PER_HOUR;
+			} else if(mc == MetricsConstants.KILOMETERS_AND_METERS) {
+				return SpeedConstants.KILOMETERS_PER_HOUR;
+			} else {
+				return SpeedConstants.MILES_PER_HOUR;
+			}
+		};
+		
+	}.makeProfile().cache();
 	
 	
 	// this value string is synchronized with settings_pref.xml preference name
@@ -1063,6 +1078,8 @@ public class OsmandSettings {
 	
 	
 	public CommonPreference<String> PREVIOUS_INSTALLED_VERSION = new StringPreference("previous_installed_version", "").makeGlobal();
+
+	public final OsmandPreference<Boolean> SHOULD_SHOW_FREE_VERSION_BANNER = new BooleanPreference("should_show_free_version_banner", false).makeGlobal().cache();
 
 	public ITileSource getMapTileSource(boolean warnWhenSelected) {
 		String tileName = MAP_TILE_SOURCES.get();
@@ -1933,9 +1950,38 @@ public class OsmandSettings {
 
 	}
 	
+	
+	public enum SpeedConstants {
+	    KILOMETERS_PER_HOUR(R.string.km_h, R.string.si_kmh),
+		MILES_PER_HOUR(R.string.mile_per_hour, R.string.si_mph),
+		METERS_PER_SECOND(R.string.m_s, R.string.si_m_s),
+		MINUTES_PER_MILE(R.string.min_mile, R.string.si_min_m),
+		MINUTES_PER_KILOMETER(R.string.min_km, R.string.si_min_km),
+		NAUTICALMILES_PER_HOUR(R.string.nm_h, R.string.si_nm_h);
+		
+		private final int key;
+		private int descr;
+
+		SpeedConstants(int key, int descr) {
+			this.key = key;
+			this.descr = descr;
+		}
+		
+		public String toHumanString(Context ctx){
+			return ctx.getString(descr);
+		}
+		
+		public String toShortString(Context ctx){
+			return ctx.getString(key);
+		}
+		
+		
+	}
+	
 	public enum MetricsConstants {
 	    KILOMETERS_AND_METERS(R.string.si_km_m,"km-m"),
 		MILES_AND_FOOTS(R.string.si_mi_foots,"mi-f"),
+		NAUTICAL_MILES(R.string.si_nm,"nm"),
 		MILES_AND_YARDS(R.string.si_mi_yard,"mi-y");
 		
 		private final int key;

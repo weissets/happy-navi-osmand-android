@@ -34,8 +34,7 @@ public class MapViewTrackingUtilities implements OsmAndLocationListener, IMapLoc
 	private DashboardOnMap dashboard;
 	private OsmandSettings settings;
 	private OsmandApplication app;
-	// by default turn off causing unexpected movements due to network establishing
-	private boolean isMapLinkedToLocation = false;
+	private boolean isMapLinkedToLocation = true;
 	private boolean followingMode;
 	private boolean routePlanningMode;
 	private boolean showViewAngle = false;
@@ -276,9 +275,7 @@ public class MapViewTrackingUtilities implements OsmAndLocationListener, IMapLoc
 	@Override
 	public void locationChanged(double newLatitude, double newLongitude, Object source) {
 		// when user start dragging 
-		if(app.getLocationProvider().getLastKnownLocation() != null){
-			setMapLinkedToLocation(false);
-		}
+		setMapLinkedToLocation(false);
 	}
 	
 	public void switchRotateMapMode(){

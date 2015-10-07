@@ -142,16 +142,16 @@ public class GPXUtilities {
 		public List<WptPt> points = new ArrayList<WptPt>();
 		
 		public List<GPXTrackAnalysis> splitByDistance(double meters) {
-			return split(getDistanceMetric(), meters);
+			return split(getDistanceMetric(), getTimeSplit(), meters);
 		}
 		
 		public List<GPXTrackAnalysis> splitByTime(int seconds) {
-			return split(getTimeSplit(), seconds);
+			return split(getTimeSplit(), getDistanceMetric(), seconds);
 		}
 		
-		private List<GPXTrackAnalysis> split(SplitMetric metric, double metricLimit) {
+		private List<GPXTrackAnalysis> split(SplitMetric metric, SplitMetric secondaryMetric, double metricLimit) {
 			List<SplitSegment> splitSegments = new ArrayList<GPXUtilities.SplitSegment>();
-			splitSegment(metric, metricLimit, splitSegments, this);
+			splitSegment(metric, secondaryMetric, metricLimit, splitSegments, this);
 			return convert(splitSegments);
 		}
 
@@ -193,6 +193,7 @@ public class GPXUtilities {
 		public int wptPoints = 0;
 		
 		public double metricEnd;
+		public double secondaryMetricEnd;
 		public WptPt locationStart;
 		public WptPt locationEnd;
 
@@ -226,9 +227,23 @@ public class GPXUtilities {
 			double totalSpeedSum = 0;
 			points = 0;
 			
+			double channelThresMin = 5;            // Minimum oscillation amplitude considered as noise for Up/Down analysis
+			double channelThres = channelThresMin; // Actual oscillation amplitude considered as noise, try depedency on current hdop
+			double channelBase;
+			double channelTop;
+			double channelBottom;
+			boolean climb = false;
+
 			for (SplitSegment s : splitSegments) {
 				final int numberOfPoints = s.getNumberOfPoints();
+
+				channelBase = 99999;
+				channelTop = channelBase;
+				channelBottom = channelBase;
+				channelThres = channelThresMin;
+
 				metricEnd += s.metricEnd;
+				secondaryMetricEnd += s.secondaryMetricEnd;
 				points += numberOfPoints;
 				for (int j = 0; j < numberOfPoints; j++) {
 					WptPt point = s.get(j);
@@ -259,17 +274,69 @@ public class GPXUtilities {
 						speedCount++;
 					}
 
+					// Trend channel approach for elevation gain/loss, Hardy 2015-09-22
+					// Self-adjusting turnarund threshold added for testing 2015-09-25: Current rule is now: "All up/down trends of amplitude <X are ignored to smooth the noise, where X is the maximum observed DOP value of any point which contributed to the current trend (but at least 5 m as the minimum noise threshold)".
+					if (!Double.isNaN(point.ele)) {
+						// Init channel
+						if (channelBase == 99999) {
+							channelBase = point.ele;
+							channelTop = channelBase;
+							channelBottom = channelBase;
+							channelThres = channelThresMin;
+						}
+						// Channel maintenance
+						if (point.ele > channelTop) {
+							channelTop = point.ele;
+							if (!Double.isNaN(point.hdop)) {
+								channelThres = Math.max(channelThres, 2.0*point.hdop);  //Try empirical 2*hdop, may better serve very flat tracks, or high dop tracks
+							}
+						} else if (point.ele < channelBottom) {
+							channelBottom = point.ele;
+							if (!Double.isNaN(point.hdop)) {
+								channelThres = Math.max(channelThres, 2.0*point.hdop);
+							}
+						}
+						// Turnaround (breakout) detection
+						if ((point.ele <= (channelTop - channelThres)) && (climb == true)) {
+							if ((channelTop - channelBase) >= channelThres) {
+								diffElevationUp += channelTop - channelBase;
+							}
+							channelBase = channelTop;
+							channelBottom = point.ele;
+							climb = false;
+							channelThres = channelThresMin;
+						} else if ((point.ele >= (channelBottom + channelThres)) && (climb == false)) {
+							if ((channelBase - channelBottom) >= channelThres) {
+								diffElevationDown += channelBase - channelBottom;
+							}
+							channelBase = channelBottom;
+							channelTop = point.ele;
+							climb = true;
+							channelThres = channelThresMin;
+						}
+						// End detection without breakout
+						if (j == (numberOfPoints -1)) {
+							if ((channelTop - channelBase) >= channelThres) {
+								diffElevationUp += channelTop - channelBase;
+							}
+							if ((channelBase - channelBottom) >= channelThres) {
+								diffElevationDown += channelBase - channelBottom;
+							}
+						}
+					}
+
 					if (j > 0) {
 						WptPt prev = s.get(j - 1);
 
-						if (!Double.isNaN(point.ele) && !Double.isNaN(prev.ele)) {
-							double diff = point.ele - prev.ele;
-							if (diff > 0) {
-								diffElevationUp += diff;
-							} else {
-								diffElevationDown -= diff;
-							}
-						}
+						// Old complete summation approach for elevation gain/loss
+						//if (!Double.isNaN(point.ele) && !Double.isNaN(prev.ele)) {
+						//	double diff = point.ele - prev.ele;
+						//	if (diff > 0) {
+						//		diffElevationUp += diff;
+						//	} else {
+						//		diffElevationDown -= diff;
+						//	}
+						//}
 
 						// totalDistance += MapUtils.getDistance(prev.lat, prev.lon, point.lat, point.lon);
 						// using ellipsoidal 'distanceBetween' instead of spherical haversine (MapUtils.getDistance) is
@@ -325,6 +392,7 @@ public class GPXUtilities {
 		double endCoeff = 0;
 		int endPointInd;
 		double metricEnd;
+		double secondaryMetricEnd;
 		
 		public SplitSegment(TrkSegment s) {
 			startPointInd = 0;
@@ -432,9 +500,11 @@ public class GPXUtilities {
 
 	}
 	
-	private static void splitSegment(SplitMetric metric, double metricLimit, List<SplitSegment> splitSegments,
+	private static void splitSegment(SplitMetric metric, SplitMetric secondaryMetric,
+			double metricLimit, List<SplitSegment> splitSegments,
 			TrkSegment segment) {
 		double currentMetricEnd = metricLimit;
+		double secondaryMetricEnd = 0;
 		SplitSegment sp = new SplitSegment(segment, 0, 0);
 		double total = 0;
 		WptPt prev = null ;
@@ -442,11 +512,13 @@ public class GPXUtilities {
 			WptPt point = segment.points.get(k);
 			if (k > 0) {
 				double currentSegment = metric.metric(prev, point);
+				secondaryMetricEnd += secondaryMetric.metric(prev, point);
 				while (total + currentSegment > currentMetricEnd) {
 					double p = currentMetricEnd - total;
 					double cf = (p / currentSegment); 
 					sp.setLastPoint(k - 1, cf);
 					sp.metricEnd = currentMetricEnd;
+					sp.secondaryMetricEnd = secondaryMetricEnd;
 					splitSegments.add(sp);
 					
 					sp = new SplitSegment(segment, k - 1, cf);
@@ -460,6 +532,7 @@ public class GPXUtilities {
 		if (segment.points.size() > 0
 				&& !(sp.endPointInd == segment.points.size() - 1 && sp.startCoeff == 1)) {
 			sp.metricEnd = total;
+			sp.secondaryMetricEnd = secondaryMetricEnd;
 			sp.setLastPoint(segment.points.size() - 2, 1);
 			splitSegments.add(sp);
 		}

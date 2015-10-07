@@ -72,7 +72,7 @@
 	<string name="poi_boutique">時尚精品</string>
 	<string name="poi_carpet">地毯店</string>
 	<string name="poi_charity">慈善義賣店</string>
-	<string name="poi_chemist">藥品店</string>
+	<string name="poi_chemist">藥局</string>
 	<string name="poi_clothes">服飾店</string>
 	<string name="poi_child_clothes">兒童服飾</string>
 	<string name="poi_shoes">鞋店</string>
@@ -889,15 +889,15 @@
 	<string name="poi_tourism_attraction">旅遊景點</string>
 	<string name="poi_cutline">圖例</string>
 	<string name="poi_tree">樹</string>
-	<string name="poi_icn_ref">國際自行車節點網路</string>
-	<string name="poi_ncn_ref">全國自行車節點網路</string>
-	<string name="poi_rcn_ref">地區性自行車節點網路</string>
-	<string name="poi_lcn_ref">本地自行車節點網路</string>
+	<string name="poi_icn_ref">國際自行車網路節點</string>
+	<string name="poi_ncn_ref">全國自行車網路節點</string>
+	<string name="poi_rcn_ref">地區性自行車網路節點</string>
+	<string name="poi_lcn_ref">本地自行車網路節點</string>
 
-	<string name="poi_iwn_ref">國際步行節點網路</string>
-	<string name="poi_nwn_ref">全國步行節點網路</string>
-	<string name="poi_rwn_ref">地區性步行節點網路</string>
-	<string name="poi_lwn_ref">本地步行節點網路</string>
+	<string name="poi_iwn_ref">國際步行網路節點</string>
+	<string name="poi_nwn_ref">全國步行網路節點</string>
+	<string name="poi_rwn_ref">地區性步行網路節點</string>
+	<string name="poi_lwn_ref">本地步行網路節點</string>
 
 	<string name="poi_opening_hours">營業時間</string>
 	<string name="poi_collection_times">採收時間</string>
@@ -913,7 +913,7 @@
 	<string name="poi_operator">經營者</string>
 	<string name="poi_brand">品牌</string>
 
-	<string name="poi_enforcement_traffic_signals">執法：交通號誌</string>
+	<string name="poi_enforcement_traffic_signals">執法：停止號誌</string>
 	<string name="poi_enforcement_maxspeed">執法：最高速限</string>
 	<string name="poi_enforcement_maxheight">執法：最高高度</string>
 	<string name="poi_enforcement_mindistance">執法：最少間隔距離</string>
@@ -925,10 +925,10 @@
 	<string name="poi_fee_yes">費用</string>
 
 	<string name="poi_abandoned_poi">已遺棄的物件</string>
-	<string name="poi_route_hiking_iwn_poi">國際步行路線</string>
-	<string name="poi_route_hiking_nwn_poi">全國步行路線</string>
-	<string name="poi_route_hiking_rwn_poi">地區性步行路線</string>
-	<string name="poi_route_hiking_lwn_poi">當地步行路線</string>
+	<string name="poi_route_hiking_iwn_poi">國際徒步登山路線</string>
+	<string name="poi_route_hiking_nwn_poi">全國徒步登山路線</string>
+	<string name="poi_route_hiking_rwn_poi">地區性徒步登山路線</string>
+	<string name="poi_route_hiking_lwn_poi">當地徒步登山路線</string>
 	<string name="poi_route_hiking_ref_poi">徒步旅行路線參考</string>
 
 	<string name="poi_node_networks">徒步旅行/自行車網路節點</string>
@@ -950,14 +950,14 @@
 	<string name="poi_fax">傳真</string>
 	<string name="poi_facebook">臉書</string>
 	<string name="poi_mobile">行動電話</string>
-	<string name="poi_animal_shelter_dog">流浪狗庇護所</string>
-	<string name="poi_animal_shelter_cat">流浪貓庇護所</string>
-	<string name="poi_animal_shelter_dog_cat">流浪狗和貓庇護所</string>
-	<string name="poi_animal_shelter_bird">野鳥庇護所</string>
+	<string name="poi_animal_shelter_dog">流浪狗收容所</string>
+	<string name="poi_animal_shelter_cat">流浪貓收容所</string>
+	<string name="poi_animal_shelter_dog_cat">流浪狗和貓收容所</string>
+	<string name="poi_animal_shelter_bird">傷鳥收容所</string>
 
 <string name="poi_shower">淋浴</string>
-	<string name="poi_recycling_centre">中心</string>
-	<string name="poi_recycling_container">貨櫃</string>
+	<string name="poi_recycling_centre">類型：資源回收中心</string>
+	<string name="poi_recycling_container">類型：貨櫃</string>
 	<string name="poi_recycling_glass">玻璃</string>
 	<string name="poi_recycling_paper">紙</string>
 	<string name="poi_recycling_clothes">衣服</string>
@@ -1020,8 +1020,8 @@
 	<string name="poi_recycling_cars">汽車</string>
 	<string name="poi_recycling_bicycles">自行車</string>
 
-	<string name="poi_drinking_water_yes">飲用水</string>
-	<string name="poi_drinking_water_no">非飲用水</string>
+	<string name="poi_drinking_water_yes">飲用水：是</string>
+	<string name="poi_drinking_water_no">飲用水：否</string>
 	<string name="poi_seasonal_yes">季節性的</string>
 	<string name="poi_seasonal_no">非季節性的</string>
 	<string name="poi_seasonal_dry_season">乾燥季節</string>
@@ -1030,7 +1030,7 @@
 	<string name="poi_seasonal_summer">夏季</string>
 	<string name="poi_seasonal_autumn">秋季</string>
 	<string name="poi_seasonal_winter">冬季</string>
-	<string name="poi_crossing_traffic_signals">偕同交通號誌</string>
+	<string name="poi_crossing_traffic_signals">有停止號誌</string>
 	<string name="poi_crossing_uncontrolled">無控制的</string>
 	<string name="poi_crossing_unmarked">無標志的</string>
 
@@ -1139,22 +1139,22 @@
 	<string name="poi_start_date">開始日期</string>
 	<string name="poi_wheelchair">輪椅</string>
 
-	<string name="poi_content_silage">青貯飼料 (內容)</string>
-	<string name="poi_content_water">水 (內容)</string>
-	<string name="poi_content_slurry">礦泥 (內容)</string>
-	<string name="poi_content_oil">油 (內容)</string>
-	<string name="poi_content_fuel">燃料 (內容)</string>
-	<string name="poi_content_manure">肥料 (內容)</string>
-	<string name="poi_content_wine">酒 (內容)</string>
-	<string name="poi_content_sewage">污水 (內容)</string>
-	<string name="poi_content_gas">瓦斯 (內容)</string>
-	<string name="poi_content_biomass">生物質 (內容)</string>
-	<string name="poi_content_wastewater">污水 (內容)</string>
-	<string name="poi_content_crop">農作物 (內容)</string>
-	<string name="poi_content_fodder">飼料 (內容)</string>
-	<string name="poi_content_beer">啤酒 (內容)</string>
-	<string name="poi_content_salt">鹽 (內容)</string>
-	<string name="poi_content_grain">榖物 (內容)</string>
+	<string name="poi_content_silage">內容：青貯飼料</string>
+	<string name="poi_content_water">內容：水</string>
+	<string name="poi_content_slurry">內容：礦泥</string>
+	<string name="poi_content_oil">內容：油</string>
+	<string name="poi_content_fuel">內容：燃料</string>
+	<string name="poi_content_manure">內容：肥料</string>
+	<string name="poi_content_wine">內容：酒</string>
+	<string name="poi_content_sewage">內容：污水</string>
+	<string name="poi_content_gas">內容：瓦斯</string>
+	<string name="poi_content_biomass">內容：生物質</string>
+	<string name="poi_content_wastewater">內容：污水</string>
+	<string name="poi_content_crop">內容：農作物</string>
+	<string name="poi_content_fodder">內容：飼料</string>
+	<string name="poi_content_beer">內容：啤酒</string>
+	<string name="poi_content_salt">內容：鹽</string>
+	<string name="poi_content_grain">內容：榖物</string>
 
 	<string name="poi_wholesale">批發商</string>
 
@@ -1248,4 +1248,429 @@
 
 	<string name="poi_car_wash_self_service">自助服務</string>
 
+	<string name="poi_ford_stepping_stones">踏石橋</string>
+	<string name="poi_int_name">國際名稱</string>
+	<string name="poi_nat_name">國家名稱</string>
+	<string name="poi_reg_name">地區名稱</string>
+	<string name="poi_loc_name">在地名稱</string>
+	<string name="poi_old_name">舊名稱</string>
+	<string name="poi_alt_name">替代名稱</string>
+
+	<string name="poi_pump_manual">手動泵浦</string>
+	<string name="poi_pump_powered">動力泵浦</string>
+	<string name="poi_pump_no">無泵浦</string>
+
+	<string name="poi_water_characteristic_mineral">水特徵的：礦泉水</string>
+	<string name="poi_water_characteristic_mud">水特徵的：泥漿</string>
+	<string name="poi_water_characteristic_sulfuric">水特徵的：硫酸</string>
+
+	<string name="poi_water_point">供水點</string>
+
+	<string name="poi_cuisine">美食</string>
+
+	<string name="poi_information_guidepost">路標</string>
+	<string name="poi_information_board">資訊板</string>
+	<string name="poi_information_map">地圖</string>
+	<string name="poi_information_office">新聞處</string>
+	<string name="poi_information_trail_blaze">小徑</string>
+	<string name="poi_information_terminal">資訊終端機</string>
+	<string name="poi_information_route_marker">路線標識</string>
+	<string name="poi_information_hikingmap">徒步旅行地圖</string>
+	<string name="poi_information_nature">資訊標誌：大自然</string>
+	<string name="poi_doors">門</string>
+	<string name="poi_bicycle_parking_anchors">錨泊點</string>
+	<string name="poi_information_wildlife">資訊標誌：野生動物</string>
+	<string name="poi_information_history">資訊標誌：歷史</string>
+	<string name="poi_information_sign">標誌</string>
+	<string name="poi_information_audioguide">導覽機</string>
+	<string name="poi_information_bicyclemap">自行車地圖</string>
+	<string name="poi_information_tactile_model">觸摸模式</string>
+	<string name="poi_information_tactile_map">觸摸地圖</string>
+	<string name="poi_board_type_notice">布告欄</string>
+	<string name="poi_board_type_plants">資訊標誌：植物</string>
+	<string name="poi_board_type_geology">資訊標誌：地質</string>
+	<string name="poi_board_type_public_transport">資訊標誌：公共交通工具</string>
+	<string name="poi_board_type_technology">資訊標誌：術語</string>
+	<string name="poi_board_type_astronomy">資訊標誌：天文</string>
+
+	<string name="poi_commercial">商業的土地利用</string>
+	<string name="poi_retail">零售的土地利用</string>
+
+	<string name="poi_fireplace_yes">壁爐</string>
+	<string name="poi_fireplace_no">沒有壁爐</string>
+
+	<string name="poi_covered_yes">有覆蓋物</string>
+	<string name="poi_covered_no">無覆蓋物</string>
+
+	<string name="poi_smoking_no">禁止吸煙</string>
+	<string name="poi_smoking_outside">只有外面允許吸煙</string>
+	<string name="poi_smoking_yes">允許吸煙</string>
+	<string name="poi_smoking_dedicated">吸煙者專用</string>
+
+	<string name="poi_tactile_paving_yes">有導盲磚</string>
+	<string name="poi_tactile_paving_no">無導盲磚</string>
+	<string name="poi_paediatrics">小兒科</string>
+
+	<string name="poi_smoking_separated">在一個單獨的房間，允許吸煙</string>
+	<string name="poi_smoking_isolated">在一個隔離的房間，允許吸煙</string>
+	<string name="poi_toll_yes">收費</string>
+	<string name="poi_toll_no">不收費</string>
+	<string name="poi_toll_hgv_yes">收大貨車費用</string>
+	<string name="poi_traffic_signals_sound_yes">有聲音</string>
+	<string name="poi_traffic_signals_sound_no">沒有聲音</string>
+	<string name="poi_traffic_signals_sound_walk">當有聲响時允許行走</string>
+
+	<string name="poi_rescue_station">救護站</string>
+
+	<string name="poi_services">服務區</string>
+	<string name="poi_mini_roundabout">迷你圓環</string>
+	<string name="poi_railway_crossing">鐵路平交道</string>
+	<string name="poi_railway_level_crossing">平交道</string>
+	<string name="poi_bird_hide">賞鳥屋</string>
+	<string name="poi_horse_riding">騎馬運動</string>
+	<string name="poi_leisure_common">公共休閒區</string>
+	<string name="poi_garden">花園</string>
+
+	<string name="poi_heath">荒野地</string>
+	<string name="poi_grass">草地</string>
+	<string name="poi_grassland">草原</string>
+	<string name="poi_scrub">灌木叢</string>
+	<string name="poi_farmland">農田</string>
+	<string name="poi_logging">日誌記錄</string>
+	<string name="poi_sand">沙子</string>
+
+	<string name="poi_windfall">吹落的果實</string>
+	<string name="poi_dead_wood">枯木</string>
+
+	<string name="poi_passing_place">避讓車處</string>
+	<string name="poi_level">等級</string>
+
+<string name="poi_rtsa_scale">RTSA 的難度</string>
+
+<string name="poi_pump">泵浦</string>
+
+	<string name="poi_piste_difficulty_easy">滑雪道難度：容易</string>
+	<string name="poi_piste_difficulty_intermediate">滑雪道難度：中等</string>
+	<string name="poi_piste_difficulty_advanced">滑雪道難度：高級</string>
+	<string name="poi_piste_difficulty_novice">滑雪道難度：初學者</string>
+	<string name="poi_piste_difficulty_expert">滑雪道難度： 熟練者</string>
+	<string name="poi_piste_difficulty_freeride">滑雪道難度：隨意的</string>
+	<string name="poi_piste_grooming_classic">滑雪道修整：最優秀</string>
+	<string name="poi_piste_grooming_classic_skating">滑雪道修整：最優秀+滑冰</string>
+	<string name="poi_piste_grooming_backcountry">滑雪道修整：偏僻的</string>
+	<string name="poi_piste_grooming_scooter">滑雪道修整：滑橇車</string>
+	<string name="poi_piste_grooming_skating">滑雪道修整：滑冰</string>
+	<string name="poi_piste_grooming_no">滑雪道修整：無</string>
+	<string name="poi_piste_grooming_mogul">滑雪道修整：障礙 (mogul)</string>
+
+<string name="poi_garden_type_residential">花園類型：住宅</string>
+	<string name="poi_garden_type_community">花園類型：社區</string>
+	<string name="poi_garden_type_private">花園類型：私人的</string>
+	<string name="poi_garden_type_botanical">花園類型：植物學</string>
+
+	<string name="poi_garden_style_kitchen">花園風格：廚房</string>
+	<string name="poi_garden_style_rosarium">花園風格：玫瑰園</string>
+	<string name="poi_garden_style_french">花園風格：法式</string>
+	<string name="poi_garden_style_english">花園風格：英式</string>
+	<string name="poi_garden_style_japanese">花園風格：日式</string>
+
+<string name="poi_capacity">容量</string>
+	<string name="poi_capacity_disabled_yes">身障人士專用場所</string>
+	<string name="poi_capacity_disabled_no">無身障人士專用場所</string>
+	<string name="poi_capacity_disabled">身障人士專用場所</string>
+	<string name="poi_capacity_women_yes">婦女專用場所</string>
+	<string name="poi_capacity_women_no">無婦女專用場所</string>
+	<string name="poi_capacity_women">婦女專用場所</string>
+	<string name="poi_capacity_pupils">學生專用場所</string>
+	<string name="poi_capacity_teachers">教師專用場所</string>
+	<string name="poi_capacity_parent_yes">父母專用場所</string>
+	<string name="poi_capacity_parent_no">無父母專用場所</string>
+	<string name="poi_capacity_parent">父母專用場所</string>
+
+	<string name="poi_aerialway_occupancy">座艙/席位/載客量</string>
+	<string name="poi_aerialway_capacity">每小時載客量</string>
+	<string name="poi_aerialway_duration">平均行程時間，分鐘</string>
+	<string name="poi_aerialway_bubble_yes">安全罩</string>
+	<string name="poi_aerialway_bubble_no">無安全罩</string>
+	<string name="poi_aerialway_heating_yes">暖氣</string>
+	<string name="poi_aerialway_heating_no">無暖氣</string>
+	<string name="poi_aerialway_bicycle_yes">自行車：允許</string>
+	<string name="poi_aerialway_bicycle_no">自行車：不允許</string>
+	<string name="poi_aerialway_bicycle_summer">自行車：只在夏天允許</string>
+	<string name="poi_aerialway_access_entry">入口</string>
+	<string name="poi_aerialway_access_exit">出口</string>
+	<string name="poi_aerialway_access_both">出入口</string>
+	<string name="poi_wheelchair_no">輪椅：不允許</string>
+	<string name="poi_wheelchair_limited">輪椅：有限的</string>
+	<string name="poi_aerialway_summer_access_entry">夏季通行：只能進入</string>
+	<string name="poi_aerialway_summer_access_exit">夏季通行：只能出去</string>
+	<string name="poi_aerialway_summer_access_both">夏季通行：進和出</string>
+
+	<string name="poi_stars_1">星星：1 (經濟的)</string>
+	<string name="poi_stars_1s">星星：1S (超經濟的)</string>
+	<string name="poi_stars_2">星星：2 (標準的)</string>
+	<string name="poi_stars_2s">星星：2S (超標準的)</string>
+	<string name="poi_stars_3">星星：3 (舒適的)</string>
+	<string name="poi_stars_3s">星星：3 (超舒適的)</string>
+	<string name="poi_stars_4">星星：4 (一流的)</string>
+	<string name="poi_stars_4s">星星：4 (超一流的)</string>
+	<string name="poi_stars_5">星星：5 (豪華的)</string>
+	<string name="poi_stars_5s">星星： 5S (超豪華的)</string>
+	<string name="poi_stars_6">星星： 6</string>
+	<string name="poi_stars_7">星星： 7</string>
+	<string name="poi_rooms">房間</string>
+
+	<string name="poi_love_hotel">情侶賓館</string>
+
+<string name="poi_payment_coins_yes">接受硬幣</string>
+	<string name="poi_payment_coins_no">不接受硬幣</string>
+	<string name="poi_payment_coins_0.5">接受 0.5 美元的硬幣</string>
+	<string name="poi_payment_coins_50c12">接受 50 分、1 歐元和 2 歐元硬幣</string>
+	<string name="poi_payment_telephone_cards_yes">接受電話卡</string>
+	<string name="poi_payment_telephone_cards_no">不接受電話卡</string>
+	<string name="poi_payment_credit_cards_yes">接受信用卡</string>
+	<string name="poi_payment_credit_cards_no">不接受信用卡</string>
+	<string name="poi_payment_notes_yes">接受紙鈔</string>
+	<string name="poi_payment_notes_no">不接受紙鈔</string>
+	<string name="poi_payment_electronic_purses_yes">接受電子錢包</string>
+	<string name="poi_payment_electronic_purses_no">不接受電子錢包</string>
+	<string name="poi_payment_cash_yes">接受現金</string>
+	<string name="poi_payment_cash_no">不接受現金</string>
+	<string name="poi_payment_debit_cards_yes">接受簽帳卡</string>
+	<string name="poi_payment_debit_cards_no">不接受簽帳卡</string>
+	<string name="poi_payment_bitcoin_yes">接受比特幣</string>
+	<string name="poi_payment_bitcoin_no">不接受比特幣</string>
+	<string name="poi_payment_visa_yes">接受 Visa 卡</string>
+	<string name="poi_payment_visa_no">不接受 Visa 卡</string>
+	<string name="poi_payment_mastercard_yes">接受萬事達卡</string>
+	<string name="poi_payment_mastercard_no">不接受萬事達卡</string>
+	<string name="poi_payment_none">免費</string>
+	<string name="poi_payment_account_cards_yes">接受帳戶卡</string>
+	<string name="poi_payment_account_cards_no">不接受帳戶卡</string>
+	<string name="poi_payment_maestro_yes">接受 Maestro 卡</string>
+	<string name="poi_payment_maestro_no">不接受 Maestro 卡</string>
+	<string name="poi_payment_american_express_yes">接受‎美國運通卡 (AMEX)</string>
+	<string name="poi_payment_american_express_no">不接受‎美國運通卡 (AMEX)</string>
+	<string name="poi_internet_access_yes">網際網路存取：是</string>
+	<string name="poi_internet_access_no">網際網路存取：無</string>
+
+	<string name="poi_payment_diners_club_yes">接受大來卡</string>
+	<string name="poi_payment_diners_club_no">不接受大來卡</string>
+	<string name="poi_payment_dkv_yes">接受 DKV</string>
+	<string name="poi_payment_dkv_no">不接受 DKV</string>
+	<string name="poi_payment_uta_yes">接受 UTA 卡</string>
+	<string name="poi_payment_uta_no">不接受 UTA 卡</string>
+	<string name="poi_payment_efectivo_yes">接受 Efectivo</string>
+	<string name="poi_payment_efectivo_no">不接受 Efectivo</string>
+	<string name="poi_payment_girocard_yes">接受 Girocard</string>
+	<string name="poi_payment_girocard_no">不接受 Girocard</string>
+	<string name="poi_payment_discover_card_yes">接受發現卡</string>
+	<string name="poi_payment_discover_card_no">不接受發現卡</string>
+	<string name="poi_payment_visa_electron_yes">接受 Visa Electron 卡</string>
+	<string name="poi_payment_visa_electron_no">不接受 Visa Electron 卡</string>
+	<string name="poi_payment_litecoin_yes">接受 Litecoins</string>
+	<string name="poi_payment_litecoin_no">不接受 Litecoins</string>
+	<string name="poi_payment_cheque_yes">接受支票</string>
+	<string name="poi_payment_cheque_no">不接受支票</string>
+	<string name="poi_payment_pikepass_yes">接受 PIKEPASS</string>
+	<string name="poi_payment_pikepass_no">不接受 PIKEPASS</string>
+	<string name="poi_payment_pikepass_designated">接受 PIKEPASS (指定)</string>
+	<string name="poi_payment_visa_debit_yes">接受 Visa Debit 卡</string>
+	<string name="poi_payment_visa_debit_no">不接受 Visa Electron 卡</string>
+	<string name="poi_payment_cryptocurrencies_no">不接受 Cryptocurrencies</string>
+	<string name="poi_payment_others_yes">接受其它付款方法</string>
+	<string name="poi_payment_others_no">不接受其它付款方法</string>
+	<string name="poi_payment_routex_yes">接受 Routex 燃料卡</string>
+	<string name="poi_payment_routex_no">不接受 Routex 燃料卡</string>
+	<string name="poi_payment_bancomat_yes">接受 Bancomat</string>
+	<string name="poi_payment_bancomat_no">不接受 Bancomat</string>
+	<string name="poi_payment_icsf_yes">接受 IC 儲值卡</string>
+	<string name="poi_payment_icsf_no">不接受 IC 儲值卡</string>
+	<string name="poi_payment_prepaid_ticket_yes">接受預付票</string>
+	<string name="poi_payment_jcb_yes">接受 JCB 卡</string>
+	<string name="poi_payment_jcb_no">不接受 JCB 卡</string>
+	<string name="poi_payment_laser_yes">接受鐳射卡</string>
+	<string name="poi_payment_laser_no">不接受鐳射卡</string>
+	<string name="poi_payment_ep_quick_yes">接受 Quick 卡</string>
+	<string name="poi_payment_ep_quick_no">不接受 Quick 卡</string>
+	<string name="poi_payment_eurowag_yes">接受 Eurowag 卡</string>
+	<string name="poi_payment_eurowag_no">不接受 Eurowag 卡</string>
+	<string name="poi_payment_e_zpass_yes">接受 E‑ZPass</string>
+	<string name="poi_payment_e_zpass_no">不接受 E‑ZPass</string>
+	<string name="poi_payment_euroshell_yes">接受 Euroshell 燃料卡</string>
+	<string name="poi_payment_euroshell_no">不接受 Euroshell 燃料卡</string>
+	<string name="poi_payment_kitcard_yes">接受 KITCard</string>
+	<string name="poi_payment_kitcard_no">不接受 KITCard</string>
+	<string name="poi_payment_westfalen_card_yes">接受 Westfalen 卡</string>
+	<string name="poi_payment_westfalen_card_no">不接受 Westfalen 卡</string>
+	<string name="poi_payment_v_pay_yes">接受 V PAY 卡</string>
+	<string name="poi_payment_v_pay_no">不接受 V PAY 卡</string>
+	<string name="poi_payment_dogecoin_yes">接受多吉幣</string>
+	<string name="poi_payment_dogecoin_no">不接受多吉幣</string>
+	<string name="poi_inscription">碑文</string>
+
+<string name="poi_memorial_cross">十字架</string>
+	<string name="poi_memorial_vehicle">車輛</string>
+	<string name="poi_memorial_obelisk">方尖碑</string>
+
+	<string name="poi_payment_cibus_yes">接受 Cibus 卡</string>
+	<string name="poi_payment_cibus_no">不接受 Cibus 卡</string>
+	<string name="poi_payment_wire_transfer_yes">接受電匯</string>
+	<string name="poi_payment_wire_transfer_no">不接受電匯</string>
+	<string name="poi_payment_ep_cash_yes">接受現金卡 (Geldkarte)</string>
+	<string name="poi_payment_ep_cash_no">不接受現金卡 (Geldkarte)</string>
+	<string name="poi_payment_ep_proton_yes">接受 Proton 卡</string>
+	<string name="poi_payment_ep_proton_no">不接受 Proton 卡</string>
+	<string name="poi_payment_ep_avant_yes">接受 AvantCard 卡</string>
+	<string name="poi_payment_ep_avant_no">不接受 AvantCard 卡</string>
+	<string name="poi_payment_ep_mep_yes">接受 MEP</string>
+	<string name="poi_payment_ep_mep_no">不接受 MEP</string>
+	<string name="poi_payment_ep_minipay_yes">接受 Minipay</string>
+	<string name="poi_payment_ep_minipay_no">不接受 Minipay</string>
+	<string name="poi_payment_ep_minicash_yes">接受 MiniCash</string>
+	<string name="poi_payment_ep_minicash_no">不接受 MiniCash</string>
+	<string name="poi_payment_ep_moneo_yes">接受 Moneo</string>
+	<string name="poi_payment_ep_moneo_no">不接受 Moneo</string>
+	<string name="poi_payment_ep_monedero4b_yes">接受 Monedero 4B</string>
+	<string name="poi_payment_ep_monedero4b_no">不接受 Monedero 4B</string>
+	<string name="poi_payment_ep_monedero_yes">接受 Monedero</string>
+	<string name="poi_payment_ep_monedero_no">不接受 Monedero</string>
+	<string name="poi_payment_bankaxess_yes">接受 BankAxess</string>
+	<string name="poi_payment_bankaxess_no">不接受 BankAxess</string>
+	<string name="poi_payment_coinkite_yes">接受 Coinkite</string>
+	<string name="poi_payment_coinkite_no">不接受 Coinkite</string>
+	<string name="poi_payment_roadrunner_yes">接受 Roadrunner 卡</string>
+	<string name="poi_payment_roadrunner_no">不接受 Roadrunner 卡</string>
+	<string name="poi_payment_svg_yes">接受 SVG</string>
+	<string name="poi_payment_svg_no">不接受 SVG</string>
+	<string name="poi_payment_sms_yes">接受 SMS 支付</string>
+	<string name="poi_payment_sms_no">不接受 SMS 支付</string>
+	<string name="poi_payment_ov_chipkaart_yes">接受 OV-Chipkaart</string>
+	<string name="poi_payment_ov_chipkaart_no">不接受 OV-Chipkaart</string>
+	<string name="poi_payment_oyster_yes">接受 Oyster 卡</string>
+	<string name="poi_payment_oyster_no">不接受 Oyster 卡</string>
+	<string name="poi_payment_sube_yes">接受 SUBE 卡</string>
+	<string name="poi_payment_sube_no">不接受 SUBE 卡</string>
+	<string name="poi_payment_via_verde_yes">接受 Via Verde</string>
+	<string name="poi_payment_via_verde_no">不接受 Via Verde</string>
+	<string name="poi_payment_meal_voucher_yes">接受餐券</string>
+	<string name="poi_payment_meal_voucher_no">不接受餐券</string>
+	<string name="poi_payment_paypal_yes">接受 PayPal</string>
+	<string name="poi_payment_paypal_no">不接受 PayPal</string>
+	<string name="poi_payment_u_key_yes">接受 U-Key</string>
+	<string name="poi_payment_u_key_no">不接受 U-Key</string>
+	<string name="poi_payment_token_yes">接受 Tokens</string>
+	<string name="poi_payment_token_no">不接受 Tokens</string>
+	<string name="poi_payment_gift_card_yes">接受禮品卡</string>
+	<string name="poi_payment_gift_card_no">不接受禮品卡</string>
+	<string name="poi_payment_golden_crown_yes">接受 Golden Crown 卡</string>
+	<string name="poi_payment_golden_crown_no">不接受 Golden Crown 卡</string>
+	<string name="poi_payment_pro100_yes">接受 PRO100</string>
+	<string name="poi_payment_pro100_no">不接受 PRO100</string>
+	<string name="poi_payment_union_card_yes">接受 Union 卡</string>
+	<string name="poi_payment_union_card_no">不接受 Union 卡</string>
+	<string name="poi_payment_mtsmoney_yes">接受 MTS-Money</string>
+	<string name="poi_payment_mtsmoney_no">不接受 MTS-Money</string>
+	<string name="poi_payment_yandexmoney_yes">接受 Yandex.Money</string>
+	<string name="poi_payment_yandexmoney_no">不接受 Yandex.Money</string>
+	<string name="poi_description_payment">付款說明</string>
+
+	<string name="poi_internet_access_fee_yes">網路存取 - 收取費用</string>
+	<string name="poi_internet_access_fee_no">網路存取 - 不收費</string>
+
+	<string name="poi_events_venue">活動場地</string>
+
+	<string name="poi_diet_vegetarian_only">只有素食</string>
+	<string name="poi_diet_vegetarian_yes">純素食</string>
+	<string name="poi_diet_vegetarian_no">純素食：無</string>
+	<string name="poi_diet_vegetarian_few">純素食：很少</string>
+	<string name="poi_diet_vegan_only">只有素食</string>
+	<string name="poi_diet_vegan_yes">素食</string>
+	<string name="poi_diet_vegan_no">素食：不是</string>
+	<string name="poi_diet_gluten_free_only">只有無麩質食物</string>
+	<string name="poi_diet_gluten_free_yes">無麩質食物</string>
+	<string name="poi_diet_gluten_free_no">無麩質食物：無</string>
+	<string name="poi_diet_kosher_only">只有符合猶太教規食物</string>
+	<string name="poi_diet_kosher_yes">符合猶太教規食物</string>
+	<string name="poi_diet_kosher_no">符合猶太教規食物：無</string>
+	<string name="poi_diet_halal_only">只有清真食物</string>
+	<string name="poi_diet_halal_yes">清真食物</string>
+	<string name="poi_diet_halal_no">清真食物：無</string>
+	<string name="poi_diet_lactose_free_only">只有無乳糖食物</string>
+	<string name="poi_diet_lactose_free_yes">無乳糖食物</string>
+	<string name="poi_diet_lactose_free_no">無乳糖食物：無</string>
+	<string name="poi_diet_pescetarian_yes">魚素食物</string>
+
+	<string name="poi_drive_in_yes">免下車服務：有</string>
+	<string name="poi_drive_in_no">免下車服務：無</string>
+	<string name="poi_drive_through_yes">得來速：有</string>
+	<string name="poi_drive_through_no">得來速：無</string>
+
+	<string name="poi_brewery_additional">啤酒廠名</string>
+	<string name="poi_microbrewery_yes">自釀酒廠</string>
+	<string name="poi_microbrewery_no">無自釀酒廠</string>
+
+	<string name="poi_takeaway_yes">腳架</string>
+	<string name="poi_takeaway_no">無腳架</string>
+	<string name="poi_takeaway_only">只有腳架</string>
+
+	<string name="poi_delivery_yes">外送</string>
+	<string name="poi_delivery_no">沒外送</string>
+	<string name="poi_delivery_only">只有外送</string>
+
+	<string name="poi_outdoor_seating_yes">室外座位</string>
+	<string name="poi_outdoor_seating_no">無室外座位</string>
+	<string name="poi_outdoor_seating_terrace">室外座位：露臺</string>
+	<string name="poi_outdoor_seating_sidewalk">室外座位：人行道</string>
+	<string name="poi_outdoor_seating_pedestrian_zone">室外座位：步行區</string>
+	<string name="poi_outdoor_seating_garden">室外座位：花園</string>
+	<string name="poi_outdoor_seating_patio">室外座位：天井</string>
+
+	<string name="poi_cocktails_yes">雞尾酒</string>
+
+	<string name="poi_second_hand_yes">二手商品</string>
+	<string name="poi_second_hand_no">無二手商品</string>
+	<string name="poi_second_hand_only">只有二手商品</string>
+
+	<string name="poi_service_parts">零配件</string>
+	<string name="poi_service_dealer">經銷商</string>
+	<string name="poi_service_repair">維修</string>
+	<string name="poi_service_repair_no">無維修</string>
+	<string name="poi_service_electrical">電動車維修</string>
+	<string name="poi_motorcycle_repair">機車維修</string>
+	<string name="poi_self_service_yes">自助服務</string>
+	<string name="poi_self_service_no">無自助服務</string>
+	<string name="poi_automated_yes">自動化</string>
+	<string name="poi_automated_no">無自動化</string>
+	<string name="poi_full_service_yes">全方位服務</string>
+	<string name="poi_brushless_yes">無刷</string>
+	<string name="poi_brushless_no">無刷：無</string>
+	<string name="poi_car_wash_no">洗車：無</string>
+
+	<string name="poi_aeroway_fuel">飛機燃料站</string>
+	<string name="poi_public_bath">公共浴室</string>
+
+	<string name="poi_male_yes">男性</string>
+	<string name="poi_male_no">禁止男性</string>
+	<string name="poi_female_yes">女性</string>
+	<string name="poi_female_no">禁止女性</string>
+	<string name="poi_indoor_yes">室內</string>
+	<string name="poi_indoor_no">戶外</string>
+	<string name="poi_toilets_yes">附洗手間</string>
+	<string name="poi_toilets_no">未附洗手間</string>
+	<string name="poi_toilets_wheelchair_yes">供輪椅進出洗手間：有</string>
+	<string name="poi_toilets_wheelchair_no">供輪椅進出洗手間：無</string>
+	<string name="poi_toilets_access_customers">洗手間進出：客戶</string>
+	<string name="poi_toilets_access_permissive">洗手間進出：容許</string>
+	<string name="poi_toilets_access_community">洗手間進出：社區</string>
+	<string name="poi_toilets_access_public">洗手間進出：公共</string>
+
+	<string name="poi_diaper_room">尿布更換室</string>
+
+	<string name="poi_diaper_yes">尿布更換台</string>
+	<string name="poi_diaper_no">無尿布更換台</string>
+	<string name="poi_maxstay">停車時限</string>
+
+	<string name="poi_vending_parking_tickets">停車票卡</string>
+	<string name="poi_vending_cigarettes">香菸</string>
 	</resources>

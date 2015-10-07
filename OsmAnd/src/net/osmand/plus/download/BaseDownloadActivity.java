@@ -1,11 +1,16 @@
 package net.osmand.plus.download;
 
-import java.lang.ref.WeakReference;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import net.osmand.access.AccessibleToast;
 import net.osmand.plus.OsmandApplication;
@@ -14,25 +19,23 @@ import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.ActionBarProgressActivity;
 import net.osmand.plus.base.BasicProgressAsyncTask;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
+import net.osmand.plus.download.items.ItemsListBuilder;
 
-/**
- * Created by Denis
- * on 25.11.2014.
- */
+import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class BaseDownloadActivity extends ActionBarProgressActivity {
 	protected DownloadActivityType type = DownloadActivityType.NORMAL_FILE;
 	protected OsmandSettings settings;
 	public static DownloadIndexesThread downloadListIndexThread;
-	protected List<WeakReference<Fragment>> fragList = new ArrayList<WeakReference<Fragment>>();
-	protected List<IndexItem> downloadQueue = new ArrayList<IndexItem>();
+	protected Set<WeakReference<Fragment>> fragSet = new HashSet<>();
+	protected List<IndexItem> downloadQueue = new ArrayList<>();
 
 	public static final int MAXIMUM_AVAILABLE_FREE_DOWNLOADS = 10;
 
@@ -63,7 +66,7 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 		super.onResume();
 		downloadListIndexThread.setUiActivity(this);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -85,7 +88,7 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 
 	public Map<IndexItem, List<DownloadEntry>> getEntriesToDownload() {
 		if (downloadListIndexThread == null) {
-			return new LinkedHashMap<IndexItem, List<DownloadEntry>>();
+			return new LinkedHashMap<>();
 		}
 		return downloadListIndexThread.getEntriesToDownload();
 	}
@@ -108,6 +111,23 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 
 	public void categorizationFinished(List<IndexItem> filtered, List<IndexItemCategory> cats) {
 
+	}
+
+	public void onCategorizationFinished() {
+
+	}
+
+	public ItemsListBuilder getItemsBuilder() {
+		return getItemsBuilder("");
+	}
+
+	public ItemsListBuilder getItemsBuilder(String regionId) {
+		if (downloadListIndexThread.isDataPrepared()) {
+			return new ItemsListBuilder(getMyApplication(), regionId, downloadListIndexThread.getResourcesByRegions(),
+					downloadListIndexThread.getVoiceRecItems(), downloadListIndexThread.getVoiceTTSItems());
+		} else {
+			return null;
+		}
 	}
 
 	public boolean startDownload(IndexItem item) {
@@ -153,7 +173,8 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 		if (Version.isFreeVersion(getMyApplication())) {
 			int total = settings.NUMBER_OF_FREE_DOWNLOADS.get();
 			if (total > MAXIMUM_AVAILABLE_FREE_DOWNLOADS) {
-				dialogToInstallPaid();
+				new InstallPaidVersionDialogFragment()
+						.show(getSupportFragmentManager(), InstallPaidVersionDialogFragment.TAG);
 			} else {
 				downloadFilesCheckInternet();
 			}
@@ -162,44 +183,11 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 		}
 	}
 
-	protected void dialogToInstallPaid() {
-		String msgTx = getString(R.string.free_version_message, MAXIMUM_AVAILABLE_FREE_DOWNLOADS + "");
-		AlertDialog.Builder msg = new AlertDialog.Builder(this);
-		msg.setTitle(R.string.free_version_title);
-		msg.setMessage(msgTx);
-		if (Version.isMarketEnabled(getMyApplication())) {
-			msg.setPositiveButton(R.string.install_paid, new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Version.marketPrefix(getMyApplication())
-							+ "net.osmand.plus"));
-					try {
-						startActivity(intent);
-					} catch (ActivityNotFoundException e) {
-					}
-				}
-			});
-			msg.setNegativeButton(R.string.shared_string_cancel, null);
-		} else {
-			msg.setNeutralButton(R.string.shared_string_ok, null);
-		}
-		msg.show();
-	}
-
 	protected void downloadFilesCheckInternet() {
 		if (!getMyApplication().getSettings().isWifiConnected()) {
 			if (getMyApplication().getSettings().isInternetConnectionAvailable()) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage(getString(R.string.download_using_mobile_internet));
-				builder.setPositiveButton(R.string.shared_string_yes, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						downloadFilesPreCheckSpace();
-					}
-				});
-				builder.setNegativeButton(R.string.shared_string_no, null);
-				builder.show();
+				new ConfirmDownloadDialogFragment().show(getSupportFragmentManager(),
+						ConfirmDownloadDialogFragment.TAG);
 			} else {
 				AccessibleToast.makeText(this, R.string.no_index_file_to_download, Toast.LENGTH_LONG).show();
 			}
@@ -210,7 +198,7 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 
 	@Override
 	public void onAttachFragment(Fragment fragment) {
-		fragList.add(new WeakReference<Fragment>(fragment));
+		fragSet.add(new WeakReference<Fragment>(fragment));
 	}
 
 	public void makeSureUserCancelDownload() {
@@ -267,7 +255,7 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 			} else {
 				msg.setNeutralButton(R.string.shared_string_ok, null);
 			}
-			
+
 			msg.show();
 		}
 	}
@@ -279,6 +267,59 @@ public class BaseDownloadActivity extends ActionBarProgressActivity {
 
 	public void removeFromQueue(IndexItem item) {
 		downloadQueue.remove(item);
+	}
+
+	public static class InstallPaidVersionDialogFragment extends DialogFragment {
+		public static final String TAG = "InstallPaidVersionDialogFragment";
+		@NonNull
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			String msgTx = getString(R.string.free_version_message, MAXIMUM_AVAILABLE_FREE_DOWNLOADS + "");
+			AlertDialog.Builder msg = new AlertDialog.Builder(getActivity());
+			msg.setTitle(R.string.free_version_title);
+			msg.setMessage(msgTx);
+			if (Version.isMarketEnabled(getMyApplication())) {
+				msg.setPositiveButton(R.string.install_paid, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Intent.ACTION_VIEW,
+								Uri.parse(Version.marketPrefix(getMyApplication())
+										+ "net.osmand.plus"));
+						try {
+							startActivity(intent);
+						} catch (ActivityNotFoundException e) {
+						}
+					}
+				});
+				msg.setNegativeButton(R.string.shared_string_cancel, null);
+			} else {
+				msg.setNeutralButton(R.string.shared_string_ok, null);
+			}
+			return msg.create();
+		}
+
+		private OsmandApplication getMyApplication() {
+			return (OsmandApplication) getActivity().getApplication();
+		}
+	}
+
+	public static class ConfirmDownloadDialogFragment extends DialogFragment {
+		public static final String TAG = "ConfirmDownloadDialogFragment";
+		@NonNull
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setMessage(getString(R.string.download_using_mobile_internet));
+			builder.setPositiveButton(R.string.shared_string_yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					((BaseDownloadActivity) getActivity()).downloadFilesPreCheckSpace();
+				}
+			});
+			builder.setNegativeButton(R.string.shared_string_no, null);
+			return builder.create();
+		}
 	}
 }
 

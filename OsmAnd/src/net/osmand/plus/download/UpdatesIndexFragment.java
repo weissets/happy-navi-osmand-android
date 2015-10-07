@@ -1,18 +1,5 @@
 package net.osmand.plus.download;
 
-import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import net.osmand.access.AccessibleToast;
-import net.osmand.map.OsmandRegions;
-import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.R;
-import net.osmand.plus.activities.OsmAndListFragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,6 +17,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.osmand.access.AccessibleToast;
+import net.osmand.map.OsmandRegions;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.R;
+import net.osmand.plus.activities.OsmAndListFragment;
+
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Denis
  * on 09.09.2014.
@@ -39,7 +40,7 @@ public class UpdatesIndexFragment extends OsmAndListFragment {
 	private OsmandRegions osmandRegions;
 	private java.text.DateFormat format;
 	private UpdateIndexAdapter listAdapter;
-	List<IndexItem> indexItems = new ArrayList<IndexItem>();
+	List<IndexItem> indexItems = new ArrayList<>();
 
 
 	@Override
@@ -232,7 +233,7 @@ public class UpdatesIndexFragment extends OsmAndListFragment {
 	private void filterExisting() {
 		final Map<String, String> listAlreadyDownloaded = DownloadActivity.downloadListIndexThread.getDownloadedIndexFileNames();
 
-		final List<IndexItem> filtered = new ArrayList<IndexItem>();
+		final List<IndexItem> filtered = new ArrayList<>();
 		for (IndexItem fileItem : listAdapter.getIndexFiles()) {
 			if (fileItem.isAlreadyDownloaded(listAlreadyDownloaded)) {
 				filtered.add(fileItem);
@@ -328,7 +329,7 @@ public class UpdatesIndexFragment extends OsmAndListFragment {
 	}
 
 	private String getMapDescription(IndexItem item){
-		String typeName = getTypeName(item, item.getType().getResource());
+		String typeName = getTypeName(item, item.getType().getStringResource());
 		String date = item.getDate(format);
 		String size = item.getSizeDescription(getActivity());
 		return typeName + "  " + date + "  " + size;
@@ -340,7 +341,7 @@ public class UpdatesIndexFragment extends OsmAndListFragment {
 		if (resId == R.string.download_regular_maps){
 			return activity.getString(R.string.shared_string_map);
 		} else if (resId == R.string.download_wikipedia_maps){
-			return activity.getString(R.string.download_wikipedia_item);
+			return activity.getString(R.string.shared_string_wikipedia);
 		} else if (resId == R.string.voices) {
 			return item.getTargetFileName().contains("tts") ? activity.getString(R.string.ttsvoice) : activity
 					.getString(R.string.voice);

@@ -69,12 +69,11 @@
     <string name="safe_mode">Безопасный режим</string>
     <string name="native_library_not_running">Приложение запущено в безопасном режиме (отключите в Настройках).</string>
     <string name="background_service_is_enabled_question">Фоновый режим всё ещё запущен. Вы хотите прервать его тоже?</string>
-    <string name="tip_recent_changes_1_0_0_t">Изменения в 1.0.0:
-	\n\t* Улучшенная навигация: быстрее и расчёт до 250 км
-	\n\t* Новые компактные карты (исключительно дороги)
-	\n\t* Карта не теряет позицию после прерываний в работе
-	\n\t* Включённый фоновый режим в навигации
-    </string>
+    <string name="tip_recent_changes_1_0_0_t">"Изменения в 1.0.0:
+\n\t* Улучшенная навигация: быстрее и расчёт до 250 км
+\n\t* Новые компактные карты (исключительно дороги)
+\n\t* Карта не теряет позицию после прерываний в работе
+\n\t* Включает фоновый режим в навигации "</string>
     <string name="close_changeset">Закрыть changeset</string>
 	<string name="zxing_barcode_scanner_not_found">Приложение \"Сканнер штрих-кодов\" не найдено. Искать в Google Play?</string>
     <string name="non_optimal_route_calculation">Быстрое построение маршрута (возможно неоптимально)</string>
@@ -302,7 +301,7 @@
   <string name="favorite_home_category">Дом</string>
   <string name="favorite_friends_category">Друзья</string>
   <string name="favorite_places_category">Места</string>
-  <string name="favorite_default_category">Другое</string>
+  <string name="shared_string_others">Другое</string>
   <string name="shared_string_no_thanks">Не нужно</string>
   <string name="basemap_missing">Отсутствует базовая карта, покрывающая весь мир на мелком масштабе. Пожалуйста загрузите World_basemap_x.obf для полноценный работы приложения.</string>
   <string name="vector_data_missing">Локальные данные отсутствуют на SD-карте. Пожалуйста, загрузите их для того, чтобы использовать приложение без Интернета.</string>
@@ -575,12 +574,12 @@
   <string name="gps_provider">GPS</string>
   <string name="int_seconds">секунд</string>
   <string name="int_min">мин.</string>
-  <string name="background_service_int_descr">Выберите интервал позиционирования для сервиса</string>
+  <string name="background_service_int_descr">Выберите интервал пробуждения для фоновой службы</string>
   <string name="background_service_int">Интервал пробуждения GPS</string>
-  <string name="background_service_provider_descr">Выберите источник позиционирования для сервиса</string>
+  <string name="background_service_provider_descr">Выберите источник позиционирования для фоновой службы</string>
   <string name="background_service_provider">Источник позиционирования</string>
   <string name="background_router_service_descr">Запускает OsmAnd в фоновом режиме для отслеживания местоположения при выключенном экране</string>
-  <string name="background_router_service">Сервис навигации</string>
+  <string name="background_router_service">Запуск приложения в фоновом режиме</string>
   <string name="off_router_service_no_gps_available">Сервис маршрутизации OsmAnd включён, если отключить позиционирование, он перестанет вести по маршруту.</string>
   <string name="routing_settings_descr">Настройки навигации</string>
   <string name="routing_settings">Навигация</string>
@@ -1016,7 +1015,7 @@
   
   <string name="show_cameras">Показать камеры контроля скорости</string>
   <string name="show_traffic_warnings">Показать ограничения скорости</string>
-  <string name="avoid_toll_roads">Избегать платных дорог</string>
+  <string name="avoid_toll_roads">Платные дороги</string>
   <string name="tip_recent_changes_0_8_2_t">Изменения в 0.8.2:
 		\n\t* Улучшенная прокладка маршрута.
 		\n\t* Возможность выбора информационных элементов (виджетов), отображаемых на карте (кнопка Настройки в правом верхнему углу карты).
@@ -1119,11 +1118,10 @@
     <string name="new_destination_point_dialog">Вы уже установили пункт назначения.</string>
     <string name="target_point">Пункт назначения %1$s</string>
     <string name="target_points">Цели</string>
-    <string name="tip_recent_changes_0_8_4_t">Изменения в 0.8.4:
-	\n\t* Исправление ошибок
-	\n\t* Карта не теряет блокировку позиции после прерываний
-	\n\t* Включает режим сна во время навигации
-    </string>
+    <string name="tip_recent_changes_0_8_4_t">"Изменения в 0.8.4:
+\n\t* Исправление ошибок
+\n\t* Карта не теряет блокировку позиции после прерываний
+\n\t* Включает фоновый режим во время навигации "</string>
     <string name="intermediate_point">Путевая точка %1$s</string>
     <string name="delete_target_point">Удалить точку назначения</string>
 	<string name="map_widget_monitoring_services">Службы мониторинга</string>
@@ -1283,9 +1281,9 @@
 	<string name="av_camera_pic_size">Размер фото</string>
 	<string name="av_camera_pic_size_descr">Размер изображения для встроенного приложения фотографирования</string>
     
-	<string name="speak_speed_limit">Сообщать о превышении скорости</string>
-    <string name="speak_cameras">Сообщать о камерах</string>
-	<string name="speak_traffic_warnings">Сообщать о дорожных событиях</string>
+	<string name="speak_speed_limit">Ограничение скорости</string>
+    <string name="speak_cameras">Камеры контроля скорости</string>
+	<string name="speak_traffic_warnings">Дорожные предупреждения</string>
 	
     <string name="clear_intermediate_points">Очистить промежуточные точки</string>
     <string name="keep_intermediate_points">Оставить промежуточные точки</string>
@@ -1300,10 +1298,10 @@
 	\n\t* Множество изменений интерфейса
 	\n\t* Исправление ошибок отображения дистанции, анализатора GPX, виджета планирования, выгрузки OSM, обработки путевых точек и поддержки https
     </string>
-    <string name="speak_street_names">Произносить названия улиц (TTS)</string>
-    <string name="speak_title">Озвучивание…</string>
+    <string name="speak_street_names">Названия улиц (TTS)</string>
+    <string name="speak_title">Объявлять…</string>
 	<string name="speak_descr">Настройка озвучивания названий улиц, предупреждений (лежачих полицейских, знаков \"Движение без остановки запрещено\"), камер контроля скорости, ограничений скорости</string>
-	<string name="announce_gpx_waypoints">Озвучивание маршрутных точек GPX</string>
+	<string name="announce_gpx_waypoints">Маршрутные точки GPX</string>
         
     
     
@@ -1359,16 +1357,16 @@
 	<string name="auto_zoom_far">К среднему плану</string>
 	<string name="auto_zoom_farthest">К дальнему плану</string>
 	<string name="routing_attr_avoid_motorway_description">Избегать автомагистралей</string>
-	<string name="routing_attr_avoid_motorway_name">Избегать автомагистралей</string>
+	<string name="routing_attr_avoid_motorway_name">Автомагистрали</string>
 	<string name="routing_attr_prefer_motorway_name">Предпочитать автомагистрали</string>
 	<string name="routing_attr_prefer_motorway_description">Предпочитать автомагистрали</string>
 	<string name="routing_attr_short_way_name">Кратчайший путь</string>
 	<string name="routing_attr_short_way_description">Использовать кратчайший путь</string>
-	<string name="routing_attr_avoid_toll_name">Избегать платных дорог</string>
+	<string name="routing_attr_avoid_toll_name">Платные дороги</string>
 	<string name="routing_attr_avoid_toll_description">Избегать платных дорог</string>
-	<string name="routing_attr_avoid_unpaved_name">Избегать грунтовые дороги</string>
+	<string name="routing_attr_avoid_unpaved_name">Грунтовые дороги</string>
 	<string name="routing_attr_avoid_unpaved_description">Избегать грунтовые дороги</string>
-	<string name="routing_attr_avoid_ferries_name">Избегать паромов</string>
+	<string name="routing_attr_avoid_ferries_name">Паромы</string>
 	<string name="routing_attr_avoid_ferries_description">Избегать паромов</string>
 	<string name="routing_attr_weight_name">Максимальная масса</string>
 	<string name="routing_attr_weight_description">Укажите массу автомобиля для учёта при построении маршрута</string>
@@ -1702,8 +1700,8 @@
     <string name="waypoints">Путевые точки</string>
     <string name="targets">Пункты назначения</string>
     <string name="way_alarms">Дорожные предупреждения</string>
-    <string name="speak_favorites">Объявлять близлежащие избранные</string>
-    <string name="speak_poi">Объявлять близлежащие POI</string>
+    <string name="speak_favorites">Близлежащие избранные</string>
+    <string name="speak_poi">Близлежащие POI</string>
     <string name="index_tours">Туры</string>
     <string name="shared_string_all">Все</string>
     <string name="distance">Расстояние</string>
@@ -1803,7 +1801,7 @@
 	<string name="show_pedestrian_warnings">Показывать пешеходные переходы</string>
     <string name="traffic_warning_railways">Железнодорожный переезд</string>
 	<string name="traffic_warning_pedestrian">Пешеходный переход</string>
-	<string name="speak_pedestrian">Сообщать о пешеходных переходах</string>
+	<string name="speak_pedestrian">Пешеходные переходы</string>
     
 	<string name="navigation_over_track">Начать навигацию по треку?</string>
 	<string name="avoid_roads_msg">Вы можете выбрать альтернативный маршрут, выбрав дороги, которые стоит избегать</string>
@@ -1975,7 +1973,7 @@
     <string name="application_dir_change_warning3">Переместить также файлы данных OsmAnd в новое место назначения?</string>
     <string name="search_poi_category_hint">Напечатайте для поиска</string>
     <string name="rendering_attr_hideHouseNumbers_name">Скрыть номера домов</string>
-    <string name="routing_attr_avoid_borders_name">Избегать пересечения границы</string>
+    <string name="routing_attr_avoid_borders_name">Пересечения границы</string>
 	<string name="routing_attr_avoid_borders_description">Избегать пересечение границы с другой страной</string>
 	<string name="routing_attr_height_name">Ограничение высоты</string>
 	<string name="routing_attr_height_description">Укажите высоту автомобиля для учёта при построении маршрута</string>
@@ -1988,7 +1986,7 @@
     <string name="osmo_share_my_location">Поделиться моим местоположением</string>
     <string name="shared_string_logoff">Выход</string>
     <string name="index_name_netherlands">Европа - Нидерланды</string>
-	<string name="download_wikipedia_item">Википедия</string>
+	<string name="shared_string_wikipedia">Википедия</string>
     <string name="local_indexes_cat_wiki">Википедия</string>
     <string name="shared_string_show_details">Показать детали</string>
     <string name="download_wikipedia_maps">Википедия</string>
@@ -1996,7 +1994,7 @@
     <string name="shared_string_import2osmand">Импорт в OsmAnd</string>
     <string name="local_recordings_delete_all_confirm">Вы собираетесь удалить %1$d заметок. Вы уверены?</string>
 	<string name="gps_network_not_enabled">Служба определения координат не включена. Вы хотите включить её?</string>
-    <string name="disable_recording_once_app_killed_descrp">Если отмечено, то после завершения приложения (через последние приложений) запись GPX будет поставлена на паузу. (Индикация режима сна OsmAnd исчезнет с панели уведомлений Android.)</string>
+    <string name="disable_recording_once_app_killed_descrp">При завершении приложения (через последние приложения) запись GPX будет поставлена на паузу. (Из панели уведомлений Android исчезнет значок фонового режима.)</string>
 	<string name="download_wikipedia_files">Хотите загрузить дополнительные данные Википедии (%1$s Мб) ?</string>
     <string name="lang_es_ar">Аргентинский испанский</string>
     <string name="lang_nb">Норвежский букмол</string>
@@ -2096,4 +2094,32 @@
 <string name="poi_action_delete">удалить</string>
 	<string name="tag_poi_amenity">инфраструктура</string>
 	<string name="recent_places">Недавние места</string>
-	</resources>
+	<string name="count_of_lines">Количество строк</string>
+<string name="show_on_start">Показывать при запуске</string>
+	<string name="address_unknown">Адрес неизвестен</string>
+    <string name="are_you_sure">Вы уверены?</string>
+	<string name="unsaved_changes_will_be_lost">Все несохраненные изменения будут потеряны. Продолжить?</string>
+	<string name="simulate_your_location_descr">Моделировать используя записанный GPX или рассчитанный маршрут</string>
+    <string name="simulate_your_location_stop_descr">Остановить моделирование</string>
+    <string name="favorite_category_add_new">Добавить новую</string>
+    <string name="favorite_category_select">Выберите категорию</string>
+    <string name="default_speed_system_descr">Выберите единицы измерения скорости</string>
+    <string name="default_speed_system">Единицы измерения скорости</string>
+    <string name="si_nm">Морские мили</string>
+    <string name="si_kmh">Километр в час</string>
+    <string name="si_mph">Миля в час</string>
+    <string name="si_m_s">Метр в секунду</string>
+    <string name="si_min_km">Минута на километр</string>
+    <string name="si_min_m">Минута на милю</string>
+    <string name="si_nm_h">Морская миля в час (узел)</string>
+    <string name="min_mile">мин/м</string>
+    <string name="min_km">мин/км</string>
+    <string name="m_s">м/с</string>
+    
+    <string name="shared_string_trip_recording">Запись поездки</string>
+    <string name="shared_string_navigation">Навигация</string>
+    <string name="favourites_edit_dialog_title">Информация об избранной точке</string>
+    <string name="routing_attr_avoid_shuttle_train_name">Избегать пригородных поездов</string>
+	<string name="routing_attr_avoid_shuttle_train_description">Избегать пригородных поездов</string>
+    <string name="traffic_warning_hazard">Опасность</string>
+    </resources>

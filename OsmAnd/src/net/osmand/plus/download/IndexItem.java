@@ -1,26 +1,31 @@
 package net.osmand.plus.download;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import net.osmand.IndexConstants;
 import net.osmand.PlatformUtil;
 import net.osmand.map.OsmandRegions;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
+import net.osmand.plus.helpers.HasName;
 
 import org.apache.commons.logging.Log;
 
-import android.content.Context;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-public class IndexItem implements Comparable<IndexItem> {
+public class IndexItem implements Comparable<IndexItem>, HasName, Parcelable {
 	private static final Log log = PlatformUtil.getLog(IndexItem.class);
 	
 	String description;
 	String fileName;
+	String simplifiedFileName;
 	String size;
 	long timestamp;
 	long contentSize;
@@ -28,10 +33,12 @@ public class IndexItem implements Comparable<IndexItem> {
 	DownloadActivityType type;
 	boolean extra;
 
+	private String initializedName;
 
 	public IndexItem(String fileName, String description, long timestamp, String size, long contentSize,
 			long containerSize, DownloadActivityType tp) {
 		this.fileName = fileName;
+		this.simplifiedFileName = fileName.toLowerCase().replace("_2.", ".").replace("hillshade_", "");
 		this.description = description;
 		this.timestamp = timestamp;
 		this.size = size;
@@ -46,6 +53,10 @@ public class IndexItem implements Comparable<IndexItem> {
 
 	public String getFileName() {
 		return fileName;
+	}
+
+	public String getSimplifiedFileName() {
+		return simplifiedFileName;
 	}
 
 	public String getDescription() {
@@ -110,10 +121,10 @@ public class IndexItem implements Comparable<IndexItem> {
 	}
 	
 	@Override
-	public int compareTo(IndexItem another) {
-		if(another == null) {
-			return -1;
-		}
+	public int compareTo(@NonNull IndexItem another) {
+//		if(another == null) {
+//			return -1;
+//		}
 		return getFileName().compareTo(another.getFileName());
 	}
 
@@ -141,4 +152,69 @@ public class IndexItem implements Comparable<IndexItem> {
 		return format.format(new Date(timestamp));
 	}
 
+	@Override
+	public String getName() {
+		return initializedName + " must be fixed";
+	}
+
+	public void setName(String initializedName) {
+		this.initializedName = initializedName;
+	}
+
+	@Override
+	public String toString() {
+		return "IndexItem{" +
+				"description='" + description + '\'' +
+				", fileName='" + fileName + '\'' +
+				", simplifiedFileName='" + simplifiedFileName + '\'' +
+				", size='" + size + '\'' +
+				", timestamp=" + timestamp +
+				", contentSize=" + contentSize +
+				", containerSize=" + containerSize +
+				", type=" + type.getTag() +
+				", extra=" + extra +
+				'}';
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.description);
+		dest.writeString(this.fileName);
+		dest.writeString(this.size);
+		dest.writeLong(this.timestamp);
+		dest.writeLong(this.contentSize);
+		dest.writeLong(this.containerSize);
+		dest.writeParcelable(this.type, flags);
+		dest.writeByte(extra ? (byte) 1 : (byte) 0);
+		dest.writeString(this.initializedName);
+		dest.writeString(this.simplifiedFileName);
+	}
+
+	protected IndexItem(Parcel in) {
+		this.description = in.readString();
+		this.fileName = in.readString();
+		this.size = in.readString();
+		this.timestamp = in.readLong();
+		this.contentSize = in.readLong();
+		this.containerSize = in.readLong();
+		this.type = in.readParcelable(DownloadActivityType.class.getClassLoader());
+		this.extra = in.readByte() != 0;
+		this.initializedName = in.readString();
+		this.simplifiedFileName = in.readString();
+	}
+
+	public static final Parcelable.Creator<IndexItem> CREATOR = new Parcelable.Creator<IndexItem>() {
+		public IndexItem createFromParcel(Parcel source) {
+			return new IndexItem(source);
+		}
+
+		public IndexItem[] newArray(int size) {
+			return new IndexItem[size];
+		}
+	};
 }
