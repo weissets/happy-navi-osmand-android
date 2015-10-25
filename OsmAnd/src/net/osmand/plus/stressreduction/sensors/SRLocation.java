@@ -3,14 +3,11 @@ package net.osmand.plus.stressreduction.sensors;
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
 import net.osmand.ValueHolder;
-import net.osmand.binary.OsmandOdb;
 import net.osmand.binary.RouteDataObject;
 import net.osmand.data.LatLon;
 import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.routing.RouteCalculationResult;
-import net.osmand.plus.routing.RouteProvider;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.StressReductionPlugin;
@@ -21,14 +18,11 @@ import net.osmand.plus.stressreduction.database.SegmentInfo;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.simulation.RoutingSimulation;
 import net.osmand.plus.stressreduction.tools.Calculation;
-import net.osmand.router.BinaryRoutePlanner;
 import net.osmand.router.RouteSegmentResult;
 
 import org.apache.commons.logging.Log;
-import org.apache.http.conn.routing.RouteInfo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,12 +44,12 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	private Location currentLocation;
 	private Location lastDialogLocation;
 	private RoutingLog routingLog;
+	private int leftDistance;
 	private long lastLoggedSegmentID;
 	private long lastDialogSegmentID;
 	private long timerLocation;
 	private long timerDialog;
 	private boolean isDriving;
-	private boolean logSegments;
 	private final List<Float> segmentSpeedList = new ArrayList<>();
 	public static int SIMULATION_SPEED = 1;
 
@@ -75,10 +69,9 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		routingSimulation = new RoutingSimulation(osmandApplication, fragmentHandler);
 		currentPositionHelper = new CurrentPositionHelper(osmandApplication);
 		isDriving = false;
-		//		logSegments = false;
-		logSegments = true;
 		timerLocation = 0;
 		timerDialog = 0;
+		leftDistance = 0;
 	}
 
 	/**
@@ -105,10 +98,6 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	@Override
 	public void updateLocation(Location location) {
 
-		if (!logSegments) {
-			return;
-		}
-
 		// check location because simulation sometimes throws null objects
 		if (location == null) {
 			log.error("updateLocation(): location is NULL");
@@ -132,7 +121,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			RouteDataObject routeDataObject;
 			RouteSegmentResult routeSegmentResult = routingHelper.getCurrentSegmentResult();
 			if (routeSegmentResult != null) {
-				log.debug("updateLocation(): looking for rdo from routingHelper...");
+//				log.debug("updateLocation(): looking for rdo from routingHelper...");
 				routeDataObject = routeSegmentResult.getObject();
 			} else {
 				log.debug("updateLocation(): routingHelper did not return rdo, now looking for " +
@@ -141,28 +130,32 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			}
 
 			if (routeDataObject != null) {
-				log.debug("updateLocation(): found rdo!");
+//				log.debug("updateLocation(): found rdo!");
 				// check if current segment is the same as last segment
 				if (routeDataObject.getId() == lastLoggedSegmentID) {
-					log.debug("updateLocation(): same id as last logged segment");
-					return;
+//					log.debug("updateLocation(): same id as last logged segment");
+				} else {
+					log.debug("updateLocation(): logging: UniqueID=" +
+							StressReductionPlugin.getUUID() +
+							", SegmentID=" + routeDataObject.getId() + ", Name=" +
+							routeDataObject.getName() + ", Highway=" +
+							routeDataObject.getHighway() +
+							", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" + Math.round(
+							routeDataObject.getMaximumSpeed(routeSegmentResult == null ||
+									routeSegmentResult.isForwardDirection()) *
+									Constants.MS_TO_KMH) +
+							", Oneway=" + routeDataObject.getOneway() +
+							", avgSpeed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
+							"," + location.getLongitude());
+					dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
+							Calculation.convertMsToKmh(
+									Calculation.getAverageValue(segmentSpeedList))));
+					segmentSpeedList.clear();
+					lastLoggedSegmentID = routeDataObject.getId();
 				}
-				log.debug("updateLocation(): logging: UniqueID=" + StressReductionPlugin.getUUID
-						() +
-						", SegmentID=" + routeDataObject.getId() + ", Name=" +
-						routeDataObject.getName() + ", Highway=" + routeDataObject.getHighway() +
-						", Lanes=" + routeDataObject.getLanes() + ", maxSpeed=" + Math.round(
-						routeDataObject.getMaximumSpeed(routeSegmentResult == null ||
-								routeSegmentResult.isForwardDirection()) * Constants.MS_TO_KMH) +
-						", Oneway=" + routeDataObject.getOneway() + ", Ref=" +
-						routeDataObject.getRef() + ", Route=" + routeDataObject.getRoute() +
-						", Restrictions=" + routeDataObject.getRestrictionLength() +
-						", Current Speed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
-						"," + location.getLongitude());
-				dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
-						Calculation.convertMsToKmh(Calculation.getAverageValue(segmentSpeedList))));
-				segmentSpeedList.clear();
-				lastLoggedSegmentID = routeDataObject.getId();
+				if (routingHelper.getRoute() != null) {
+					leftDistance = routingHelper.getLeftDistance();
+				}
 			}
 		}
 
@@ -241,56 +234,58 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	 */
 	@Override
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
-		log.debug("newRouteIsCalculated(): new route=" + newRoute + ", (turning on logging)");
-		//		logSegments = true;
+		log.debug("newRouteIsCalculated(): new route=" + newRoute);
 		routingSimulation.newRouteIsCalculated();
 		// write data to routing log
 		if (newRoute) {
 			int size = routingHelper.getRoute().getOriginalRoute().size();
 			LatLon start = routingHelper.getRoute().getOriginalRoute().get(0).getStartPoint();
 			LatLon end = routingHelper.getRoute().getOriginalRoute().get(size - 1).getEndPoint();
-			String timeArrivalPreCalc = Calculation.getSpecificDateTime(
-					(routingHelper.getLeftTime() * 1000) + System.currentTimeMillis());
 			String timeRoutingStart = Calculation.getCurrentDateTime();
-			routingLog = new RoutingLog(start, end, timeArrivalPreCalc, timeRoutingStart);
+			String timeRoutingEndCalc = Calculation.getSpecificDateTime(
+					(routingHelper.getLeftTime() * 1000) + System.currentTimeMillis());
+			routingLog = new RoutingLog(start, end, timeRoutingEndCalc, timeRoutingStart);
 		}
 	}
-
-	// TODO routing log auch bei abbruch durch nutzer loggen, abbruch location, zeit, dist zum ende
 
 	/**
 	 * Called if the current active route is cancelled.
 	 */
 	@Override
 	public void routeWasCancelled() {
-		routingSimulation.routeWasCancelled();
-		if (logSegments && SQLiteLogger
-				.getDatabaseSizeSegmentsSinceLastStressValue(
-						DataHandler.getTimestampLastStressValue()) >
-				0) {
-			log.debug("routeWasCancelled(): (turning off logging), left distance="+routingHelper
-					.getLeftDistance()+", last latlon="+routingHelper.getLastProjection()
-					.getLatitude()+","+routingHelper.getLastProjection().getLongitude());
+		log.debug("routeWasCancelled()");
+		if (isDriving) { // TODO is this needed (or only segments in database or enough distance?
 			fragmentHandler.showSRDialog(dataHandler);
-			//			logSegments = false;
 		}
-		if (routingLog != null) {
-			routingLog.setTimeRoutingEnd(Calculation.getCurrentDateTime());
-			if (routingLog.isLogComplete()) {
-				dataHandler.writeRoutingLogToDatabase(routingLog);
-				routingLog = null;
+		if (routingLog != null && (System.currentTimeMillis() -
+				Calculation.getTimeFromDateString(routingLog.getTimeRoutingStart())) >
+				Constants.ROUTING_LOG_TIMEOUT) {
+			log.debug("routeWasCancelled(): left distance=" + leftDistance +
+					", last latlon=" + currentLocation.getLatitude() + "," +
+					currentLocation.getLongitude());
+			if (leftDistance > Constants.MIN_DIST_ABORT) {
+				routingLog.setAbortLat(currentLocation.getLatitude());
+				routingLog.setAbortLon(currentLocation.getLongitude());
+				routingLog.setTimeRoutingAbort(Calculation.getCurrentDateTime());
+				routingLog.setDistanceToEnd(leftDistance);
+			} else {
+				routingLog.setTimeRoutingEnd(Calculation.getCurrentDateTime());
+				routingLog.setDistanceToEnd(leftDistance); // TODO remove (only testing)
 			}
+			dataHandler.writeRoutingLogToDatabase(routingLog);
 		}
-	}
-
-	public void onDestinationReached() {
-		if (routingLog != null) {
-			routingLog.setTimeArrivalReal(Calculation.getCurrentDateTime());
-			if (routingLog.isLogComplete()) {
-				dataHandler.writeRoutingLogToDatabase(routingLog);
-				routingLog = null;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				routingSimulation.routeWasCancelled();
 			}
-		}
+		}).start();
+		routingLog = null;
 	}
 
 	/**
@@ -306,14 +301,12 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		@Override
 		public void run() {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(Constants.SPEED_TIMEOUT);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (SQLiteLogger.getDatabaseSizeSegmentsSinceLastStressValue(
-					DataHandler.getTimestampLastStressValue()) > 0 &&
-					isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
-				log.debug("run(): speed still zero, show dialog");
+			if (isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
+				log.debug("run(): speed still below threshold, show dialog");
 				lastDialogLocation = currentLocation;
 				lastDialogSegmentID = lastLoggedSegmentID;
 				fragmentHandler.showSRDialog(dataHandler);

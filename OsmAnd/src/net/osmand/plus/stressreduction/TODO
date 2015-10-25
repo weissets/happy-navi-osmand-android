@@ -5,17 +5,20 @@
 //      5. comment MyDatabaseTools in UploadService
 
 
-// TODO fix "Do you like OsmAnd" dialog
+// fix release build
+// fix "Do you like OsmAnd" dialog TODO talk to Pascal
+// TODO fix navigation service (use ExitActivity? NavigationService? OsmandApplication.closeApplicationAnywayImpl?) -> NOTHING WORKS
 // TODO load sr database (id, stressvalue)(revision|date), check revision, if new load sr db
 // TODO adapt routing (native?)
 // REWORK OF THE DATABASE!!!!!!!!!! -> more abstraction levels TODO testing
 // always log segment infos -> TODO testing
-// logging of location, v, a, direction (compass) every new location
+// routing log auch bei abbruch durch nutzer loggen, abbruch location, zeit, dist zum ende
+// logging of location, v, a, direction (compass) every new location -> normalized values
 // -> how much data? 14mb for 36min (144515 location infos, 121 segment infos)
 // -> reduce location infos (now 971kb for 36min, 9369 location infos 123 segment infos)
 // logging when no routing active (check for speed over x kmh) ### DONE (logging for >20kmh)
 // 3 smilies from Master Thesis Stefan Schneegaß (Discount Usability) (Uni Essen), or own -> own
-// log all 3 acceleration values
+// log all 3 acceleration values -> now normalized
 // write all data to ONE database
 // Timeout for popup (20s), Distance timeout (200m), last visited segment timeout
 // Screenshots for Tablets
@@ -35,7 +38,7 @@
 // changed core logic, logging of segements directly to database, all the time not only while
 routing active
 // TODO Discussion about anonymisation (cut off beginn/end of route?), how about driver profile
-// TODO fix DE stile for online tiles on maps.hcilab.org
-// TODO integrate maps.hcilab.org online tiles
+// TODO fix DE style for online tiles on maps.hcilab.org -> OPTIONAL?
+// TODO integrate maps.hcilab.org online tiles -> Server Capacity?
 // TODO download complete germany at once, or DACH
 // start disclaimer from elsewhere (OsmandApplication.java?) -> moved to fragments

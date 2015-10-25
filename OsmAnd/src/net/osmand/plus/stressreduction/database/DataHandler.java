@@ -1,10 +1,5 @@
 package net.osmand.plus.stressreduction.database;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.View;
 
@@ -12,6 +7,7 @@ import net.osmand.PlatformUtil;
 import net.osmand.plus.R;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.fragments.FragmentSRDialog;
+import net.osmand.plus.stressreduction.tools.Calculation;
 
 import org.apache.commons.logging.Log;
 
@@ -32,9 +28,11 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 		if (sqLiteLogger == null) {
 			log.error("DataHandler(): sqLiteLogger is NULL");
 		}
+		setTimestampLastStressValue(Calculation.getCurrentDateTime());
+	}
 
-		timestampLastStressValue = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
-				.format(new java.util.Date());
+	public void initDatabase() {
+		sqLiteLogger.onCreate(sqLiteLogger.getWritableDatabase());
 	}
 
 	public void writeUserToDatabase() {
@@ -46,6 +44,7 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 	}
 
 	public void writeSegmentInfoToDatabase(SegmentInfo segmentInfo) {
+		sqLiteLogger.insertOSMSegment(segmentInfo.getRouteDataObject());
 		sqLiteLogger.insertSegmentInfo(segmentInfo);
 	}
 

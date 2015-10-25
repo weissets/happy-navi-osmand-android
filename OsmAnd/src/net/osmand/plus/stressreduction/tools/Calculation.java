@@ -1,8 +1,15 @@
 package net.osmand.plus.stressreduction.tools;
 
+import com.google.protobuf.TextFormat;
+
 import net.osmand.plus.stressreduction.Constants;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,6 +56,28 @@ public class Calculation {
 	}
 
 	/**
+	 * Calculate the minimum or maximum value of a given list of doubles
+	 *
+	 * @param values A list of double values
+	 * @return The minimum value if negative sum or maximum value if positive sum
+	 */
+	public double getMinOrMaxValue(List<Double> values) {
+		double sum = 0;
+		double max = 0;
+		double min = 0;
+		for (double value : values) {
+			sum = sum + value;
+			max = Math.max(max, value);
+			min = Math.min(min, value);
+		}
+		if (sum >= 0) {
+			return max;
+		} else {
+			return min;
+		}
+	}
+
+	/**
 	 * Calculate the current date and time
 	 *
 	 * @return The current date and time as string
@@ -69,13 +98,30 @@ public class Calculation {
 	}
 
 	/**
-	 * Calculate the current date and time
+	 * Calculate a specific time time string for a given time value in milliseconds
 	 *
-	 * @return The current date and time as string
+	 * @param timeInMs The time in milliseconds to convert
+	 * @return The specific time as string
 	 */
 	public static String getSpecificDateTime(long timeInMs) {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
 				.format(new java.util.Date(timeInMs));
+	}
+
+	/**
+	 * Calculate the time in milliseconds for a given time string
+	 *
+	 * @param date The time string to convert
+	 * @return The time in milliseconds
+	 */
+	public static long getTimeFromDateString(String date) {
+		long ms = 0;
+		try {
+			ms = new SimpleDateFormat("yyyy-MM-d HH:mm:ss", Locale.US).parse(date).getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ms;
 	}
 
 }

@@ -125,6 +125,7 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 	}
 
 	public interface SRDialogButtonClickListener {
+
 		void onSRButtonClick(View view, String timestamp);
 	}
 }

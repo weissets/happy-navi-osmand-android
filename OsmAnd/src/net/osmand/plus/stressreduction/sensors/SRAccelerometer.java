@@ -34,32 +34,71 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 	private final OsmAndLocationProvider osmAndLocationProvider;
 	private final Sensor accelerometerSensor;
 	private Location currentLocation;
+	private int accelerometerType;
 
+	private final int ACCELEROMETER_LINEAR = 1;
+	private final int ACCELEROMETER_NORMAL = 2;
+	private final int ACCELEROMETER_NONE = 3;
+
+	// TODO check how much data is generated -> 500kb per hour -> raised sensor delay to UI !!!
 	public SRAccelerometer(OsmandApplication osmandApplication, DataHandler dataHandler) {
 		this.dataHandler = dataHandler;
 		osmAndLocationProvider = osmandApplication.getLocationProvider();
 		sensorManager = (SensorManager) osmandApplication.getSystemService(Context.SENSOR_SERVICE);
 		accelerometerListener = new AccelerometerListener();
-		accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		accelerometerSensor = getBestAccelerometerSensor();
+		// if there is no accelerometer write this to database
+		if (accelerometerType == ACCELEROMETER_NONE) {
+
+		}
+	}
+
+	private Sensor getBestAccelerometerSensor() {
+		// values of linear acceleration are worse then normalized acceleration values
+//		if (sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION) != null) {
+//			List<Sensor> linearSensors =
+//					sensorManager.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
+//			for (Sensor sensor : linearSensors) {
+//				log.debug("getBestAccelerometerSensor(): vendor = " + sensor.getVendor() +
+//						", version = " + sensor.getVersion());
+//				if ((sensor.getVendor().contains("AOSP") ||
+//						sensor.getVendor().contains("Google")) && sensor.getVersion() == 3) {
+//					accelerometerType = ACCELEROMETER_LINEAR;
+//					return sensor;
+//				}
+//			}
+//		}
+		if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+			accelerometerType = ACCELEROMETER_NORMAL;
+			return sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		}
+		accelerometerType = ACCELEROMETER_NONE;
+		return null;
 	}
 
 	/**
 	 * Register the accelerometer and location listener
 	 */
 	public void startAccelerometerSensor() {
-		// Sensor delays: FASTEST=0.01s, GAME=0.02s, UI=0.1s,
-		// NORMAL=0.2s
-		sensorManager.registerListener(accelerometerListener, accelerometerSensor,
-				SensorManager.SENSOR_DELAY_NORMAL);
-		osmAndLocationProvider.addLocationListener(this);
+		if (accelerometerType != ACCELEROMETER_NONE) {
+			// Sensor delays: FASTEST=0.01s, GAME=0.02s, UI=0.1s,
+			// NORMAL=0.2s
+			sensorManager.registerListener(accelerometerListener, accelerometerSensor,
+					SensorManager.SENSOR_DELAY_UI);
+			osmAndLocationProvider.addLocationListener(this);
+			log.debug("startAccelerometerSensor()");
+		}
 	}
 
 	/**
 	 * Unregister the accelerometer and location listener
 	 */
 	public void stopAccelerometerSensor() {
-		sensorManager.unregisterListener(accelerometerListener, accelerometerSensor);
-		osmAndLocationProvider.removeLocationListener(this);
+		if (accelerometerType != ACCELEROMETER_NONE) {
+			sensorManager.unregisterListener(accelerometerListener, accelerometerSensor);
+			osmAndLocationProvider.removeLocationListener(this);
+			log.debug("stopAccelerometerSensor()");
+		}
 	}
 
 	@Override
@@ -72,85 +111,66 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 	 */
 	private class AccelerometerListener implements SensorEventListener {
 
-		long timer = System.currentTimeMillis();
-		long timer2 = System.currentTimeMillis();
-
-		final List<Float> accelerationXList = new ArrayList<>();
-		final List<Float> accelerationYList = new ArrayList<>();
-		final List<Float> accelerationZList = new ArrayList<>();
-		final List<Float> locationSpeedList = new ArrayList<>();
-		final List<Float> directionList = new ArrayList<>();
-
-		// TODO log alle 0,2s und bereinigte acc sensor daten (android version 4.x)
+		float[] accelerationXYZ = {0, 0, 0};
+		float[] gravityXYZ = {0, 0, 0};
+		final float ALPHA = 0.8f;
+		final float THRESHOLD = 0.1f;
 
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			if (currentLocation != null) {
-				if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-					if (System.currentTimeMillis() - timer > 5000) {
-						timer = System.currentTimeMillis();
-						log.debug("onSensorChanged(): NORMAL: x-Axis=" + event.values[0] + ", " +
-								"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
-					}
-					//					// get acceleration values for all three axes
-					//					accelerationXList.add(event.values[0]);
-					//					accelerationYList.add(event.values[1]);
-					//					accelerationZList.add(event.values[2]);
-					//					// get the direction of heading (0=North, 90=East,
-					//					// 180=South, 270=West)
-					//					directionList.add(currentLocation.getBearing());
-					//					locationSpeedList.add(currentLocation.getSpeed());
-					//				}
-					//				// get average values to reduce data size
-					//				if (accelerationXList.size() == 10) {
-					//					dataHandler.writeLocationInfoToDatabase(
-					//							new LocationInfo(currentLocation.getLatitude(),
-					//									currentLocation.getLongitude(), Calculation
-					//									.convertMsToKmh(Calculation.getAverageValue
-					//											(locationSpeedList)),
-					//									Calculation.getAverageValue(accelerationXList),
+				if (accelerometerType == ACCELEROMETER_NORMAL) {
 
-					//									Calculation.getAverageValue(accelerationYList),
-					//									Calculation.getAverageValue(accelerationZList),
-					//									Calculation.getAverageValue(directionList)));
-					//
-					//					accelerationXList.clear();
-					//					accelerationYList.clear();
-					//					accelerationZList.clear();
-					//					locationSpeedList.clear();
-					//					directionList.clear();
-					//				}
+					// alpha is calculated as t / (t + dT) with t, the low-pass filter's
+					// time-constant and dT, the event delivery rate
+
+					gravityXYZ[0] = ALPHA * gravityXYZ[0] + (1 - ALPHA) * event.values[0];
+					gravityXYZ[1] = ALPHA * gravityXYZ[1] + (1 - ALPHA) * event.values[1];
+					gravityXYZ[2] = ALPHA * gravityXYZ[2] + (1 - ALPHA) * event.values[2];
+
+					accelerationXYZ[0] = event.values[0] - gravityXYZ[0];
+					accelerationXYZ[1] = event.values[1] - gravityXYZ[1];
+					accelerationXYZ[2] = event.values[2] - gravityXYZ[2];
+
+					accelerationXYZ = normalizeAcceleration(accelerationXYZ.clone());
+
+//					log.debug("onSensorChanged(): CALC_LINEAR: " +
+//							"x-Axis=" + accelerationXYZ[0] +
+//							", y-Axis=" + accelerationXYZ[1] +
+//							", z-Axis=" + accelerationXYZ[2]);
+
 				}
-				if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-					if (System.currentTimeMillis() - timer2 > 5000) {
-						timer2 = System.currentTimeMillis();
-						log.debug("onSensorChanged(): LINEAR: x-Axis=" + event.values[0] + ", " +
-								"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
-					}
-				}
+//				if (accelerometerType == ACCELEROMETER_LINEAR) {
+//					log.debug("onSensorChanged(): LINEAR: x-Axis=" + event.values[0] + ", " +
+//							"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
+//					log.debug("- - -");
+//					accelerationXYZ[0] = event.values[0];
+//					accelerationXYZ[1] = event.values[1];
+//					accelerationXYZ[2] = event.values[2];
+//				}
+
+				dataHandler.writeLocationInfoToDatabase(
+						new LocationInfo(currentLocation.getLatitude(),
+								currentLocation.getLongitude(),
+								Calculation.convertMsToKmh(currentLocation.getSpeed()),
+								accelerationXYZ[0], accelerationXYZ[1], accelerationXYZ[2],
+								currentLocation.getBearing()));
 			}
 		}
-
-		//		private double getMaxMinValue(List<Double> values) {
-		//			int size = values.size();
-		//			double sum = 0;
-		//			double max = 0;
-		//			double min = 0;
-		//			for (int i = 0; i < size; i++) {
-		//				sum = sum + values.get(i);
-		//				max = Math.max(max, values.get(i));
-		//				min = Math.min(min, values.get(i));
-		//			}
-		//			if (sum >= 0) {
-		//				return max;
-		//			} else {
-		//				return min;
-		//			}
-		//		}
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+		}
+
+		// TODO check how much normalization
+		private float[] normalizeAcceleration(float[] accelerationXYZ) {
+			for (int i=0; i<accelerationXYZ.length; i++) {
+				if (accelerationXYZ[i] < THRESHOLD && accelerationXYZ[i] > -THRESHOLD) {
+					accelerationXYZ[i] = 0;
+				}
+			}
+			return accelerationXYZ;
 		}
 	}
 }

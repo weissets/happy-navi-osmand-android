@@ -3,8 +3,11 @@ package net.osmand.plus.stressreduction.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import net.osmand.PlatformUtil;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.StressReductionPlugin;
+
+import org.apache.commons.logging.Log;
 
 /**
  * This class handles the shared preferences
@@ -12,6 +15,8 @@ import net.osmand.plus.stressreduction.StressReductionPlugin;
  * @author Tobias
  */
 public class SRSharedPreferences {
+
+	private static final Log log = PlatformUtil.getLog(SRSharedPreferences.class);
 
 	public static boolean getDisplayInfoDialog(final Context context) {
 		SharedPreferences sharedPreferences =
@@ -47,22 +52,6 @@ public class SRSharedPreferences {
 				.apply();
 	}
 
-	public static boolean getDataUploadedCorrectly(final Context context) {
-		SharedPreferences sharedPreferences =
-				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
-		boolean dataUploadedCorrectly =
-				sharedPreferences.getBoolean(Constants.DATA_UPLOADED_CORRECTLY, true);
-		sharedPreferences.edit().putBoolean(Constants.DATA_UPLOADED_CORRECTLY, false).apply();
-		return dataUploadedCorrectly;
-	}
-
-	public static void setDataUploadedCorrectly(final Context context, boolean uploadedCorrectly) {
-		SharedPreferences sharedPreferences =
-				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
-		sharedPreferences.edit().putBoolean(Constants.DATA_UPLOADED_CORRECTLY, uploadedCorrectly)
-				.apply();
-	}
-
 	public static boolean getReceiverTimeout(final Context context) {
 		SharedPreferences sharedPreferences =
 				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
@@ -75,6 +64,22 @@ public class SRSharedPreferences {
 		sharedPreferences.edit().putLong(Constants.LAST_WIFI_RECEIVE, System.currentTimeMillis())
 				.apply();
 		return false;
+	}
+
+	public static boolean getOnlyWifiUpload(final Context context) {
+		SharedPreferences sharedPreferences =
+				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
+		log.debug("getOnlyWifiUpload(): wifi upload = " +
+				sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true));
+		return sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true);
+	}
+
+	public static void setOnlyWifiUpload(final Context context, boolean onlyWifi) {
+		SharedPreferences sharedPreferences =
+				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
+		sharedPreferences.edit().putBoolean(Constants.UPLOAD_MODE_WIFI, onlyWifi).apply();
+		log.debug("setOnlyWifiUpload(): wifi upload = " +
+				sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true));
 	}
 
 }

@@ -28,7 +28,6 @@ android {
 			keyAlias "androiddebugkey"
 			keyPassword "android"
 		}
-
 		publishing {
 			storeFile file("/var/lib/jenkins/osmand_key")
 			storePassword System.getenv("OSMAND_APK_PASSWORD")
@@ -118,12 +117,12 @@ android {
 		free {
 			flavorDimension "version"
 //			applicationId "net.osmand"
-			applicationId "org.hcilab.happy.navi.free"
+			applicationId "org.hcilab.projects.happy.navi.free"
 		}
 		full {
 			flavorDimension "version"
 //			applicationId "net.osmand.plus"
-			applicationId "org.hcilab.happy.navi"
+			applicationId "org.hcilab.projects.happy.navi"
 		}
 
 		// CoreVersion

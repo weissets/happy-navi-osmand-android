@@ -49,54 +49,55 @@ public class DashRateUsFragment extends DashBaseFragment {
     }
 
 	public static boolean shouldShow(OsmandSettings settings) {
-		if(!settings.LAST_DISPLAY_TIME.isSet()) {
-			settings.LAST_DISPLAY_TIME.set(System.currentTimeMillis());
-		}
-		DashRateUsFragment.settings = settings;
-		long lastDisplayTimeInMillis = settings.LAST_DISPLAY_TIME.get();
-		int numberOfApplicationRuns = settings.NUMBER_OF_APPLICATION_STARTS.get();
-		RateUsState state = settings.RATE_US_STATE.get();
-
-		Calendar modifiedTime = Calendar.getInstance();
-		Calendar lastDisplayTime = Calendar.getInstance();
-		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
-
-		int bannerFreeRuns = 0;
-        
-		boolean toReturn = false;
-
-		switch (state) {
-			case LIKED:
-				return false;
-			case INITIAL_STATE:
-				break;
-			case IGNORED:
-				modifiedTime.add(Calendar.WEEK_OF_YEAR, -1);
-				bannerFreeRuns = 5;
-				break;
-			case DISLIKED_WITH_MESSAGE:
-				modifiedTime.add(Calendar.MONTH, -3);
-				bannerFreeRuns = 3;
-				break;
-			case DISLIKED_WITHOUT_MESSAGE:
-				modifiedTime.add(Calendar.MONTH, -2);
-				break;
-			default:
-				throw new IllegalStateException("Unexpected state:" + state);
-		}
-
-		if (state != RateUsState.INITIAL_STATE) {
-			if (modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns) {
-				settings.RATE_US_STATE.set(RateUsState.INITIAL_STATE);
-				modifiedTime = Calendar.getInstance();
-			} else {
-				return false;
-			}
-		}
-		// Initial state now
-		modifiedTime.add(Calendar.HOUR, -72);
-		bannerFreeRuns = 3;
-		return modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns;
+        return false;
+//		if(!settings.LAST_DISPLAY_TIME.isSet()) {
+//			settings.LAST_DISPLAY_TIME.set(System.currentTimeMillis());
+//		}
+//		DashRateUsFragment.settings = settings;
+//		long lastDisplayTimeInMillis = settings.LAST_DISPLAY_TIME.get();
+//		int numberOfApplicationRuns = settings.NUMBER_OF_APPLICATION_STARTS.get();
+//		RateUsState state = settings.RATE_US_STATE.get();
+//
+//		Calendar modifiedTime = Calendar.getInstance();
+//		Calendar lastDisplayTime = Calendar.getInstance();
+//		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
+//
+//		int bannerFreeRuns = 0;
+//
+//		boolean toReturn = false;
+//
+//		switch (state) {
+//			case LIKED:
+//				return false;
+//			case INITIAL_STATE:
+//				break;
+//			case IGNORED:
+//				modifiedTime.add(Calendar.WEEK_OF_YEAR, -1);
+//				bannerFreeRuns = 5;
+//				break;
+//			case DISLIKED_WITH_MESSAGE:
+//				modifiedTime.add(Calendar.MONTH, -3);
+//				bannerFreeRuns = 3;
+//				break;
+//			case DISLIKED_WITHOUT_MESSAGE:
+//				modifiedTime.add(Calendar.MONTH, -2);
+//				break;
+//			default:
+//				throw new IllegalStateException("Unexpected state:" + state);
+//		}
+//
+//		if (state != RateUsState.INITIAL_STATE) {
+//			if (modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns) {
+//				settings.RATE_US_STATE.set(RateUsState.INITIAL_STATE);
+//				modifiedTime = Calendar.getInstance();
+//			} else {
+//				return false;
+//			}
+//		}
+//		// Initial state now
+//		modifiedTime.add(Calendar.HOUR, -72);
+//		bannerFreeRuns = 3;
+//		return modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns;
 	}
 
 	@Override

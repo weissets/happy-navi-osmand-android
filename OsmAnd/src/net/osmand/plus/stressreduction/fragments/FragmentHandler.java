@@ -11,6 +11,8 @@ import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
 
+import android.support.v4.app.FragmentTransaction;
+
 /**
  * This class handles all interactions with fragments
  *
@@ -71,31 +73,55 @@ public class FragmentHandler {
 	}
 
 	public void showSRDialog(DataHandler dataHandler) {
-		if ((mapActivity != null) && (mapActivity.getSupportFragmentManager()
-				.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG) == null) && SQLiteLogger
-				.getDatabaseSizeSegmentsSinceLastStressValue(
-						DataHandler.getTimestampLastStressValue()) >
-				0) {
-			boolean playSound = osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get();
+
+		if (mapActivity != null && SQLiteLogger.getDatabaseSizeSegmentsSinceLastStressValue(
+				DataHandler.getTimestampLastStressValue()) > 0) {
+
 			FragmentSRDialog fragmentSRDialog =
-					FragmentSRDialog.newInstance(dataHandler, playSound);
-			fragmentSRDialog
-					.show(mapActivity.getSupportFragmentManager(), Constants.FRAGMENT_SR_DIALOG);
-		} else {
-			log.error("showSRDialog(): mapActivity is NULL or FragmentSRDialog is NOT NULL");
+					(FragmentSRDialog) mapActivity.getSupportFragmentManager()
+							.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+
+			if (fragmentSRDialog == null) {
+				boolean playSound = osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get();
+				fragmentSRDialog = FragmentSRDialog.newInstance(dataHandler, playSound);
+				FragmentTransaction fragmentTransaction =
+						mapActivity.getSupportFragmentManager().beginTransaction();
+				fragmentTransaction.add(fragmentSRDialog, Constants.FRAGMENT_SR_DIALOG);
+				fragmentTransaction.disallowAddToBackStack();
+				fragmentTransaction.commit();
+			} else {
+				FragmentTransaction fragmentTransaction =
+						mapActivity.getSupportFragmentManager().beginTransaction();
+				fragmentTransaction.show(fragmentSRDialog);
+				fragmentTransaction.disallowAddToBackStack();
+				fragmentTransaction.commit();
+			}
 		}
 	}
 
 	public void showLocationSimulationDialog(RoutingSimulation routingSimulation) {
-		if ((mapActivity != null) && (mapActivity.getSupportFragmentManager()
-				.findFragmentByTag(Constants.FRAGMENT_LOCATION_SIMULATION) == null)) {
+		if (mapActivity != null) {
+
 			FragmentLocationSimulationDialog fragmentLocationSimulationDialog =
-					FragmentLocationSimulationDialog.newInstance(routingSimulation);
-			fragmentLocationSimulationDialog.show(mapActivity.getSupportFragmentManager(),
-					Constants.FRAGMENT_LOCATION_SIMULATION);
-		} else {
-			log.error("showLocationSimulationDialog(): mapActivity is NULL or " +
-					"FragmentLocationSimulationDialog is NOT NULL");
+					(FragmentLocationSimulationDialog) mapActivity.getSupportFragmentManager()
+							.findFragmentByTag(Constants.FRAGMENT_LOCATION_SIMULATION);
+
+			if (fragmentLocationSimulationDialog == null) {
+				fragmentLocationSimulationDialog =
+						FragmentLocationSimulationDialog.newInstance(routingSimulation);
+				FragmentTransaction fragmentTransaction =
+						mapActivity.getSupportFragmentManager().beginTransaction();
+				fragmentTransaction.add(fragmentLocationSimulationDialog,
+						Constants.FRAGMENT_LOCATION_SIMULATION);
+				fragmentTransaction.disallowAddToBackStack();
+				fragmentTransaction.commit();
+			} else {
+				FragmentTransaction fragmentTransaction =
+						mapActivity.getSupportFragmentManager().beginTransaction();
+				fragmentTransaction.show(fragmentLocationSimulationDialog);
+				fragmentTransaction.disallowAddToBackStack();
+				fragmentTransaction.commit();
+			}
 		}
 	}
 

@@ -30,7 +30,10 @@ public class LocationInfo {
 	/** The z-axis acceleration of this location */
 	private final double accelerationZ;
 
-	/** The direction in degrees east of true north of this location */
+	/**
+	 * The direction in degrees east of true north of this location
+	 * (Bearing: 0=North, 90=East, 180=South, 270=West)
+	 */
 	private final double direction;
 
 	/** The timestamp of this location */

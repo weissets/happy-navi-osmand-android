@@ -10,38 +10,45 @@ import net.osmand.data.LatLon;
 public class RoutingLog {
 
 	private final double startLat;
-
 	private final double startLon;
-
 	private final double endLat;
-
 	private final double endLon;
-
-	private final String timeArrivalPreCalc;
-
-	private String timeArrivalReal;
-
+	private double abortLat;
+	private double abortLon;
 	private final String timeRoutingStart;
-
+	private String timeRoutingEndCalc;
 	private String timeRoutingEnd;
+	private String timeRoutingAbort;
+	private int distanceToEnd;
 
-	public RoutingLog(LatLon start, LatLon end, String timeArrivalPreCalc, String timeRoutingStart) {
+	public RoutingLog(LatLon start, LatLon end, String timeRoutingEndCalc,
+	                  String timeRoutingStart) {
 		startLat = start.getLatitude();
 		startLon = start.getLongitude();
 		endLat = end.getLatitude();
 		endLon = end.getLongitude();
-		this.timeArrivalPreCalc = timeArrivalPreCalc;
 		this.timeRoutingStart = timeRoutingStart;
-		timeArrivalReal = null;
-		timeRoutingEnd = null;
+		this.timeRoutingEndCalc = timeRoutingEndCalc;
 	}
 
-	public void setTimeArrivalReal(String timeArrivalReal) {
-		this.timeArrivalReal = timeArrivalReal;
+	public void setAbortLat(double abortLat) {
+		this.abortLat = abortLat;
+	}
+
+	public void setAbortLon(double abortLon) {
+		this.abortLon = abortLon;
 	}
 
 	public void setTimeRoutingEnd(String timeRoutingEnd) {
 		this.timeRoutingEnd = timeRoutingEnd;
+	}
+
+	public void setTimeRoutingAbort(String timeRoutingAbort) {
+		this.timeRoutingAbort = timeRoutingAbort;
+	}
+
+	public void setDistanceToEnd(int distanceToEnd) {
+		this.distanceToEnd = distanceToEnd;
 	}
 
 	public double getEndLat() {
@@ -60,24 +67,32 @@ public class RoutingLog {
 		return startLon;
 	}
 
-	public String getTimeArrivalPreCalc() {
-		return timeArrivalPreCalc;
+	public double getAbortLat() {
+		return abortLat;
 	}
 
-	public String getTimeArrivalReal() {
-		return timeArrivalReal;
-	}
-
-	public String getTimeRoutingEnd() {
-		return timeRoutingEnd;
+	public double getAbortLon() {
+		return abortLon;
 	}
 
 	public String getTimeRoutingStart() {
 		return timeRoutingStart;
 	}
 
-	public boolean isLogComplete() {
-		return timeArrivalReal != null && timeRoutingEnd != null;
+	public String getTimeRoutingEndCalc() {
+		return timeRoutingEndCalc;
+	}
+
+	public String getTimeRoutingEnd() {
+		return timeRoutingEnd;
+	}
+
+	public String getTimeRoutingAbort() {
+		return timeRoutingAbort;
+	}
+
+	public int getDistanceToEnd() {
+		return distanceToEnd;
 	}
 
 }

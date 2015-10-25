@@ -19,46 +19,26 @@ public class ConnectionHandler {
 
 	private static final Log log = PlatformUtil.getLog(ConnectionHandler.class);
 
-	public static void uploadData(final OsmandApplication osmandApplication, String mode) {
-		switch (mode) {
-			case Constants.UPLOAD_MODE_WIFI:
-				log.debug("uploadData(): try to upload data via Wifi...");
-				if (osmandApplication.getSettings().isWifiConnected()) {
-					log.debug("uploadData(): Wifi is available, starting upload...");
-					initUpload(osmandApplication);
-				} else {
-					log.debug("uploadData(): Wifi is not available, enabling wifi receiver...");
-					WifiReceiver.enableReceiver(osmandApplication);
-				}
-				break;
-			//			case Constants.UPLOAD_MODE_INCORRECT_CLOSE:
-			//				Log.d(StressReductionPlugin.TAG, "StressReductionPlugin.java: Data was
-			// not correct uploaded, looking 20s for wifi...");
-			//				final Thread thread = new Thread(new Runnable() {
-			//
-			//					@Override
-			//					public void run() {
-			//						long timer = System.currentTimeMillis();
-			//						while (System.currentTimeMillis() - timer < 20000) {
-			//							if (osmandApplication.getSettings().isWifiConnected()) {
-			//								initUpload(osmandApplication);
-			//								break;
-			//							} else {
-			//								try {
-			//									Thread.sleep(2000);
-			//								} catch (InterruptedException e) {
-			//									e.printStackTrace();
-			//								}
-			//							}
-			//						}
-			//					}
-			//				});
-			//				thread.start();
-			//				break;
-			case Constants.UPLOAD_MODE_MOBILE:
-				log.debug("uploadData(): starting upload via mobile connection...");
+	public static void uploadData(final OsmandApplication osmandApplication) {
+		if (osmandApplication.getSettings().SR_USE_WIFI_ONLY.get()) {
+			log.debug("uploadData(): try to upload data via Wifi...");
+			if (osmandApplication.getSettings().isWifiConnected()) {
+				log.debug("uploadData(): Wifi is available, starting upload...");
 				initUpload(osmandApplication);
-				break;
+			} else {
+				log.debug("uploadData(): Wifi is not available, enabling connection receiver...");
+				ConnectionReceiver.enableReceiver(osmandApplication);
+			}
+		} else {
+			log.debug("uploadData(): try to upload data via mobile connection...");
+			if (osmandApplication.getSettings().isInternetConnectionAvailable(true)) {
+				log.debug("uploadData(): mobile connection available, starting upload...");
+				initUpload(osmandApplication);
+			} else {
+				log.debug("uploadData(): mobile connection is not available, enabling " +
+						"connection receiver...");
+				ConnectionReceiver.enableReceiver(osmandApplication);
+			}
 		}
 	}
 

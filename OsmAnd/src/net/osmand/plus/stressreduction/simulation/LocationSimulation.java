@@ -123,7 +123,7 @@ public class LocationSimulation {
 									.getLatitude());
 					locWait.setAccuracy(5.0f);
 					locWait.setSpeed(0f);
-					for (int i = 0; i < 30; i++) {
+					for (int i = 0; i < 40; i++) {
 						locWait.setTime(System.currentTimeMillis());
 						locWait.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
 						locationManager.setTestProviderLocation("gps", locWait);

@@ -1,13 +1,18 @@
 package net.osmand.plus.stressreduction;
 
+import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.activities.SettingsBaseActivity;
 
 import net.osmand.plus.R;
+import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
+
+import org.apache.commons.logging.Log;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.PreferenceScreen;
 
 /**
@@ -16,6 +21,8 @@ import android.preference.PreferenceScreen;
  * @author Tobias
  */
 public class StressReductionSettings extends SettingsBaseActivity {
+
+	private static final Log log = PlatformUtil.getLog(StressReductionSettings.class);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,9 +42,22 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		useWifiOnlyPreference.setTitle(R.string.sr_settings_use_wifi_only_title);
 		useWifiOnlyPreference.setSummary(R.string.sr_settings_use_wifi_only_description);
 		preferenceScreen.addPreference(useWifiOnlyPreference);
+		useWifiOnlyPreference
+				.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+					@Override
+					public boolean onPreferenceChange(Preference preference, Object newValue) {
+						boolean state = (boolean) newValue;
+						CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+						SRSharedPreferences.setOnlyWifiUpload(getMyApplication(), state);
+						checkBoxPreference.setChecked(state);
+						return state;
+					}
+				});
 
 		if (BuildConfig.DEBUG) {
-			CheckBoxPreference locationSimulationPreference = createCheckBoxPreference(settings.SR_LOCATION_SIMULATION);
+			CheckBoxPreference locationSimulationPreference =
+					createCheckBoxPreference(settings.SR_LOCATION_SIMULATION);
 			locationSimulationPreference.setTitle(R.string.sr_settings_location_simulation_title);
 			locationSimulationPreference
 					.setSummary(R.string.sr_settings_location_simulation_description);

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	android:installLocation="auto" 
 	android:versionName="@string/app_version" 
-	android:versionCode="211"
+	android:versionCode="213"
 	package="net.osmand.plus">
 
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21" />
@@ -295,7 +295,7 @@
 			android:name=".stressreduction.connectivity.UploadService" >
 		</service>
 		<receiver
-			android:name=".stressreduction.connectivity.WifiReceiver"
+			android:name=".stressreduction.connectivity.ConnectionReceiver"
 			android:enabled="false" >
 			<intent-filter>
 				<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

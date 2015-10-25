@@ -49,6 +49,7 @@ public class RoutingSimulation
 		if (osmandApplication.getSettings().SR_LOCATION_SIMULATION.get()) {
 			// if develop mode then show dialog if route should be simulated
 			if (simulationThread == null) {
+				locationList.clear();
 				locationList.addAll(routingHelper.getCurrentCalculatedRoute());
 				fragmentHandler.showLocationSimulationDialog(this);
 			} else {
@@ -149,7 +150,7 @@ public class RoutingSimulation
 									.getLatitude());
 					locWait.setAccuracy(5.0f);
 					locWait.setSpeed(0f);
-					for (int i = 0; i < 30; i++) {
+					for (int i = 0; i < 40; i++) {
 						locWait.setTime(System.currentTimeMillis());
 						locWait.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
 						locationManager.setTestProviderLocation("gps", locWait);

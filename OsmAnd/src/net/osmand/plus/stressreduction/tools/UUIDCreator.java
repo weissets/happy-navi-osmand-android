@@ -30,7 +30,7 @@ public class UUIDCreator {
 		if (UNIQUE_ID == null) {
 			UNIQUE_ID = "UUID_ERROR";
 			File installation = new File(context.getFilesDir(), INSTALLATION);
-			log.debug("UUID File in: " + context.getFilesDir().getAbsolutePath());
+			log.debug("UUID File in: " + installation.getPath());
 			try {
 				if (!installation.exists()) {
 					writeInstallationFile(installation);

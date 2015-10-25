@@ -2287,4 +2287,46 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="unsaved_changes_will_be_lost">Alle ungesicherten Änderungen gehen verloren. Fortfahren?</string>
 	<string name="roads">Straßen</string>
     <string name="show_free_version_banner_description">Auch bei der bezahlten Version ist das Banner der kostenlosen Version sichtbar.</string>
+
+	<string name="sr_plugin_description">Dieses Plugin zielt auf die Verbesserung der
+		Routenberechnung ab für ein Fahren mit weniger Stress. Für eine ausführliche Beschreibung besuchen Sie unsere Informationsseite: http://maps.hcilab.org/info.</string>
+	<string name="sr_plugin_name">Stress Reduzierung Plugin</string>
+    <string name="sr_plugin_info">
+        Diese Version von OsmAnd ist eine Forschungsversion der Mensch-Computer-Interaktion Gruppe (www.hcilab.org) an der Universität Stuttgart (Deutschland). \n\n
+        Unser Ziel ist es Stresswerte für einzelne Straßenabschnitte zu bestimmen und zu evaluieren, um ein Navigieren mit weniger Stress zu ermöglichen. \n\n
+        Hierfür wird der Benutzer jedes Mal wenn das Auto zum Stillstand kommt gefragt, wie stressig die letzten Straßenabschnitte waren. \n\n
+        Dieses Plugin ist standardmäßig aktiviert! Wenn Sie es deaktivieren möchten gehen sie zu \'Einstellungen\' → \'Plugins\'. \n\n
+        Für eine ausführliche Beschreibung dieses Projekts besuchen Sie unsere Informationsseite (http://maps.hcilab.org/info). Der Quellcode kann bei GitHub (https://github.com/weissets/Osmand) eingesehen werden. \n\n
+        Vielen Dank für Ihre Unterstützung dieses Forschungsprojekts!
+	</string>
+	<string name="sr_dialog_title">Wie haben Ihnen die letzten Straßenabschnitte gefallen?</string>
+	<string name="sr_plugin_whats_new_title">Was Ist Neu</string>
+    <string name="sr_plugin_whats_new_description">
+        Version 2.2.0-213
+	    \n\n• Update auf Version 2.2
+        \n\n• Neues Design
+        \n\n• Native Unterstützung
+        \n\n• Performance Verbesserungen
+        \n\n\n
+		Version 2.1.0-212
+		\n\n• Hochladen der Daten nur über Wlan (aktivierbar in den Einstellungen)
+		\n\n• Kleinere Fehlerbehebungen
+    </string>
+	<string name="sr_settings_title">Stress Reduzierung Einstellungen</string>
+	<string name="sr_settings_notification_sound_title">Benachrichtigungston</string>
+	<string name="sr_settings_notification_sound_description">Spielt einen Ton ab, wenn ein neuer Evaluierungsdialog angezeigt wird.</string>
+	<string name="sr_settings_use_wifi_only_title">Wifi Upload</string>
+	<string name="sr_settings_use_wifi_only_description">Benutze für das Hochladen der Daten auf den Server nur die WiFi Verbindung (reduziert den mobilen Datenverbrauch).</string>
+	<string name="sr_settings_location_simulation_title">Routingsimulation</string>
+	<string name="sr_settings_location_simulation_description">Zeigt nach der Berechnung
+		einer Route einen Dialog, über welchen die berechnete Route simuliert werden kann.</string>
+	<string name="sr_settings_routing_title">Routenberechnung (Bald verfügbar!)</string>
+	<string name="sr_settings_routing_description">Verwende angepasste Routenberechnung für weniger stressige und anstrengende Straßenabschnitte.</string>
+	<string name="sr_request_rating">Bitte Bewertung eingeben!</string>
+	<string name="sr_plugin_new_version_available">Neue Version verfügbar</string>
+	<string name="sr_plugin_new_version">
+		Eine neue Version von happy Navi (OsmAnd) ist verfügbar. Wenn sie die neue Version jetzt
+		gleich installieren wollen klicken sie auf \'Donwload\". Wenn sie die neue Version später
+		installieren wollen klicken sie auf \'Cancel\'.
+	</string>
 </resources>
