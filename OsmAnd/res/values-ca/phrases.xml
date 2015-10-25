@@ -115,7 +115,7 @@
 	<string name="poi_tobacco">Venda de tabac</string>
 	<string name="poi_carpet">Botiga de catifes</string>
 	<string name="poi_clothes">Magatzem de roba</string>
-	<string name="poi_child_clothes">Roba infantil</string>
+	<string name="poi_clothes_children">Roba infantil</string>
 	<string name="poi_curtain">Pelleteria</string>
 	<string name="poi_fabric">Botiga de teixits</string>
 	<string name="poi_public_transport_platform">Parada de transport públic</string>
@@ -437,7 +437,7 @@
 	<string name="poi_fuel_e10">10% etanol</string>
 	<string name="poi_fuel_e20">20% etanol</string>
 	<string name="poi_fuel_e85">85% etanol</string>
-	<string name="poi_fuel_biogas">85% etanol</string>
+	<string name="poi_fuel_biogas">Biogàs</string>
 	<string name="poi_fuel_gtl_diesel">Gasoil extra</string>
 	<string name="poi_fuel_lpg">Gas liquat del petroli</string>
 	<string name="poi_fuel_cng">Gas natural comprimit</string>
@@ -851,7 +851,7 @@
 	<string name="poi_candles">Cereria</string>
 	<string name="poi_leather">Pelleteria</string>
 	<string name="poi_watches">Rellotgeria</string>
-	<string name="poi_barrier_entrance">Entrada</string>
+	<string name="poi_barrier_entrance">Passatge en un mur o una tanca</string>
 	<string name="poi_entrance_main">Entrada principal</string>
 	<string name="poi_entrance">Entrada</string>
 	<string name="poi_entrance_exit">Sortida</string>
@@ -891,7 +891,7 @@
 	<string name="poi_tree">Arbre</string>
 	<string name="poi_highway_crossing">Pas de vianants</string>
 
-	<string name="poi_icn_ref">Xarxa internacional de rutes ciclistes</string>
+	<string name="poi_icn_ref">Node de la xarxa ciclista internacional</string>
 	<string name="poi_ncn_ref">Node de la xarxa ciclista nacional</string>
 	<string name="poi_rcn_ref">Node de la xarxa ciclista regional</string>
 	<string name="poi_lcn_ref">Node de la xarxa ciclista local</string>
@@ -956,10 +956,10 @@
 	<string name="poi_fax">Fax</string>
 	<string name="poi_facebook">Facebook</string>
 	<string name="poi_mobile">Mòbil</string>
-	<string name="poi_animal_shelter_dog">Refugi per a gossos</string>
-	<string name="poi_animal_shelter_cat">Refugi per a gats</string>
-	<string name="poi_animal_shelter_dog_cat">Refugi per a gossos i gats</string>
-	<string name="poi_animal_shelter_bird">Refugi per a ocells</string>
+	<string name="poi_animal_shelter_dog">Tipus de refugi: per gossos</string>
+	<string name="poi_animal_shelter_cat">Tipus de refugi: per gats</string>
+	<string name="poi_animal_shelter_dog_cat">Tipus de refugi: per gossos i gats</string>
+	<string name="poi_animal_shelter_bird">Tipus de refugi: per ocells</string>
 
 <string name="poi_recycling_centre">Tipus: deixalleria</string>
 	<string name="poi_recycling_container">Tipus: contenidor</string>
@@ -1313,4 +1313,100 @@
 	<string name="poi_resource_stone">Pedra</string>
 	<string name="poi_resource_tin">Estany</string>
 	<string name="poi_resource_tuff">Tuf</string>
+	<string name="poi_bridge_movable_retractable">Tipus de pont mòbil: retràctil</string>
+
+<string name="poi_bridge_movable_bascule">Tipus de pont mòbil: basculant</string>
+	<string name="poi_bridge_movable_swing">Tipus de pont mòbil: giratori</string>
+	<string name="poi_bridge_movable_lift">Tipus de pont mòbil: ascensional</string>
+	<string name="poi_bridge_movable_drawbridge">Tipus de pont mòbil: llevadís</string>
+	<string name="poi_bridge_movable_submersible">Tipus de pont mòbil: sumergible</string>
+	<string name="poi_bridge_movable_transporter">Tipus de pont mòbil: transbordador</string>
+	<string name="poi_bridge_pedestrian">Pont de vianants</string>
+	<string name="poi_bridge_bicycle">Pont per bicicletes</string>
+	<string name="poi_bridge_railway">Pont ferroviari</string>
+	<string name="poi_surface_ice">Superfície: gel</string>
+	<string name="poi_surface_salt">Superfície: sal</string>
+	<string name="poi_surface_snow">Superfície: neu</string>
+
+<string name="poi_surface_unpaved">Superfície: no pavimentada</string>
+	<string name="poi_surface_paved">Superfície: pavimentada</string>
+	<string name="poi_surface_asphalt">Superfície: asfalt</string>
+	<string name="poi_surface_concrete">Superfície: formigó</string>
+	<string name="poi_surface_sett">Superfície: llambordes</string>
+	<string name="poi_surface_cobblestone">Superfície: empedrat</string>
+	<string name="poi_surface_paving_stones">Superfície: paviment de pedres</string>
+	<string name="poi_surface_pebblestone">Superfície: còdols</string>
+	<string name="poi_surface_stone">Superfície: pedra</string>
+	<string name="poi_surface_metal">Superfície: metall</string>
+	<string name="poi_surface_wood">Superfície: fusta</string>
+	<string name="poi_surface_gravel">Superfície: grava</string>
+	<string name="poi_surface_fine_gravel">Superfície: grava fina</string>
+	<string name="poi_surface_compacted">Superfície: compactada</string>
+	<string name="poi_surface_sand">Superfície: sorra</string>
+	<string name="poi_surface_grass">Superfície: gespa</string>
+	<string name="poi_surface_grass_paver">Superfície: pavimentació permeable</string>
+	<string name="poi_surface_ground">Superfície: terra</string>
+	<string name="poi_surface_dirt">Superfície: terra batuda</string>
+	<string name="poi_surface_mud">Superfície: fang</string>
+	<string name="poi_lit_yes">Il·luminat: Sí</string>
+	<string name="poi_lit_no">Il·luminat: no</string>
+
+	<string name="poi_architecture_renaissance">Arquitectura: renaixement</string>
+	<string name="poi_architecture_romanesque">Arquitectura: romànic</string>
+
+	<string name="poi_tunnel_waterway">Tunel d\'aqüeducte</string>
+	<string name="poi_tunnel_car">Túnel de carretera</string>
+	<string name="poi_tunnel_pedestrian">Túnel per vianants</string>
+	<string name="poi_bridge_car">Pont de carretera</string>
+	<string name="poi_bridge_waterway">Pont fluvial</string>
+	<string name="poi_debris">Runa</string>
+	<string name="poi_jersey_barrier">Barrera Jersey</string>
+	<string name="poi_content_fodder">Contingut: farratge</string>
+	<string name="poi_leaf_type_broadleaved">Fulla ampla</string>
+	<string name="poi_leaf_type_mixed">Barrejat</string>
+	<string name="poi_trees_kiwi">Actinídia</string>
+	<string name="poi_ramp_yes">Rampa: sí</string>
+	<string name="poi_ramp_no">Rampa: no</string>
+	<string name="poi_product_meat">Producte: carn</string>
+
+	<string name="poi_wheelchair_description">Descripció per usuaris de cadira de rodes</string>
+	<string name="poi_product_beer">Producte: cervesa</string>
+	<string name="poi_product_leather">Producte: cuir</string>
+	<string name="poi_product_charcoal">Producte: carbó vegetal</string>
+	<string name="poi_blind_description">Descripció per cecs</string>
+	<string name="poi_deaf_description">Descripció per sords</string>
+
+	<string name="poi_highway_steps">Escala</string>
+	<string name="poi_handrail_yes">Barana: sí</string>
+	<string name="poi_handrail_no">Barana: no</string>
+	<string name="poi_ramp_wheelchair_yes">Rampa per cadira de rodes: sí</string>
+	<string name="poi_ramp_wheelchair_no">Rampa per cadira de rodes: no</string>
+	<string name="poi_ramp_stroller_yes">Rampa (cotxets): sí</string>
+	<string name="poi_ramp_stroller_no">Rampa (cotxets): no</string>
+	<string name="poi_ramp_bicycle_yes">Rampa per bicicletes: sí</string>
+	<string name="poi_ramp_bicycle_no">Rampa per bicicletes: no</string>
+	<string name="poi_ramp_luggage_yes">Rampa per equipatge: sí</string>
+	<string name="poi_ramp_luggage_no">Rampa per equipatge: no</string>
+	<string name="poi_step_count">Nombre de graons</string>
+	<string name="poi_step_condition_even">Condició dels graons: uniforme</string>
+	<string name="poi_step_condition_uneven">Condició dels graons: desigual</string>
+	<string name="poi_step_condition_rough">Condició dels graons: ruda</string>
+
+<string name="poi_tomb_columbarium">Tipus: columbari</string>
+	<string name="poi_tomb_mausoleum">Tipus: mausoleu</string>
+	<string name="poi_tomb_sarcophagus">Tipus: sarcòfag</string>
+	<string name="poi_tomb_crypt">Tipus: cripta</string>
+	<string name="poi_tomb_pyramid">Tipus: piràmide</string>
+
+<string name="poi_cairn">Pila de pedres</string>
+
+	<string name="poi_memorial_fassade_decoration">Memorial per decoració de façana</string>
+	<string name="poi_defibrillator">Desfibril·lador</string>
+	<string name="poi_defibrillator_yes">Desfibril·lador: sí</string>
+
+	<string name="poi_tomb_war_grave">Tipus: fosa de guerra</string>
+	<string name="poi_tomb_tumulus">Tipus: túmul</string>
+	<string name="poi_tomb_rock_cut">Tipus: excavació a la roca</string>
+	<string name="poi_tomb_hypogeum">Tipus: subterrani</string>
+	<string name="poi_tomb_vault">Tipus: volta</string>
 	</resources>

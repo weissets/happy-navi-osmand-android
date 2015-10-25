@@ -57,6 +57,17 @@
          3. All your modified/created strings are in the top of the file (to make easier find what\'s translated).
     PLEASE: Have a look at http://code.google.com/p/osmand/wiki/UIConsistency, it may really improve your and our work  :-)  Thx - Hardy
     -->
+    <string name="simulate_initial_startup_descr">"Resets flag indicating first startup, keep other settings in the original state"</string>
+    <string name="simulate_initial_startup">Simulate initial startup</string>
+    <string name="share_geo">geo:</string>
+    <string name="share_menu_location">Share location</string>
+    <string name="shared_string_send">Send</string>
+    <string name="favorite_category_dublicate_message">Specified category name already exists. Please define other name.</string>
+    <string name="favorite_category_name">Category name</string>
+    <string name="favorite_category_add_new_title">Add new category</string>
+    <string name="regions">Regions</string>
+    <string name="region_maps">Region maps</string>
+    <string name="world_maps">World maps</string>
     <string name="hillshade_layer_disabled">Hillshade layer disabled</string>
     <string name="srtm_plugin_disabled">Contour lines disabled</string>
     <string name="favorite_category_add_new">Add new</string>
@@ -1270,7 +1281,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 	<string name="route_updated_loc_found">Route will be calculated once position is found</string>
 	<string name="osmand_parking_hours">Hours</string>
 	<string name="osmand_parking_minutes">Minutes</string>
-	<string name="osmand_parking_position_description_add_time">The car was parked at:</string>
+	<string name="osmand_parking_position_description_add_time">The car was parked at</string>
 	<string name="select_animate_speedup">Select speed of route simulation</string>
     	<string name="global_app_allocated_memory_descr">Allocated memory %1$s MB (Android limit %2$s MB, Dalvik %3$s MB).</string>
 	<string name="global_app_allocated_memory">Allocated memory</string>
@@ -1450,10 +1461,10 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 	<string name="index_name_europe">Europe</string>
 	<string name="index_name_france">Europe - France</string>
 	<string name="index_name_germany">Europe - Germany</string>
-	<string name="index_name_russia">Europe/Asia - Russia</string>
+	<string name="index_name_russia">Russia</string>
 	<string name="index_name_africa">Africa</string>
 	<string name="index_name_asia">Asia</string>
-	<string name="index_name_oceania">Oceania</string>
+	<string name="index_name_oceania">Australia and Oceania</string>
 	<string name="index_name_other">Worldwide and topic maps</string>
 	<string name="index_name_wiki">Worldwide Wikipedia POIs</string>
 	<string name="index_name_voice">Voice prompts (recorded, limited features)</string>
@@ -2095,5 +2106,16 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="activate_seamarks_plugin">Please activate Seamarks plugin</string>
     <string name="activate_srtm_plugin">Please activate SRTM plugin</string>
     <string name="later">Later</string>
-    <string name="get_full_version">Get full version</string>
+    <string name="get_full_version">Full version</string>
+    <string name="downloads">Downloads</string>
+    <string name="confirm_download_roadmaps">Are you sure you want to download map of roads, even though you have full map?</string>
+    <string name="value_downloaded_from_max">%1$.1f from %2$.1f MB</string>
+    <string name="file_size_in_mb">%.1f MB</string>
+    <string name="update_all">Update all (%1$s MB)</string>
+    <string name="free_downloads_used">Free downloads used</string>
+    <string name="free_downloads_used_description">You can set how many free downloads you have used</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="application_dir_description">Choose where you want to save map files.</string>
 </resources>

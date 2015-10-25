@@ -28,6 +28,7 @@ import net.osmand.plus.activities.EnumAdapter;
 import net.osmand.plus.activities.EnumAdapter.IEnumWithResource;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.TabActivity;
+import net.osmand.plus.dashboard.DashboardOnMap;
 import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.myplaces.AvailableGPXFragment;
 import net.osmand.plus.myplaces.AvailableGPXFragment.GpxInfo;
@@ -348,7 +349,6 @@ public class OsmEditingPlugin extends OsmandPlugin {
 
 	@Override
 	public DashFragmentData getCardFragment() {
-		return new DashFragmentData(DashOsmEditsFragment.TAG, DashOsmEditsFragment.class,
-				R.string.osm_settings, 13);
+		return DashOsmEditsFragment.FRAGMENT_DATA;
 	}
 }

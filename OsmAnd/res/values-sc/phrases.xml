@@ -31,7 +31,7 @@
 	<string name="poi_carpet">Butega de tapetes</string>
 	<string name="poi_chemist">Potecaria</string>
 	<string name="poi_clothes">Bestimenta</string>
-	<string name="poi_child_clothes">Bestimenta pro pitzinnos</string>
+	<string name="poi_clothes_children">Bestimenta pro pitzinnos</string>
 	<string name="poi_shoes">Butega de iscarpas</string>
 	<string name="poi_computer">Butega de informàtica</string>
 	<string name="poi_copyshop">Copisteria</string>
@@ -552,7 +552,7 @@
 	<string name="poi_skiing">Iscì</string>
 	<string name="poi_wreck">Relitu navale</string>
 	<string name="poi_alpine_hut">Refùgiu alpinu</string>
-	<string name="poi_shelter">Cuadorju</string>
+	<string name="poi_shelter">Imbaru</string>
 	<string name="poi_craft_metal_construction">Costrutziones metàllicas</string>
 	<string name="poi_craft_parquet_layer">Assentadore de parquet</string>
 	<string name="poi_craft_tiler">Assentadore de regiolas</string>
@@ -692,7 +692,7 @@
 	<string name="poi_fuel_e10">E10</string>
 	<string name="poi_fuel_e20">E20</string>
 	<string name="poi_fuel_e85">E85</string>
-	<string name="poi_fuel_biogas">Biogas E85</string>
+	<string name="poi_fuel_biogas">Biogàs</string>
 	<string name="poi_junction">Giuntura istradale</string>
 	<string name="poi_bell_tower">Campanile</string>
 	<string name="poi_farmyard">Argiola</string>
@@ -803,7 +803,7 @@
 	<string name="poi_general_barrier">Barriera genèrica</string>
 	<string name="poi_height_restrictor">Limitadore de artària</string>
 	<string name="poi_turnstile">Tornellu</string>
-	<string name="poi_barrier_entrance">Intrada</string>
+	<string name="poi_barrier_entrance">Coladòrgiu in unu muru o una cresura</string>
 	<string name="poi_entrance_main">Intrada printzipale</string>
 	<string name="poi_entrance">Intrada</string>
 	<string name="poi_entrance_exit">Essida</string>
@@ -1064,12 +1064,12 @@
 
 	<string name="poi_sand">Arena</string>
 
-	<string name="poi_smoking_isolated">Si podet pipare in un’aposentu indipendente e iscrobadu de su totu</string>
+	<string name="poi_smoking_isolated">Si podet pipare in un’aposentu isoladu</string>
 	<string name="poi_smoking_dedicated">Pipadores ebbia</string>
 
-	<string name="poi_toll_yes">B’est de pagare unu pedàgiu</string>
-	<string name="poi_toll_no">Non b’est perunu pedàgiu</string>
-	<string name="poi_toll_hgv_yes">B’est de pagare unu pedàgiu pro veìculos pesantes</string>
+	<string name="poi_toll_yes">Pedàgiu</string>
+	<string name="poi_toll_no">Perunu pedàgiu</string>
+	<string name="poi_toll_hgv_yes">Pedàgiu pro veìculos pesantes</string>
 	<string name="poi_information_bicyclemap">Mapa tziclìstica</string>
 	<string name="poi_water_characteristic_mineral">Caraterìstica de s’abba: minerale</string>
 	<string name="poi_water_characteristic_mud">Caraterìsica de s’abba: ludu</string>
@@ -1084,7 +1084,7 @@
 	<string name="poi_information_office">Ufìtziu de informatziones</string>
 	<string name="poi_information_terminal">Tèrminal de informatziones</string>
 	<string name="poi_information_hikingmap">Mapa pro escursionismu</string>
-	<string name="poi_information_history">Informatziones istòricas</string>
+	<string name="poi_information_history">Sinnale de informatziones: istòria</string>
 	<string name="poi_information_sign">Sinnu</string>
 	<string name="poi_information_audioguide">Audioghia</string>
 	<string name="poi_internet_access_yes">Atzessu a ìnternet: eja</string>
@@ -1094,14 +1094,14 @@
 	<string name="poi_seamark_bridge">Ponte nàuticu</string>
 	<string name="poi_highway_crossing">Coladòrgiu pedonale</string>
 
-	<string name="poi_icn_ref">Àndala retza tziclàbile internatzionale</string>
-	<string name="poi_ncn_ref">Àndala retza tziclàbile natzionale</string>
-	<string name="poi_rcn_ref">Àndala retza tziclàbile regionale</string>
-	<string name="poi_lcn_ref">Àndala retza tziclàbile locale</string>
-	<string name="poi_iwn_ref">Àndala retza internatzionale pro s’escursionismu</string>
-	<string name="poi_nwn_ref">Àndala retza natzionale pro s’escursionismu</string>
-	<string name="poi_rwn_ref">Àndala retza regionale pro s’escursionismu</string>
-	<string name="poi_lwn_ref">Àndala retza locale pro s’escursionismu</string>
+	<string name="poi_icn_ref">Nodu retza tziclàbile internatzionale</string>
+	<string name="poi_ncn_ref">Nodu retza tziclàbile natzionale</string>
+	<string name="poi_rcn_ref">Nodu retza tziclàbile regionale</string>
+	<string name="poi_lcn_ref">Nodu retza tziclàbile locale</string>
+	<string name="poi_iwn_ref">Nodu retza internatzionale pro s’escursionismu</string>
+	<string name="poi_nwn_ref">Nodu retza natzionale pro s’escursionismu</string>
+	<string name="poi_rwn_ref">Nodu retza regionale pro s’escursionismu</string>
+	<string name="poi_lwn_ref">Nodu retza locale pro s’escursionismu</string>
 
 	<string name="poi_route_hiking_iwn_poi">Àndala internatzionale pro s’escursionismu</string>
 	<string name="poi_route_hiking_nwn_poi">Àndala natzionale pro s’escursionismu</string>
@@ -1126,7 +1126,7 @@
 	<string name="poi_wheelchair_no">Cadira a rodas: non permitidas</string>
 	<string name="poi_wheelchair_limited">Cadira a rodas: limitadas</string>
 	<string name="poi_access_private">Atzessu privadu</string>
-	<string name="poi_access_no">Sena atzessu</string>
+	<string name="poi_access_no">Chene atzessu</string>
 	<string name="poi_access_customers">Atzessu pro clientes</string>
 	<string name="poi_access_delivery">Atzessu pro cunsinnas</string>
 	<string name="poi_access_agricultural">Atzessu agrìcolu</string>
@@ -1164,7 +1164,7 @@
 	<string name="poi_leaf_type_broadleaved">Fògia larga (latifògia)</string>
 	<string name="poi_leaf_type_needleleaved">Fògia a agu (aghifògia)</string>
 	<string name="poi_leaf_type_mixed">Mistu</string>
-	<string name="poi_leaf_type_leafless">Sena fògias</string>
+	<string name="poi_leaf_type_leafless">Chene fògias</string>
 	<string name="poi_species">Genia</string>
 	<string name="poi_genus">Gènere</string>
 	<string name="poi_taxon">Tàxon</string>
@@ -1198,4 +1198,207 @@
 
 	<string name="poi_memorial_statue">Istàtua</string>
 	<string name="poi_vending_bread">Pane</string>
+	<string name="poi_architect_name">Architetu</string>
+
+	<string name="poi_architecture_modern">Architetura: modernu</string>
+	<string name="poi_architecture_stalinist_neoclassicism">Architetura: classicismu sotzialista/stalinista</string>
+	<string name="poi_architecture_eclectic">Architetura: ecletismu</string>
+	<string name="poi_architecture_new_objectivity">Architetura: ogetividade noa</string>
+	<string name="poi_architecture_contemporary">Architetura: contemporàneu</string>
+	<string name="poi_architecture_constructivism">Architetura: constructivismu</string>
+	<string name="poi_architecture_umgebinde">Architetura: umgebinde</string>
+	<string name="poi_architecture_art_nouveau">Architetura: art nouveau/liberty</string>
+	<string name="poi_architecture_neoclassicism">Architetura: neoclassicismu</string>
+	<string name="poi_architecture_victorian">Architetura: istile vitorianu</string>
+	<string name="poi_architecture_brutalism">Architetura: brutalismu</string>
+	<string name="poi_architecture_classicism">Architetura: classicismu</string>
+	<string name="poi_architecture_gothic">Architetura: istile gòticu</string>
+	<string name="poi_architecture_baroque">Architetura: barocu</string>
+	<string name="poi_architecture_postconstructivism">Architetura: postconstructivismu</string>
+	<string name="poi_architecture_wilhelminian_style">Architetura: istile wilhelminianu</string>
+	<string name="poi_architecture_renaissance">Architetura: rinascimentu</string>
+	<string name="poi_architecture_romanesque">Architetura: romànicu</string>
+
+<string name="poi_architecture_timber_frame"/>
+	<string name="poi_width">Largària</string>
+
+	<string name="poi_artwork_type_sculpture">Casta de òpera: iscultura</string>
+	<string name="poi_artwork_type_statue">Casta de òpera: istàtua</string>
+	<string name="poi_artwork_type_mural">Casta de òpera: murale</string>
+	<string name="poi_artwork_type_architecture">Casta de òpera: architetura</string>
+	<string name="poi_artwork_type_painting">Casta de òpera: pintura</string>
+	<string name="poi_artwork_type_stone">Casta de òpera: pedra</string>
+	<string name="poi_artwork_type_bust">Casta de òpera: bustu</string>
+	<string name="poi_artwork_type_installation">Casta de òpera: installatzione</string>
+	<string name="poi_artwork_type_mosaic">Casta de òpera: mosàicu</string>
+	<string name="poi_artwork_type_relief">Casta de òpera: rilievu/bassorilievu</string>
+	<string name="poi_artwork_type_graffiti">Casta de òpera: grafitos</string>
+	<string name="poi_artwork_type_stele">Casta de òpera: losa</string>
+	<string name="poi_artwork_type_fountain">Casta de òpera: funtana</string>
+
+	<string name="poi_maxwidth">Largària màssima</string>
+	<string name="poi_iata">Còdighe IATA</string>
+	<string name="poi_icao">Còdighe ICAO</string>
+	<string name="poi_faa">Còdighe FAA</string>
+	
+	<string name="poi_flagpole">Palu de bandera</string>
+
+	<string name="poi_palm">Prama</string>
+	<string name="poi_cypress">Tzipressu</string>
+	<string name="poi_chimney">Fumajolu</string>
+	<string name="poi_beach_sand">Casta de plàia: arena</string>
+	<string name="poi_beach_shingle">Casta de plàia: giarra/ghiàia</string>
+	<string name="poi_beach_rocky">Casta de plàia: pedrosa</string>
+
+	<string name="poi_shoes_children">Iscarpas pro pitzinnos</string>
+	<string name="poi_shoes_women">Iscarpas pro fèminas</string>
+	<string name="poi_shoes_sport">Iscarpas pro isport</string>
+	<string name="poi_shoes_men">Iscarpas pro òmines</string>
+	<string name="poi_shoes_orthopedic">Iscarpas ortopèdicas</string>
+
+	<string name="poi_collection_times">Oràriu de regorta</string>
+	<string name="poi_email">P.eletrònica</string>
+	<string name="poi_fee_yes">A pagamentu</string>
+	<string name="poi_fee_no">De badas</string>
+	<string name="poi_wholesale">Grussista</string>
+
+	<string name="poi_access_destination">Atzessu pro sa destinatzione</string>
+	<string name="poi_access_permissive">Atzessu permissivu</string>
+	<string name="poi_trade_building_supplies">Ainas pro su fràigu</string>
+	<string name="poi_trade_plumbing">Ainas pro s’idràulica</string>
+	<string name="poi_trade_wood">Frunidura de linna</string>
+	<string name="poi_trade_agricultural_supplies">Ainas pro s\'agricultura</string>
+	<string name="poi_trade_tile">Frunidura de regiolas</string>
+
+	<string name="poi_animal_shelter">Imbaru pro animales</string>
+	<string name="poi_animal_shelter_dog">Casta de imbaru: pro canes</string>
+	<string name="poi_animal_shelter_cat">Casta de imbaru: pro gatos</string>
+	<string name="poi_animal_shelter_dog_cat">Casta de imbaru: pro canes e gatos</string>
+	<string name="poi_animal_shelter_bird">Casta de imbaru: pro pugiones</string>
+
+	<string name="poi_generator_source_coal">Mitza de energia: carbone</string>
+	<string name="poi_generator_source_gas">Mitza de energia: gas</string>
+	<string name="poi_generator_source_nuclear">Mitza de energia: nucleare</string>
+	<string name="poi_generator_source_solar">Mitza de energia: solare</string>
+	<string name="poi_generator_source_hydro">Mitza de energia: idroelètrica</string>
+	<string name="poi_generator_source_wind">Mitza de energia: eòlica</string>
+	<string name="poi_generator_source_geothermal">Mitza de energia: geotèrmica</string>
+	<string name="poi_generator_source_oil">Mitza de energia: ògiu</string>
+	<string name="poi_generator_source_diesel">Mitza de energia: diesel</string>
+
+	<string name="poi_int_name">Nùmene internatzionale</string>
+	<string name="poi_nat_name">Nùmene natzionale</string>
+	<string name="poi_reg_name">Nùmene regionale</string>
+	<string name="poi_loc_name">Nùmene locale</string>
+	<string name="poi_old_name">Nùmene antigu</string>
+	<string name="poi_alt_name">Nùmene alternativu</string>
+
+	<string name="poi_pump_manual">Pompa manuale</string>
+	<string name="poi_pump_powered">Pompa automàtica</string>
+	<string name="poi_pump_no">Chene pompa</string>
+	<string name="poi_pump">Pompa</string>
+
+	<string name="poi_building">Edifìtziu</string>
+	<string name="poi_information_guidepost">Indicadore istradale</string>
+	<string name="poi_information_nature">Sinnale de informatziones: natura</string>
+	<string name="poi_information_wildlife">Sinnale de informatziones: fàuna agreste</string>
+	<string name="poi_information_tactile_model">Modellu tàtile</string>
+	<string name="poi_information_tactile_map">Mapa tàtile</string>
+	<string name="poi_board_type_plants">Sinnale de informatziones: fundos/prantas</string>
+	<string name="poi_board_type_geology">Sinnale de informatziones: geologia</string>
+	<string name="poi_board_type_public_transport">Sinnale de informatziones: trasportu pùblicu</string>
+	<string name="poi_board_type_technology">Sinnale de informatziones: tecnologia</string>
+	<string name="poi_board_type_astronomy">Sinnale de informatziones: astronomia</string>
+
+	<string name="poi_fireplace_yes">Tziminera</string>
+	<string name="poi_fireplace_no">Chene tziminera</string>
+
+	<string name="poi_covered_yes">Cobertu</string>
+	<string name="poi_covered_no">Chene cobertura</string>
+
+	<string name="poi_smoking_no">Non si podet pipare</string>
+	<string name="poi_smoking_outside">Si podet pipare in foras ebbia</string>
+	<string name="poi_smoking_yes">Si podet pipare</string>
+	<string name="poi_smoking_separated">Si podet pipare in un’aposentu a un’ala</string>
+	<string name="poi_tactile_paving_yes">Cun pamentu tàtile</string>
+	<string name="poi_tactile_paving_no">Chene pamentu tàtile</string>
+	<string name="poi_traffic_signals_sound_yes">Cun sonu</string>
+	<string name="poi_traffic_signals_sound_no">Chene sonu</string>
+	<string name="poi_traffic_signals_sound_walk">Cun sonu petzi cando est possìbile colare</string>
+
+	<string name="poi_services">Àrea de servìtziu</string>
+	<string name="poi_historic_period_nuragic">Època istòrica: nuràgica</string>
+	<string name="poi_historic_period_stone_bronze_undetermined">Època istòrica: edade de sa pedra / edade de su brunzu (indeterminadu)</string>
+	<string name="poi_historic_period_bronze_age">Època istòrica: edade de su brunzu</string>
+	<string name="poi_historic_period_principate">Època istòrica: printzipatu (27 AC – 284 PC)</string>
+	<string name="poi_historic_period_classical_greece">Època istòrica: Grètzia clàssica (5° – 4° s. AC)</string>
+	<string name="poi_historic_period_archaic_greece">Època istòrica: Grètzia arcàica</string>
+	<string name="poi_historic_period_iron_age">Època istòrica: edade de su ferru</string>
+	<string name="poi_historic_period_roman_republic">Època istòrica: repùblica romana (508 AC – 27 PC)</string>
+	<string name="poi_historic_period_hellenistic_greece">Època istòrica: Grètzia ellenìstica</string>
+	<string name="poi_historic_period_new_kingdom">Època istòrica: rennu nou (1550 – 1069 AC)</string>
+	<string name="poi_historic_period_middle_kingdom">Època istòrica: rennu mesanu (2055 – 1650 AC)</string>
+	<string name="poi_historic_period_predynastic_egypt">Època istòrica: Egitu predinàsticu</string>
+	<string name="poi_historic_period_early_dynastic_period">Època istòrica: Egitu arcàicu (3100 – 2686 AC)</string>
+	<string name="poi_historic_period_old_kingdom">Època istòrica: rennu antigu (2686 – 2181 AC)</string>
+	<string name="poi_historic_period_first_intermediate_period">Època istòrica: primu perìodu intermèdiu (2181 – 2055 AC)</string>
+	<string name="poi_historic_period_second_intermediate_period">Època istòrica: segundu perìodu intermèdiu (1650 – 1550 AC)</string>
+	<string name="poi_historic_period_third_intermediate_period">"Època istòrica: tertzu perìodu intermèdiu (1069 – 664 AC) "</string>
+	<string name="poi_historic_period_first_persian_period">Època istòrica: primu perìodu persianu</string>
+	<string name="poi_historic_period_late_period">Època istòrica: perìodu bassu (664 – 332 AC)</string>
+	<string name="poi_historic_period_second_persian_period">Època istòrica: segundu perìodu persianu</string>
+	<string name="poi_historic_period_alexander_the_great">Època istòrica: Lisandru mannu</string>
+	<string name="poi_historic_period_ptolemaic_egypt">Època istòrica: Egitu tolemàicu (305 AC – 30 AC)</string>
+	<string name="poi_historic_period_christian_egypt">Època istòrica: Egitu cristianu</string>
+	<string name="poi_historic_period_byzantine_egypt">Època istòrica: Egitu bizantinu (30 AC – 641 PC)</string>
+	<string name="poi_historic_period_persian_occupation">Època istòrica: ocupatzione persiana</string>
+	<string name="poi_historic_period_greek_dark_ages">Època istòrica: Edade iscura ellènica (1100 – 800 AC)</string>
+	<string name="poi_historic_period_roman_greece">Època istòrica: Grètzia romana (146 AC – 330 PC)</string>
+	<string name="poi_historic_period_roman_kingdom">Època istòrica: Roma monàrchica (753 AC – 509 AC)</string>
+	<string name="poi_historic_period_dominate">Època istòrica: dominatu (285 PC – 476 PC)</string>
+	<string name="poi_historic_period_villager">Època istòrica: bidditzolos (èpocas I, II, 1580 AC – 133 PC)</string>
+	<string name="poi_historic_period_urban">Època istòrica: urbana (època III, 133 PC – 374 PC)</string>
+	<string name="poi_historic_period_classical">Època istòrica: clàssica (època IV, 374 PC – 900 PC)</string>
+	<string name="poi_historic_period_imperial">Època istòrica: imperiale (època V, 900 PC – 1200 PC)</string>
+
+<string name="poi_animal_yes">Animales permìtidos</string>
+	<string name="poi_animal_no">Animales non permìtidos</string>
+
+	<string name="poi_horse_yes">Caddos permìtidos</string>
+	<string name="poi_horse_no">Caddos non permìtidos</string>
+	<string name="poi_historic_civilization_ancient_roman">Tziviltade: romana antiga (753 AC – 284 PC)</string>
+	<string name="poi_historic_civilization_nuragic">Tziviltade: nuràgica (18° s. AC – 2° s. PC)</string>
+	<string name="poi_historic_civilization_etruscan">Tziviltade: etrusca (12° – 6° s. AC)</string>
+	<string name="poi_historic_civilization_prehistoric">Tziviltade: preistòrica</string>
+	<string name="poi_historic_civilization_ancient_greek">Tziviltade: grega antiga</string>
+	<string name="poi_historic_civilization_roman">Tziviltade: romana</string>
+	<string name="poi_historic_civilization_byzantine">Tziviltade: bizantina (285 PC – 1453 PC)</string>
+	<string name="poi_historic_civilization_imperial_chinese">Tziviltade: tzinesa imperiale (221 AC – 1911 PC)</string>
+	<string name="poi_historic_civilization_ancient_egyptian">Tziviltade: egitziana antiga (finas a su 332 AC)</string>
+	<string name="poi_historic_civilization_celtic">Tziviltade: cèltica</string>
+	<string name="poi_historic_civilization_western_roman">Tziviltade: romana otzidentale (285 PC – 476 PC)</string>
+	<string name="poi_historic_civilization_mycenaean">Tziviltade: micenea</string>
+	<string name="poi_historic_civilization_dacian">Tziviltade: dàcia</string>
+	<string name="poi_historic_civilization_hernici">Tziviltade: hernici</string>
+	<string name="poi_historic_civilization_greek_egyptian">Tziviltade: egitziana grega (332 AC – 30 AC)</string>
+	<string name="poi_historic_civilization_roman_and_byzantine_egyptian">Tziviltade: egitziana romana e bizantina</string>
+	<string name="poi_historic_civilization_helladic">Tziviltade: ellàdica</string>
+	<string name="poi_historic_civilization_cycladic">Tziviltade: tziclàdica</string>
+	<string name="poi_historic_civilization_minoan">Tziviltade: minòica</string>
+	<string name="poi_historic_civilization_tiahuanacota">Tziviltade: tiahuanacota</string>
+
+	<string name="poi_animal_training">Annestru de animales</string>
+	<string name="poi_animal_training_dog">Annestru de canes</string>
+	<string name="poi_animal_training_horse">Annestru de caddos</string>
+
+	<string name="poi_memorial_stele">Losa</string>
+	<string name="poi_memorial_bust">Bustu</string>
+	<string name="poi_memorial_koshinto">Koshinto</string>
+	<string name="poi_memorial_blue_plaque">Placa blu</string>
+	<string name="poi_memorial_jizo">Jizo</string>
+	<string name="poi_memorial_cross">Rughe</string>
+	<string name="poi_memorial_vehicle">Veìculu</string>
+	<string name="poi_memorial_obelisk">Obeliscu</string>
+	<string name="poi_memorial_column">Colunna</string>
+	<string name="poi_memorial_stupa">Stupa</string>
 	</resources>

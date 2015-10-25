@@ -129,18 +129,19 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 	public final OsmandPreference<Boolean> SHOW_RECORDINGS;
 
 	private DataTileManager<Recording> recordings = new DataTileManager<AudioVideoNotesPlugin.Recording>(14);
-	private Map<String, Recording> recordingByFileName = new LinkedHashMap<String, Recording>();
+	private Map<String, Recording> recordingByFileName = new LinkedHashMap<>();
 	private AudioNotesLayer audioNotesLayer;
 	private MapActivity activity;
 	private MediaRecorder mediaRec;
 	private File lastTakingPhoto;
 
-	private final static char SPLIT_DESC = ' '; 
+	private final static char SPLIT_DESC = ' ';
+
 	public static class Recording {
 		public Recording(File f) {
 			this.file = f;
 		}
-		
+
 		private File file;
 
 		private double lat;
@@ -177,7 +178,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 		public File getFile() {
 			return file;
 		}
-		
+
 
 		public boolean setName(String name) {
 			File directory = file.getParentFile();
@@ -193,24 +194,24 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 		public String getFileName() {
 			return file.getName();
 		}
-		
+
 		public String getDescriptionName(String fileName) {
 			int hashInd = fileName.lastIndexOf(SPLIT_DESC);
 			//backward compatibility
-			if( fileName.indexOf('.') - fileName.indexOf('_') > 12 && 
+			if (fileName.indexOf('.') - fileName.indexOf('_') > 12 &&
 					hashInd < fileName.indexOf('_')) {
 				hashInd = fileName.indexOf('_');
 			}
-			if(hashInd == -1) {
+			if (hashInd == -1) {
 				return null;
 			} else {
 				return fileName.substring(0, hashInd);
 			}
 		}
-		
+
 		public String getOtherName(String fileName) {
 			String descriptionName = getDescriptionName(fileName);
-			if(descriptionName != null) {
+			if (descriptionName != null) {
 				return fileName.substring(descriptionName.length() + 1); // SPLIT_DESC
 			} else {
 				return fileName;
@@ -232,8 +233,8 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			return "";
 		}
 
-		public String getSearchHistoryType(){
-			if (isPhoto()){
+		public String getSearchHistoryType() {
+			if (isPhoto()) {
 				return PointDescription.POINT_TYPE_PHOTO_NOTE;
 			} else if (isVideo()) {
 				return PointDescription.POINT_TYPE_VIDEO_NOTE;
@@ -349,7 +350,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			return ctx.getString(R.string.recording_description, "", getDuration(ctx), time)
 					.trim();
 		}
-		
+
 		public String getSmallDescription(Context ctx) {
 			String time = AndroidUtils.formatDateTime(ctx, file.lastModified());
 			if (isPhoto()) {
@@ -357,7 +358,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			}
 			updateInternalDescription();
 			return time + " " + getDuration(ctx);
-			
+
 		}
 
 		private String getDuration(Context ctx) {
@@ -444,9 +445,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 		}
 		audioNotesLayer = new AudioNotesLayer(activity, this);
 		activity.getMapView().addLayer(audioNotesLayer, 3.5f);
-		if(recordControl == null) {
-			registerWidget(activity);
-		}
+		registerWidget(activity);
 	}
 
 	private void registerMediaListener(AudioManager am) {
@@ -534,7 +533,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			} else if (audioNotesLayer != null) {
 				mapView.removeLayer(audioNotesLayer);
 			}
-			if(recordControl == null) {
+			if (recordControl == null) {
 				registerWidget(activity);
 			}
 		} else {
@@ -543,7 +542,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 				audioNotesLayer = null;
 			}
 			MapInfoLayer mapInfoLayer = activity.getMapLayers().getMapInfoLayer();
-			if(recordControl != null && mapInfoLayer != null) {
+			if (recordControl != null && mapInfoLayer != null) {
 				mapInfoLayer.removeSideWidget(recordControl);
 				recordControl = null;
 				mapInfoLayer.recreateControls();
@@ -1050,7 +1049,11 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			lastTakingPhoto = null;
 		}
 		recordings.registerObject(r.lat, r.lon, r);
-		recordingByFileName.put(f.getName(), r);
+
+		Map<String, Recording> newMap = new LinkedHashMap<>(recordingByFileName);
+		newMap.put(f.getName(), r);
+		recordingByFileName = newMap;
+
 		return true;
 	}
 
@@ -1072,7 +1075,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 		if (avPath.canRead()) {
 			if (!reIndexAndKeepOld) {
 				recordings.clear();
-				recordingByFileName.clear();
+				recordingByFileName = new LinkedHashMap<>();
 			}
 			File[] files = avPath.listFiles();
 			if (files != null) {
@@ -1120,10 +1123,12 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 
 	public void deleteRecording(Recording r) {
 		recordings.unregisterObject(r.lat, r.lon, r);
-		recordingByFileName.remove(r.file.getName());
+		Map<String, Recording> newMap = new LinkedHashMap<>(recordingByFileName);
+		newMap.remove(r.file.getName());
+		recordingByFileName = newMap;
 		Algorithms.removeAllFiles(r.file);
 		if (activity != null) {
-			activity.getMapLayers().getContextMenuLayer().setLocation(null, "");
+			activity.getContextMenu().close();
 			activity.getMapView().refreshMap();
 		}
 	}
@@ -1290,7 +1295,7 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 			}
 		}
 	}
-	
+
 	@Override
 	public int getLogoResourceId() {
 		return R.drawable.ic_action_micro_dark;
@@ -1303,7 +1308,6 @@ public class AudioVideoNotesPlugin extends OsmandPlugin {
 
 	@Override
 	public DashFragmentData getCardFragment() {
-		return new DashFragmentData(DashAudioVideoNotesFragment.TAG,
-				DashAudioVideoNotesFragment.class, R.string.audionotes_plugin_name, 10);
+		return DashAudioVideoNotesFragment.FRAGMENT_DATA;
 	}
 }

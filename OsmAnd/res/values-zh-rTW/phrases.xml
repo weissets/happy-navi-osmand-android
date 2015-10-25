@@ -74,7 +74,7 @@
 	<string name="poi_charity">慈善義賣店</string>
 	<string name="poi_chemist">藥局</string>
 	<string name="poi_clothes">服飾店</string>
-	<string name="poi_child_clothes">兒童服飾</string>
+	<string name="poi_clothes_children">兒童服飾</string>
 	<string name="poi_shoes">鞋店</string>
 	<string name="poi_computer">電腦商店</string>
 	<string name="poi_copyshop">複印店</string>
@@ -192,7 +192,7 @@
 	<string name="poi_fuel_e10">混合配方油 E10</string>
 	<string name="poi_fuel_e20">混合配方油 E20</string>
 	<string name="poi_fuel_e85">混合配方油 E85</string>
-	<string name="poi_fuel_biogas">混合配方油 E85</string>
+	<string name="poi_fuel_biogas">生物氣體</string>
 	<string name="poi_fuel_lh2">液態氫</string>
 	<string name="poi_fuel_electricity">電力</string>
 	<string name="poi_charging_station">充電站</string>
@@ -227,7 +227,7 @@
 	<string name="poi_aeroway_gate">登機門</string>
 
 	<string name="poi_slipway">船舶斜滑道</string>
-	<string name="poi_ferry_terminal">輪渡碼頭</string>
+	<string name="poi_ferry_terminal">渡輪碼頭</string>
 	<string name="poi_lighthouse">燈塔</string>
 
 	<string name="poi_bicycle_rental">自行車租賃站</string>
@@ -543,7 +543,7 @@
 	<string name="poi_grave_yard">墓地</string>
 	<string name="poi_tomb">墳墓</string>
 	<string name="poi_shelter">涼亭</string>
-	<string name="poi_funicular">纜索鐵路</string>
+	<string name="poi_funicular">纜索車</string>
 	<string name="poi_resort">度假村</string>
 	<string name="poi_hanami">賞花</string>
 	<string name="poi_wine_cellar">酒窖</string>
@@ -847,7 +847,7 @@
 	<string name="poi_swing_gate">搖擺彈門</string>
 	<string name="poi_turnstile">旋轉門</string>
 	<string name="poi_kent_carriage_gap">馬車間格柱</string>
-	<string name="poi_barrier_entrance">入口</string>
+	<string name="poi_barrier_entrance">在一堵牆或柵欄的出入口</string>
 	<string name="poi_entrance_main">主入口</string>
 	<string name="poi_entrance">入口</string>
 	<string name="poi_entrance_exit">出口</string>
@@ -950,10 +950,10 @@
 	<string name="poi_fax">傳真</string>
 	<string name="poi_facebook">臉書</string>
 	<string name="poi_mobile">行動電話</string>
-	<string name="poi_animal_shelter_dog">流浪狗收容所</string>
-	<string name="poi_animal_shelter_cat">流浪貓收容所</string>
-	<string name="poi_animal_shelter_dog_cat">流浪狗和貓收容所</string>
-	<string name="poi_animal_shelter_bird">傷鳥收容所</string>
+	<string name="poi_animal_shelter_dog">收容所類型：狗</string>
+	<string name="poi_animal_shelter_cat">收容所：貓</string>
+	<string name="poi_animal_shelter_dog_cat">收容所：狗、貓</string>
+	<string name="poi_animal_shelter_bird">收容所：鳥</string>
 
 <string name="poi_shower">淋浴</string>
 	<string name="poi_recycling_centre">類型：資源回收中心</string>
@@ -1326,7 +1326,7 @@
 	<string name="poi_mini_roundabout">迷你圓環</string>
 	<string name="poi_railway_crossing">鐵路平交道</string>
 	<string name="poi_railway_level_crossing">平交道</string>
-	<string name="poi_bird_hide">賞鳥屋</string>
+	<string name="poi_bird_hide">觀賞鳥的地方</string>
 	<string name="poi_horse_riding">騎馬運動</string>
 	<string name="poi_leisure_common">公共休閒區</string>
 	<string name="poi_garden">花園</string>
@@ -1647,7 +1647,7 @@
 	<string name="poi_brushless_no">無刷：無</string>
 	<string name="poi_car_wash_no">洗車：無</string>
 
-	<string name="poi_aeroway_fuel">飛機燃料站</string>
+	<string name="poi_aeroway_fuel">飛機燃油站</string>
 	<string name="poi_public_bath">公共浴室</string>
 
 	<string name="poi_male_yes">男性</string>
@@ -1656,14 +1656,14 @@
 	<string name="poi_female_no">禁止女性</string>
 	<string name="poi_indoor_yes">室內</string>
 	<string name="poi_indoor_no">戶外</string>
-	<string name="poi_toilets_yes">附洗手間</string>
-	<string name="poi_toilets_no">未附洗手間</string>
-	<string name="poi_toilets_wheelchair_yes">供輪椅進出洗手間：有</string>
-	<string name="poi_toilets_wheelchair_no">供輪椅進出洗手間：無</string>
-	<string name="poi_toilets_access_customers">洗手間進出：客戶</string>
-	<string name="poi_toilets_access_permissive">洗手間進出：容許</string>
-	<string name="poi_toilets_access_community">洗手間進出：社區</string>
-	<string name="poi_toilets_access_public">洗手間進出：公共</string>
+	<string name="poi_toilets_yes">附廁所</string>
+	<string name="poi_toilets_no">未附廁所</string>
+	<string name="poi_toilets_wheelchair_yes">供輪椅進出的廁所：有</string>
+	<string name="poi_toilets_wheelchair_no">供輪椅進出的廁所：無</string>
+	<string name="poi_toilets_access_customers">廁所的進出：客戶</string>
+	<string name="poi_toilets_access_permissive">廁所的進出：容許</string>
+	<string name="poi_toilets_access_community">廁所的進出：社區</string>
+	<string name="poi_toilets_access_public">廁所的進出：公共</string>
 
 	<string name="poi_diaper_room">尿布更換室</string>
 
@@ -1673,4 +1673,371 @@
 
 	<string name="poi_vending_parking_tickets">停車票卡</string>
 	<string name="poi_vending_cigarettes">香菸</string>
+	<string name="poi_vending_excrement_bags">糞便袋</string>
+	<string name="poi_vending_public_transport_tickets">公共交通票卡</string>
+	<string name="poi_vending_drinks">飲料</string>
+	<string name="poi_vending_sweets">糖果</string>
+	<string name="poi_vending_parcel_pickup_mail_in">包裹收集和郵遞</string>
+	<string name="poi_vending_condoms">保險套</string>
+	<string name="poi_vending_stamps">郵票</string>
+	<string name="poi_vending_bicycle_tube">自行車內胎</string>
+	<string name="poi_vending_food">食品</string>
+	<string name="poi_vending_drinks_food">飲料和食物</string>
+	<string name="poi_vending_fuel">燃料販賣機</string>
+	<string name="poi_vending_parcel_pickup">包裹收集</string>
+	<string name="poi_vending_parcel_mail_in">包裹郵遞</string>
+	<string name="poi_vending_milk">牛奶</string>
+	<string name="poi_vending_elongated_coin">拉長的硬幣</string>
+	<string name="poi_vending_bread">麵包</string>
+	<string name="poi_vending_chewing_gums">嚼口香糖</string>
+	<string name="poi_vending_parking_tickets_public_transport_tickets">停車票卡；公共交通票卡</string>
+	<string name="poi_vending_coffee">咖啡</string>
+	<string name="poi_vending_toll">收費機</string>
+	<string name="poi_vending_tickets">售票機</string>
+	<string name="poi_vending_water">水販賣機</string>
+	<string name="poi_vending_telephone_vouchers">電話卡</string>
+	<string name="poi_vending_animal_food">動物食品</string>
+	<string name="poi_vending_public_transport_plans">公共交通規劃</string>
+	<string name="poi_vending_drinks_sweets">飲料和糖果</string>
+	<string name="poi_vending_vouchers">代金券</string>
+	<string name="poi_vending_dvd">DVD</string>
+	<string name="poi_vending_candles">蠟燭</string>
+	<string name="poi_vending_toys">玩具</string>
+	<string name="poi_vending_ice_cream">冰淇淋</string>
+	<string name="poi_vending_sim_cards">SIM 卡</string>
+
+	<string name="poi_branch">分公司</string>
+
+	<string name="poi_memorial_war">戰爭紀念碑</string>
+	<string name="poi_memorial_plaque">牌匾</string>
+	<string name="poi_memorial_statue">雕像</string>
+	<string name="poi_memorial_stone">石頭</string>
+	<string name="poi_memorial_stele">石碑</string>
+	<string name="poi_memorial_bust">半身像</string>
+	<string name="poi_memorial_koshinto">庚申塔</string>
+	<string name="poi_memorial_blue_plaque">藍色牌匾</string>
+	<string name="poi_memorial_jizo">地藏菩薩</string>
+	<string name="poi_historic_quarry">歷史性採石場</string>
+
+	<string name="poi_resource_aggregate">聚集物</string>
+	<string name="poi_resource_antimony">銻</string>
+	<string name="poi_resource_asbestos">石棉</string>
+	<string name="poi_resource_barite">重晶石</string>
+	<string name="poi_resource_basalt">玄武岩</string>
+	<string name="poi_resource_bauxite">鋁氧石</string>
+	<string name="poi_resource_beryl">綠寶石</string>
+	<string name="poi_resource_bismuth">鉍</string>
+	<string name="poi_resource_cereal">穀類</string>
+	<string name="poi_resource_chromite">鉻鐵礦</string>
+	<string name="poi_resource_clay">黏土</string>
+	<string name="poi_resource_coal">煤</string>
+	<string name="poi_resource_copper">銅</string>
+	<string name="poi_resource_diamond">鑽石</string>
+	<string name="poi_resource_dimension_stone">石材</string>
+	<string name="poi_resource_dolomite">白雲石</string>
+	<string name="poi_resource_gas">瓦斯</string>
+	<string name="poi_resource_gold">黃金</string>
+	<string name="poi_resource_graphite">石墨</string>
+	<string name="poi_resource_gravel">礫石</string>
+	<string name="poi_resource_gypsum">石膏</string>
+	<string name="poi_resource_iron_ore">鐵礦砂</string>
+	<string name="poi_resource_lead">鉛</string>
+	<string name="poi_resource_lignite">褐煤</string>
+	<string name="poi_resource_limestone">石灰石</string>
+	<string name="poi_resource_marble">大理石</string>
+	<string name="poi_resource_mercury">水星</string>
+	<string name="poi_resource_mica">雲母</string>
+	<string name="poi_resource_mineral_oil">礦油</string>
+	<string name="poi_resource_nickel">鎳</string>
+	<string name="poi_resource_oil">石油</string>
+	<string name="poi_resource_opal">蛋白石</string>
+	<string name="poi_resource_peat">泥煤</string>
+	<string name="poi_resource_platinum">白金</string>
+	<string name="poi_resource_radium">鐳</string>
+	<string name="poi_resource_ruby">紅寶石</string>
+	<string name="poi_resource_rutile">金紅石</string>
+	<string name="poi_resource_salt">鹽</string>
+	<string name="poi_resource_sand">沙子</string>
+	<string name="poi_resource_sandstone">砂岩</string>
+	<string name="poi_resource_silica">矽土</string>
+	<string name="poi_resource_silver">銀</string>
+	<string name="poi_resource_slate_iron_ore_copper">板岩; 鐵礦; 銅</string>
+	<string name="poi_resource_slate">板岩</string>
+	<string name="poi_resource_stone">石頭</string>
+	<string name="poi_resource_tin">錫</string>
+	<string name="poi_resource_tuff">凝灰岩</string>
+	<string name="poi_resource_uranium">鈾</string>
+	<string name="poi_resource_vanadium">釩</string>
+	<string name="poi_resource_water">水</string>
+	<string name="poi_resource_zinc">鋅</string>
+	<string name="poi_resource_zircon">鋯石</string>
+
+	<string name="poi_wetland_wet_meadow">濕草地</string>
+	<string name="poi_wetland_bog">泥沼</string>
+	<string name="poi_wetland_marsh">濕地</string>
+	<string name="poi_wetland_reedbed">蘆葦叢</string>
+	<string name="poi_wetland_swamp">沼澤</string>
+	<string name="poi_wetland_saltern">鹽田</string>
+	<string name="poi_animal_shelter">動物收容所</string>
+	<string name="poi_memorial_stolperstein">絆腳石</string>
+	<string name="poi_memorial_column">欄位</string>
+	<string name="poi_memorial_stupa">舍利塔</string>
+	<string name="poi_memorial_prasat">綠石英</string>
+
+	<string name="poi_wetland_tidalflat">泥潮灘</string>
+	<string name="poi_wetland_saltmarsh">鹽沼地</string>
+	<string name="poi_wetland_mangrove">紅樹林</string>
+	<string name="poi_wetland_string_bog">帶狀泥沼</string>
+	<string name="poi_wetland_fen">沼澤</string>
+	<string name="poi_wetland_palsa_bog">泥炭堆沼澤</string>
+	<string name="poi_wetland_mud">泥漿</string>
+
+	<string name="poi_beach_sand">海灘類型：沙子</string>
+	<string name="poi_beach_shingle">海灘類型：扁礫石</string>
+	<string name="poi_beach_rocky">海灘類型：多岩的</string>
+
+	<string name="poi_chimney">煙囪</string>
+	<string name="poi_palm">棕櫚</string>
+	<string name="poi_cypress">柏樹</string>
+	<string name="poi_flagpole">旗竿</string>
+
+	<string name="poi_bench_yes">有長椅</string>
+	<string name="poi_bench_no">沒有長椅</string>
+	<string name="poi_waste_basket_yes">有籃子</string>
+	<string name="poi_waste_basket_no">沒有籃子</string>
+
+	<string name="poi_shelter_type_public_transport">遮蔽類型：公共交通</string>
+	<string name="poi_shelter_type_picnic_shelter">遮蔽類型：野餐涼亭</string>
+	<string name="poi_shelter_type_weather_shelter">遮蔽類型：天氣遮避</string>
+	<string name="poi_shelter_type_lean_to">遮蔽類型：木棚</string>
+	<string name="poi_shelter_type_basic_hut">遮蔽類型：簡陋小屋</string>
+	<string name="poi_shelter_type_building">遮蔽類型：建築物</string>
+	<string name="poi_shelter_type_wildlife_hide">遮蔽類型：野生動物的偽裝</string>
+	<string name="poi_shelter_type_rock_shelter">遮蔽類型：懸巖遮蔽</string>
+	<string name="poi_shelter_type_sun_shelter">遮蔽類型：陽光遮避</string>
+	<string name="poi_shelter_type_field_shelter">遮蔽類型：牧場遮蓋屋</string>
+	<string name="poi_shelter_type_tent">遮蔽類型：帳篷</string>
+	<string name="poi_shelter_type_abandoned">遮蔽類型：已遺棄</string>
+
+	<string name="poi_debris">碎瓦礫</string>
+	<string name="poi_jersey_barrier">紐澤西護欄</string>
+	<string name="poi_internet_access_type_wlan">網際網路存取類型：wlan</string>
+	<string name="poi_internet_access_type_terminal">網際網路存取類型：終端機</string>
+	<string name="poi_internet_access_type_wired">網際網路存取類型：有線網路</string>
+	<string name="poi_internet_access_type_public">網際網路存取類型：公共網路</string>
+	<string name="poi_internet_access_type_service">網際網路存取類型：網路服務</string>
+	<string name="poi_internet_access_type_no">網際網路存取類型：無</string>
+
+	<string name="poi_maxwidth">最大寬度</string>
+	<string name="poi_iata">IATA 編碼</string>
+	<string name="poi_icao">ICAO 編碼</string>
+	<string name="poi_faa">FAA 編碼</string>
+	
+	<string name="poi_artwork_type_sculpture">藝術品類型：雕塑</string>
+	<string name="poi_artwork_type_statue">藝術品類型：塑像</string>
+	<string name="poi_artwork_type_mural">藝術品類型：壁畫</string>
+	<string name="poi_artwork_type_architecture">藝術品類型： 建築風格</string>
+	<string name="poi_artwork_type_painting">藝術品類型：繪畫</string>
+	<string name="poi_artwork_type_stone">藝術品類型：石頭</string>
+	<string name="poi_artwork_type_bust">藝術品類型：半身像</string>
+	<string name="poi_artwork_type_installation">藝術品類型：裝置</string>
+	<string name="poi_artwork_type_mosaic">藝術品類型： 鑲嵌</string>
+	<string name="poi_artwork_type_relief">藝術品類型：浮雕</string>
+	<string name="poi_artwork_type_graffiti">藝術品類型：塗鴉</string>
+	<string name="poi_artwork_type_stele">藝術品類型：碑</string>
+	<string name="poi_artwork_type_fountain">藝術品類型：噴泉</string>
+
+	<string name="poi_width">寬度</string>
+
+	<string name="poi_architect_name">建築師</string>
+
+	<string name="poi_architecture_modern">建築風格：現代化</string>
+	<string name="poi_architecture_stalinist_neoclassicism">建築風格：史達林式建築</string>
+	<string name="poi_architecture_eclectic">建築風格：不拘一格</string>
+	<string name="poi_architecture_new_objectivity">建築風格：新客觀主義</string>
+	<string name="poi_architecture_contemporary">建築風格：當代</string>
+	<string name="poi_architecture_constructivism">建築風格：構成主義</string>
+	<string name="poi_architecture_umgebinde">建築風格：umgebinde</string>
+	<string name="poi_architecture_timber_frame">建築風格：木結構</string>
+	<string name="poi_architecture_art_nouveau">建築風格：新藝術運動</string>
+	<string name="poi_architecture_neoclassicism">建築風格：新古典主義</string>
+	<string name="poi_architecture_victorian">建築風格：維多利亞</string>
+	<string name="poi_architecture_brutalism">建築風格：粗獷主義</string>
+	<string name="poi_architecture_classicism">建築風格：古典</string>
+	<string name="poi_architecture_gothic">建築風格：哥德式</string>
+	<string name="poi_architecture_oldrussian">建築風格：舊俄羅斯</string>
+	<string name="poi_architecture_baroque">建築風格：巴洛克式</string>
+	<string name="poi_architecture_postconstructivism">建築風格：postconstructivism</string>
+	<string name="poi_architecture_wilhelminian_style">建築風格：新藝術風格</string>
+	<string name="poi_architecture_renaissance">建築風格：文藝復興</string>
+	<string name="poi_architecture_romanesque">建築風格：羅馬式</string>
+
+	<string name="poi_tunnel_waterway">引水隧道</string>
+	<string name="poi_tunnel_car">道路隧道</string>
+	<string name="poi_tunnel_pedestrian">步行隧道</string>
+	<string name="poi_tunnel_railway">鐵路隧道</string>
+	<string name="poi_bridge_car">道路橋梁</string>
+	<string name="poi_bridge_pedestrian">人行天橋</string>
+	<string name="poi_bridge_bicycle">自行車橋梁</string>
+	<string name="poi_bridge_railway">鐵路橋梁</string>
+	<string name="poi_bridge_waterway">水路橋梁</string>
+	<string name="poi_bridge_structure_beam">橋樑結構：梁式</string>
+	<string name="poi_bridge_structure_simple_suspension">橋樑結構：簡懸式</string>
+	<string name="poi_bridge_structure_suspension">橋樑結構：懸吊式</string>
+	<string name="poi_bridge_structure_arch">橋樑結構：拱式</string>
+	<string name="poi_bridge_structure_truss">橋樑結構：桁架式</string>
+	<string name="poi_bridge_structure_floating">橋樑結構：浮動式</string>
+	<string name="poi_bridge_structure_humpback">橋樑結構：弓形</string>
+	<string name="poi_bridge_structure_cable_stayed">橋樑結構：斜張式</string>
+	<string name="poi_bridge_structure_boardwalk">橋樑結構：木板式</string>
+	<string name="poi_bridge_structure_simple_wooden">橋樑結構：簡單木板</string>
+	<string name="poi_bridge_structure_viaduct">橋樑結構：高架式</string>
+	<string name="poi_bridge_structure_aqueduct">橋樑結構：高架渠式</string>
+	<string name="poi_bridge_structure_log">橋樑結構：圓木式</string>
+	<string name="poi_bridge_type_movable">橋樑類型：活動型</string>
+	<string name="poi_bridge_movable_bascule">活動橋類型：開啟型</string>
+	<string name="poi_bridge_movable_swing">活動橋類型：旋開型</string>
+	<string name="poi_bridge_movable_lift">活動橋類型：昇降型</string>
+	<string name="poi_bridge_movable_drawbridge">活動橋類型：開合型</string>
+	<string name="poi_bridge_movable_submersible">活動橋類型：潛水型</string>
+	<string name="poi_bridge_movable_transporter">活動橋類型：運輸型</string>
+	<string name="poi_bridge_movable_retractable">活動橋類型：伸縮型</string>
+
+	<string name="poi_lit_yes">路燈：有</string>
+	<string name="poi_lit_no">路燈：無</string>
+
+	<string name="poi_surface_unpaved">路面：未鋪設</string>
+	<string name="poi_surface_paved">路面：已鋪設</string>
+	<string name="poi_surface_asphalt">路面：柏油</string>
+	<string name="poi_surface_concrete">路面：混凝土</string>
+	<string name="poi_surface_sett">路面：石塊</string>
+	<string name="poi_surface_cobblestone">路面：圓扁石</string>
+	<string name="poi_surface_paving_stones">路面：鋪路石</string>
+	<string name="poi_surface_pebblestone">路面：鵝卵石</string>
+	<string name="poi_surface_stone">路面：石頭</string>
+	<string name="poi_surface_metal">路面：金屬</string>
+	<string name="poi_surface_wood">路面：木頭</string>
+	<string name="poi_surface_gravel">路面：礫石</string>
+	<string name="poi_surface_fine_gravel">路面：細礫石</string>
+	<string name="poi_surface_compacted">路面：壓緊實</string>
+	<string name="poi_surface_sand">路面：沙</string>
+	<string name="poi_surface_grass">路面：草地</string>
+	<string name="poi_surface_grass_paver">路面：植草磚</string>
+	<string name="poi_surface_ground">路面：土壤</string>
+	<string name="poi_surface_dirt">路面：爛泥</string>
+	<string name="poi_surface_mud">路面：泥漿</string>
+	<string name="poi_surface_ice">路面：冰</string>
+	<string name="poi_surface_salt">路面：鹽</string>
+	<string name="poi_surface_snow">路面：雪</string>
+
+	<string name="poi_route_bus_ref">公車</string>
+	<string name="poi_route_share_taxi_ref">共乘計程車</string>
+	<string name="poi_route_trolleybus_ref">無軌電車</string>
+	<string name="poi_route_tram_ref">電車</string>
+	<string name="poi_route_train_ref">火車</string>
+	<string name="poi_route_light_rail_ref">輕軌車</string>
+	<string name="poi_route_monorail_ref">單軌車</string>
+	<string name="poi_route_funicular_ref">纜索車</string>
+	<string name="poi_route_ferry_ref">渡輪</string>
+
+	<string name="poi_route_railway_ref">鐵路的路線</string>
+
+	<string name="poi_historic_yes">歷史物件</string>
+	<string name="poi_surveillance_yes">監視器：有</string>
+	<string name="poi_shop_yes">有商店</string>
+
+	<string name="poi_service_bicycle_retail_yes">自行車零售：有</string>
+	<string name="poi_service_bicycle_retail_no">自行車零售：無</string>
+	<string name="poi_service_bicycle_repair_yes">自行車維修：有</string>
+	<string name="poi_service_bicycle_repair_no">自行車維修：無</string>
+	<string name="poi_service_bicycle_rental_yes">自行車租賃：有</string>
+	<string name="poi_service_bicycle_rental_no">自行車租賃：無</string>
+	<string name="poi_service_bicycle_pump_yes">自行車灌氣泵浦：有</string>
+	<string name="poi_service_bicycle_pump_no">自行車灌氣泵浦：無</string>
+	<string name="poi_service_bicycle_diy_yes">自行車 DIY 維修工具：有</string>
+	<string name="poi_service_bicycle_diy_no">自行車 DIY 維修工具：無</string>
+	<string name="poi_service_bicycle_cleaning_yes">自行車清洗：有</string>
+	<string name="poi_service_bicycle_cleaning_no">自行車清洗：無</string>
+	<string name="poi_service_bicycle_chaintool_yes">自行車打鏈器：有</string>
+	<string name="poi_service_bicycle_chaintool_no">自行車打鏈器：無</string>
+	<string name="poi_service_bicycle_second_hand_yes">二手自行車的零售販賣：有</string>
+	<string name="poi_service_bicycle_second_hand_no">二手自行車的零售販賣：無</string>
+
+	<string name="poi_wildlife_hide">觀察野生動物的地方</string>
+
+	<string name="poi_training_language">培訓：語言</string>
+	<string name="poi_training_music">培訓：音樂</string>
+	<string name="poi_training_dance">培訓：舞蹈</string>
+	<string name="poi_training_sport">培訓：體育</string>
+	<string name="poi_training_art">培訓：藝術</string>
+	<string name="poi_training_cooking">培訓：烹飪</string>
+	<string name="poi_training_computer">培訓：電腦</string>
+	<string name="poi_training_yoga">培訓：瑜伽</string>
+	<string name="poi_training_martial_art">培訓：武術</string>
+	<string name="poi_training_aviation">培訓：航空</string>
+	<string name="poi_training_hairdressing">培訓：美容美髮</string>
+
+	<string name="poi_monument_yes">紀念性物件</string>
+
+	<string name="poi_industrial_oil">類型：石油工業</string>
+	<string name="poi_industrial_wellsite">類型：井址</string>
+	<string name="poi_industrial_factory">類型：工廠</string>
+	<string name="poi_industrial_gas">類型：瓦斯工業</string>
+	<string name="poi_industrial_timber">類型：木材</string>
+	<string name="poi_industrial_refinery">類型：煉油廠</string>
+	<string name="poi_industrial_warehouse">類型：倉庫</string>
+	<string name="poi_industrial_auto_wrecker">類型：車輛報廢廠</string>
+	<string name="poi_industrial_agriculture">類型：農耕</string>
+	<string name="poi_industrial_brewery">類型：啤酒廠</string>
+	<string name="poi_industrial_brickyard">類型：磚廠</string>
+	<string name="poi_industrial_intermodal_freight_terminal">類型：貨櫃集裝場</string>
+	<string name="poi_industrial_sawmill">類型：鋸木廠</string>
+	<string name="poi_industrial_water_purification">類型：水淨化廠</string>
+	<string name="poi_industrial_port">類型：港埠</string>
+	<string name="poi_industrial_depot">類型：車庫</string>
+
+	<string name="poi_note">注釋</string>
+	<string name="poi_watering_place">有水的地方</string>
+	<string name="poi_animal_boarding">動物寄宿</string>
+	<string name="poi_animal_boarding_dog">寄宿類型：狗</string>
+	<string name="poi_animal_boarding_cat">寄宿類型：貓</string>
+	<string name="poi_animal_boarding_dog_cat">寄宿類型：狗、貓</string>
+	<string name="poi_animal_boarding_horse">寄宿類型：馬</string>
+
+	<string name="poi_historic_aircraft">退役飛機</string>
+
+	<string name="poi_honey">蜂蜜專賣店</string>
+
+	<string name="poi_elevator_yes">有電梯</string>
+	<string name="poi_elevator_no">無電梯</string>
+
+	<string name="poi_technical_monument">工藝不朽的遺迹</string>
+
+	<string name="poi_office_camping">露營服務處</string>
+	<string name="poi_model_aerodrome">模型機的機場</string>
+	<string name="poi_guide">導遊辦公室</string>
+	<string name="poi_quango">特殊法人</string>
+	<string name="poi_consulting">諮詢辦公室</string>
+	<string name="poi_cooperative">合作辦公室</string>
+	<string name="poi_office_forestry">林務辦公室</string>
+	<string name="poi_logistics">後勤辦公室</string>
+	<string name="poi_parish">教區辦公室</string>
+	<string name="poi_publisher">出版業辦公室</string>
+
+	<string name="poi_fuel_91ul">91UL 燃料</string>
+	<string name="poi_fuel_100ll">100LL 燃料</string>
+	<string name="poi_autogas">液化石油氣</string>
+	<string name="poi_jeta1">Jet A-1 燃料</string>
+	<string name="poi_fuel_adblue">AdBlue 燃料</string>
+
+	<string name="poi_fuel_wood">燃料：木材</string>
+	<string name="poi_fuel_charcoal">燃料：木炭</string>
+	<string name="poi_fuel_coal">燃料：煤</string>
+
+	<string name="poi_street_lamp">路燈</string>
+
+	<string name="poi_escape_lane">躲避道</string>
+
+	<string name="poi_crop_rice">作物：水稻</string>
+	<string name="poi_crop_grass">作物：牧草</string>
 	</resources>

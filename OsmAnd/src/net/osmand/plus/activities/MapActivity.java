@@ -17,6 +17,7 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -30,7 +31,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import net.osmand.Location;
 import net.osmand.StateChangedListener;
 import net.osmand.access.AccessibilityPlugin;
@@ -38,6 +38,7 @@ import net.osmand.access.AccessibleActivity;
 import net.osmand.access.AccessibleToast;
 import net.osmand.access.MapAccessibilityActions;
 import net.osmand.core.android.AtlasMapRendererView;
+import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
 import net.osmand.data.QuadPoint;
@@ -67,6 +68,7 @@ import net.osmand.plus.helpers.GpxImportHelper;
 import net.osmand.plus.helpers.WakeLockHelper;
 import net.osmand.plus.mapcontextmenu.MapContextMenu;
 import net.osmand.plus.mapcontextmenu.editors.FavoritePointEditor;
+import net.osmand.plus.mapcontextmenu.editors.PointEditor;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.resources.ResourceManager;
 import net.osmand.plus.routing.RoutingHelper;
@@ -86,6 +88,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -144,8 +147,7 @@ public class MapActivity extends AccessibleActivity {
 //		notification.setLatestEventInfo(this, Version.getAppName(app), getString(R.string.go_back_to_osmand),
 //				pi);
 		int smallIcon = app.getSettings().getApplicationMode().getSmallIconDark();
-		final Builder noti = new NotificationCompat.Builder(
-				this).setContentTitle(Version.getAppName(app))
+		final Builder noti = new NotificationCompat.Builder(this).setContentTitle(Version.getAppName(app))
 				.setContentText(getString(R.string.go_back_to_osmand))
 				.setSmallIcon(smallIcon)
 //	        .setLargeIcon(Helpers.getBitmap(R.drawable.mirakel, getBaseContext()))
@@ -159,7 +161,7 @@ public class MapActivity extends AccessibleActivity {
 		app = getMyApplication();
 		settings = app.getSettings();
 		app.applyTheme(this);
-		contextMenuOnMap = new MapContextMenu(app, this);
+		contextMenuOnMap = new MapContextMenu(this);
 		supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		// Full screen is not used here
@@ -233,25 +235,7 @@ public class MapActivity extends AccessibleActivity {
 					.add(R.id.fragmentContainer, new FirstUsageFragment(),
 							FirstUsageFragment.TAG).commit();
 		}
-		final ListView menuItemsListView = (ListView) findViewById(R.id.menuItems);
-		menuItemsListView.setDivider(null);
-		final ContextMenuAdapter contextMenuAdapter = mapActions.createMainOptionsMenu();
-		contextMenuAdapter.setDefaultLayoutId(R.layout.simple_list_menu_item);
-		final ArrayAdapter<?> simpleListAdapter = contextMenuAdapter.createListAdapter(this,
-				settings.OSMAND_THEME.get() == OsmandSettings.OSMAND_LIGHT_THEME);
-		menuItemsListView.setAdapter(simpleListAdapter);
-		menuItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				ContextMenuAdapter.OnContextMenuClick click =
-						contextMenuAdapter.getClickAdapter(position);
-				if (click.onContextMenuClick(simpleListAdapter,
-						contextMenuAdapter.getElementId(position), position, false)) {
-					closeDrawer();
-				}
-			}
-		});
-
+		mapActions.updateDrawerMenu();
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	}
 
@@ -543,9 +527,9 @@ public class MapActivity extends AccessibleActivity {
 				dashboardOnMap.hideDashboard();
 			}
 			if (mapLabelToShow != null) {
-				mapLayers.getContextMenuLayer().setSelectedObject(toShow);
-				mapLayers.getContextMenuLayer().setLocation(latLonToShow,
-						mapLabelToShow.getFullPlainName(this));
+				contextMenuOnMap.setMapCenter(latLonToShow);
+				contextMenuOnMap.setMapPosition(mapView.getMapPosition());
+				contextMenuOnMap.show(latLonToShow, mapLabelToShow, toShow);
 			}
 			if (!latLonToShow.equals(cur)) {
 				mapView.getAnimatedDraggingThread().startMoving(latLonToShow.getLatitude(),
@@ -992,7 +976,15 @@ public class MapActivity extends AccessibleActivity {
 		return favoritePointEditor;
 	}
 
+	public PointEditor getPointEditor(String tag) {
+		if (favoritePointEditor != null && favoritePointEditor.getFragmentTag().equals(tag)) {
+			return favoritePointEditor;
+		}
+		return null;
+	}
+
 	public void openDrawer() {
+		mapActions.updateDrawerMenu();
 		drawerLayout.openDrawer(Gravity.LEFT);
 	}
 

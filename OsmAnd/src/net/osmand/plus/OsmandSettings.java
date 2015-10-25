@@ -1,15 +1,21 @@
 package net.osmand.plus;
 
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.os.Environment;
+import java.io.File;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 import net.osmand.IndexConstants;
 import net.osmand.StateChangedListener;
@@ -28,22 +34,17 @@ import net.osmand.plus.helpers.SearchHistoryHelper;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.routing.RouteProvider.RouteService;
 import net.osmand.render.RenderingRulesStorage;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 public class OsmandSettings {
 	
@@ -657,6 +658,9 @@ public class OsmandSettings {
 			return settingsAPI.edit( prefs).putString(getId(), val.getStringKey()).commit();
 		}
 	}; 
+	
+	public final OsmandPreference<Boolean> FIRST_MAP_IS_DOWNLOADED = new BooleanPreference(
+			"first_map_is_downloaded", false) ;
 	
 	public final OsmandPreference<DrivingRegion> DRIVING_REGION = new EnumIntPreference<DrivingRegion>(
 			"default_driving_region", DrivingRegion.EUROPE_ASIA, DrivingRegion.values()) {
@@ -1315,6 +1319,21 @@ public class OsmandSettings {
 				putInt(EXTERNAL_STORAGE_DIR_TYPE_V19, type).
 				putString(EXTERNAL_STORAGE_DIR_V19, externalStorageDir).commit();
 	}
+
+	@Nullable
+	public static File getSecondaryStorage() {
+		final String value = System.getenv("SECONDARY_STORAGE");
+		if (!TextUtils.isEmpty(value)) {
+			final String[] paths = value.split(":");
+			for (String path : paths) {
+				File file = new File(path);
+				if (file.isDirectory() && file.canWrite()) {
+					return file;
+				}
+			}
+		}
+		return null;
+	}
 	
 	public void setExternalStorageDirectory(int type, String directory) {
 		if(Build.VERSION.SDK_INT < 19) {
@@ -1332,7 +1351,6 @@ public class OsmandSettings {
 	public boolean setExternalStorageDirectoryPre19(String externalStorageDir) {
 		return settingsAPI.edit(globalPreferences).putString(EXTERNAL_STORAGE_DIR, externalStorageDir).commit();
 	}
-	
 	
 	public Object getGlobalPreferences() {
 		return globalPreferences;
@@ -1720,14 +1738,20 @@ public class OsmandSettings {
 
 	public final OsmandPreference<String> SELECTED_POI_FILTER_FOR_MAP = new StringPreference("selected_poi_filter_for_map", null).makeGlobal().cache();
 
-	public static final String VOICE_PROVIDER_NOT_USE = "VOICE_PROVIDER_NOT_USE"; 
+	public static final String VOICE_PROVIDER_NOT_USE = "VOICE_PROVIDER_NOT_USE";
+	
+	public static final String[] TTS_AVAILABLE_VOICES = new String[] {
+		"de", "en",  "es", "fr", "it", "ja", "nl", "pl", "pt", "ru", "zh"
+	};
 	// this value string is synchronized with settings_pref.xml preference name
 	// this value could localized
 	public final OsmandPreference<String> VOICE_PROVIDER = new StringPreference("voice_provider", null){
 		protected String getDefaultValue() {
 			Configuration config = ctx.getResources().getConfiguration();
-			if("de".equals(config.locale.getLanguage())) {
-				return "de-tts";
+			for (String lang : TTS_AVAILABLE_VOICES) {
+				if (lang.equals(config.locale.getLanguage())) {
+					return lang + "-tts";
+				}
 			}
 			return "en-tts";
 		};
@@ -1881,30 +1905,27 @@ public class OsmandSettings {
 	
 	public final CommonPreference<Boolean> SHOW_RULER = 
 			new BooleanPreference("show_ruler", true).makeProfile().cache();
-	
-	
 
-	public final OsmandPreference<Integer> NUMBER_OF_FREE_DOWNLOADS = new IntPreference("free_downloads_v2", 0).makeGlobal();
+//	public final OsmandPreference<Integer> NUMBER_OF_FREE_DOWNLOADS_V2 = new IntPreference("free_downloads_v2", 0).makeGlobal();
+	
+	public final OsmandPreference<Integer> NUMBER_OF_FREE_DOWNLOADS = new IntPreference("free_downloads_v3", 0).makeGlobal();
 
 	// For DashRateUsFragment
 	public final OsmandPreference<Long> LAST_DISPLAY_TIME =
             new LongPreference("last_display_time", 0).makeGlobal().cache();
+	
+	public final OsmandPreference<Long> LAST_CHECKED_UPDATES =
+            new LongPreference("last_checked_updates", 0).makeGlobal();
+	
 	public final OsmandPreference<Integer> NUMBER_OF_APPLICATION_STARTS =
-			new IntPreference("number_of_application_starts", 0).makeGlobal().cache();
+			new IntPreference("number_of_app_starts", 0).makeGlobal().cache();
+	
 	public final OsmandPreference<DashRateUsFragment.RateUsState> RATE_US_STATE =
             new EnumIntPreference<>("rate_us_state",
                     DashRateUsFragment.RateUsState.INITIAL_STATE, DashRateUsFragment.RateUsState.values())
-                    .makeGlobal()
-                    .cache();
+                    .makeGlobal();
 
-	public boolean checkFreeDownloadsNumberZero(){
-		if(!settingsAPI.contains(globalPreferences,NUMBER_OF_FREE_DOWNLOADS.getId())){
-			NUMBER_OF_FREE_DOWNLOADS.set(0);
-			return true;
-		}
-		return false;
-	}
-	
+
 	public enum DayNightMode {
 		AUTO(R.string.daynight_mode_auto), 
 		DAY(R.string.daynight_mode_day), 

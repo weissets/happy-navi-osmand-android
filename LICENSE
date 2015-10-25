@@ -38,11 +38,12 @@
         - https://github.com/osmandapp/OsmAnd-tools
         - https://github.com/osmandapp/OsmAnd-resources
 
-    * UI Design and UX work, such as layout, icons is covered by CC-BY-ND
+    * UI Design and UX work, such as layout, icons is covered by CC-BY-ND-NC
         - https://github.com/osmandapp/Osmand/tree/master/OsmAnd/res and others
 
     * Map icons are taken from sjjb and some are drawn and distributed under Public Domain (except icons8)
         - https://github.com/osmandapp/OsmAnd-resources/tree/master/icons/svg
+	- some icons are from http://osm-icons.org/wiki/Icons (CC-0 by Markus59, CC BY-SA 2.0)
 
     * Integration with Qt library in (https://github.com/osmandapp/Osmand-core/) - dynamic linking
         - LGPL (http://www.qt.io/qt-licensing-terms/)
@@ -146,3 +147,6 @@
 	- Rotterdam: "RET metro logo" by Sebastiaan1997 - Own work. Licensed under CC BY-SA 3.0 via Commons - https://commons.wikimedia.org/wiki/File:RET_metro_logo.svg#/media/File:RET_metro_logo.svg
 	- Amsterdam: "Amsterdam metro" by Peeperman - Own work. Licensed under Public Domain via Commons - https://commons.wikimedia.org/wiki/File:Amsterdam_metro.svg#/media/File:Amsterdam_metro.svg
 	- Brussels: "Brussels Metro logo" by Source. Licensed under Fair use via Wikipedia - https://en.wikipedia.org/wiki/File:Brussels_Metro_logo.svg#/media/File:Brussels_Metro_logo.svg
+	- Lyon: "Métro-M-Lyon" by Otourly - Own work. Licensed under CC BY-SA 3.0 via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:M%C3%A9tro-M-Lyon.svg#/media/File:M%C3%A9tro-M-Lyon.svg
+	- Washington: "WMATA Metro Logo" by Noclip - Own work. Licensed under Public Domain via Commons - https://commons.wikimedia.org/wiki/File:WMATA_Metro_Logo.svg#/media/File:WMATA_Metro_Logo.svg
+	- Los Angeles: "Lametro" by Los Angeles County Metropolitan Transportation Authority. Original uploader was Cheeselouise at en.wikipedia - Metro materials at http://www.metro.net/riding_metro/pocket_guide_cambodian_printers.pdf. Licensed under Public Domain via Commons - https://commons.wikimedia.org/wiki/File:Lametro.svg#/media/File:Lametro.svg

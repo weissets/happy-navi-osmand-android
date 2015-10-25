@@ -32,6 +32,7 @@ public class PointDescription implements Serializable {
 	public static final String POINT_TYPE_ADDRESS = "address";
 	public static final String POINT_TYPE_OSM_NOTE= "osm_note";
 	public static final String POINT_TYPE_MARKER = "marker";
+	public static final String POINT_TYPE_PARKING_MARKER = "parking_marker";
 	public static final String POINT_TYPE_AUDIO_NOTE = "audionote";
 	public static final String POINT_TYPE_VIDEO_NOTE = "videonote";
 	public static final String POINT_TYPE_PHOTO_NOTE = "photonote";
@@ -42,18 +43,6 @@ public class PointDescription implements Serializable {
 	
 
 	public static final PointDescription LOCATION_POINT = new PointDescription(POINT_TYPE_LOCATION, "");
-
-	public String getType() {
-		return type;
-	}
-
-	public double getLat() {
-		return lat;
-	}
-
-	public double getLon() {
-		return lon;
-	}
 
 	public PointDescription(double lat, double lon) {
 		this(POINT_TYPE_LOCATION, "");
@@ -141,11 +130,7 @@ public class PointDescription implements Serializable {
 		}
 	}
 
-	public String getLocationName(Context ctx, boolean shortText) {
-		return getLocationName(ctx, lat, lon, shortText);
-	}
-
-	private String getLocationName(Context ctx, double lat, double lon, boolean sh) {
+	public static String getLocationName(Context ctx, double lat, double lon, boolean sh) {
 		OsmandSettings st = ((OsmandApplication) ctx.getApplicationContext()).getSettings();
 		int f = st.COORDINATES_FORMAT.get();
 		if (f == PointDescription.UTM_FORMAT) {
@@ -195,6 +180,13 @@ public class PointDescription implements Serializable {
 		return POINT_TYPE_PHOTO_NOTE.equals(type);
 	}
 
+	public boolean isDestination() {
+		return POINT_TYPE_TARGET.equals(type);
+	}
+
+	public boolean isParking() {
+		return POINT_TYPE_PARKING_MARKER.equals(type);
+	}
 
 	@Override
 	public int hashCode() {

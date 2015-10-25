@@ -1,8 +1,15 @@
 package net.osmand.plus.download;
 
-import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
+import static net.osmand.IndexConstants.BINARY_MAP_INDEX_EXT;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.osmand.AndroidUtils;
 import net.osmand.IndexConstants;
@@ -15,18 +22,9 @@ import net.osmand.util.Algorithms;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Context;
 
-import static net.osmand.IndexConstants.BINARY_MAP_INDEX_EXT;
-
-public class DownloadActivityType implements Parcelable {
+public class DownloadActivityType {
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 	private static Map<String, DownloadActivityType> byTag = new HashMap<>();
 	
@@ -44,7 +42,7 @@ public class DownloadActivityType implements Parcelable {
 					R.drawable.ic_action_hillshade_dark, "hillshade", 50);
 	public static final DownloadActivityType WIKIPEDIA_FILE =
 			new DownloadActivityType(R.string.download_wikipedia_maps,
-					R.drawable.ic_world_globe_dark, "wikimap", 60);
+					R.drawable.ic_plugin_wikipedia, "wikimap", 60);
 	public static final DownloadActivityType LIVE_UPDATES_FILE =
 			new DownloadActivityType(R.string.download_live_updates, "live_updates", 70);
 	private final int stringResource;
@@ -64,7 +62,6 @@ public class DownloadActivityType implements Parcelable {
 	public DownloadActivityType(int stringResource, String tag, int orderIndex) {
 		this.stringResource = stringResource;
 		this.tag = tag;
-		this.orderIndex = orderIndex;
 		byTag.put(tag, this);
 		iconResource = R.drawable.ic_map;
 	}
@@ -259,7 +256,7 @@ public class DownloadActivityType implements Parcelable {
 		return "";
 	}
 	
-	public String getVisibleName(IndexItem indexItem, Context ctx, OsmandRegions osmandRegions) {
+	public String getVisibleName(IndexItem indexItem, Context ctx, OsmandRegions osmandRegions, boolean includingParent) {
 		if (this == VOICE_FILE) {
 			String fileName = indexItem.fileName;
 			if (fileName.endsWith(IndexConstants.VOICE_INDEX_EXT_ZIP)) {
@@ -284,11 +281,11 @@ public class DownloadActivityType implements Parcelable {
 		if (bn.contains("addresses-nationwide")) {
 			final int ind = bn.indexOf("addresses-nationwide");
 			String downloadName = bn.substring(0, ind - 1) + bn.substring(ind + "addresses-nationwide".length());
-			return osmandRegions.getLocaleName(downloadName) + 
+			return osmandRegions.getLocaleName(downloadName, includingParent) +
 					" "+ ctx.getString(R.string.index_item_nation_addresses);
 		}
 
-		return osmandRegions.getLocaleName(bn);
+		return osmandRegions.getLocaleName(bn, includingParent);
 	}
 	
 	public String getTargetFileName(IndexItem item) {
@@ -371,32 +368,4 @@ public class DownloadActivityType implements Parcelable {
 		return fileName;
 	}
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(this.stringResource);
-		dest.writeInt(this.iconResource);
-		dest.writeString(this.tag);
-	}
-
-	protected DownloadActivityType(Parcel in) {
-		this.stringResource = in.readInt();
-		this.iconResource = in.readInt();
-		this.tag = in.readString();
-		byTag.put(tag, this);
-	}
-
-	public static final Parcelable.Creator<DownloadActivityType> CREATOR = new Parcelable.Creator<DownloadActivityType>() {
-		public DownloadActivityType createFromParcel(Parcel source) {
-			return new DownloadActivityType(source);
-		}
-
-		public DownloadActivityType[] newArray(int size) {
-			return new DownloadActivityType[size];
-		}
-	};
 }

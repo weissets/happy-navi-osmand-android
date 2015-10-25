@@ -30,7 +30,6 @@ import gnu.trove.list.array.TIntArrayList;
 public class ContextMenuAdapter {
 	private static final Log LOG = PlatformUtil.getLog(ContextMenuAdapter.class);
 
-//	Log log =
 
 	public interface OnContextMenuClick {
 		//boolean return type needed to desribe if drawer needed to be close or not
@@ -174,6 +173,7 @@ public class ContextMenuAdapter {
 		i.name = name;
 		return i;
 	}
+	
 
 	public Item item(int resId) {
 		Item i = new Item();
@@ -207,6 +207,7 @@ public class ContextMenuAdapter {
 			this.lightIcon = icon;
 			return this;
 		}
+		
 
 		public Item position(int pos) {
 			this.pos = pos;
@@ -258,6 +259,12 @@ public class ContextMenuAdapter {
 			cat = b;
 			return this;
 		}
+		
+		public Item name(String name) {
+			this.name = name;
+			return this;
+		}
+
 	}
 
 	public String[] getItemNames() {
@@ -296,7 +303,6 @@ public class ContextMenuAdapter {
 
 
 	public ArrayAdapter<?> createListAdapter(final Activity activity, final boolean holoLight) {
-		// XXX layoutId does not effect layout inflated.
 		final int layoutId = defaultLayoutId;
 		final OsmandApplication app = ((OsmandApplication) activity.getApplication());
 		ArrayAdapter<String> listAdapter = new ContextMenuArrayAdapter(activity, layoutId, R.id.title,

@@ -34,13 +34,11 @@ import net.osmand.plus.activities.EditPOIFilterActivity;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.OsmandListActivity;
 import net.osmand.plus.dashboard.DashLocationFragment;
-import net.osmand.plus.dialogs.DirectionsDialogs;
 import net.osmand.plus.poi.NominatimPoiFilter;
 import net.osmand.plus.poi.PoiUIFilter;
 import net.osmand.plus.poi.PoiUIFilter.AmenityNameFilter;
 import net.osmand.plus.render.RenderingIcons;
 import net.osmand.plus.views.DirectionDrawable;
-import net.osmand.plus.views.POIMapLayer;
 import net.osmand.util.Algorithms;
 import net.osmand.util.MapUtils;
 import net.osmand.util.OpeningHoursParser;
@@ -58,10 +56,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -550,36 +545,14 @@ public class SearchPOIActivity extends OsmandListActivity implements OsmAndCompa
 				app.getSettings().MAP_PREFERRED_LOCALE.get());
 		PointDescription name = new PointDescription(PointDescription.POINT_TYPE_POI, poiSimpleFormat);
 		int z = Math.max(16, settings.getLastKnownMapZoom());
-		final PopupMenu optionsMenu = new PopupMenu(this, view);
-		DirectionsDialogs.createDirectionsActionsPopUpMenu(optionsMenu, amenity.getLocation(), amenity, name, z, this,
-				true);
-		final String d = OsmAndFormatter.getAmenityDescriptionContent(getMyApplication(), amenity, false);
-		if (d.toString().trim().length() > 0 || amenity.getType().isWiki()) {
-			MenuItem item = optionsMenu
-					.getMenu()
-					.add(R.string.poi_context_menu_showdescription)
-					.setIcon(
-							getMyApplication().getIconsCache().getContentIcon(R.drawable.ic_action_note_dark));
-			item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-				@Override
-				public boolean onMenuItemClick(MenuItem item) {
-					// Build text(amenity)
-					POIMapLayer.showDescriptionDialog(SearchPOIActivity.this, app, amenity);	
-					return true;
-				}
-			});
-		}
-		if (((OsmandApplication) getApplication()).accessibilityEnabled()) {
-			MenuItem item = optionsMenu.getMenu().add(R.string.shared_string_show_details);
-			item.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-				@Override
-				public boolean onMenuItemClick(MenuItem item) {
-					showPOIDetails(amenity, app.getSettings().MAP_PREFERRED_LOCALE.get());
-					return true;
-				}
-			});
-		}
-		optionsMenu.show();
+
+		LatLon location = amenity.getLocation();
+		settings.setMapLocationToShow(location.getLatitude(), location.getLongitude(),
+				z,
+				name,
+				true,
+				amenity); //$NON-NLS-1$
+		MapActivity.launchMapActivityMoveToTop(this);
 	}
 
 	

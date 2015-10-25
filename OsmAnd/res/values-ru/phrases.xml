@@ -38,7 +38,7 @@
 	<string name="poi_charity">Благотворительный магазин</string>
 	<string name="poi_chemist">Бытовая химия, косметика</string>
 	<string name="poi_clothes">Одежда</string>
-	<string name="poi_child_clothes">Детская одежда</string>
+	<string name="poi_clothes_children">Детская одежда</string>
 	<string name="poi_shoes">Обувь</string>
 	<string name="poi_computer">Компьютеры</string>
 	<string name="poi_copyshop">Ксерокопия, полиграфия</string>
@@ -152,7 +152,7 @@
 	<string name="poi_service_tyres">Шиномонтаж</string>
 	<string name="poi_vehicle_inspection">Пункт техосмотра</string>
 	<string name="poi_car_wash">Автомойка</string>
-	<string name="poi_fuel">Заправка</string>
+	<string name="poi_fuel">Автомобильная заправка</string>
 	<string name="poi_charging_station">Зарядная станция</string>
 	<string name="poi_vehicle_ramp">Ремонтная эстакада/яма</string>
 	<string name="poi_compressed_air">Компрессор для подкачки шин</string>
@@ -780,7 +780,6 @@
 	<string name="poi_internet_access_terminal">Доступ в Интернет: терминал</string>
 	<string name="poi_internet_access_wired">Доступ в Интернет: проводное подключение</string>
 	<string name="poi_internet_access_public">Доступ в Интернет: общедоступный</string>
-	<string name="poi_internet_access_service">Доступ в Интернет: сервис</string>
 	<string name="poi_internet_access_yes">Доступ в Интернет</string>
 	<string name="poi_internet_access_no">Нет доступа в Интернет</string>
 
@@ -833,6 +832,13 @@
 	<string name="poi_fuel_diesel">Дизель</string>
 	<string name="poi_fuel_ethanol">Этанол</string>
 	<string name="poi_fuel_methanol">Метанол</string>
+	<string name="poi_fuel_gtl_diesel">Дизель GTL</string>
+	<string name="poi_fuel_hgv_diesel">Дизель HGV</string>
+	<string name="poi_fuel_biodiesel">Биодизель</string>
+	<string name="poi_fuel_lpg">Пропан-бутан (LPG)</string>
+	<string name="poi_fuel_cng">Метан (CNG)</string>
+	<string name="poi_fuel_1_25">Смесь 1:25</string>
+	<string name="poi_fuel_1_50">Смесь 1:50</string>
 	<string name="poi_photo">Фото магазин</string>
 	<string name="poi_power">Энергетика</string>
 		<string name="poi_landuse">Землепользование</string>
@@ -907,7 +913,7 @@
 	<string name="poi_crossing_unmarked">Неразмеченный</string>
 
 	<string name="poi_population">Население</string>
-	<string name="poi_start_date">Дата начала постройки</string>
+	<string name="poi_start_date">Дата окончания постройки</string>
 	<string name="poi_wheelchair">Доступно для инвалидных кресел</string>
 	<string name="poi_wheelchair_no">Недоступно для инвалидных кресел</string>
 	<string name="poi_wheelchair_limited">Инвалидные кресла: ограничено</string>
@@ -1135,10 +1141,12 @@
 	<string name="poi_breakwater">Волнорез</string>
 	<string name="poi_groyne">Мол</string>
 
-	<string name="poi_animal_shelter_dog">Приют для собак</string>
-	<string name="poi_animal_shelter_cat">Приют для кошек</string>
-	<string name="poi_animal_shelter_dog_cat">Приют для кошек и собак</string>
-	<string name="poi_animal_shelter_bird">Приют для птиц</string>
+	<string name="poi_animal_shelter">Приют для животных</string>
+
+	<string name="poi_animal_shelter_dog">Тип приюта: для собак</string>
+	<string name="poi_animal_shelter_cat">Тип приюта: для кошек</string>
+	<string name="poi_animal_shelter_dog_cat">Тип приюта: для собак и кошек</string>
+	<string name="poi_animal_shelter_bird">Тип приюта: для птиц</string>
 
 	<string name="poi_shower">Душ</string>
 
@@ -1470,7 +1478,6 @@
 	<string name="poi_brushless_no">Контактная</string>
 	<string name="poi_car_wash_no">Без автомойки</string>
 
-	<string name="poi_aeroway_fuel">Заправочная станция для воздушного транспорта</string>
 	<string name="poi_public_bath">Общественная баня</string>
 
 	<string name="poi_male_yes">Для мужчин</string>
@@ -1481,7 +1488,7 @@
 	<string name="poi_indoor_no">Снаружи</string>
 	<string name="poi_toilets_yes">С туалетом</string>
 	<string name="poi_toilets_no">Без туалета</string>
-	<string name="poi_toilets_wheelchair_yes">Доступ в туалет для инвалидных колясок: да</string>
+	<string name="poi_toilets_wheelchair_yes">Доступ в туалет для инвалидных колясок: есть</string>
 	<string name="poi_toilets_wheelchair_no">Доступ в туалет для инвалидных колясок: нет</string>
 	<string name="poi_toilets_access_customers">Доступ в туалет: только для посетителей</string>
 	<string name="poi_toilets_access_permissive">Доступ в туалет: с разрешения владельца</string>
@@ -1540,7 +1547,11 @@
 	<string name="poi_memorial_jizo">Дзидзо</string>
 	<string name="poi_memorial_cross">Крест</string>
 	<string name="poi_memorial_vehicle">Средство передвижения</string>
+	<string name="poi_memorial_stolperstein">Камень преткновения</string>
 	<string name="poi_memorial_obelisk">Обелиск</string>
+	<string name="poi_memorial_column">Колонна</string>
+	<string name="poi_memorial_stupa">Ступа</string>
+	<string name="poi_memorial_prasat">Прасат</string>
 
 	<string name="poi_inscription">Надпись</string>
 
@@ -1634,7 +1645,7 @@
 	<string name="poi_shelter_type_lean_to">Тип укрытия: навес</string>
 	<string name="poi_shelter_type_basic_hut">Тип укрытия: хижина</string>
 	<string name="poi_shelter_type_building">Тип укрытия: здание</string>
-	<string name="poi_shelter_type_wildlife_hide">Тип укрытия: в дикой природе</string>
+	<string name="poi_shelter_type_wildlife_hide">Тип укрытия: для наблюдения за дикой природой</string>
 	<string name="poi_shelter_type_rock_shelter">Тип укрытия: в камнях</string>
 	<string name="poi_shelter_type_sun_shelter">Тип укрытия: от солнца</string>
 	<string name="poi_shelter_type_field_shelter">Тип укрытия: в поле</string>
@@ -1689,5 +1700,581 @@
 	<string name="poi_architecture_wilhelminian_style">Архитектурный стиль: вильгельминский</string>
 	<string name="poi_architecture_renaissance">Архитектурный стиль: ренессанс</string>
 	<string name="poi_architecture_romanesque">Архитектурный стиль: романский</string>
+
+	<string name="poi_tunnel_waterway">Водный туннель</string>
+	<string name="poi_tunnel_car">Туннель для автомобилей</string>
+	<string name="poi_tunnel_pedestrian">Туннель для пешеходов</string>
+	<string name="poi_tunnel_railway">Железнодорожный тоннель</string>
+	<string name="poi_bridge_car">Автомобильный мост</string>
+	<string name="poi_bridge_pedestrian">Пешеходный мост</string>
+	<string name="poi_bridge_bicycle">Велосипедный мост</string>
+	<string name="poi_bridge_railway">Железнодорожный мост</string>
+	<string name="poi_bridge_waterway">Водный мост</string>
+	<string name="poi_bridge_structure_beam">Конструкция моста: балочный</string>
+	<string name="poi_bridge_structure_simple_suspension">Конструкция моста: простой подвесной</string>
+	<string name="poi_bridge_structure_suspension">Конструкция моста: подвесной</string>
+	<string name="poi_bridge_structure_arch">Конструкция моста: арочный</string>
+	<string name="poi_bridge_structure_truss">Конструкция моста: ферма</string>
+	<string name="poi_bridge_structure_floating">Конструкция моста: понтонный</string>
+	<string name="poi_bridge_structure_humpback">Конструкция моста: горбатый</string>
+	<string name="poi_bridge_structure_cable_stayed">Конструкция моста: вантовый</string>
+	<string name="poi_bridge_structure_boardwalk">Конструкция моста: дощатый настил</string>
+	<string name="poi_bridge_structure_simple_wooden">Конструкция моста: простой деревянный</string>
+	<string name="poi_bridge_structure_viaduct">Конструкция моста: виадук</string>
+	<string name="poi_bridge_structure_aqueduct">Конструкция моста: акведук</string>
+	<string name="poi_bridge_structure_log">Конструкция моста: бревно</string>
+	<string name="poi_bridge_type_movable">Тип моста: разводной</string>
+	<string name="poi_bridge_movable_bascule">Тип разводного моста: раскрывающийся</string>
+	<string name="poi_bridge_movable_swing">Тип разводного моста: поворотный</string>
+	<string name="poi_bridge_movable_lift">Тип разводного моста: вертикально-подъёмный</string>
+	<string name="poi_bridge_movable_drawbridge">Тип разводного моста: подъёмный</string>
+	<string name="poi_bridge_movable_submersible">Тип разводного моста: затопляемый</string>
+	<string name="poi_bridge_movable_transporter">Тип разводного моста: летающий паром</string>
+	<string name="poi_bridge_movable_retractable">Тип разводного моста: выдвигаемый</string>
+
+	<string name="poi_lit_yes">Объект освещён: да</string>
+	<string name="poi_lit_no">Объект освещён: нет</string>
+
+	<string name="poi_surface_unpaved">Поверхность: без покрытия</string>
+	<string name="poi_surface_paved">Поверхность: с покрытием</string>
+	<string name="poi_surface_asphalt">Поверхность: асфальт</string>
+	<string name="poi_surface_concrete">Поверхность: бетон</string>
+	<string name="poi_surface_sett">Поверхность: брусчатка</string>
+	<string name="poi_surface_cobblestone">Поверхность: уложенный булыжник</string>
+	<string name="poi_surface_paving_stones">Поверхность: тротуарная плитка</string>
+	<string name="poi_surface_pebblestone">Поверхность: галька</string>
+	<string name="poi_surface_stone">Поверхность: каменистая</string>
+	<string name="poi_surface_metal">Поверхность: металл</string>
+	<string name="poi_surface_wood">Поверхность: дерево</string>
+	<string name="poi_surface_gravel">Поверхность: гравий</string>
+	<string name="poi_surface_fine_gravel">Поверхность: многослойный гравий</string>
+	<string name="poi_surface_compacted">Поверхность: утрамбованная почва и камни</string>
+	<string name="poi_surface_sand">Поверхность: песок</string>
+	<string name="poi_surface_grass">Поверхность: трава</string>
+	<string name="poi_surface_grass_paver">Поверхность: неплотное мощение камнями</string>
+	<string name="poi_surface_ground">Поверхность: голая почва</string>
+	<string name="poi_surface_dirt">Поверхность: грязь</string>
+	<string name="poi_surface_mud">Поверхность: грязь без твёрдого слоя</string>
+	<string name="poi_surface_ice">Поверхность: лёд</string>
+	<string name="poi_surface_salt">Поверхность: соль (соляные озёра)</string>
+	<string name="poi_surface_snow">Поверхность: снег (зимник)</string>
+
+	<string name="poi_route_bus_ref">Автобус</string>
+	<string name="poi_route_share_taxi_ref">Маршрутное такси</string>
+	<string name="poi_route_trolleybus_ref">Троллейбус</string>
+	<string name="poi_route_tram_ref">Трамвай</string>
+	<string name="poi_route_train_ref">Поезд</string>
+	<string name="poi_route_light_rail_ref">Легкорельсовый транспорт</string>
+	<string name="poi_route_monorail_ref">Монорельс</string>
+	<string name="poi_route_funicular_ref">Фуникулёр</string>
+	<string name="poi_route_ferry_ref">Паром</string>
+
+	<string name="poi_route_railway_ref">Железнодорожный путь</string>
+
+	<string name="poi_historic_yes">Исторический объект</string>
+	<string name="poi_surveillance_yes">С видеонаблюдением</string>
+	<string name="poi_shop_yes">С магазином</string>
+
+	<string name="poi_service_bicycle_retail_yes">Продажа велосипедов: да</string>
+	<string name="poi_service_bicycle_retail_no">Продажа велосипедов: нет</string>
+	<string name="poi_service_bicycle_repair_yes">Ремонт велосипедов: да</string>
+	<string name="poi_service_bicycle_repair_no">Ремонт велосипедов: нет</string>
+	<string name="poi_service_bicycle_rental_yes">Прокат велосипедов: да</string>
+	<string name="poi_service_bicycle_rental_no">Прокат велосипедов: нет</string>
+	<string name="poi_service_bicycle_pump_yes">Подкачка велосипедных шин: да</string>
+	<string name="poi_service_bicycle_pump_no">Подкачка велосипедных шин: нет</string>
+	<string name="poi_service_bicycle_diy_yes">Инструменты для самостоятельного ремонта велосипеда: да</string>
+	<string name="poi_service_bicycle_diy_no">Инструменты для самостоятельного ремонта велосипеда: нет</string>
+	<string name="poi_service_bicycle_cleaning_yes">Мойка велосипедов: да</string>
+	<string name="poi_service_bicycle_cleaning_no">Мойка велосипедов: нет</string>
+	<string name="poi_service_bicycle_chaintool_yes">Выжимка цепи для велосипедов: да</string>
+	<string name="poi_service_bicycle_chaintool_no">Выжимка цепи для велосипедов: нет</string>
+	<string name="poi_service_bicycle_second_hand_yes">Продажа подержанных велосипедов: да</string>
+	<string name="poi_service_bicycle_second_hand_no">Продажа подержанных велосипедов: нет</string>
+
+	<string name="poi_wildlife_hide">Укрытие для наблюдения за дикой природой</string>
+
+	<string name="poi_training_language">Обучение: иностранный язык</string>
+	<string name="poi_training_music">Обучение: музыка</string>
+	<string name="poi_training_dance">Обучение: танцы</string>
+	<string name="poi_training_sport">Обучение: спорт</string>
+	<string name="poi_training_art">Обучение: искусство</string>
+	<string name="poi_training_cooking">Обучение: приготовление пищи</string>
+	<string name="poi_training_computer">Обучение: работа на компьютере</string>
+	<string name="poi_training_yoga">Обучение: йога</string>
+	<string name="poi_training_martial_art">Обучение: боевые искусства</string>
+	<string name="poi_training_aviation">Обучение: авиация</string>
+	<string name="poi_training_hairdressing">Обучение: парикмахер</string>
+
+	<string name="poi_monument_yes">Монументальный объект</string>
+
+	<string name="poi_industrial_oil">Тип: нефтяная промышленность</string>
+	<string name="poi_industrial_wellsite">Тип: буровая площадка</string>
+	<string name="poi_industrial_factory">Тип: фабрика</string>
+	<string name="poi_industrial_gas">Тип: газовая промышленность</string>
+	<string name="poi_industrial_timber">Тип: лесоматериалы</string>
+	<string name="poi_industrial_refinery">Тип: очистительный завод</string>
+	<string name="poi_industrial_warehouse">Тип: склад</string>
+	<string name="poi_industrial_auto_wrecker">Тип: утилизация машин</string>
+	<string name="poi_industrial_agriculture">Тип: сельскохозяйственная промышленность</string>
+	<string name="poi_industrial_brewery">Тип: пивоварня</string>
+	<string name="poi_industrial_brickyard">Тип: кирпичный завод</string>
+	<string name="poi_industrial_intermodal_freight_terminal">Тип: интермодальный грузовой терминал</string>
+	<string name="poi_industrial_sawmill">Тип: лесопилка</string>
+	<string name="poi_industrial_water_purification">Тип: очистка воды</string>
+	<string name="poi_industrial_port">Тип: порт</string>
+	<string name="poi_industrial_depot">Тип: депо</string>
+
+	<string name="poi_note">Заметка</string>
+	<string name="poi_watering_place">Водопой</string>
+	<string name="poi_animal_boarding">Временное содержание животных</string>
+	<string name="poi_animal_boarding_dog">Тип приюта: для собак</string>
+	<string name="poi_animal_boarding_cat">Тип приюта: для кошек</string>
+	<string name="poi_animal_boarding_dog_cat">Тип приюта: для собак и кошек</string>
+	<string name="poi_animal_boarding_horse">Тип приюта: для лошадей</string>
+
+	<string name="poi_historic_aircraft">Исторический самолёт</string>
+
+	<string name="poi_honey">Мёд</string>
+
+	<string name="poi_elevator_yes">С лифтом</string>
+	<string name="poi_elevator_no">Без лифта</string>
+
+	<string name="poi_technical_monument">Технический памятник</string>
+
+	<string name="poi_office_camping">Приёмная лагеря</string>
+	<string name="poi_model_aerodrome">Авиамодельный спорт</string>
+	<string name="poi_guide">Офис гида</string>
+	<string name="poi_quango">Квазиавтономная неправительственная организация</string>
+	<string name="poi_consulting">Консультации</string>
+	<string name="poi_cooperative">Офис кооператива</string>
+	<string name="poi_office_forestry">Офис лесничества</string>
+	<string name="poi_logistics">Офис транспортно-логистической компании</string>
+	<string name="poi_parish">Приход</string>
+	<string name="poi_publisher">Издательство</string>
+
+	<string name="poi_maxheight">Максимальная высота</string>
+	<string name="poi_maxweight">Максимальный вес</string>
+
+	<string name="poi_node_networks">Пешеходные/велосипедные точки маршрутов</string>
+
+	<string name="poi_aeroway_fuel">Авиационная заправка</string>
+	<string name="poi_fuel_91ul">Топливо 91UL</string>
+	<string name="poi_fuel_100ll">Топливо 100LL</string>
+	<string name="poi_jeta1">Топливо Jet A-1</string>
+	<string name="poi_fuel_adblue">Топливо AdBlue</string>
+	<string name="poi_fuel_wood">Топливо: дрова</string>
+	<string name="poi_fuel_charcoal">Топливо: древесный уголь</string>
+	<string name="poi_fuel_coal">Топливо: каменный уголь</string>
+	<string name="poi_fuel_biogas">Биогаз</string>
+	<string name="poi_recycling_tetrapak">Упаковки Tetra Pak</string>
+	<string name="poi_cabin">Хижина</string>
+
+	<string name="poi_religion_voodoo">Вуду</string>
+	<string name="poi_religion_unitarian_universalist">Унитарный универсализм</string>
+	<string name="poi_religion_multifaith">Многоконфессиональность</string>
+	<string name="poi_religion_jain">Джайнизм</string>
+	<string name="poi_religion_scientologist">Саентология</string>
+	<string name="poi_denomination_united_reformed">Объединенная реформированная церковь</string>
+	<string name="poi_denomination_nazarene">Назаряне</string>
+	<string name="poi_denomination_united_methodist">Объединенная методистская церковь</string>
+	<string name="poi_denomination_congregational">Конгрегационная церковь</string>
+	<string name="poi_denomination_dutch_reformed">Нидерландская реформатская церковь</string>
+	<string name="poi_denomination_apostolic">Апостольская церковь</string>
+	<string name="poi_denomination_latter_day_saints">Движение святых последних дней</string>
+	<string name="poi_denomination_church_of_christ">Церковь Христа</string>
+	<string name="poi_denomination_united_church_of_christ">Объединённая Церковь Христа</string>
+	<string name="poi_denomination_georgian_orthodox">Грузинское православие</string>
+	<string name="poi_denomination_scientist">Сайентизм</string>
+	<string name="poi_denomination_romanian_orthodox">Румынское православие</string>
+	<string name="poi_denomination_ethiopian_orthodox_tewahedo">Эфиопская (Абиссинская) православная церковь</string>
+	<string name="poi_denomination_unitarian">Унитарианство</string>
+	<string name="poi_denomination_coptic_orthodox">Коптская православная церковь</string>
+	<string name="poi_denomination_wesleyan">Веслианская церковь</string>
+	<string name="poi_denomination_shaktism">Шактизм</string>
+	<string name="poi_denomination_shingon_shu">Сингон</string>
+	<string name="poi_denomination_maronite">Маронитская католическая церковь</string>
+	<string name="poi_denomination_mahayana">Махаяна</string>
+	<string name="poi_hanami">Ханами</string>
+
+	<string name="poi_wiki_place">Википедия</string>
+	<string name="poi_wiki_lang_en">Английская википедия</string>
+	<string name="poi_wiki_lang_ar">Арабская википедия</string>
+	<string name="poi_wiki_lang_be">Белорусская википедия</string>
+	<string name="poi_wiki_lang_bg">Болгарская википедия</string>
+	<string name="poi_wiki_lang_ca">Каталонская википедия</string>
+	<string name="poi_wiki_lang_ceb">Википедия Кебуано</string>
+	<string name="poi_wiki_lang_cs">Чешская википедия</string>
+	<string name="poi_wiki_lang_da">Датская википедия</string>
+	<string name="poi_wiki_lang_de">Немецкая википедия</string>
+	<string name="poi_wiki_lang_el">Греческая википедия</string>
+	<string name="poi_wiki_lang_et">Эстонская википедия</string>
+	<string name="poi_wiki_lang_es">Испанская википедия</string>
+	<string name="poi_wiki_lang_fi">Финская википедия</string>
+	<string name="poi_wiki_lang_fr">Французская википедия</string>
+	<string name="poi_wiki_lang_gl">Галицийская википедия</string>
+	<string name="poi_wiki_lang_he">Википедия на иврите</string>
+	<string name="poi_wiki_lang_hi">Википедия на хинди</string>
+	<string name="poi_wiki_lang_hr">Хорватская википедия</string>
+	<string name="poi_wiki_lang_ht">Гаитянская википедия</string>
+	<string name="poi_wiki_lang_hu">Венгерская википедия</string>
+	<string name="poi_wiki_lang_id">Индонезийская википедия</string>
+	<string name="poi_wiki_lang_it">Итальянская википедия</string>
+	<string name="poi_wiki_lang_ja">Японская википедия</string>
+	<string name="poi_wiki_lang_ko">Корейская википедия</string>
+	<string name="poi_wiki_lang_lt">Литовская википедия</string>
+	<string name="poi_wiki_lang_lv">Латвийская википедия</string>
+	<string name="poi_wiki_lang_ms">Малайская википедия</string>
+	<string name="poi_wiki_lang_new">Неварская википедия</string>
+	<string name="poi_wiki_lang_nl">Голландская википедия</string>
+	<string name="poi_wiki_lang_nn">Википедия на норвежском нюнорске</string>
+	<string name="poi_wiki_lang_no">Норвежская википедия</string>
+	<string name="poi_wiki_lang_pl">Польская википедия</string>
+	<string name="poi_wiki_lang_pt">Португальская википедия</string>
+	<string name="poi_wiki_lang_ro">Румынская википедия</string>
+	<string name="poi_wiki_lang_ru">Русская википедия</string>
+	<string name="poi_wiki_lang_sk">Словацкая википедия</string>
+	<string name="poi_wiki_lang_sl">Словенская википедия</string>
+	<string name="poi_wiki_lang_sr">Сербская википедия</string>
+	<string name="poi_wiki_lang_sv">Шведская википедия</string>
+	<string name="poi_wiki_lang_sw">Википедия на суахили</string>
+	<string name="poi_wiki_lang_te">Википедия на телугу</string>
+	<string name="poi_wiki_lang_th">Тайская википедия</string>
+	<string name="poi_wiki_lang_tr">Турецкая википедия</string>
+	<string name="poi_wiki_lang_uk">Украинская википедия</string>
+	<string name="poi_wiki_lang_vi">Вьетнамская википедия</string>
+	<string name="poi_wiki_lang_vo">Википедия на волапюк</string>
+	<string name="poi_wiki_lang_zh">Китайская википедия</string>
+	
+	<string name="poi_bollard">Столбик</string>
+	<string name="poi_cycle_barrier">Барьер для велосипедов</string>
+	<string name="poi_motorcycle_barrier">Мотоциклетный барьер</string>
+	<string name="poi_block">Блок</string>
+	<string name="poi_bus_trap">Проезд только для автобусов</string>
+	<string name="poi_cattle_grid">Металлическая решётка</string>
+	<string name="poi_full_height_turnstile">Турникет-крестовина в полный рост</string>
+	<string name="poi_bump_gate">Ворота, открывающиеся бампером</string>
+	<string name="poi_general_barrier">Барьер</string>
+	<string name="poi_stile">Ступени через ограду</string>
+	<string name="poi_height_restrictor">Ограничитель высоты</string>
+	<string name="poi_horse_stile">Проход только для лошадей с наездником и пешеходов</string>
+	<string name="poi_sally_port">Проём в толстой стене</string>
+	<string name="poi_swing_gate">Шлагбаум с горизонтально вращаемой стрелой</string>
+	<string name="poi_turnstile">Турникет</string>
+	<string name="poi_kent_carriage_gap">Кентский проезд для карет</string>
+	<string name="poi_barrier_entrance">Проход в стене или заборе</string>
+	<string name="poi_debris">Мусор</string>
+	<string name="poi_jersey_barrier">Барьерное ограждение</string>
+	<string name="poi_entrance_main">Главный вход</string>
+	<string name="poi_entrance">Вход</string>
+	<string name="poi_entrance_exit">Выход</string>
+	<string name="poi_highway_crossing">Пешеходный переход</string>
+
+	<string name="poi_vk">ВКонтакте</string>
+
+	<string name="poi_content_silage">Содержимое: силос</string>
+	<string name="poi_content_water">Содержимое: вода</string>
+	<string name="poi_content_slurry">Содержимое: взвесь</string>
+	<string name="poi_content_oil">Содержимое: нефть (масло)</string>
+	<string name="poi_content_fuel">Содержимое: топливо</string>
+	<string name="poi_content_manure">Содержимое: навоз</string>
+	<string name="poi_content_wine">Содержимое: вино</string>
+	<string name="poi_content_sewage">Содержимое: сточные воды</string>
+	<string name="poi_content_gas">Содержимое: газ</string>
+	<string name="poi_content_biomass">Содержимое: биомасса</string>
+	<string name="poi_content_crop">Содержимое: урожай</string>
+	<string name="poi_content_fodder">Содержимое: корм</string>
+	<string name="poi_content_beer">Содержимое: пиво</string>
+	<string name="poi_content_salt">Содержимое: соль</string>
+	<string name="poi_content_grain">Содержимое: зерно</string>
+
+	<string name="poi_nudism_yes">Нудизм разрешен</string>
+	<string name="poi_nudism_no">Нудизм запрещён</string>
+	<string name="poi_nudism_obligatory">Нудизм: обязательно</string>
+	<string name="poi_nudism_customary">Нудизм: приветствуется</string>
+	<string name="poi_nudism_permissive">Нудизм: с разрешения</string>
+
+	<string name="poi_trade_building_supplies">Строительные материалы</string>
+	<string name="poi_trade_plumbing">Материалы для водопровода</string>
+	<string name="poi_trade_wood">Лесоматериалы</string>
+	<string name="poi_trade_agricultural_supplies">Сельхозпродукция</string>
+	<string name="poi_trade_tile">Плитка</string>
+
+	<string name="poi_garden_type_residential">Тип сада: дворовый</string>
+
+	<string name="poi_internet_access_service">Доступ в интернет: служебный</string>
+	<string name="poi_internet_access_type_service">Тип доступа в интернет: служебный</string>
+
+	<string name="poi_street_lamp">Уличный фонарь</string>
+
+	<string name="poi_escape_lane">Полоса аварийного торможения</string>
+
+	<string name="poi_crop_rice">Выращиваемая культура: рис</string>
+	<string name="poi_crop_grass">Выращиваемая культура: трава</string>
+	<string name="poi_crop_corn">Выращиваемая культура: кукуруза</string>
+	<string name="poi_crop_cereal">Выращиваемая культура: зерновая</string>
+	<string name="poi_crop_sugarcane">Выращиваемая культура: сахарный тростник</string>
+	<string name="poi_crop_wheat">Выращиваемая культура: пшеница</string>
+	<string name="poi_crop_soy">Выращиваемая культура: соя</string>
+	<string name="poi_crop_barley">Выращиваемая культура: ячмень</string>
+	<string name="poi_crop_vegetables">Выращиваемая культура: овощи</string>
+	<string name="poi_crop_hop">Выращиваемая культура: хмель</string>
+	<string name="poi_crop_rape">Выращиваемая культура: рапс</string>
+	<string name="poi_crop_beet">Выращиваемая культура: свёкла</string>
+	<string name="poi_crop_lavender">Выращиваемая культура: лаванда</string>
+	<string name="poi_crop_tea">Выращиваемая культура: чай</string>
+	<string name="poi_crop_coffee">Выращиваемая культура: кофе</string>
+	<string name="poi_crop_poultry">Выращиваемая культура: кормовое растение</string>
+	<string name="poi_crop_sunflower">Выращиваемая культура: подсолнечник</string>
+	<string name="poi_crop_raspberry">Выращиваемая культура: малина</string>
+	<string name="poi_crop_tobacco">Выращиваемая культура: табак</string>
+	<string name="poi_crop_strawberry">Выращиваемая культура: клубника</string>
+	<string name="poi_crop_vegetables_flowers">Выращиваемая культура: овощи, цветы</string>
+	<string name="poi_crop_cassava">Выращиваемая культура: маниока</string>
+	<string name="poi_crop_cranberry">Выращиваемая культура: клюква</string>
+	<string name="poi_crop_asparagus">Выращиваемая культура: спаржа</string>
+	<string name="poi_crop_flowers">Выращиваемая культура: цветы</string>
+
+	<string name="poi_surveillance_indoor">Видеонаблюдение: внутри</string>
+	<string name="poi_surveillance_outdoor">Видеонаблюдение: снаружи</string>
+	<string name="poi_surveillance_public">Видеонаблюдение: в общественных местах</string>
+
+	<string name="poi_clothes_women">Женская одежда</string>
+	<string name="poi_clothes_underwear">Нижнее бельё</string>
+	<string name="poi_clothes_men">Мужская одежда</string>
+	<string name="poi_clothes_wedding">Свадебные платья</string>
+	<string name="poi_clothes_sports">Спортивная одежда</string>
+	<string name="poi_clothes_babies">Одежда для новорождённых</string>
+	<string name="poi_clothes_denim">Одежда из джинсовой ткани</string>
+	<string name="poi_clothes_workwear">Рабочая одежда</string>
+	<string name="poi_clothes_hats">Шляпы</string>
+	<string name="poi_clothes_fur">Меховая одежда</string>
+	<string name="poi_clothes_leather">Кожаная одежда</string>
+	<string name="poi_clothes_costumes">Карнавальные костюмы</string>
+	<string name="poi_clothes_traditional">Традиционная одежда</string>
+	<string name="poi_clothes_suits">Костюмы, смокинги</string>
+	<string name="poi_clothes_maternity">Одежда для беременных</string>
+	<string name="poi_clothes_vintage">Старинная одежда</string>
+	<string name="poi_clothes_oversize">Одежда для больших людей</string>
+	<string name="poi_clothes_schoolwear">Школьная форма</string>
+	<string name="poi_clothes_swimwear">Купальные костюмы</string>
+	<string name="poi_clothes_socks">Носки</string>
+	<string name="poi_clothes_shirts">Футболки</string>
+	<string name="poi_clothes_dance">Одежда для танцев</string>
+	<string name="poi_clothes_military">Военная одежда</string>
+
+	<string name="poi_historic_milestone">Исторический дистанционный столб</string>
+
+	<string name="poi_shoes_children">Детская обувь</string>
+	<string name="poi_shoes_women">Женская обувь</string>
+	<string name="poi_shoes_sport">Спортивная обувь</string>
+	<string name="poi_shoes_men">Мужская обувь</string>
+	<string name="poi_shoes_orthopedic">Ортопедическая обувь</string>
+
+	<string name="poi_historic_manor">Историческое поместье</string>
+
+	<string name="poi_castle_type_stately">Тип замка: величественный</string>
+	<string name="poi_castle_type_defensive">Тип замка: оборонительный</string>
+	<string name="poi_castle_type_fortress">Тип замка: крепость</string>
+	<string name="poi_castle_type_palace">Тип замка: дворец</string>
+	<string name="poi_castle_type_kremlin">Тип замка: кремль</string>
+	<string name="poi_castle_type_defensive_stately">Тип замка: защитный, величественный</string>
+	<string name="poi_castle_type_castrum">Тип замка: римский форт</string>
+	<string name="poi_castle_type_shiro">Тип замка: сиро</string>
+
+	<string name="poi_massage_thai">Массаж: тайский</string>
+	<string name="poi_massage_sexual">Массаж: эротический</string>
+	<string name="poi_massage_chinese">Массаж: китайский</string>
+	<string name="poi_massage_yes">Оказываются массажные услуги</string>
+	<string name="poi_massage_therapeutic">Массаж: терапевтический</string>
+
+	<string name="poi_sauna_yes">Оказываются услуги сауны</string>
+	<string name="poi_solarium_yes">Оказываются услуги солярия</string>
+
+	<string name="poi_tents_yes">Установка палаток разрешена</string>
+	<string name="poi_tents_no">Установка палаток запрещена</string>
+	<string name="poi_openfire_yes">Разведение открытого огня разрешено</string>
+	<string name="poi_openfire_no">Разведение открытого огня запрещено</string>
+	<string name="poi_backcountry_yes">Место для лагеря на природе без удобств</string>
+	<string name="poi_backcountry_no">Место для лагеря на природе без удобств: нет</string>
+	<string name="poi_scout_yes">Лагерь скаутов</string>
+	<string name="poi_scout_no">Лагерь скаутов: нет</string>
+	<string name="poi_group_only_yes">Доступно только для групп: да</string>
+	<string name="poi_group_only_no">Доступно только для групп: нет</string>
+	<string name="poi_washing_machine_yes">Стиральная машина: есть</string>
+	<string name="poi_washing_machine_no">Стиральная машина: нет</string>
+	<string name="poi_shower_yes">Душ: есть</string>
+	<string name="poi_shower_no">Душ: нет</string>
+	<string name="poi_shower_hot">Душ: горячий</string>
+	<string name="poi_shower_outdoor">Душ: снаружи</string>
+	<string name="poi_shower_cold">Душ: холодный</string>
+	<string name="poi_shower_indoor">Душ: внутри</string>
+	<string name="poi_caravans_yes">Автоприцепы разрешены</string>
+	<string name="poi_caravans_no">Автоприцепы запрещены</string>
+	<string name="poi_impromptu_yes">Импровизированный: да</string>
+	<string name="poi_impromptu_no">Импровизированный: нет</string>
+	<string name="poi_sanitary_dump_station_yes">Ассенизационная сливная станция: есть</string>
+	<string name="poi_sanitary_dump_station_no">Ассенизационная сливная станция: нет</string>
+	<string name="poi_sanitary_dump_station_customers">Ассенизационная сливная станция: только для посетителей</string>
+	<string name="poi_power_supply_yes">Источник питания: есть</string>
+	<string name="poi_power_supply_no">Источник питания: нет</string>
+	<string name="poi_power_supply_cee_17_blue">Источник питания (разъём): CEE 17 blue</string>
+	<string name="poi_power_supply_cee_7_4">Источник питания (разъём): CEE 7/4</string>
+	<string name="poi_power_supply_cee_7_5">Источник питания (разъём): CEE 7/5</string>
+	<string name="poi_power_supply_nema_5_15">Источник питания (разъём): NEMA 5-15</string>
+
+	<string name="poi_capacity_tents">Максимальное число палаток</string>
+	<string name="poi_capacity_caravans">Максимальное число автоприцепов</string>
+	<string name="poi_dog_yes">Вход с собаками разрешён</string>
+	<string name="poi_dog_no">Вход с собаками запрещён</string>
+
+	<string name="poi_refugee_yes">Удобства, предназначенные для беженцев</string>
+	<string name="poi_refugee_no">Беженцы: нет</string>
+
+	<string name="poi_social_facility_group_home">Социальное учреждение: групповое проживание</string>
+	<string name="poi_social_facility_assisted_living">Социальное учреждение: дом престарелых</string>
+	<string name="poi_social_facility_outreach">Социальное учреждение: социальные услуги без проживания</string>
+	<string name="poi_social_facility_food_bank">Социальное учреждение: раздача еды</string>
+	<string name="poi_social_facility_shelter">Социальное учреждение: временное укрытие</string>
+	<string name="poi_social_facility_ambulatory_care">Социальное учреждение: амбулаторное лечение</string>
+	<string name="poi_social_facility_workshop">Социальное учреждение: работа</string>
+	<string name="poi_social_facility_day_care">Социальное учреждение: дневной уход</string>
+
+	<string name="poi_social_facility_for_senior">Целевая социальная группа: пожилые</string>
+	<string name="poi_social_facility_for_child">Целевая социальная группа: дети</string>
+	<string name="poi_social_facility_for_orphan">Целевая социальная группа: сироты</string>
+	<string name="poi_social_facility_for_disabled">Целевая социальная группа: инвалиды</string>
+	<string name="poi_social_facility_for_mental_health">Целевая социальная группа: пациенты с расстройствами психики</string>
+	<string name="poi_social_facility_for_juvenile">Целевая социальная группа: подростки</string>
+	<string name="poi_social_facility_for_homeless">Целевая социальная группа: бездомные</string>
+	<string name="poi_social_facility_for_migrant">Целевая социальная группа: мигранты</string>
+	<string name="poi_social_facility_for_underprivileged">Целевая социальная группа: бедняки</string>
+	<string name="poi_social_facility_for_drug_addicted">Целевая социальная группа: наркоманы</string>
+	<string name="poi_social_facility_for_unemployed">Целевая социальная группа: безработные</string>
+	<string name="poi_social_facility_for_diseased">Целевая социальная группа: больные</string>
+	<string name="poi_social_facility_for_child_juvenile">Целевая социальная группа: дети и подростки</string>
+
+	<string name="poi_theatre_genre_philharmonic">Филармония</string>
+	<string name="poi_theatre_genre_musical">Жанр: музыкальный</string>
+	<string name="poi_theatre_genre_drama">Жанр: драматический</string>
+	<string name="poi_theatre_genre_opera">Жанр: оперный</string>
+	<string name="poi_theatre_genre_cabaret">Жанр: кабаре</string>
+	<string name="poi_theatre_genre_puppet">Жанр: кукольный театр</string>
+	<string name="poi_theatre_genre_comedy">Жанр: комедийный</string>
+	<string name="poi_theatre_genre_chamber_music">Жанр: камерная музыка</string>
+	<string name="poi_theatre_genre_marionette">Жанр: марионетки</string>
+	<string name="poi_theatre_genre_ballet">Жанр: балет</string>
+	<string name="poi_theatre_genre_shadow_play">Жанр: театр теней</string>
+
+	<string name="poi_bandstand">Отдельностоящая сцена</string>
+	<string name="poi_kiln">Печь для обжига</string>
+	<string name="poi_product_brick">Производимый продукт: кирпич</string>
+	<string name="poi_product_quicklime">Производимый продукт: негашеная известь</string>
+	<string name="poi_product_leather">Производимый продукт: кожа</string>
+	<string name="poi_product_lime">Производимый продукт: известь</string>
+	<string name="poi_product_beer">Производимый продукт: пиво</string>
+	<string name="poi_product_charcoal">Производимый продукт: древесный уголь</string>
+	<string name="poi_product_meat">Производимый продукт: мясо</string>
+
+	<string name="poi_wheelchair_description">Описание для людей на инвалидных колясках</string>
+	<string name="poi_blind_description">Описание для слепых</string>
+	<string name="poi_deaf_description">Описание для глухих</string>
+
+	<string name="poi_highway_steps">Лестница</string>
+	<string name="poi_handrail_yes">Поручень: есть</string>
+	<string name="poi_handrail_no">Поручень: нет</string>
+	<string name="poi_ramp_yes">Скат: есть</string>
+	<string name="poi_ramp_no">Скат: нет</string>
+	<string name="poi_ramp_wheelchair_yes">Скат для инвалидных колясок: есть</string>
+	<string name="poi_ramp_wheelchair_no">Скат для инвалидных колясок: нет</string>
+	<string name="poi_ramp_stroller_yes">Скат (двойной): есть</string>
+	<string name="poi_ramp_stroller_no">Скат (двойной): нет</string>
+	<string name="poi_ramp_bicycle_yes">Скат для велосипедов: есть</string>
+	<string name="poi_ramp_bicycle_no">Скат для велосипедов: нет</string>
+	<string name="poi_ramp_luggage_yes">Скат для багажа: есть</string>
+	<string name="poi_ramp_luggage_no">Скат для багажа: нет</string>
+	<string name="poi_step_count">Количество ступеней</string>
+	<string name="poi_step_condition_even">Состояние ступеней: хорошее</string>
+	<string name="poi_step_condition_uneven">Состояние ступеней: среднее</string>
+	<string name="poi_step_condition_rough">Состояние ступеней: плохое</string>
+
+	<string name="poi_cairn">Пирамида из камней</string>
+
+	<string name="poi_memorial_fassade_decoration">Фасадная декорация</string>
+	<string name="poi_defibrillator">Дефибриллятор</string>
+	<string name="poi_defibrillator_yes">Дефибриллятор: есть</string>
+
+	<string name="poi_tomb_war_grave">Тип: братская могила</string>
+	<string name="poi_tomb_tumulus">Тип: тумулус</string>
+	<string name="poi_tomb_rock_cut">Тип: вырезанная в камне</string>
+	<string name="poi_tomb_hypogeum">Тип: гипогей</string>
+	<string name="poi_tomb_vault">Тип: усыпальница</string>
+	<string name="poi_tomb_columbarium">Тип: колумбарий</string>
+	<string name="poi_tomb_mausoleum">Тип: мавзолей</string>
+	<string name="poi_tomb_sarcophagus">Тип: саркофаг</string>
+	<string name="poi_tomb_crypt">Тип: крипта</string>
+	<string name="poi_tomb_pyramid">Тип: пирамида</string>
+
+	<string name="poi_historic_civilization_ancient_roman">Цивилизация: древнеримская (753 г. до н.э. – 284 г. н.э.)</string>
+	<string name="poi_historic_civilization_nuragic">Цивилизация: нурагическая (18 в. до н.э. – 2 в. н.э.)</string>
+	<string name="poi_historic_civilization_etruscan">Цивилизация: этрусская</string>
+	<string name="poi_historic_civilization_prehistoric">Цивилизация: доисторическая</string>
+	<string name="poi_historic_civilization_ancient_greek">Цивилизация: древнегреческая</string>
+	<string name="poi_historic_civilization_roman">Цивилизация: римская</string>
+	<string name="poi_historic_civilization_byzantine">Цивилизация: византийская (285 н.э. – 1453 г. н.э.)</string>
+	<string name="poi_historic_civilization_imperial_chinese">Цивилизация: китайская (221 г. до н.э. – 1911 г. н.э.)</string>
+	<string name="poi_historic_civilization_ancient_egyptian">Цивилизация: древнеегипетская (до 332 г. до н.э.)</string>
+	<string name="poi_historic_civilization_celtic">Цивилизация: кельтская</string>
+	<string name="poi_historic_civilization_western_roman">Цивилизация: западная римская (285 н.э. - 476 г. н.э.)</string>
+	<string name="poi_historic_civilization_mycenaean">Цивилизация: микенская</string>
+	<string name="poi_historic_civilization_dacian">Цивилизация: гето-дакская</string>
+	<string name="poi_historic_civilization_hernici">Цивилизация: герники</string>
+	<string name="poi_historic_civilization_greek_egyptian">Цивилизация: греко-египетская (332 г. до н.э. – 30 г. до н.э.)</string>
+	<string name="poi_historic_civilization_roman_and_byzantine_egyptian">Цивилизация: римская и византийско-египетская</string>
+	<string name="poi_historic_civilization_helladic">Цивилизация: элладская</string>
+	<string name="poi_historic_civilization_cycladic">Цивилизация: кикладская</string>
+	<string name="poi_historic_civilization_minoan">Цивилизация: минойская</string>
+	<string name="poi_historic_civilization_tiahuanacota">Цивилизация: тиуанако</string>
+
+	<string name="poi_animal_training">Дрессировка животных</string>
+	<string name="poi_animal_training_dog">Дрессировка собак</string>
+	<string name="poi_animal_training_horse">Дрессировка лошадей</string>
+	<string name="poi_horse_yes">Доступ для лошадей разрешён</string>
+	<string name="poi_horse_no">Доступ для лошадей запрещён</string>
+	<string name="poi_animal_yes">Доступ для животных разрешён</string>
+	<string name="poi_animal_no">Доступ для животных запрещён</string>
+
+	<string name="poi_historic_period_nuragic">Исторический период: нурагический</string>
+	<string name="poi_historic_period_stone_bronze_undetermined">Исторический период: каменный / бронзовый века (не определено)</string>
+	<string name="poi_historic_period_bronze_age">Исторический период: бронзовый век</string>
+	<string name="poi_historic_period_principate">Исторический период: принципат (27 г. до н.э. – 284 г. н.э.)</string>
+	<string name="poi_historic_period_classical_greece">Исторический период: классическая Греция (5-й – 4-й в. до н.э.)</string>
+	<string name="poi_historic_period_archaic_greece">Исторический период: архаическая Греция</string>
+	<string name="poi_historic_period_iron_age">Исторический период: железный век</string>
+	<string name="poi_historic_period_roman_republic">Исторический период: Римская республика (508 г. до н.э. – 27 г. до н.э.)</string>
+	<string name="poi_historic_period_hellenistic_greece">Исторический период: эллинистическая Греция</string>
+	<string name="poi_historic_period_new_kingdom">Исторический период: новое царство(1550 – 1069 г. до н.э.)</string>
+	<string name="poi_historic_period_middle_kingdom">Исторический период: среднее царство(2055 – 1650 г. до н.э.)</string>
+	<string name="poi_historic_period_predynastic_egypt">Исторический период: додинастический Египет</string>
+	<string name="poi_historic_period_early_dynastic_period">Исторический период: раннее царство (3100 – 2686 г. до н.э.)</string>
+	<string name="poi_historic_period_old_kingdom">Исторический период: древнее царство (2686 – 2181 г. до н.э.)</string>
+	<string name="poi_historic_period_first_intermediate_period">Исторический период: первый переходный период (2181 – 2055 г. до н.э.)</string>
+	<string name="poi_historic_period_second_intermediate_period">Исторический период: второй переходный период (1650 – 1550 г. до н.э.)</string>
+	<string name="poi_historic_period_third_intermediate_period">Исторический период: третий переходный период (1069 – 664 г. до н.э.) </string>
+	<string name="poi_historic_period_first_persian_period">Исторический период: первый персидский период</string>
+	<string name="poi_historic_period_late_period">Исторический период: позднее царство (664 – 332 г. до н.э.)</string>
+	<string name="poi_historic_period_second_persian_period">Исторический период: второй персидский период</string>
+	<string name="poi_historic_period_alexander_the_great">Исторический период: Александр Великий</string>
+	<string name="poi_historic_period_ptolemaic_egypt">Исторический период: эллинистический Египет(305 г. до н.э. – 30 г. до н.э.)</string>
+	<string name="poi_historic_period_christian_egypt">Исторический период: христианский Египет</string>
+	<string name="poi_historic_period_byzantine_egypt">Исторический период: византийский Египет(30 г. до н.э. – 641 г. н.э.)</string>
+	<string name="poi_historic_period_persian_occupation">Исторический период: персидская оккупация</string>
+	<string name="poi_historic_period_greek_dark_ages">Исторический период: тёмные века (Греция) (1100 – 800 г. до н.э.)</string>
+	<string name="poi_historic_period_roman_greece">Исторический период: Римская Греция (146 г. до н.э. – 330 г. н.э.)</string>
+	<string name="poi_historic_period_roman_kingdom">Исторический период: Римское царство (753 – 509 г. до н.э.)</string>
+	<string name="poi_historic_period_villager">Исторический период: земледельческий (период I и II, 1580 г. до н.э. – 133 г. н.э.)</string>
+	<string name="poi_historic_period_urban">Исторический период: городской (период III, 133 – 374 г. н.э.)</string>
+	<string name="poi_historic_period_classical">Исторический период: классический (период IV, 374 – 900 г. н.э.)</string>
+	<string name="poi_historic_period_imperial">Исторический период: имперский (период V, 900 – 1200 г. н.э.)</string>
 
 </resources>

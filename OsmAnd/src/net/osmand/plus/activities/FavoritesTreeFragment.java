@@ -1,5 +1,37 @@
 package net.osmand.plus.activities;
 
+import gnu.trove.list.array.TIntArrayList;
+
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import net.osmand.access.AccessibleToast;
+import net.osmand.data.FavouritePoint;
+import net.osmand.data.LatLon;
+import net.osmand.data.PointDescription;
+import net.osmand.plus.FavouritesDbHelper;
+import net.osmand.plus.FavouritesDbHelper.FavoriteGroup;
+import net.osmand.plus.GPXUtilities;
+import net.osmand.plus.GPXUtilities.GPXFile;
+import net.osmand.plus.IconsCache;
+import net.osmand.plus.OsmAndFormatter;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.OsmandSettings;
+import net.osmand.plus.R;
+import net.osmand.plus.TargetPointsHelper;
+import net.osmand.plus.base.FavoriteImageDrawable;
+import net.osmand.plus.helpers.AndroidUiHelper;
+import net.osmand.plus.helpers.ColorDialogs;
+import net.osmand.plus.myplaces.FavoritesActivity;
+import net.osmand.util.Algorithms;
+import net.osmand.util.MapUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -17,7 +49,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.view.ActionMode;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,39 +67,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import net.osmand.access.AccessibleToast;
-import net.osmand.data.FavouritePoint;
-import net.osmand.data.LatLon;
-import net.osmand.data.PointDescription;
-import net.osmand.plus.FavouritesDbHelper;
-import net.osmand.plus.FavouritesDbHelper.FavoriteGroup;
-import net.osmand.plus.GPXUtilities;
-import net.osmand.plus.GPXUtilities.GPXFile;
-import net.osmand.plus.IconsCache;
-import net.osmand.plus.OsmAndFormatter;
-import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandSettings;
-import net.osmand.plus.R;
-import net.osmand.plus.TargetPointsHelper;
-import net.osmand.plus.base.FavoriteImageDrawable;
-import net.osmand.plus.dialogs.DirectionsDialogs;
-import net.osmand.plus.helpers.AndroidUiHelper;
-import net.osmand.plus.helpers.ColorDialogs;
-import net.osmand.plus.myplaces.FavoritesActivity;
-import net.osmand.util.MapUtils;
-
-import java.io.File;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import gnu.trove.list.array.TIntArrayList;
 
 
 public class FavoritesTreeFragment extends OsmandExpandableListFragment {
@@ -182,8 +180,8 @@ public class FavoritesTreeFragment extends OsmandExpandableListFragment {
 			}
 			updateSelectionMode(actionMode);
 		} else {
-			final FavouritePoint point = (FavouritePoint) favouritesAdapter.getChild(groupPosition, childPosition);
-			showItemPopupOptionsMenu(point, v);
+			final FavouritePoint point = favouritesAdapter.getChild(groupPosition, childPosition);
+			showOnMap(point);
 		}
 		return true;
 	}
@@ -516,16 +514,19 @@ public class FavoritesTreeFragment extends OsmandExpandableListFragment {
 			public void onClick(DialogInterface dialog, int which) {
 				int clr = list.get(colorSpinner.getSelectedItemPosition());
 				String name = nameEditText.getText().toString();
-				if (clr != intColor || group.visible != checkBox.isChecked()) {
+				boolean nameChanged = !Algorithms.objectEquals(group.name, name);
+				if (clr != intColor || group.visible != checkBox.isChecked() || nameChanged) {
 					getMyApplication().getFavorites().editFavouriteGroup(group, name, clr,
 							checkBox.isChecked());
+					if(nameChanged) {
+						favouritesAdapter.synchronizeGroups();
+					}
 					favouritesAdapter.notifyDataSetInvalidated();
 				}
 
 			}
 		});
 		builder.show();
-		
 	}
 
 	private void deleteFavoritesAction() {
@@ -802,7 +803,7 @@ public class FavoritesTreeFragment extends OsmandExpandableListFragment {
 				options.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						showItemPopupOptionsMenu(model, v);
+						showOnMap(model);
 					}
 				});
 			}
@@ -908,40 +909,15 @@ public class FavoritesTreeFragment extends OsmandExpandableListFragment {
 		}
 	}
 
-	public void showItemPopupOptionsMenu(final FavouritePoint point, final View view) {
+	public void showOnMap(final FavouritePoint point) {
 		final OsmandSettings settings = getMyApplication().getSettings();
 		LatLon location = new LatLon(point.getLatitude(), point.getLongitude());
-		final PopupMenu optionsMenu = new PopupMenu(getActivity(), view);
-		DirectionsDialogs.createDirectionActionsPopUpMenu(optionsMenu, location, point,
-				new PointDescription(PointDescription.POINT_TYPE_FAVORITE, point.getName()),
+
+		settings.setMapLocationToShow(location.getLatitude(), location.getLongitude(),
 				settings.getLastKnownMapZoom(),
-				getActivity(), true, false);
-
-		MenuItem item = optionsMenu.getMenu().add(R.string.favourites_context_menu_edit)
-				.setIcon(getMyApplication().getIconsCache().getContentIcon(R.drawable.ic_action_edit_dark));
-		item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				editPoint(getActivity(), point, new Runnable() {
-					public void run() {
-						favouritesAdapter.synchronizeGroups();
-					}
-				});
-				return true;
-			}
-		});
-
-		item = optionsMenu.getMenu().add(R.string.favourites_context_menu_delete)
-				.setIcon(getMyApplication().getIconsCache().getContentIcon(R.drawable.ic_action_delete_dark));
-		item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				deletePoint(point);
-
-				return true;
-			}
-		});
-
-		optionsMenu.show();
+				new PointDescription(PointDescription.POINT_TYPE_FAVORITE, point.getName()),
+				true,
+				point); //$NON-NLS-1$
+		MapActivity.launchMapActivityMoveToTop(getActivity());
 	}
 }

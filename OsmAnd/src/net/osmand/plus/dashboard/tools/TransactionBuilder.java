@@ -49,7 +49,6 @@ public final class TransactionBuilder {
 	}
 
 	public FragmentTransaction getFragmentTransaction() {
-		Log.v(TAG, "getFragmentTransaction(" + ")");
 		FragmentTransaction fragmentTransaction = manager.beginTransaction();
 		Collections.sort(fragments);
 		for (DashFragmentData dashFragmentData : fragments) {

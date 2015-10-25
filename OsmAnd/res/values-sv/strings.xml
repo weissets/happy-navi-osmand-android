@@ -332,7 +332,7 @@
 <string name="index_name_europe">Europa</string>
 <string name="index_name_france">Europa - Frankrike</string>
 <string name="index_name_germany">Europa - Tyskland</string>
-<string name="index_name_russia">Europa/Asien - Ryssland</string>
+<string name="index_name_russia">Ryssland</string>
 <string name="index_name_africa">Afrika</string>
 <string name="index_name_asia">Asien</string>
 <string name="index_name_oceania">Oceanien</string>
@@ -1595,7 +1595,7 @@
     <string name="speak_poi">Närbelägna intresssepunkter</string>
     <string name="index_tours">Rundturer</string>
     <string name="shared_string_all">Alla</string>
-    <string name="record_plugin_description">"Denna modul aktiverar funktionen att antingen spela in och spara dina spår genom att du trycker på widgeten GPX-loggning på kartskärmen eller alla dina rutter sparas automatiskt i en GPX-fil.
+    <string name="record_plugin_description">"Denna modul aktiverar funktionen att antingen spela in och spara dina spår genom att du trycker på widgeten GPX-loggning på kartskärmen eller att alla dina rutter sparas automatiskt i en GPX-fil.
 \n\nInspelade spår kan delas ut till vänner eller användas som bidrag till OSM. Idrottsmän kan använda inspelade spår för att följa sin träning. Viss grundläggande spåranalys kan göras direkt i OsmAnd, såsom varvtider, genomsnittshastighet etc och spår kan givetvis också analyseras i efterhand i speciella analysverktyg från tredje part. "</string>
     <string name="record_plugin_name">Inspelning av resor</string>
     <string name="int_hour">h</string>
@@ -2028,4 +2028,29 @@
     <string name="m_s">m/s</string>
     
     <string name="srtm_plugin_disabled">Konturlinjer inaktiverade</string>
-    </resources>
+    <string name="regions">Regioner</string>
+    <string name="additional_maps">Fler kartor</string>
+    <string name="region_maps">Regionskartor</string>
+    <string name="world_maps">Världskartor</string>
+    <string name="world_regions">Världsregioner</string>
+    <string name="downloads">Nedladdningar</string>
+<string name="buy">KÖP</string>
+    <string name="activate_seamarks_plugin">Aktivera modulen Sjömärken</string>
+    <string name="activate_srtm_plugin">Aktivera modulen SRTM</string>
+    <string name="later">Senare</string>
+    <string name="get_full_version">Köp fullversionen</string>
+    <string name="favorite_category_dublicate_message">Det angivna kategorinamnet finns redan. Ange ett annat namn.</string>
+    <string name="favorite_category_name">Kategorinamn</string>
+    <string name="favorite_category_add_new_title">Lägg till en ny kategori</string>
+    <string name="file_size_in_mb">%.1f MB</string>
+<string name="confirm_download_roadmaps">Är du säker på att du vill hämta vägkartan trots att du redan har en fullständig karta?</string>
+    <string name="value_downloaded_from_max">%1$.1f av %2$.1f MB</string>
+    <string name="update_all">Uppdatera alla (%1$s MB)</string>
+<string name="free_downloads_used">Gratis nedladdningar hämtade</string>
+    <string name="free_downloads_used_description">Du kan ange hur många gratis nedladdningar som du har gjort</string>
+<string name="downloading_number_of_files">Hämtar - %1$d fil(er)</string>
+    <string name="share_clipboard">Urklipp</string>
+    <string name="share_geo">geo:</string>
+    <string name="share_qr_code">QR-kod</string>
+    <string name="application_dir_description">Välj var du vill spara kartfilerna.</string>
+</resources>

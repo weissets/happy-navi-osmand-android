@@ -179,10 +179,10 @@
 <string name="poi_context_menu_showdescription">Mostra la descripció del PDI</string>
 <string name="index_name_france">Europa - França</string>
 <string name="index_name_germany">Europa - Alemanya</string>
-<string name="index_name_russia">Europa/Àsia - Rússia</string>
+<string name="index_name_russia">Rússia</string>
 <string name="index_name_africa">Àfrica</string>
 <string name="index_name_asia">Àsia</string>
-<string name="index_name_oceania">Oceania</string>
+<string name="index_name_oceania">Austràlia i Oceania</string>
 <string name="index_name_voice">Indicadors de veu (enregistrats, funcionalitats limitades)</string>
 <string name="amenity_type_osmwiki">Viquipèdia (fora de línia)</string>
 <string name="routing_settings">Navegació</string>
@@ -1371,7 +1371,7 @@
 	<string name="routing_attr_avoid_motorway_description">Evita autopistes</string>
 	<string name="routing_attr_weight_name">Límit de pes</string>
 	<string name="routing_attr_weight_description">Especifiqueu el pes del vehicle que cal permetre a les rutes</string>
-    <string name="background_service_int_descr">Trieu cada quan voleu que s\'actualitzi la posició en el mode en segon pla</string>
+    <string name="background_service_int_descr">Trieu l\'interval d\'activació del servei executat en segon pla</string>
 	<string name="av_photo_play_sound_descr">Trieu si voleu reproduir un so en fer fotos</string>
 <string name="av_camera_focus_continuous">La càmera intenta enfocar de manera contínua</string>
 	<string name="av_camera_focus_macro">Mode macro (per a enfocar de prop)</string>
@@ -2110,7 +2110,7 @@ Per retornar a l\'estil habitual dels mapes d\'OsmAnd, només cal desactivar aqu
 	<string name="description">Descripció</string>
 	<string name="add_opening_hours">Afegeix l\'horari de servei</string>
 	<string name="poi_dialog_poi_type">Tipus de PDI</string>
-	<string name="please_specify_poi_type">Especifiqueu el tipus de PDI</string>
+	<string name="please_specify_poi_type">Especifiqueu el tipus de PDI.</string>
 <string name="tag_poi_amenity">instal·lació comunitària</string>
 	<string name="number_of_rows_in_dash">Nombre de files al tauler %1$s</string>
 	<string name="poi_action_delete">Suprimeix</string>
@@ -2156,4 +2156,25 @@ Per retornar a l\'estil habitual dels mapes d\'OsmAnd, només cal desactivar aqu
     <string name="show_free_version_banner">Mostra bàner de la versió gratuïta</string>
     <string name="show_free_version_banner_description">Encara que tinguéssiu una versió de pagament també podríeu veure el bàner de la versió gratuïta</string>
 <string name="downloading_number_of_files">Baixada - %1$d fitxer</string>
-    </resources>
+    <string name="hillshade_layer_disabled">Capa d\'ombrejat desactivada</string>
+    <string name="buy">Compra</string>
+    <string name="regions">Regions</string>
+    <string name="additional_maps">Mapes addicionals</string>
+    <string name="region_maps">Mapes de regió</string>
+    <string name="world_maps">Mapes del món</string>
+    <string name="world_regions">Regions del món</string>
+    <string name="later">Mes tard</string>
+    <string name="get_full_version">Obteniu la versió completa</string>
+    <string name="downloads">Baixades</string>
+<string name="activate_seamarks_plugin">Activeu el connector de cartes marines</string>
+    <string name="activate_srtm_plugin">Activeu el connector de corbes de nivell</string>
+    <string name="favorite_category_dublicate_message">El nom de categoria especificat ja existeix. Definiu un altre nom.</string>
+    <string name="favorite_category_name">Nom de categoria</string>
+    <string name="favorite_category_add_new_title">Afegeix una nova categoria</string>
+    <string name="confirm_download_roadmaps">N\'esteu segur de baixar un mapa de carreteres quan teniu disponible un mapa complet?</string>
+    <string name="value_downloaded_from_max">%1$.1f de %2$.1f MB</string>
+    <string name="file_size_in_mb">%.1f MB</string>
+<string name="update_all">Actualitzeu tot (%1$s MB)</string>
+    <string name="free_downloads_used">Baixades gratuïtes realitzades</string>
+    <string name="free_downloads_used_description">Podeu veure quantes baixades gratuïtes heu fet</string>
+</resources>

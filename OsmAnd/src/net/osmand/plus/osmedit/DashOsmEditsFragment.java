@@ -18,6 +18,8 @@ import net.osmand.plus.ProgressImplementation;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.dashboard.DashBaseFragment;
+import net.osmand.plus.dashboard.DashboardOnMap;
+import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.osmedit.dialogs.SendPoiDialogFragment;
 
 import java.util.ArrayList;
@@ -31,6 +33,12 @@ import java.util.Map;
 public class DashOsmEditsFragment extends DashBaseFragment
 		implements SendPoiDialogFragment.ProgressDialogPoiUploader {
 	public static final String TAG = "DASH_OSM_EDITS_FRAGMENT";
+	public static final int TITLE_ID = R.string.osm_settings;
+
+	private static final String ROW_NUMBER_TAG = TAG + "_row_number";
+	static final DashFragmentData FRAGMENT_DATA =
+			new DashFragmentData(TAG, DashOsmEditsFragment.class, TITLE_ID,
+					new DashboardOnMap.DefaultShouldShow(), 130, ROW_NUMBER_TAG);
 
 	OsmEditingPlugin plugin;
 
@@ -40,7 +48,7 @@ public class DashOsmEditsFragment extends DashBaseFragment
 
 		View view = getActivity().getLayoutInflater().inflate(R.layout.dash_common_fragment, container, false);
 		TextView header = ((TextView) view.findViewById(R.id.fav_text));
-		header.setText(R.string.osm_settings);
+		header.setText(TITLE_ID);
 		Button manage = ((Button) view.findViewById(R.id.show_all));
 		manage.setText(R.string.shared_string_manage);
 		(view.findViewById(R.id.show_all)).setOnClickListener(new View.OnClickListener() {
@@ -77,6 +85,8 @@ public class DashOsmEditsFragment extends DashBaseFragment
 			return;
 		} else {
 			mainView.setVisibility(View.VISIBLE);
+			DashboardOnMap.handleNumberOfRows(dataPoints,
+					getMyApplication().getSettings(), ROW_NUMBER_TAG);
 		}
 
 		LinearLayout osmLayout = (LinearLayout) mainView.findViewById(R.id.items);

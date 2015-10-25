@@ -23,6 +23,7 @@ import net.osmand.plus.activities.SettingsActivity;
 import net.osmand.plus.api.SQLiteAPI;
 import net.osmand.plus.api.SQLiteAPIImpl;
 import net.osmand.plus.dashboard.DashRateUsFragment;
+import net.osmand.plus.download.DownloadIndexesThread;
 import net.osmand.plus.helpers.AvoidSpecificRoads;
 import net.osmand.plus.helpers.WaypointHelper;
 import net.osmand.plus.monitoring.LiveMonitoringHelper;
@@ -93,6 +94,7 @@ public class OsmandApplication extends Application {
 	LiveMonitoringHelper liveMonitoringHelper;
 	TargetPointsHelper targetPointsHelper;
 	WaypointHelper waypointHelper;
+	DownloadIndexesThread downloadIndexesThread;
 	AvoidSpecificRoads avoidSpecificRoads;
 	BRouterServiceConnection bRouterServiceConnection;
 	OsmandRegions regions;
@@ -137,10 +139,6 @@ public class OsmandApplication extends Application {
 		timeToStart = System.currentTimeMillis();
 		OsmandPlugin.initPlugins(this);
 		System.out.println("Time to init plugins " + (System.currentTimeMillis() - timeToStart) + " ms. Should be less < 800 ms");
-
-		osmandSettings.NUMBER_OF_APPLICATION_STARTS.set(
-                osmandSettings.NUMBER_OF_APPLICATION_STARTS.get() + 1);
-
 	}
 	
 	public AppInitializer getAppInitializer() {
@@ -253,6 +251,13 @@ public class OsmandApplication extends Application {
 
 	public DayNightHelper getDaynightHelper() {
 		return daynightHelper;
+	}
+	
+	public synchronized DownloadIndexesThread getDownloadThread() {
+		if(downloadIndexesThread == null) {
+			downloadIndexesThread = new DownloadIndexesThread(this);
+		}
+		return downloadIndexesThread;
 	}
 
 	@Override

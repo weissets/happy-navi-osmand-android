@@ -77,27 +77,25 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	private static final DashFragmentData.ShouldShowFunction firstTimeShouldShow = new FirstTimeShouldShow();
 	private static final DashFragmentData.ShouldShowFunction chooseAppDirShouldShow = new ChooseAppDirShouldShow();
 
-	private static final DashFragmentData[] fragmentsData = new DashFragmentData[]{
+	private final DashFragmentData[] fragmentsData = new DashFragmentData[]{
 			new DashFragmentData(DashRateUsFragment.TAG, DashRateUsFragment.class,
-					-1, rateUsShouldShow, true, 0),
+					-1, rateUsShouldShow, 0, null),
 			new DashFragmentData(DashFirstTimeFragment.TAG, DashFirstTimeFragment.class,
-					-1, firstTimeShouldShow, true, 1),
+					-1, firstTimeShouldShow, 10, null),
 			new DashFragmentData(DashChooseAppDirFragment.TAG, DashChooseAppDirFragment.class,
-					-1, chooseAppDirShouldShow, true, 2),
+					-1, chooseAppDirShouldShow, 20, null),
 			new DashFragmentData(DashErrorFragment.TAG, DashErrorFragment.class,
-					-1, errorShouldShow, true, 3),
+					-1, errorShouldShow, 30, null),
 			new DashFragmentData(DashNavigationFragment.TAG, DashNavigationFragment.class,
-					R.string.tip_navigation, 4),
+					DashNavigationFragment.TITLE_ID, defaultShouldShow, 40, null),
 			new DashFragmentData(DashWaypointsFragment.TAG, DashWaypointsFragment.class,
-					R.string.waypoints, 6),
+					DashWaypointsFragment.TITLE_ID, defaultShouldShow, 60, null),
 			new DashFragmentData(DashSearchFragment.TAG, DashSearchFragment.class,
-					R.string.shared_string_search, 7),
-			new DashFragmentData(DashRecentsFragment.TAG, DashRecentsFragment.class,
-					R.string.recent_places, 8),
-			new DashFragmentData(DashFavoritesFragment.TAG, DashFavoritesFragment.class,
-					R.string.favourites, defaultShouldShow, false, 9, DashFavoritesFragment.ROW_NUMBER_TAG),
+					DashSearchFragment.TITLE_ID, defaultShouldShow, 70, null),
+			DashRecentsFragment.FRAGMENT_DATA,
+			DashFavoritesFragment.FRAGMENT_DATA,
 			new DashFragmentData(DashPluginsFragment.TAG, DashPluginsFragment.class,
-					R.string.plugin_settings, 14)
+					DashPluginsFragment.TITLE_ID, defaultShouldShow, 140, null)
 	};
 
 	private MapActivity mapActivity;
@@ -579,7 +577,9 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 				hideDashboard(false);
 				final Intent intent = new Intent(mapActivity, mapActivity.getMyApplication().getAppCustomization()
 						.getDownloadIndexActivity());
-				intent.putExtra(DownloadActivity.FILTER_KEY, f);
+				if (f != null && !f.equals("basemap")) {
+					intent.putExtra(DownloadActivity.FILTER_KEY, f);
+				}
 				intent.putExtra(DownloadActivity.TAB_TO_OPEN, DownloadActivity.DOWNLOAD_TAB);
 				mapActivity.startActivity(intent);
 			}
@@ -919,6 +919,18 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 
 	View getParentView() {
 		return dashboardView;
+	}
+
+	public static <T> List<T> handleNumberOfRows(List<T> list, OsmandSettings settings,
+												 String rowNumberTag) {
+		int numberOfRows = settings.registerIntPreference(rowNumberTag, 3)
+				.makeGlobal().get();
+		if (list.size() > numberOfRows) {
+			while (list.size() != numberOfRows) {
+				list.remove(numberOfRows);
+			}
+		}
+		return list;
 	}
 
 	public static class SettingsShouldShow implements DashFragmentData.ShouldShowFunction {

@@ -2,24 +2,25 @@ package net.osmand.plus.base;
 
 import net.osmand.IProgress;
 import net.osmand.plus.OsmAndConstants;
+import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
-public abstract class BasicProgressAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> implements IProgress {
+public abstract class BasicProgressAsyncTask<Tag, Params, Progress, Result> extends AsyncTask<Params, Progress, Result> implements IProgress {
 	protected String taskName;
 	protected int progress;
 	protected int deltaProgress;
 	protected int work;
 	protected String message = ""; //$NON-NLS-1$
-	protected Context ctx;
+	protected OsmandApplication ctx;
 	protected boolean interrupted = false;
+	protected Tag tag;
 	private Handler uiHandler;
 
-	public BasicProgressAsyncTask(Context ctx) {
-		this.ctx = ctx;
+	public BasicProgressAsyncTask(OsmandApplication app) {
+		this.ctx = app;
 		this.work = -1;
 	}
 
@@ -45,7 +46,8 @@ public abstract class BasicProgressAsyncTask<Params, Progress, Result> extends A
 		updProgress(false);
 	}
 
-	protected abstract void updateProgress(boolean updateOnlyProgress);
+	protected abstract void updateProgress(boolean updateOnlyProgress, 
+			Tag tag);
 
 	@Override
 	public void startWork(int work) {
@@ -75,7 +77,7 @@ public abstract class BasicProgressAsyncTask<Params, Progress, Result> extends A
 			Message msg = Message.obtain(uiHandler, new Runnable() {
 				@Override
 				public void run() {
-					updateProgress(updateOnlyProgress);
+					updateProgress(updateOnlyProgress, tag);
 				}
 			});
 			msg.what = OsmAndConstants.UI_HANDLER_PROGRESS + 2;
@@ -122,4 +124,7 @@ public abstract class BasicProgressAsyncTask<Params, Progress, Result> extends A
 		return interrupted;
 	}
 
+	protected void setTag(Tag tag) {
+		this.tag = tag;
+	}
 }

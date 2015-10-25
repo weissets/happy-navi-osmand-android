@@ -233,8 +233,7 @@ public class MapControlsLayer extends OsmandMapLayer {
 
 
 		});
-		mapRouteInfoControlDialog = new MapRouteInfoControl(mapActivity.getMapLayers().getContextMenuLayer(),
-				mapActivity, this);
+		mapRouteInfoControlDialog = new MapRouteInfoControl(mapActivity, this);
 
 		View waypointsButton = mapActivity.findViewById(R.id.map_waypoints_route_button);
 		controls.add(createHudButton((ImageView) waypointsButton, R.drawable.map_action_waypoints).setBg(
@@ -368,6 +367,10 @@ public class MapControlsLayer extends OsmandMapLayer {
 		} else {
 			startNavigation();
 		}
+	}
+
+	public void showRouteInfoControlDialog() {
+		mapRouteInfoControlDialog.showHideDialog();
 	}
 
 	public void showDialog() {

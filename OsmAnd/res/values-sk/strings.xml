@@ -242,10 +242,10 @@
   <string name="index_name_france">Európa - Francúzsko</string>
   <string name="index_name_germany">Európa - Nemecko</string>
   <string name="index_name_europe">Európa</string>
-  <string name="index_name_russia">Európa/Ázia - Rusko</string>
+  <string name="index_name_russia">Rusko</string>
   <string name="index_name_africa">Afrika</string>
   <string name="index_name_asia">Ázia</string>
-  <string name="index_name_oceania">Oceánia</string>
+  <string name="index_name_oceania">Austrália a Oceánia</string>
   <string name="index_name_other">Celosvetové a tematické mapy</string>
   <string name="index_name_wiki">Celosvetové body z Wikipedie</string>
   <string name="index_name_voice">Hlasové povely (nahrávky, obmedzená funkcionalita)</string>
@@ -2320,4 +2320,32 @@ Afganistan, Albánsko, Alžírsko, Andora, Angola, Anguilla, Antigua a Barbuda, 
     <string name="show_free_version_banner">Zobraziť nápis verzie zdarma</string>
     <string name="show_free_version_banner_description">Aj keď používate platenú verziu, môžete vidieť nápis z verzie zadarmo</string>
 <string name="downloading_number_of_files">Sťahovanie - súbor %1$d</string>
-    </resources>
+    <string name="regions">Oblasti</string>
+    <string name="additional_maps">Doplnkové mapy</string>
+    <string name="region_maps">Mapy oblastí</string>
+    <string name="world_maps">Svetové mapy</string>
+    <string name="world_regions">Oblasti sveta</string>
+    <string name="hillshade_layer_disabled">Tieňovaný reliéf vypnutý</string>
+    <string name="buy">KÚPIŤ</string>
+    <string name="activate_seamarks_plugin">Prosím zapnite modul Námorné značky</string>
+    <string name="activate_srtm_plugin">Prosím zapnite modul Vrstevnice</string>
+    <string name="later">Neskôr</string>
+    <string name="get_full_version">Získať plnú verziu</string>
+    <string name="downloads">Sťahovania</string>
+<string name="favorite_category_dublicate_message">Zadaný názov kategórie už existuje. Prosím zadajte iný názov.</string>
+    <string name="favorite_category_name">Názov kategórie</string>
+    <string name="favorite_category_add_new_title">Pridať novú kategóriu</string>
+    <string name="confirm_download_roadmaps">Naozaj chcete stiahnuť mapu ciest, keď už máte plnú mapu?</string>
+    <string name="value_downloaded_from_max">%1$.1f z %2$.1f MB</string>
+    <string name="file_size_in_mb">%.1f MB</string>
+    <string name="update_all">Aktualizovať všetko (%1$s MB)</string>
+    <string name="free_downloads_used">Počet použitých voľných stiahnutí</string>
+    <string name="free_downloads_used_description">Môžete nastaviť, koľko voľných stiahnutí ste už použili</string>
+<string name="simulate_initial_startup_descr">Vymaže príznak indikujúci prvý štart, ostatné nastavenia ponechá nezmenené</string>
+    <string name="simulate_initial_startup">Simulovať prvé spustenie</string>
+    <string name="share_geo">geo:</string>
+    <string name="share_menu_location">Zdieľať polohu</string>
+    <string name="shared_string_send">Odoslať</string>
+    <string name="hello_blank_fragment">Prázdny fragment</string>
+    <string name="application_dir_description">Zvoľte kam chcete uložiť súbory máp.</string>
+</resources>

@@ -1,11 +1,25 @@
 package net.osmand.plus.activities;
 
-import java.io.File;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
 import net.osmand.IndexConstants;
@@ -13,7 +27,6 @@ import net.osmand.Location;
 import net.osmand.PlatformUtil;
 import net.osmand.access.AccessibleAlertBuilder;
 import net.osmand.access.AccessibleToast;
-import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
 import net.osmand.data.QuadRect;
@@ -32,10 +45,10 @@ import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.TargetPointsHelper;
 import net.osmand.plus.activities.actions.OsmAndDialogs;
-import net.osmand.plus.activities.actions.ShareLocation;
 import net.osmand.plus.activities.search.SearchActivity;
 import net.osmand.plus.dashboard.DashboardOnMap.DashboardType;
 import net.osmand.plus.dialogs.FavoriteDialogs;
+import net.osmand.plus.download.IndexItem;
 import net.osmand.plus.routing.RouteProvider.GPXRouteParamsBuilder;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.views.BaseMapLayer;
@@ -45,24 +58,11 @@ import net.osmand.util.MapUtils;
 
 import org.apache.commons.logging.Log;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MapActivityActions implements DialogProvider {
 	private static final Log LOG = PlatformUtil.getLog(MapActivityActions.class);
@@ -89,22 +89,6 @@ public class MapActivityActions implements DialogProvider {
 		this.mapActivity = mapActivity;
 		settings = mapActivity.getMyApplication().getSettings();
 		routingHelper = mapActivity.getMyApplication().getRoutingHelper();
-	}
-	
-
-	public void addFavouritePoint(final double latitude, final double longitude){
-		String name = mapActivity.getMapLayers().getContextMenuLayer().getSelectedObjectName();
-		enhance(dialogBundle, latitude, longitude, name);
-		mapActivity.showDialog(DIALOG_ADD_FAVORITE);
-	}
-
-	public void editFavoritePoint(final FavouritePoint a) {
-		FavoritesTreeFragment.editPoint(mapActivity.getMapView().getContext(), a, null);
-	}
-
-	public void shareLocation(double latitude, double longitude) {
-		enhance(dialogBundle,latitude,longitude,mapActivity.getMapView().getZoom());
-		new ShareLocation(mapActivity).run();
 	}
 
 	public void showNavigationContextMenuPoint(final double latitude, final double longitude) {
@@ -143,22 +127,42 @@ public class MapActivityActions implements DialogProvider {
 					targets.navigateToPoint(new LatLon(latitude, longitude), true, -1, null);
 					enterRoutePlanningMode(null, null, false);
 				} else if (standardId == R.string.context_menu_item_directions_from) {
-					List<PointDescription> nms = mapActivity.getMapLayers().getContextMenuLayer().getSelectedObjectNames();
-					enterRoutePlanningMode(new LatLon(latitude, longitude), nms.isEmpty() ? null : nms.get(0), false);
+					enterRoutePlanningMode(new LatLon(latitude, longitude),
+							mapActivity.getContextMenu().getPointDescription(), false);
 				} else if (standardId == R.string.context_menu_item_intermediate_point ||
 						standardId == R.string.context_menu_item_destination_point) {
 					boolean dest = standardId == R.string.context_menu_item_destination_point;
-					List<PointDescription> nms = mapActivity.getMapLayers().getContextMenuLayer().getSelectedObjectNames();
 					targets.navigateToPoint(new LatLon(latitude, longitude), true,
-							dest ? -1 : targets.getIntermediatePoints().size(), nms.size() == 0?null :
-									nms.get(0));
-					if(targets.getIntermediatePoints().size() > 0) {
+							dest ? -1 : targets.getIntermediatePoints().size(),
+							mapActivity.getContextMenu().getPointDescription());
+					if (targets.getIntermediatePoints().size() > 0) {
 						openIntermediatePointsDialog();
 					}
 				}
 			}
 		});
 		builder.create().show();
+	}
+
+	public void directionTo(double latitude, double longitude) {
+		final TargetPointsHelper targets = getMyApplication().getTargetPointsHelper();
+		targets.navigateToPoint(new LatLon(latitude, longitude), true, -1, null);
+		enterRoutePlanningMode(null, null, false);
+	}
+
+	public void addAsWaypoint(double latitude, double longitude) {
+		TargetPointsHelper targets = getMyApplication().getTargetPointsHelper();
+		boolean destination =  (targets.getPointToNavigate() == null);
+
+		targets.navigateToPoint(new LatLon(latitude, longitude), true,
+				destination ? -1 : targets.getIntermediatePoints().size(),
+				mapActivity.getContextMenu().getPointDescription());
+
+		openIntermediateEditPointsDialog();
+	}
+
+	public void editWaypoints() {
+		openIntermediateEditPointsDialog();
 	}
 
 	private Bundle enhance(Bundle aBundle, double latitude, double longitude, String name) {
@@ -176,8 +180,14 @@ public class MapActivityActions implements DialogProvider {
 	}
 
 
-    public void addWaypoint(final double latitude, final double longitude){
-    	String name = mapActivity.getMapLayers().getContextMenuLayer().getSelectedObjectName();
+    public void addWaypoint(final double latitude, final double longitude) {
+		String name;
+		PointDescription pointDescription = mapActivity.getContextMenu().getPointDescription();
+		if (!pointDescription.isWpt() && !mapActivity.getContextMenu().isAddressUnknown()) {
+			name = mapActivity.getContextMenu().getTitleStr();
+		} else {
+			name = "";
+		}
     	enhance(dialogBundle,latitude,longitude, name);
     	mapActivity.showDialog(DIALOG_ADD_WAYPOINT);
     }
@@ -447,31 +457,10 @@ public class MapActivityActions implements DialogProvider {
 	
 	private void enterRoutePlanningModeImpl(GPXFile gpxFile, LatLon from, PointDescription fromName) {
 
-		ApplicationMode mode = settings.DEFAULT_APPLICATION_MODE.get();
-		ApplicationMode selected = settings.APPLICATION_MODE.get();
 		OsmandApplication app = mapActivity.getMyApplication();
 		TargetPointsHelper targets = app.getTargetPointsHelper();
-		if( selected != ApplicationMode.DEFAULT) {
-			mode = selected;
-		} else if (mode == ApplicationMode.DEFAULT) {
-			mode = ApplicationMode.CAR;
-			if(settings.LAST_ROUTING_APPLICATION_MODE != null && 
-					settings.LAST_ROUTING_APPLICATION_MODE != ApplicationMode.DEFAULT) {
-				mode = settings.LAST_ROUTING_APPLICATION_MODE;
-			}
-			if(from != null && targets.getPointToNavigate() != null) {
-				double dist = MapUtils.getDistance(from, targets.getPointToNavigate().getLatitude(),
-						targets.getPointToNavigate().getLongitude());
-				if(dist >= 50000 && mode.isDerivedRoutingFrom(ApplicationMode.PEDESTRIAN)) {
-					mode = ApplicationMode.CAR ;			
-				} else if(dist >= 300000 && mode.isDerivedRoutingFrom(ApplicationMode.BICYCLE)) {
-					mode = ApplicationMode.CAR ;
-				} else if(dist < 2000 && mode.isDerivedRoutingFrom(ApplicationMode.CAR)) {
-					mode = ApplicationMode.PEDESTRIAN ;
-				}
-			}
-		}
 
+		ApplicationMode mode = getRouteMode(from);
 		app.getSettings().APPLICATION_MODE.set(mode);
 		app.getRoutingHelper().setAppMode(mode);
 		app.initVoiceCommandPlayer(mapActivity);
@@ -493,7 +482,41 @@ public class MapActivityActions implements DialogProvider {
 			app.showToastMessage(R.string.route_is_too_long);
 		}
 	}
-	
+
+	public ApplicationMode getRouteMode(LatLon from) {
+		ApplicationMode mode = settings.DEFAULT_APPLICATION_MODE.get();
+		ApplicationMode selected = settings.APPLICATION_MODE.get();
+		OsmandApplication app = mapActivity.getMyApplication();
+		TargetPointsHelper targets = app.getTargetPointsHelper();
+		if (from == null) {
+			Location ll = app.getLocationProvider().getLastKnownLocation();
+			if (ll != null) {
+				from = new LatLon(ll.getLatitude(), ll.getLongitude());
+			}
+		}
+		if( selected != ApplicationMode.DEFAULT) {
+			mode = selected;
+		} else if (mode == ApplicationMode.DEFAULT) {
+			mode = ApplicationMode.CAR;
+			if(settings.LAST_ROUTING_APPLICATION_MODE != null &&
+					settings.LAST_ROUTING_APPLICATION_MODE != ApplicationMode.DEFAULT) {
+				mode = settings.LAST_ROUTING_APPLICATION_MODE;
+			}
+			if(from != null && targets.getPointToNavigate() != null) {
+				double dist = MapUtils.getDistance(from, targets.getPointToNavigate().getLatitude(),
+						targets.getPointToNavigate().getLongitude());
+				if(dist >= 50000 && mode.isDerivedRoutingFrom(ApplicationMode.PEDESTRIAN)) {
+					mode = ApplicationMode.CAR ;
+				} else if(dist >= 300000 && mode.isDerivedRoutingFrom(ApplicationMode.BICYCLE)) {
+					mode = ApplicationMode.CAR ;
+				} else if(dist < 2000 && mode.isDerivedRoutingFrom(ApplicationMode.CAR)) {
+					mode = ApplicationMode.PEDESTRIAN ;
+				}
+			}
+		}
+		return mode;
+	}
+
 	public void contextMenuPoint(final double latitude, final double longitude){
 		contextMenuPoint(latitude, longitude, null, null);
 	}
@@ -503,17 +526,17 @@ public class MapActivityActions implements DialogProvider {
     	builder.setMessage(R.string.context_menu_item_update_map_confirm);
     	builder.setNegativeButton(R.string.shared_string_cancel, null);
     	final OsmandMapTileView mapView = mapActivity.getMapView();
-    	builder.setPositiveButton(R.string.context_menu_item_update_map, new DialogInterface.OnClickListener(){
+    	builder.setPositiveButton(R.string.context_menu_item_update_map, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				int zoom = args.getInt(KEY_ZOOM);
 				BaseMapLayer mainLayer = mapView.getMainLayer();
-				if(!(mainLayer instanceof MapTileLayer) || !((MapTileLayer) mainLayer).isVisible()){
+				if (!(mainLayer instanceof MapTileLayer) || !((MapTileLayer) mainLayer).isVisible()) {
 					AccessibleToast.makeText(mapActivity, R.string.maps_could_not_be_downloaded, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				final ITileSource mapSource = ((MapTileLayer) mainLayer).getMap();
-				if(mapSource == null || !mapSource.couldBeDownloadedFromInternet()){
+				if (mapSource == null || !mapSource.couldBeDownloadedFromInternet()) {
 					AccessibleToast.makeText(mapActivity, R.string.maps_could_not_be_downloaded, Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -523,17 +546,17 @@ public class MapActivityActions implements DialogProvider {
 				int top = (int) Math.floor(tilesRect.top);
 				int width = (int) (Math.ceil(tilesRect.right) - left);
 				int height = (int) (Math.ceil(tilesRect.bottom) - top);
-				for (int i = 0; i <width; i++) {
-					for (int j = 0; j< height; j++) {
-						((OsmandApplication)mapActivity.getApplication()).getResourceManager().
-								clearTileImageForMap(null, mapSource, i + left, j + top, zoom);	
+				for (int i = 0; i < width; i++) {
+					for (int j = 0; j < height; j++) {
+						((OsmandApplication) mapActivity.getApplication()).getResourceManager().
+								clearTileImageForMap(null, mapSource, i + left, j + top, zoom);
 					}
 				}
-				
-				
+
+
 				mapView.refreshMap();
 			}
-    	});
+		});
 		return builder.create();
     }
 	
@@ -571,6 +594,7 @@ public class MapActivityActions implements DialogProvider {
 			v.setPadding(5, 0, 5, 0);
 			if(args.getString(KEY_NAME) != null) {
 				v.setText(args.getString(KEY_NAME));
+				v.selectAll();
 			} else {
 				v.setText("");
 			}
@@ -674,8 +698,14 @@ public class MapActivityActions implements DialogProvider {
 						return false;
 					}
 				}).reg();
-		
-		optionsMenuHelper.item(R.string.index_settings).iconColor(R.drawable.ic_type_archive)
+		String d = getString(R.string.index_settings);
+		if(app.getDownloadThread().getIndexes().isDownloadedFromInternet) {
+			List<IndexItem> updt = app.getDownloadThread().getIndexes().getItemsToUpdate();
+			if(updt != null && updt.size() > 0) {
+				d += " ("+updt.size()+")";
+			}
+		}
+		optionsMenuHelper.item(R.string.index_settings).name(d).iconColor(R.drawable.ic_type_archive)
 				.listen(new OnContextMenuClick() {
 					@Override
 					public boolean onContextMenuClick(ArrayAdapter<?> adapter, int itemId, int pos, boolean isChecked) {
@@ -758,7 +788,11 @@ public class MapActivityActions implements DialogProvider {
 	public void openIntermediatePointsDialog(){
 		mapActivity.getDashboard().setDashboardVisibility(true, DashboardType.WAYPOINTS);
 	}
-	
+
+	public void openIntermediateEditPointsDialog(){
+		mapActivity.getDashboard().setDashboardVisibility(true, DashboardType.WAYPOINTS);
+	}
+
 	private TargetPointsHelper getTargets() {
 		return mapActivity.getMyApplication().getTargetPointsHelper();
 	}
@@ -866,6 +900,26 @@ public class MapActivityActions implements DialogProvider {
 			view.show();
 		}
 	}
-	
+
+	protected void updateDrawerMenu() {
+		final ListView menuItemsListView = (ListView) mapActivity.findViewById(R.id.menuItems);
+		menuItemsListView.setDivider(null);
+		final ContextMenuAdapter contextMenuAdapter = createMainOptionsMenu();
+		contextMenuAdapter.setDefaultLayoutId(R.layout.simple_list_menu_item);
+		final ArrayAdapter<?> simpleListAdapter = contextMenuAdapter.createListAdapter(mapActivity,
+				settings.OSMAND_THEME.get() == OsmandSettings.OSMAND_LIGHT_THEME);
+		menuItemsListView.setAdapter(simpleListAdapter);
+		menuItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ContextMenuAdapter.OnContextMenuClick click =
+						contextMenuAdapter.getClickAdapter(position);
+				if (click.onContextMenuClick(simpleListAdapter,
+						contextMenuAdapter.getElementId(position), position, false)) {
+					mapActivity.closeDrawer();
+				}
+			}
+		});
+	}
     
 }

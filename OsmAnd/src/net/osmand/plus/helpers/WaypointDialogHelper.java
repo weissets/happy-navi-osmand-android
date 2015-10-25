@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.LocationPoint;
 import net.osmand.data.PointDescription;
@@ -422,11 +423,17 @@ public class WaypointDialogHelper {
 			}
 			if(ctx.getDashboard().isVisible()) {
 				ctx.getDashboard().hideDashboard();
+				ctx.getContextMenu().show(
+						new LatLon(locationPoint.getLatitude(), locationPoint.getLongitude()),
+						locationPoint.getPointDescription(ctx),
+						locationPoint);
+/*
 				ctx.getMapLayers().getContextMenuLayer().setSelectedObject(locationPoint);
 				ctx.getMapLayers()
 						.getContextMenuLayer()
 						.setLocation(new LatLon(locationPoint.getLatitude(), locationPoint.getLongitude()),
 								PointDescription.getSimpleName(locationPoint, ctx));
+*/
 			}
 		}
 	}
