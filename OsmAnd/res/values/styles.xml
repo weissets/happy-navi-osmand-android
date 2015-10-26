@@ -114,7 +114,7 @@
         <item name="appbar_layout_theme">@style/OsmandLightTheme.DarkActionbar</item>
         <item name="toolbar_theme">@style/OsmandLightTheme.Toolbar</item>
         <item name="new_app_theme">@style/OsmandLightTheme.NewAppTheme</item>
-        <item name="android:textColorSecondary">@color/icon_color</item>
+        <item name="android:textColorSecondary">@color/dashboard_black</item>
         <item name="contextMenuButtonColor">@color/map_widget_blue</item>
 
     </style>
@@ -196,7 +196,7 @@
         <item name="appbar_layout_theme">@style/OsmandDarkTheme.DarkActionbar</item>
         <item name="toolbar_theme">@style/OsmandDarkTheme</item>
         <item name="new_app_theme">@style/OsmandDarkTheme</item>
-        <item name="android:textColorSecondary">@color/dash_search_icon_dark</item>
+        <item name="android:textColorSecondary">@color/map_widget_light</item>
 
         <item name="contextMenuButtonColor">@color/osmand_orange</item>
     </style>
@@ -206,6 +206,7 @@
     <style name="Widget.Styled.ActionBarDark" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@color/actionbar_dark_color</item>
         <item name="android:background">@color/actionbar_dark_color</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="Widget.Styled.ActionBarLight" parent="Widget.AppCompat.Light.ActionBar.Solid">
@@ -218,6 +219,7 @@
         <item name="android:titleTextStyle">@style/Widget.Styled.LightActionBarHeader</item>
         <item name="android:subtitleTextStyle">@style/Widget.Styled.LightActionBarHeader</item>
         <item name="android:actionBarWidgetTheme">@style/Theme.AppCompat</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="Widget.Styled.LightActionBarHeader" parent="@android:style/TextAppearance">
@@ -278,8 +280,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textColorHint">?android:textColorSecondary</item>
     </style>
 
     <style name="edit_poi_imageview_style">

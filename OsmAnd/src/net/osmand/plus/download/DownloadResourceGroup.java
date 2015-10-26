@@ -1,8 +1,5 @@
 package net.osmand.plus.download;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,9 +8,11 @@ import java.util.List;
 
 import net.osmand.OsmAndCollator;
 import net.osmand.map.OsmandRegions;
+import net.osmand.map.WorldRegion;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
-import net.osmand.plus.WorldRegion;
+import android.annotation.SuppressLint;
+import android.content.Context;
 
 @SuppressLint("DefaultLocale")
 public class DownloadResourceGroup {
@@ -35,15 +34,15 @@ public class DownloadResourceGroup {
 		HILLSHADE_HEADER(R.string.download_hillshade_maps),
 		OTHER_MAPS_HEADER(R.string.download_select_map_types),
 		// headers with voice items
-		VOICE_HEADER_REC(R.string.index_name_voice),
 		VOICE_HEADER_TTS(R.string.index_name_tts_voice),
+		VOICE_HEADER_REC(R.string.index_name_voice),
 		// headers with resources
 		OTHER_MAPS_GROUP(R.string.download_select_map_types),
 		VOICE_GROUP(R.string.voices),
 		SUBREGIONS(R.string.regions),
 		// screen items
-		VOICE_REC(R.string.index_name_voice),
 		VOICE_TTS(R.string.index_name_tts_voice),
+		VOICE_REC(R.string.index_name_voice),
 		OTHER_MAPS(R.string.download_select_map_types),
 		WORLD(-1),
 		REGION(-1);
@@ -316,7 +315,7 @@ public class DownloadResourceGroup {
 	
 	public String getName(Context ctx) {
 		if (region != null) {
-			return region.getName();
+			return region.getLocaleName();
 		} else if (type != null && type.resId != -1) {
 			return ctx.getString(type.resId);
 		} else {
