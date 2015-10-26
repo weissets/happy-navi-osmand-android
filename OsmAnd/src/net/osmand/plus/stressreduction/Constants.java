@@ -61,17 +61,18 @@ public class Constants {
 	/** value of the highest stress value */
 	public static final int STRESS_VALUE_HIGH = 0;
 
+	// TODO switch to https
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
-			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload_v1.2.php";
+			"http://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload_v1.2.php";
 
 	/** uri of the database upload script (DEBUG EMULATOR) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_EMULATOR =
-			"https://10.0.2.2:8890/upload/db_upload_v1.2_debug.php";
+			"http://10.0.2.2:8888/upload/db_upload_v1.2_debug.php";
 
 	/** uri of the database upload script (DEBUG DEVICE) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_DEVICE =
-			"https://192.168.2.100:8890/upload/db_upload_v1.2_debug.php";
+			"http://192.168.2.100:8888/upload/db_upload_v1.2_debug.php";
 
 	/** uri of the database download script */
 	public static final String URI_DATABASE_DOWNLOAD =
@@ -79,7 +80,7 @@ public class Constants {
 
 	/** uri of the database download script (DEBUG) */
 	public static final String URI_DATABASE_DOWNLOAD_DEBUG =
-			"https://10.0.2.2:8888/download/db_download_debug.php";
+			"http://10.0.2.2:8888/download/db_download_debug.php";
 
 	/** convert meter per second to kilometer per hour */
 	public static final float MS_TO_KMH = 3.6f;

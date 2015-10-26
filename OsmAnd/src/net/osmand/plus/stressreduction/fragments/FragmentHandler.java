@@ -89,7 +89,7 @@ public class FragmentHandler {
 				fragmentTransaction.add(fragmentSRDialog, Constants.FRAGMENT_SR_DIALOG);
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
-			} else {
+			} else if (!fragmentSRDialog.isInLayout()){
 				FragmentTransaction fragmentTransaction =
 						mapActivity.getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.show(fragmentSRDialog);
@@ -115,7 +115,7 @@ public class FragmentHandler {
 						Constants.FRAGMENT_LOCATION_SIMULATION);
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
-			} else {
+			} else if (!fragmentLocationSimulationDialog.isInLayout()){
 				FragmentTransaction fragmentTransaction =
 						mapActivity.getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.show(fragmentLocationSimulationDialog);

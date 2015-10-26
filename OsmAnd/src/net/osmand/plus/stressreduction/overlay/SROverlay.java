@@ -8,8 +8,11 @@ import android.graphics.Canvas;
 
 import java.util.Arrays;
 
+// TODO implement the overlay
 /**
- * Created by Tobias on 05/09/15.
+ * This class maps an overlay with stress reduction data to the road segments
+ *
+ * @author Tobias
  */
 public class SROverlay extends OsmandMapLayer {
 

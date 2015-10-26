@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+// TODO download the sr data from the server
 /**
  * This class is a service for downloading the database to the server
  *
@@ -66,17 +67,12 @@ public class DownloadService extends WakefulIntentService {
 			connection = (HttpURLConnection) url.openConnection();
 			connection.connect();
 
-			// expect HTTP 200 OK, so we don't mistakenly save error report
-			// instead of the file
+			// check for http ok to not save error message if download went wrong
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				log.error("Server returned HTTP " + connection.getResponseCode() + ", " +
 						connection.getResponseMessage());
 				return connection.getResponseCode();
 			}
-
-			// this will be useful to display download percentage
-			// might be -1: server did not report the length
-			int fileLength = connection.getContentLength();
 
 			// download the file
 			input = connection.getInputStream();
@@ -87,11 +83,6 @@ public class DownloadService extends WakefulIntentService {
 			long total = 0;
 			int count;
 			while ((count = input.read(data)) != -1) {
-				//					// allow canceling with back button
-				//					if (isCancelled()) {
-				//						input.close();
-				//						return null;
-				//					}
 				total += count;
 			}
 		} catch (Exception e) {

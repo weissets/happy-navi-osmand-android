@@ -40,7 +40,8 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 	private final int ACCELEROMETER_NORMAL = 2;
 	private final int ACCELEROMETER_NONE = 3;
 
-	// TODO check how much data is generated -> 500kb per hour -> raised sensor delay to UI !!!
+	// TODO check how much data is generated -> 500kb per hour -> check again with real device!!!
+	// INFO 500kb if no acceleration, else should be around 5 times as much
 	public SRAccelerometer(OsmandApplication osmandApplication, DataHandler dataHandler) {
 		this.dataHandler = dataHandler;
 		osmAndLocationProvider = osmandApplication.getLocationProvider();
@@ -84,7 +85,7 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 			// Sensor delays: FASTEST=0.01s, GAME=0.02s, UI=0.1s,
 			// NORMAL=0.2s
 			sensorManager.registerListener(accelerometerListener, accelerometerSensor,
-					SensorManager.SENSOR_DELAY_UI);
+					SensorManager.SENSOR_DELAY_NORMAL);
 			osmAndLocationProvider.addLocationListener(this);
 			log.debug("startAccelerometerSensor()");
 		}

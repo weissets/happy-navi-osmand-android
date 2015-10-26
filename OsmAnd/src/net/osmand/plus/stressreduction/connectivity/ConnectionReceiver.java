@@ -25,6 +25,12 @@ public class ConnectionReceiver extends BroadcastReceiver {
 
 	private static final Log log = PlatformUtil.getLog(ConnectionReceiver.class);
 
+	/**
+	 * Check if the receiver is enabled
+	 *
+	 * @param context The context
+	 * @return Boolean if the receiver is enabled or not
+	 */
 	public static boolean isReceiverEnabled(Context context) {
 		ComponentName componentName = new ComponentName(context, ConnectionReceiver.class);
 		return context.getPackageManager().getComponentEnabledSetting(componentName) ==

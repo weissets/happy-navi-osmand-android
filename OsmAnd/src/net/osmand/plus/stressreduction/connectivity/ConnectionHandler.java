@@ -19,6 +19,11 @@ public class ConnectionHandler {
 
 	private static final Log log = PlatformUtil.getLog(ConnectionHandler.class);
 
+	/**
+	 * Upload data via wifi or mobile connection
+	 *
+	 * @param osmandApplication The OsmandApplication
+	 */
 	public static void uploadData(final OsmandApplication osmandApplication) {
 		if (osmandApplication.getSettings().SR_USE_WIFI_ONLY.get()) {
 			log.debug("uploadData(): try to upload data via Wifi...");
@@ -42,11 +47,21 @@ public class ConnectionHandler {
 		}
 	}
 
-	private static void initUpload(OsmandApplication osmandApplication) {
+	/**
+	 * Initialize the upload via the wakeful intent service
+	 *
+	 * @param osmandApplication The OsmandApplication
+	 */
+	private static void initUpload(final OsmandApplication osmandApplication) {
 		Intent uploadIntent = new Intent(osmandApplication, UploadService.class);
 		WakefulIntentService.sendWakefulWork(osmandApplication, uploadIntent);
 	}
 
+	/**
+	 * Download data via the wakeful intent service
+	 *
+	 * @param osmandApplication The OsmandApplication
+	 */
 	public static void downloadSRData(final OsmandApplication osmandApplication) {
 		Intent downloadIntent = new Intent(osmandApplication, DownloadService.class);
 		WakefulIntentService.sendWakefulWork(osmandApplication, downloadIntent);

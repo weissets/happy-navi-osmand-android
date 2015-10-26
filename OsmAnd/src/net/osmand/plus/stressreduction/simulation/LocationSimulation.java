@@ -86,7 +86,8 @@ public class LocationSimulation {
 					LOCATION_SPEED = routingHelper.getCurrentMaxSpeed();
 					log.debug("run(): found max speed = " + LOCATION_SPEED);
 					lastSegmentSpeed = LOCATION_SPEED;
-				} else if (currentPositionHelper.getLastKnownRouteSegment(locationList.get(0))
+				} else if (currentPositionHelper.getLastKnownRouteSegment(locationList.get(0)) !=
+						null && currentPositionHelper.getLastKnownRouteSegment(locationList.get(0))
 						.getMaximumSpeed(true) > 0) {
 					LOCATION_SPEED =
 							currentPositionHelper.getLastKnownRouteSegment(locationList.get(0))

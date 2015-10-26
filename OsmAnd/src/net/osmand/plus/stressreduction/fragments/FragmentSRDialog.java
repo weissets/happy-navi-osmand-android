@@ -16,10 +16,9 @@ import android.widget.ImageButton;
 
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
+import net.osmand.plus.stressreduction.tools.Calculation;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
  * This class represents the stress reduction dialog fragment
@@ -53,8 +52,7 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 	 */
 	@Override
 	public void onClick(View v) {
-		String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US)
-				.format(new java.util.Date());
+		String timestamp = Calculation.getCurrentDateTimeMs();
 		srDialogButtonClickListener.onSRButtonClick(v, timestamp);
 		this.dismiss();
 	}

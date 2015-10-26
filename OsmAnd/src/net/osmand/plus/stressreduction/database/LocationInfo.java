@@ -2,9 +2,6 @@ package net.osmand.plus.stressreduction.database;
 
 import net.osmand.plus.stressreduction.tools.Calculation;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /**
  * This class represents the information about a single location
  *

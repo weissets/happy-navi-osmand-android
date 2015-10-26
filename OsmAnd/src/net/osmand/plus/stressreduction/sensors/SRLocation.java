@@ -254,7 +254,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	@Override
 	public void routeWasCancelled() {
 		log.debug("routeWasCancelled()");
-		if (isDriving) { // TODO is this needed (or only segments in database or enough distance?
+		if (isDriving) {
 			fragmentHandler.showSRDialog(dataHandler);
 		}
 		if (routingLog != null && (System.currentTimeMillis() -

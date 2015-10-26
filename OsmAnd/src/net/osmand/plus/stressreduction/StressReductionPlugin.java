@@ -47,7 +47,7 @@ public class StressReductionPlugin extends OsmandPlugin
 		UNIQUE_ID = UUIDCreator.id(osmandApplication);
 		// for debugging
 		if (BuildConfig.DEBUG) {
-			UNIQUE_ID = "Test_ID_25/10/15";
+			UNIQUE_ID = "Test_ID_26/10/15";
 		}
 
 		dataHandler = new DataHandler(osmandApplication);
@@ -169,7 +169,8 @@ public class StressReductionPlugin extends OsmandPlugin
 		private boolean isReadyForUpload() {
 			if (foreground < 1 && visible < 1 && !routing) {
 				log.error("USED BY = " + (osmandApplication.getNavigationService() !=
-						null ? osmandApplication.getNavigationService().getUsedBy() : -1));
+						null ? osmandApplication.getNavigationService().getUsedBy() :
+						"Navigation Service NULL"));
 				sensorHandler.stopSensors();
 				wasClosed = true;
 				initUpload();

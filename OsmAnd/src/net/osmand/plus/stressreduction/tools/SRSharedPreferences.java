@@ -69,8 +69,6 @@ public class SRSharedPreferences {
 	public static boolean getOnlyWifiUpload(final Context context) {
 		SharedPreferences sharedPreferences =
 				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
-		log.debug("getOnlyWifiUpload(): wifi upload = " +
-				sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true));
 		return sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true);
 	}
 
@@ -78,8 +76,6 @@ public class SRSharedPreferences {
 		SharedPreferences sharedPreferences =
 				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
 		sharedPreferences.edit().putBoolean(Constants.UPLOAD_MODE_WIFI, onlyWifi).apply();
-		log.debug("setOnlyWifiUpload(): wifi upload = " +
-				sharedPreferences.getBoolean(Constants.UPLOAD_MODE_WIFI, true));
 	}
 
 }
