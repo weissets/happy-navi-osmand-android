@@ -2,9 +2,8 @@ package net.osmand.plus.stressreduction;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
-import net.osmand.plus.activities.SettingsBaseActivity;
-
 import net.osmand.plus.R;
+import net.osmand.plus.activities.SettingsBaseActivity;
 import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
@@ -74,6 +73,7 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		routingPreference.setEnabled(false);
 		routingPreference.setChecked(false);
 		preferenceScreen.addPreference(routingPreference);
+
 	}
 
 }

@@ -38,20 +38,6 @@ public class SRSharedPreferences {
 		return false;
 	}
 
-	public static boolean getDisplayNewVersionDialog(final Context context) {
-		return false; // TODO check for new version (Play Store?)
-		//		SharedPreferences sharedPreferences = context.getSharedPreferences
-		// (StressReductionPlugin.ID, Context.MODE_PRIVATE);
-		//        return sharedPreferences.getBoolean(Constants.FRAGMENT_NEW_VERSION_DIALOG, true);
-	}
-
-	public static void setDisplayNewVersionDialog(final Context context, boolean display) {
-		SharedPreferences sharedPreferences =
-				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
-		sharedPreferences.edit().putBoolean(Constants.FRAGMENT_NEW_VERSION_DIALOG, display)
-				.apply();
-	}
-
 	public static boolean getReceiverTimeout(final Context context) {
 		SharedPreferences sharedPreferences =
 				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);

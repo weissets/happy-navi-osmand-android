@@ -34,7 +34,9 @@ import net.osmand.plus.GPXUtilities.WptPt;
 import net.osmand.plus.IconsCache;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandPlugin;
+import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
+import net.osmand.plus.Version;
 import net.osmand.plus.activities.ActionBarProgressActivity;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.OsmAndListFragment;
@@ -234,14 +236,27 @@ public class NotesFragment extends OsmAndListFragment {
 			if(path == shareLocationFile) {
 				File fl = generateGPXForRecordings(selected);
 				if(fl != null) {
-					files.add(FileProvider.getUriForFile(getActivity(), "net.osmand.fileprovider", fl));
+					if (Version.isFreeVersion(plugin.getActivity().getMyApplication())) {
+						files.add(FileProvider
+								.getUriForFile(getActivity(), "net.osmand.free.fileprovider", fl));
+					} else {
+						files.add(FileProvider
+								.getUriForFile(getActivity(), "net.osmand.fileprovider", fl));
+					}
 				}
 			} else {
 				File src = path.getFile();
 				File dst = new File(getActivity().getCacheDir(), "share/"+src.getName());
 				try {
 					Algorithms.fileCopy(src, dst);
-					files.add(FileProvider.getUriForFile(getActivity(), "net.osmand.fileprovider", dst));
+					if (Version.isFreeVersion(plugin.getActivity().getMyApplication())) {
+						files.add(FileProvider
+								.getUriForFile(getActivity(), "net.osmand.free.fileprovider", dst));
+					} else {
+						files.add(FileProvider
+								.getUriForFile(getActivity(), "net.osmand.fileprovider", dst));
+					}
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

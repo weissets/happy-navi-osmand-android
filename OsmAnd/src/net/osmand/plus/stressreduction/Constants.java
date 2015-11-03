@@ -34,9 +34,6 @@ public class Constants {
 	/** identifier for the what's new dialog fragment */
 	public static final String FRAGMENT_WHATS_NEW_DIALOG = "fragment_whats_new_dialog";
 
-	/** identifier for the new version dialog fragment */
-	public static final String FRAGMENT_NEW_VERSION_DIALOG = "fragment_new_version_dialog";
-
 	/** identifier if data was correct uploaded */
 	public static final String RECEIVER_UPLOAD = "receiver_upload";
 
@@ -49,9 +46,6 @@ public class Constants {
 	/** identifier for the upload mode regular */
 	public static final String UPLOAD_MODE_WIFI = "upload_mode_wifi";
 
-	/** identifier for the upload mode mobile */
-	public static final String UPLOAD_MODE_MOBILE = "upload_mode_mobile";
-
 	/** value of the lowest stress value */
 	public static final int STRESS_VALUE_LOW = 2;
 
@@ -61,10 +55,9 @@ public class Constants {
 	/** value of the highest stress value */
 	public static final int STRESS_VALUE_HIGH = 0;
 
-	// TODO switch to https
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
-			"http://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload_v1.2.php";
+			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/upload.html";
 
 	/** uri of the database upload script (DEBUG EMULATOR) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_EMULATOR =
@@ -81,6 +74,14 @@ public class Constants {
 	/** uri of the database download script (DEBUG) */
 	public static final String URI_DATABASE_DOWNLOAD_DEBUG =
 			"http://10.0.2.2:8888/download/db_download_debug.php";
+
+	/** uri of the homepage */
+	public static final String URI_HOMEPAGE =
+			"https://maps.hci.simtech.uni-stuttgart.de/info";
+
+	/** uri of the version code */
+	public static final String URI_VERSION_CODE =
+			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version";
 
 	/** convert meter per second to kilometer per hour */
 	public static final float MS_TO_KMH = 3.6f;
@@ -137,6 +138,9 @@ public class Constants {
 	public static final String DIRECTION = "direction";
 	public static final String TIMESTAMP = "mTimestamp";
 	public static final String USER_PK = "userPk";
+	public static final String USER_GENDER = "userGender";
+	public static final String USER_AGE = "userAge";
+	public static final String USER_CAR = "userCar";
 	public static final String OSM_SEGMENT_ID = "osmSegmentId";
 	public static final String TIME_APP_OPEN = "timeAppOpen";
 	public static final String START_LAT = "startLat";
@@ -156,6 +160,9 @@ public class Constants {
 
 	public static final String CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + USERS + " (" +
 			ID + " varchar(255) NOT NULL UNIQUE, " +
+			USER_GENDER + " varchar(6), " +
+			USER_AGE + " smallint(3), " +
+			USER_CAR + " varchar(255), " +
 			PRIMARY_KEY + " integer NOT NULL PRIMARY KEY);";
 
 	public static final String CREATE_TABLE_SEGMENTS = "CREATE TABLE IF NOT EXISTS " + SEGMENTS +

@@ -72,14 +72,21 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	public static final String SHOULD_SHOW = "should_show";
 
 	private static final DashFragmentData.ShouldShowFunction rateUsShouldShow = new DashRateUsFragment.RateUsShouldShow();
+	private static final DashFragmentData.ShouldShowFunction userInfoShouldShow = new DashUserInfoFragment.UserInfoShouldShow();
+	private static final DashFragmentData.ShouldShowFunction newVersionShouldShow = new DashNewVersionFragment.NewVersionShouldShow();
+
 	private static final DefaultShouldShow defaultShouldShow = new DefaultShouldShow();
 	private static final DashFragmentData.ShouldShowFunction errorShouldShow = new ErrorShouldShow();
 	private static final DashFragmentData.ShouldShowFunction firstTimeShouldShow = new FirstTimeShouldShow();
 	private static final DashFragmentData.ShouldShowFunction chooseAppDirShouldShow = new ChooseAppDirShouldShow();
 
 	private final DashFragmentData[] fragmentsData = new DashFragmentData[]{
+			new DashFragmentData(DashNewVersionFragment.TAG, DashNewVersionFragment.class,
+					-1, newVersionShouldShow, 0, null),
+			new DashFragmentData(DashUserInfoFragment.TAG, DashUserInfoFragment.class,
+					-1, userInfoShouldShow, 1, null),
 			new DashFragmentData(DashRateUsFragment.TAG, DashRateUsFragment.class,
-					-1, rateUsShouldShow, 0, null),
+					-1, rateUsShouldShow, 2, null),
 			new DashFragmentData(DashFirstTimeFragment.TAG, DashFirstTimeFragment.class,
 					-1, firstTimeShouldShow, 10, null),
 			new DashFragmentData(DashChooseAppDirFragment.TAG, DashChooseAppDirFragment.class,
@@ -914,6 +921,8 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	public boolean hasCriticalMessages() {
 		final OsmandSettings settings = getMyApplication().getSettings();
 		return rateUsShouldShow.shouldShow(settings, mapActivity, DashRateUsFragment.TAG)
+				|| userInfoShouldShow.shouldShow(settings, mapActivity, DashUserInfoFragment.TAG)
+				|| newVersionShouldShow.shouldShow(settings, mapActivity, DashNewVersionFragment.TAG)
 				|| errorShouldShow.shouldShow(null, mapActivity, null);
 	}
 

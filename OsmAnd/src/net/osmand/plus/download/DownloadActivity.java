@@ -30,6 +30,7 @@ import net.osmand.plus.download.ui.DataStoragePlaceDialogFragment;
 import net.osmand.plus.download.ui.DownloadResourceGroupFragment;
 import net.osmand.plus.download.ui.LocalIndexesFragment;
 import net.osmand.plus.download.ui.UpdatesIndexFragment;
+import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.views.controls.PagerSlidingTabStrip;
 
 import org.apache.commons.logging.Log;
@@ -408,8 +409,10 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 			freeVersionBanner.findViewById(R.id.getFullVersionButton).setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Version.marketPrefix(
-							ctx.getMyApplication()) + "net.osmand.plus"));
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants
+							.URI_HOMEPAGE));
+//							Uri.parse(Version.marketPrefix(
+//							ctx.getMyApplication()) + "net.osmand.plus"));
 					try {
 						ctx.startActivity(intent);
 					} catch (ActivityNotFoundException e) {

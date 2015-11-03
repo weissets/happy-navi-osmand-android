@@ -191,4 +191,19 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 
 		getWritableDatabase().insert(Constants.ROUTING_LOGS, null, contentValues);
 	}
+
+	public void insertUserInfo(String gender, String age, String car) {
+		SQLiteDatabase db = sqLiteLogger.getWritableDatabase();
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.USERS);
+		db.execSQL(Constants.CREATE_TABLE_USERS);
+
+		ContentValues contentValues = new ContentValues();
+
+		contentValues.put(Constants.ID, StressReductionPlugin.getUUID());
+		contentValues.put(Constants.USER_GENDER, gender);
+		contentValues.put(Constants.USER_AGE, Integer.valueOf(age));
+		contentValues.put(Constants.USER_CAR, car);
+
+		getWritableDatabase().insert(Constants.USERS, null, contentValues);
+	}
 }

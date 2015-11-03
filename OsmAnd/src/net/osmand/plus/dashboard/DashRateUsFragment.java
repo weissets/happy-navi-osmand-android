@@ -1,20 +1,19 @@
 package net.osmand.plus.dashboard;
 
+import net.osmand.plus.OsmandSettings;
+import net.osmand.plus.R;
+import net.osmand.plus.activities.MapActivity;
+
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import net.osmand.plus.OsmandSettings;
-import net.osmand.plus.R;
-import net.osmand.plus.activities.MapActivity;
 
 import java.util.Calendar;
 
@@ -22,7 +21,7 @@ public class DashRateUsFragment extends DashBaseFragment {
     public static final String TAG = "DASH_RATE_US_FRAGMENT";
 
     // TODO move to resources
-    public static final String EMAIL = "support@osmand.net";
+    public static final String EMAIL = "hcilab@gmail.com"; //"support@osmand.net";
 
     // Imported in shouldShow method
     private static OsmandSettings settings;
@@ -49,55 +48,52 @@ public class DashRateUsFragment extends DashBaseFragment {
     }
 
 	public static boolean shouldShow(OsmandSettings settings) {
-        return false;
-//		if(!settings.LAST_DISPLAY_TIME.isSet()) {
-//			settings.LAST_DISPLAY_TIME.set(System.currentTimeMillis());
-//		}
-//		DashRateUsFragment.settings = settings;
-//		long lastDisplayTimeInMillis = settings.LAST_DISPLAY_TIME.get();
-//		int numberOfApplicationRuns = settings.NUMBER_OF_APPLICATION_STARTS.get();
-//		RateUsState state = settings.RATE_US_STATE.get();
-//
-//		Calendar modifiedTime = Calendar.getInstance();
-//		Calendar lastDisplayTime = Calendar.getInstance();
-//		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
-//
-//		int bannerFreeRuns = 0;
-//
-//		boolean toReturn = false;
-//
-//		switch (state) {
-//			case LIKED:
-//				return false;
-//			case INITIAL_STATE:
-//				break;
-//			case IGNORED:
-//				modifiedTime.add(Calendar.WEEK_OF_YEAR, -1);
-//				bannerFreeRuns = 5;
-//				break;
-//			case DISLIKED_WITH_MESSAGE:
-//				modifiedTime.add(Calendar.MONTH, -3);
-//				bannerFreeRuns = 3;
-//				break;
-//			case DISLIKED_WITHOUT_MESSAGE:
-//				modifiedTime.add(Calendar.MONTH, -2);
-//				break;
-//			default:
-//				throw new IllegalStateException("Unexpected state:" + state);
-//		}
-//
-//		if (state != RateUsState.INITIAL_STATE) {
-//			if (modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns) {
-//				settings.RATE_US_STATE.set(RateUsState.INITIAL_STATE);
-//				modifiedTime = Calendar.getInstance();
-//			} else {
-//				return false;
-//			}
-//		}
-//		// Initial state now
-//		modifiedTime.add(Calendar.HOUR, -72);
-//		bannerFreeRuns = 3;
-//		return modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns;
+		if(!settings.LAST_DISPLAY_TIME.isSet()) {
+			settings.LAST_DISPLAY_TIME.set(System.currentTimeMillis());
+		}
+		DashRateUsFragment.settings = settings;
+		long lastDisplayTimeInMillis = settings.LAST_DISPLAY_TIME.get();
+		int numberOfApplicationRuns = settings.NUMBER_OF_APPLICATION_STARTS.get();
+		RateUsState state = settings.RATE_US_STATE.get();
+
+		Calendar modifiedTime = Calendar.getInstance();
+		Calendar lastDisplayTime = Calendar.getInstance();
+		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
+
+		int bannerFreeRuns = 0;
+
+		switch (state) {
+			case LIKED:
+				return false;
+			case INITIAL_STATE:
+				break;
+			case IGNORED:
+				modifiedTime.add(Calendar.WEEK_OF_YEAR, -1);
+				bannerFreeRuns = 5;
+				break;
+			case DISLIKED_WITH_MESSAGE:
+				modifiedTime.add(Calendar.MONTH, -3);
+				bannerFreeRuns = 3;
+				break;
+			case DISLIKED_WITHOUT_MESSAGE:
+				modifiedTime.add(Calendar.MONTH, -2);
+				break;
+			default:
+				throw new IllegalStateException("Unexpected state:" + state);
+		}
+
+		if (state != RateUsState.INITIAL_STATE) {
+			if (modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns) {
+				settings.RATE_US_STATE.set(RateUsState.INITIAL_STATE);
+				modifiedTime = Calendar.getInstance();
+			} else {
+				return false;
+			}
+		}
+		// Initial state now
+		modifiedTime.add(Calendar.HOUR, -72);
+		bannerFreeRuns = 6;
+		return modifiedTime.after(lastDisplayTime) && numberOfApplicationRuns >= bannerFreeRuns;
 	}
 
 	@Override
@@ -133,14 +129,16 @@ public class DashRateUsFragment extends DashBaseFragment {
                 case USER_LIKES_APP:
                     settings.RATE_US_STATE.set(RateUsState.LIKED);
                     // Assuming GooglePlay
-                    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
+                    Uri uri = Uri.parse("market://details?id=org.hcilab.projects.happy.navi");
+//                            + getActivity().getPackageName());
                     Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                     try {
                         startActivity(goToMarket);
                     } catch (ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://play.google.com/store/apps/details?id="
-                                        + getActivity().getPackageName())));
+                                Uri.parse("http://play.google.com/store/apps/details?id=org" +
+                                        ".hcilab.projects.happy.navi")));
+//                                        + getActivity().getPackageName())));
                     }
                     dashboard.refreshDashboardFragments();
                     return;

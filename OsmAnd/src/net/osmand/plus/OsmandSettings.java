@@ -29,7 +29,9 @@ import net.osmand.plus.access.AccessibilityMode;
 import net.osmand.plus.access.RelativeDirectionStyle;
 import net.osmand.plus.api.SettingsAPI;
 import net.osmand.plus.api.SettingsAPI.SettingsEditor;
+import net.osmand.plus.dashboard.DashNewVersionFragment;
 import net.osmand.plus.dashboard.DashRateUsFragment;
+import net.osmand.plus.dashboard.DashUserInfoFragment;
 import net.osmand.plus.helpers.SearchHistoryHelper;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.routing.RouteProvider.RouteService;
@@ -967,6 +969,33 @@ public class OsmandSettings {
 	public final OsmandPreference<Boolean> SR_USE_WIFI_ONLY = new BooleanPreference("sr_use_wifi_only", false).makeGlobal();
 	public final OsmandPreference<Boolean> SR_LOCATION_SIMULATION = new BooleanPreference("sr_location_simulation", false).makeGlobal();
 	public final OsmandPreference<Boolean> SR_ROUTING = new BooleanPreference("sr_routing", false).makeGlobal();
+
+	// For DashUserInfoFragment
+	public final OsmandPreference<Long> SR_LAST_DISPLAY_TIME =
+			new LongPreference("sr_last_display_time", 0).makeGlobal().cache();
+
+	public final OsmandPreference<Integer> SR_NUMBER_OF_APPLICATION_STARTS =
+			new IntPreference("sr_number_of_app_starts", 0).makeGlobal().cache();
+
+	public final OsmandPreference<DashUserInfoFragment.SrUserInfoState> SR_USER_INFO_STATE =
+			new EnumIntPreference<>("sr_user_info_state",
+					DashUserInfoFragment.SrUserInfoState.INITIAL_STATE, DashUserInfoFragment
+					.SrUserInfoState.values()).makeGlobal();
+
+	// For DashNewVersionFragment
+	public final OsmandPreference<Long> SR_NEW_VERSION_LAST_DISPLAY_TIME =
+			new LongPreference("sr_new_version_last_display_time", 0).makeGlobal().cache();
+
+	public final OsmandPreference<Long> SR_NEW_VERSION_LAST_CHECK_TIME =
+			new LongPreference("sr_new_version_last_check_time", 0).makeGlobal().cache();
+
+	public final OsmandPreference<Integer> SR_VERSION_CODE_SERVER = new IntPreference
+			("sr_version_code_server", 0).makeGlobal().cache();
+
+	public final OsmandPreference<DashNewVersionFragment.SrNewVersionState> SR_NEW_VERSION_STATE =
+			new EnumIntPreference<>("sr_new_version_state",
+					DashNewVersionFragment.SrNewVersionState.INITIAL, DashNewVersionFragment
+					.SrNewVersionState.values()).makeGlobal();
 	
 	// this value string is synchronized with settings_pref.xml preference name
 	public final OsmandPreference<Boolean> DEBUG_RENDERING_INFO = new BooleanPreference("debug_rendering", false).makeGlobal();

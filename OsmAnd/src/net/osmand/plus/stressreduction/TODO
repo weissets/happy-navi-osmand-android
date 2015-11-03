@@ -5,10 +5,14 @@
 //      5. comment MyDatabaseTools in UploadService
 
 
+// TODO fix online tiles nullpointer
+// https takes too long -> with html script from Bastian only ~2sec, TODO Why?
+// service not finishing properly -> fixed, service needs same process name as application!
+// Download limit set to 16 -> DownloadValidationManager
+// user info dashboard
 // fix release build
-// fix "Do you like OsmAnd" dialog TODO talk to Pascal
-// TODO fix navigation service (use ExitActivity? NavigationService? OsmandApplication.closeApplicationAnywayImpl?) -> NOTHING WORKS
-// TODO load sr database (id, stressvalue)(revision|date), check revision, if new load sr db
+// fix "Do you like OsmAnd" dialog
+// TODO load sr database (id, stressvalue)(revision|date), check revision, if new then load sr db
 // TODO adapt routing (native?)
 // REWORK OF THE DATABASE!!!!!!!!!! -> more abstraction levels TODO testing
 // always log segment infos -> TODO testing

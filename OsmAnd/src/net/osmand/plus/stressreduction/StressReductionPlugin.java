@@ -1,12 +1,14 @@
 package net.osmand.plus.stressreduction;
 
 import net.osmand.PlatformUtil;
+import net.osmand.StateChangedListener;
 import net.osmand.ValueHolder;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.routing.RouteProvider;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.connectivity.ConnectionHandler;
 import net.osmand.plus.stressreduction.connectivity.ConnectionReceiver;
@@ -19,7 +21,12 @@ import net.osmand.plus.stressreduction.tools.UUIDCreator;
 import org.apache.commons.logging.Log;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.widget.ImageButton;
 
 /**
  * This class is the stress reduction plugin for OsmAnd.
@@ -27,7 +34,8 @@ import android.os.Bundle;
  * @author Tobias
  */
 public class StressReductionPlugin extends OsmandPlugin
-		implements RoutingHelper.IRouteInformationListener {
+		implements RoutingHelper.IRouteInformationListener,
+		StateChangedListener<RouteProvider.RouteService> {
 
 	private static final Log log = PlatformUtil.getLog(StressReductionPlugin.class);
 
@@ -37,6 +45,7 @@ public class StressReductionPlugin extends OsmandPlugin
 	private final DataHandler dataHandler;
 	private final FragmentHandler fragmentHandler;
 	private final SensorHandler sensorHandler;
+	private Activity currentActivity;
 	private boolean firstRun;
 	private boolean wasClosed;
 	private static boolean routing;
@@ -62,8 +71,14 @@ public class StressReductionPlugin extends OsmandPlugin
 		// lifecycle callbacks for detecting if app gets closed
 		osmandApplication.registerActivityLifecycleCallbacks(new CurrentActivityCallbacks());
 
-		// enable the plugin by default
-		StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);
+		// enable the plugin by default if router service is osmand
+		if (osmandApplication.getSettings().ROUTER_SERVICE.get() !=
+				RouteProvider.RouteService.OSMAND) {
+			StressReductionPlugin.enablePlugin(null, osmandApplication, this, false);
+		} else {
+			StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);
+		}
+		osmandApplication.getSettings().ROUTER_SERVICE.addListener(this);
 
 		// write uuid to database
 		dataHandler.initDatabase();
@@ -105,9 +120,54 @@ public class StressReductionPlugin extends OsmandPlugin
 		routing = false;
 	}
 
+	@Override
+	public void stateChanged(RouteProvider.RouteService change) {
+		log.debug("stateChanged(): routeService=" + change);
+		if (!change.getName().equals(RouteProvider.RouteService.OSMAND.getName())) {
+			// tell user sr plugin not available in other modes, disable plugin
+			StressReductionPlugin.enablePlugin(null, osmandApplication, this, false);
+			showSrPluginDisabledDialog();
+		} else {
+			// enable plugin
+			StressReductionPlugin.enablePlugin(null, osmandApplication, this, true);
+			showSrPluginEnabledDialog();
+		}
+	}
+
+	private void showSrPluginDisabledDialog() {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(currentActivity);
+		dialog.setIcon(R.drawable.sr_plugin_icon_bg_disabled);
+		dialog.setTitle(R.string.sr_plugin_disabled);
+		dialog.setMessage(R.string.sr_plugin_disabled_info);
+		dialog.setPositiveButton(R.string.shared_string_ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+
+	private void showSrPluginEnabledDialog() {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(currentActivity);
+		dialog.setIcon(R.drawable.sr_plugin_icon_bg_enabled);
+		dialog.setTitle(R.string.sr_plugin_enabled);
+		dialog.setMessage(R.string.sr_plugin_enabled_info);
+		dialog.setPositiveButton(R.string.shared_string_ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+
 	/**
 	 * This class is called each time a activity inside the osmand application changes its state.
 	 * It is used to monitor if the application is in background and stopped to upload data
+	 *
+	 * http://stackoverflow.com/questions/3667022/checking-if-an-android-application-is-running-in
+	 * -the-background
 	 */
 	private class CurrentActivityCallbacks implements OsmandApplication
 			.ActivityLifecycleCallbacks {
@@ -135,6 +195,7 @@ public class StressReductionPlugin extends OsmandPlugin
 					activity.getComponentName().getClassName() +
 					", application foreground = " + (foreground > 0) + ", foreground = " +
 					foreground);
+			currentActivity = activity;
 		}
 
 		@Override
@@ -143,7 +204,7 @@ public class StressReductionPlugin extends OsmandPlugin
 			log.debug("onActivityPaused(): Activity = " +
 					activity.getComponentName().getClassName() +
 					", application foreground = " + (foreground > 0) + ", foreground = " +
-							foreground + ", ready for upload = " + isReadyForUpload());
+					foreground + ", ready for upload = " + isReadyForUpload());
 		}
 
 		@Override
@@ -168,9 +229,6 @@ public class StressReductionPlugin extends OsmandPlugin
 
 		private boolean isReadyForUpload() {
 			if (foreground < 1 && visible < 1 && !routing) {
-				log.error("USED BY = " + (osmandApplication.getNavigationService() !=
-						null ? osmandApplication.getNavigationService().getUsedBy() :
-						"Navigation Service NULL"));
 				sensorHandler.stopSensors();
 				wasClosed = true;
 				initUpload();

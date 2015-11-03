@@ -11,6 +11,7 @@ import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentTransaction;
 
 /**
@@ -24,9 +25,13 @@ public class FragmentHandler {
 
 	private final OsmandApplication osmandApplication;
 	private MapActivity mapActivity;
+	private long simulationDialogTimeout;
+	private long srDialogTimeout;
 
 	public FragmentHandler(OsmandApplication osmandApplication) {
 		this.osmandApplication = osmandApplication;
+		simulationDialogTimeout = 0;
+		srDialogTimeout = 0;
 	}
 
 	public void setMapActivity(MapActivity mapActivity) {
@@ -39,9 +44,6 @@ public class FragmentHandler {
 		}
 		if (SRSharedPreferences.getDisplayInfoDialog(osmandApplication)) {
 			showInfoDialog();
-		}
-		if (SRSharedPreferences.getDisplayNewVersionDialog(osmandApplication)) {
-			showNewVersionDialog();
 		}
 	}
 
@@ -63,19 +65,12 @@ public class FragmentHandler {
 		}
 	}
 
-	private void showNewVersionDialog() {
-		if (mapActivity != null) {
-			new FragmentNewVersionDialog().show(mapActivity.getSupportFragmentManager(),
-					Constants.FRAGMENT_NEW_VERSION_DIALOG);
-		} else {
-			log.error("showNewVersionDialog(): mapActivity is NULL");
-		}
-	}
-
 	public void showSRDialog(DataHandler dataHandler) {
 
 		if (mapActivity != null && SQLiteLogger.getDatabaseSizeSegmentsSinceLastStressValue(
-				DataHandler.getTimestampLastStressValue()) > 0) {
+				DataHandler.getTimestampLastStressValue()) > 0 && !isTimeout(srDialogTimeout)) {
+
+			srDialogTimeout = System.currentTimeMillis();
 
 			FragmentSRDialog fragmentSRDialog =
 					(FragmentSRDialog) mapActivity.getSupportFragmentManager()
@@ -100,7 +95,9 @@ public class FragmentHandler {
 	}
 
 	public void showLocationSimulationDialog(RoutingSimulation routingSimulation) {
-		if (mapActivity != null) {
+		if (mapActivity != null && !isTimeout(simulationDialogTimeout)) {
+
+			simulationDialogTimeout = System.currentTimeMillis();
 
 			FragmentLocationSimulationDialog fragmentLocationSimulationDialog =
 					(FragmentLocationSimulationDialog) mapActivity.getSupportFragmentManager()
@@ -123,6 +120,10 @@ public class FragmentHandler {
 				fragmentTransaction.commit();
 			}
 		}
+	}
+
+	private boolean isTimeout(long time) {
+		return (System.currentTimeMillis() - time) < 2000;
 	}
 
 }

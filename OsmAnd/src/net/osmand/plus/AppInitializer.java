@@ -134,6 +134,8 @@ public class AppInitializer implements IProgress {
 			appVersionChanged = true;
 		}
 		initSettings = true;
+		app.getSettings().SR_NUMBER_OF_APPLICATION_STARTS.set(app.getSettings()
+				.SR_NUMBER_OF_APPLICATION_STARTS.get() + 1);
 	}
 	
 	public int getNumberOfStarts() {

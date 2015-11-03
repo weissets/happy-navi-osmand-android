@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Tobias
  */
-class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
+public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 
 	private static final Log log = PlatformUtil.getLog(SRAccelerometer.class);
 
@@ -109,6 +109,8 @@ class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationListener {
 
 	/**
 	 * Class for the accelerometer sensor data
+	 *
+	 * http://www.mit.edu/afs.new/sipb/project/android/docs/guide/topics/sensors/sensors_motion.html
 	 */
 	private class AccelerometerListener implements SensorEventListener {
 

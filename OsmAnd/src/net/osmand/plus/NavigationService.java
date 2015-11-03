@@ -45,7 +45,7 @@ public class NavigationService extends Service implements LocationListener {
 
 	private static WakeLock lockStatic;
 	private PendingIntent pendingIntent;
-	
+
 	protected int usedBy = 0;
 	private OsmAndLocationProvider locationProvider;
 
@@ -73,7 +73,7 @@ public class NavigationService extends Service implements LocationListener {
 	public int getServiceOffInterval() {
 		return serviceOffInterval;
 	}
-	
+
 	public int getUsedBy() {
 		return usedBy;
 	}
@@ -154,11 +154,11 @@ public class NavigationService extends Service implements LocationListener {
 
 		// registering icon at top level
 		// Leave icon visible even for navigation for proper display
-		startForeground(NotificationHelper.NOTIFICATION_SERVICE_ID, 
+		startForeground(NotificationHelper.NOTIFICATION_SERVICE_ID,
 				app.getNotificationHelper().buildNotificationInStatusBar().build());
 		return START_REDELIVER_INTENT;
 	}
-	
+
 	protected void stopService() {
 		if (settings.SAVE_GLOBAL_TRACK_TO_GPX.get()) {
 			settings.SAVE_GLOBAL_TRACK_TO_GPX.set(false);
@@ -177,8 +177,6 @@ public class NavigationService extends Service implements LocationListener {
 		NavigationService.this.stopSelf();
 	}
 
-	
-	
 
 	@Override
 	public void onCreate() {

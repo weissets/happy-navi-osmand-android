@@ -17,7 +17,7 @@ public class NotificationHelper {
 	public final static String OSMAND_STOP_GPX_SERVICE_ACTION = "OSMAND_STOP_GPX_SERVICE_ACTION"; //$NON-NLS-1$
 	public final static String OSMAND_START_GPX_SERVICE_ACTION = "OSMAND_START_GPX_SERVICE_ACTION"; //$NON-NLS-1$
 	public final static String OSMAND_SAVE_GPX_SERVICE_ACTION = "OSMAND_SAVE_GPX_SERVICE_ACTION"; //$NON-NLS-1$
-	
+
 	private OsmandApplication app;
 	private BroadcastReceiver saveBroadcastReceiver;
 	private BroadcastReceiver stopBroadcastReceiver;
@@ -27,7 +27,7 @@ public class NotificationHelper {
 		this.app = app;
 		init();
 	}
-	
+
 	private void init() {
 		saveBroadcastReceiver = new BroadcastReceiver() {
 
@@ -141,11 +141,10 @@ public class NotificationHelper {
 			}
 
 
-			
 		}
 		return notificationBuilder;
 	}
-	
+
 	public void showNotification() {
 		NotificationManager mNotificationManager = (NotificationManager) app.getSystemService(Context.NOTIFICATION_SERVICE);
 		Builder newNotification = buildNotificationInStatusBar();
@@ -162,7 +161,7 @@ public class NotificationHelper {
 			mNotificationManager.notify(NOTIFICATION_SERVICE_ID, newNotification.build());
 		}
 	}
-	
+
 	public void removeServiceNotificationCompletely() {
 		NotificationManager mNotificationManager = (NotificationManager) app.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.cancel( NOTIFICATION_SERVICE_ID);

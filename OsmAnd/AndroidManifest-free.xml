@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools">
 	<application tools:replace="android:icon"
-		android:icon="@drawable/icon_free">
+		android:icon="@drawable/sr_icon_free">
+		<provider tools:replace="android:authorities"
+			android:authorities="net.osmand.free.fileprovider"
+			android:name="android.support.v4.content.FileProvider"/>
 		<service tools:replace="android:process"
-		    android:process="net.osmand"
+		    android:process="org.hcilab.projects.happy.navi.free"
 			android:name="net.osmand.plus.NavigationService"/>
 		
 		</application>

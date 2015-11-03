@@ -203,8 +203,6 @@ public class UploadService extends WakefulIntentService {
 		byte[] buffer;
 		File sourceFile = new File(dbPath);
 
-		// TODO upload via https takes too long
-
 		if (!sourceFile.isFile()) {
 			log.error("uploadFileHttp(): ERROR! could not find database file");
 		} else {
@@ -310,22 +308,22 @@ public class UploadService extends WakefulIntentService {
 			int status;
 
 			log.debug("UploadTask: doInBackground(): start uploading with async task...");
-			if (!BuildConfig.DEBUG) {
+//			if (!BuildConfig.DEBUG) {
 				log.debug("UploadTask: doInBackground(): uploading to " +
 						Constants.URI_DATABASE_UPLOAD);
 				status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD);
-			} else {
-				if (Build.FINGERPRINT.contains("generic")) {
-					log.debug("UploadTask: doInBackground(): debug upload, trying emulator " +
-							"upload");
-					status = uploadFileHttp(databasePath,
-							Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
-				} else {
-					log.debug("UploadTask: doInBackground(): debug upload, trying device upload");
-					status = uploadFileHttp(databasePath,
-							Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
-				}
-			}
+//			} else {
+//				if (Build.FINGERPRINT.contains("generic")) {
+//					log.debug("UploadTask: doInBackground(): debug upload, trying emulator " +
+//							"upload");
+//					status = uploadFileHttp(databasePath,
+//							Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
+//				} else {
+//					log.debug("UploadTask: doInBackground(): debug upload, trying device upload");
+//					status = uploadFileHttp(databasePath,
+//							Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
+//				}
+//			}
 			return status;
 		}
 
@@ -344,15 +342,7 @@ public class UploadService extends WakefulIntentService {
 				log.error("UploadTask: onPostExecute(): Error: data not uploaded, " +
 						"ERROR Code = " + serverResponseCode);
 			}
-			// doesn't work as expected, background service still active even if app closed
-			// completely
-			//			if (receiverUpload) {
-			//				log.debug("onPostExecute(): was receiverUpload, closing app...");
-			//				Intent closeAppIntent = new Intent(getApplicationContext(),
-			// ExitActivity.class);
-			//				closeAppIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			//				startActivity(closeAppIntent);
-			//			}
+			UploadService.this.stopSelf();
 		}
 
 	}

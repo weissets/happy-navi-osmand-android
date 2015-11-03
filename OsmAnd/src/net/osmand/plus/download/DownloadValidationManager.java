@@ -12,6 +12,8 @@ import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.ActionBarProgressActivity;
 import net.osmand.plus.download.DownloadIndexesThread.DownloadEvents;
+import net.osmand.plus.stressreduction.Constants;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,7 +31,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 public class DownloadValidationManager {
-	public static final int MAXIMUM_AVAILABLE_FREE_DOWNLOADS = 5;
+	public static final int MAXIMUM_AVAILABLE_FREE_DOWNLOADS = 16;
 	protected OsmandSettings settings;
 	private OsmandApplication app;
 	private DownloadIndexesThread downloadThread;
@@ -163,8 +165,9 @@ public class DownloadValidationManager {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(Intent.ACTION_VIEW,
-								Uri.parse(Version.marketPrefix(getMyApplication())
-										+ "net.osmand.plus"));
+								Uri.parse(Constants.URI_HOMEPAGE));
+//								Uri.parse(Version.marketPrefix(getMyApplication())
+//										+ "net.osmand.plus"));
 						try {
 							startActivity(intent);
 						} catch (ActivityNotFoundException e) {
