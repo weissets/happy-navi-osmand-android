@@ -2093,7 +2093,9 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
         you would like to reduce mobile data you can activate \'Wifi Upload\' in the plugin
         settings.
 		\n\nThe plugin for this feature is activated by default! You can disable it in the settings.
-        \n\nFor a full description of this project visit our info page (http://maps.hcilab.org/info). The source code can be found at GitHub (https://github.com/weissets/happy_navi_osmand).
+        \n\nFor a full description of this project visit our info page
+        (https://maps.hci.simtech.uni-stuttgart.de/info) or visit the \'Help\' section in this
+        app. The source code can be found at GitHub (https://github.com/weissets/happy-navi-osmand).
         \n\nI hereby agree that the data that will be collected while using the application with activated plugin will be anonymously saved and analyzed. The results of this research may be presented at scientific or professional meetings or published in scientific journals. Your identity is not disclosed unless we directly inform and ask for your permission.
 		\n\nThank you for supporting this research project!
 	</string>
