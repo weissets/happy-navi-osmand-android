@@ -1,11 +1,18 @@
+Happy Navi (OsmAnd)
+------------
+<p> This version of OsmAnd is a research version of the Human-Computer-Interaction Group
+at the University of Stuttgart (Germany). Our goal is to determine stressful and tiring road
+segments and to provide better routes in the future. This version is based on OsmAnd 2.2.0 and is
+ extended by a plugin which gives the user the opportunity to give a rating for the last couple
+ road segments traveled.
+</p>
+
 OsmAnd (OSM Automated Navigation Directions)
 ------------
 <p>This project aims at providing comfortable map viewing and navigation (routing) application for mobile devices. Particluar stress lies with complete offline features (via pre-loaded offline map data) or economic internet usage.
 To get started, continue with the basic description below, then find more detail on our Welcome Wiki Pages, the Project Homepage, or the OpenStreetMap OsmAnd Wiki Page.
 You are welcome to discuss any question regarding the project at the google group OsmAnd. Please do not use comments on wiki pages because it is rather difficult to find them.
 </p>
-
-[![tip for next commit](http://tip4commit.com/projects/33.svg)](http://tip4commit.com/projects/33)
 
 Functionality
 -------------
