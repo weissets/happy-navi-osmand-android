@@ -106,9 +106,6 @@ public class FragmentHandler {
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
 			}
-			for (Fragment f : mapActivity.getSupportFragmentManager().getFragments()) {
-				log.debug("fragment = " + f.getTag());
-			}
 		}
 	}
 

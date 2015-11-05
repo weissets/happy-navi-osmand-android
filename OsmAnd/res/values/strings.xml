@@ -2083,7 +2083,6 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
         driving with less stress. For a full description visit our info page: \n
         http://maps.hcilab.org/info</string>
     <string name="sr_plugin_name">Stress Reduction Plugin</string>
-    <string name="sr_plugin_info_version" translatable="false">1.0.0</string>
     <string name="sr_plugin_info">
 		Happy Navi is a research Version of OsmAnd. It is developed by the Human-Computer-Interaction Group (www.hcilab.org) at the  University of Stuttgart (Germany).
 		\n\nOur goal is to determine and evaluate stress values for single street segments and to adapt the routing for driving with less stress.
@@ -2103,7 +2102,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_plugin_info_title">%1$s</string>
     <string name="sr_plugin_whats_new_title">What\'s New</string>
     <string name="sr_plugin_whats_new_description">
-        Version 2.2.0-213
+        Version 2.2.0-214
         \n\n• Updated version 2.2
         \n\n• New look and feel
         \n\n• Fixed native support

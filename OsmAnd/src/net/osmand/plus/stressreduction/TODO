@@ -5,6 +5,18 @@
 //      5. comment MyDatabaseTools in UploadService
 
 
+// TODO neuer branch -> ordner umbenennen
+// TODO von Pascal anderes Android gerät holen für 2. installation
+// TODO online karten funktionieren nicht, oder kompliziert
+// TODO frage in userinfo einbauen
+// TODO pickers mit ok button oder schließen auf tap
+// TODO sr dialog erscheint nicht ohne routing!?
+// TODO online karte navigation (fehler bei der routenberechnung, startpunkt / ziel zuweit von nächster straße entfernt
+// TODO info text und play store: bei erstem start mit wlan verbunden sein um daten für sprache und karten herunterzuladen damit app richtig funktioniert
+// TODO Dominik fragen wegen generischem dashboard popup (z.b. für fragebogen, o.ä.)
+
+
+
 // fixed online tiles nullpointer -> sr plugin only active if router service = osmand
 // https takes too long -> with html script from Bastian only ~2sec, TODO Why?
 // service not finishing properly -> fixed, service needs same process name as application!
