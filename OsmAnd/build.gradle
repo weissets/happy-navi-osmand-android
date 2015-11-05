@@ -117,12 +117,12 @@ android {
 		free {
 			flavorDimension "version"
 //			applicationId "net.osmand"
-			applicationId "org.hcilab.projects.happy.navi.free"
+			applicationId "org.hcilab.projects.happy.navi"
 		}
 		full {
 			flavorDimension "version"
 //			applicationId "net.osmand.plus"
-			applicationId "org.hcilab.projects.happy.navi"
+			applicationId "org.hcilab.projects.happy.navi.full"
 		}
 
 		// CoreVersion

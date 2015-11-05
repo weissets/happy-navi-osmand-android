@@ -93,7 +93,10 @@ public class Constants {
 	public static final int MINIMUM_DRIVING_SPEED = 20;
 
 	/** time between the first and last check of minimum driving speed in ms */
-	public static final int SPEED_TIMEOUT = 2000;
+	public static final int SPEED_WATCHER_TIMEOUT = 2000;
+
+	/** time between the first and last check of driving speed in ms */
+	public static final int DIALOG_WATCHER_TIMEOUT = 5000;
 
 	/** minimum time span in ms between two stress reduction dialogs */
 	public static final int DIALOG_TIMEOUT = 30000;

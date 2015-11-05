@@ -7,7 +7,7 @@
 			android:authorities="net.osmand.free.fileprovider"
 			android:name="android.support.v4.content.FileProvider"/>
 		<service tools:replace="android:process"
-		    android:process="org.hcilab.projects.happy.navi.free"
+		    android:process="org.hcilab.projects.happy.navi"
 			android:name="net.osmand.plus.NavigationService"/>
 		
 		</application>

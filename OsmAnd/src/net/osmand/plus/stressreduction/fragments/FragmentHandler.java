@@ -11,7 +11,7 @@ import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
 
-import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 /**
@@ -65,10 +65,25 @@ public class FragmentHandler {
 		}
 	}
 
+	public boolean isSRDialogVisible() {
+		FragmentSRDialog fragmentSRDialog =
+				(FragmentSRDialog) mapActivity.getSupportFragmentManager()
+						.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+		return fragmentSRDialog != null && fragmentSRDialog.isVisible();
+	}
+
+	public void hideSRDialog() {
+		FragmentSRDialog fragmentSRDialog =
+				(FragmentSRDialog) mapActivity.getSupportFragmentManager()
+						.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+		if (fragmentSRDialog != null) {
+			fragmentSRDialog.dismiss();
+		}
+	}
+
 	public void showSRDialog(DataHandler dataHandler) {
 
-		if (mapActivity != null && SQLiteLogger.getDatabaseSizeSegmentsSinceLastStressValue(
-				DataHandler.getTimestampLastStressValue()) > 0 && !isTimeout(srDialogTimeout)) {
+		if (mapActivity != null && !isTimeout(srDialogTimeout) && SQLiteLogger.hasNewSegments()) {
 
 			srDialogTimeout = System.currentTimeMillis();
 
@@ -84,12 +99,15 @@ public class FragmentHandler {
 				fragmentTransaction.add(fragmentSRDialog, Constants.FRAGMENT_SR_DIALOG);
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
-			} else if (!fragmentSRDialog.isInLayout()){
+			} else {
 				FragmentTransaction fragmentTransaction =
 						mapActivity.getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.show(fragmentSRDialog);
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
+			}
+			for (Fragment f : mapActivity.getSupportFragmentManager().getFragments()) {
+				log.debug("fragment = " + f.getTag());
 			}
 		}
 	}
@@ -112,7 +130,7 @@ public class FragmentHandler {
 						Constants.FRAGMENT_LOCATION_SIMULATION);
 				fragmentTransaction.disallowAddToBackStack();
 				fragmentTransaction.commit();
-			} else if (!fragmentLocationSimulationDialog.isInLayout()){
+			} else {
 				FragmentTransaction fragmentTransaction =
 						mapActivity.getSupportFragmentManager().beginTransaction();
 				fragmentTransaction.show(fragmentLocationSimulationDialog);
@@ -125,5 +143,6 @@ public class FragmentHandler {
 	private boolean isTimeout(long time) {
 		return (System.currentTimeMillis() - time) < 2000;
 	}
+
 
 }

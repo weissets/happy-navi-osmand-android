@@ -38,15 +38,14 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 		return sqLiteLogger;
 	}
 
-	public static int getDatabaseSizeSegmentsSinceLastStressValue(String lastStressValueTimestamp) {
-		Cursor cursor = sqLiteLogger.getReadableDatabase()
-				.rawQuery("SELECT " + Constants.TIMESTAMP + " FROM " +
-						Constants.SEGMENTS + " WHERE " + "\"" +
-						Constants.TIMESTAMP + "\" > \"" + lastStressValueTimestamp +
-						"\"", null);
+	public static boolean hasNewSegments() {
+		Cursor cursor = sqLiteLogger.getReadableDatabase().rawQuery(
+				"SELECT " + Constants.TIMESTAMP + " FROM " + Constants.SEGMENTS + " WHERE " +
+						"\"" + Constants.TIMESTAMP + "\" > \"" +
+						DataHandler.getTimestampLastStressValue() + "\"", null);
 		int count = cursor.getCount();
 		cursor.close();
-		return count;
+		return count > 0;
 	}
 
 	/**
@@ -143,7 +142,8 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 		contentValues.put(Constants.STRESS_VALUE, stressValue);
 		int updatedRows = getWritableDatabase().update(Constants.SEGMENTS, contentValues,
 				"\"" + Constants.TIMESTAMP + "\" > \"" + startTimestamp +
-//						"\" AND \"" + Constants.TIMESTAMP + "\" < \"" + endTimestamp +
+						//						"\" AND \"" + Constants.TIMESTAMP + "\" < \"" +
+						// endTimestamp +
 						"\"", null);
 		log.debug("updateStressValueInSegmentInfos(): updated " + updatedRows + " rows!");
 	}

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.stressreduction.Constants;
-import net.osmand.plus.stressreduction.StressReductionPlugin;
 
 import org.apache.commons.logging.Log;
 

@@ -1,15 +1,9 @@
 package net.osmand.plus.stressreduction.tools;
 
-import com.google.protobuf.TextFormat;
-
 import net.osmand.plus.stressreduction.Constants;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 

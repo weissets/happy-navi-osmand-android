@@ -2,7 +2,6 @@ package net.osmand.plus.stressreduction.simulation;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
-import net.osmand.binary.RouteDataObject;
 import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.routing.RoutingHelper;

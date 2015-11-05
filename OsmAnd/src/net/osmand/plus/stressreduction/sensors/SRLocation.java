@@ -8,14 +8,12 @@ import net.osmand.data.LatLon;
 import net.osmand.plus.CurrentPositionHelper;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.routing.RouteProvider;
 import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.StressReductionPlugin;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.database.RoutingLog;
-import net.osmand.plus.stressreduction.database.SQLiteLogger;
 import net.osmand.plus.stressreduction.database.SegmentInfo;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
 import net.osmand.plus.stressreduction.simulation.RoutingSimulation;
@@ -52,6 +50,8 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	private long timerLocation;
 	private long timerDialog;
 	private boolean isDriving;
+	private boolean isLastDialog;
+	private boolean checkingDialog;
 	private final List<Float> segmentSpeedList = new ArrayList<>();
 	public static int SIMULATION_SPEED = 1;
 
@@ -71,6 +71,8 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		routingSimulation = new RoutingSimulation(osmandApplication, fragmentHandler);
 		currentPositionHelper = new CurrentPositionHelper(osmandApplication);
 		isDriving = false;
+		isLastDialog = false;
+		checkingDialog = false;
 		timerLocation = 0;
 		timerDialog = 0;
 		leftDistance = 0;
@@ -111,6 +113,13 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 
 		if (!isDriving && !isSpeedBelowThreshold(location, Constants.MINIMUM_DRIVING_SPEED)) {
 			isDriving = true;
+		}
+
+		if (isDriving && fragmentHandler.isSRDialogVisible()) {
+			if (!checkingDialog) {
+				checkingDialog = true;
+				new Thread(new DialogWatcher()).start();
+			}
 		}
 
 		segmentSpeedList.add(location.getSpeed());
@@ -237,6 +246,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	public void newRouteIsCalculated(boolean newRoute, ValueHolder<Boolean> showToast) {
 		log.debug("newRouteIsCalculated(): new route=" + newRoute);
 		routingSimulation.newRouteIsCalculated();
+		isLastDialog = false;
 		// write data to routing log, only if router service is osmand
 		if (newRoute && routingHelper.getSettings().ROUTER_SERVICE.get() ==
 				RouteProvider.RouteService.OSMAND) {
@@ -257,6 +267,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	public void routeWasCancelled() {
 		log.debug("routeWasCancelled()");
 		if (isDriving) {
+			isLastDialog = true;
 			fragmentHandler.showSRDialog(dataHandler);
 		}
 		if (routingLog != null && (System.currentTimeMillis() -
@@ -289,32 +300,55 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		routingLog = null;
 	}
 
-/**
- * This class is a speed watcher which gets activated if the speed is below a certain
- * threshold.
- * If the current speed is still below the threshold after 2 seconds the SRDialog is
- * initialized.
- *
- * @author Tobias
- */
-private class SpeedWatcher implements Runnable {
+	/**
+	 * This class is a speed watcher which gets activated if the speed is below a certain
+	 * threshold.
+	 * If the current speed is still below the threshold after 2 seconds the SRDialog is
+	 * initialized.
+	 *
+	 * @author Tobias
+	 */
+	private class SpeedWatcher implements Runnable {
 
-	@Override
-	public void run() {
-		try {
-			Thread.sleep(Constants.SPEED_TIMEOUT);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(Constants.SPEED_WATCHER_TIMEOUT);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
+				log.debug("run(): speed still below threshold, show dialog");
+				lastDialogLocation = currentLocation;
+				lastDialogSegmentID = lastLoggedSegmentID;
+				fragmentHandler.showSRDialog(dataHandler);
+			} else {
+				log.debug("run(): speed now higher than dialog speed limit, not showing dialog");
+			}
 		}
-		if (isSpeedBelowThreshold(currentLocation, Constants.DIALOG_SPEED_LIMIT)) {
-			log.debug("run(): speed still below threshold, show dialog");
-			lastDialogLocation = currentLocation;
-			lastDialogSegmentID = lastLoggedSegmentID;
-			fragmentHandler.showSRDialog(dataHandler);
-		} else {
-			log.debug("run(): speed now higher than dialog speed limit, not showing dialog");
-		}
+
 	}
 
-}
+	private class DialogWatcher implements Runnable {
+
+		@Override
+		public void run() {
+			if (!isLastDialog) {
+				try {
+					Thread.sleep(Constants.DIALOG_WATCHER_TIMEOUT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if (!isSpeedBelowThreshold(currentLocation, Constants.MINIMUM_DRIVING_SPEED)) {
+					log.debug("run(): driving but dialog still showing, closing dialog...");
+					fragmentHandler.hideSRDialog();
+					checkingDialog = false;
+					DataHandler.setTimestampLastStressValue(Calculation.getCurrentDateTimeMs());
+				} else {
+					log.debug("run(): speed now higher than dialog speed limit, not showing dialog");
+				}
+			}
+		}
+
+	}
 }

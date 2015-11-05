@@ -16,9 +16,6 @@ import net.osmand.plus.stressreduction.tools.Calculation;
 
 import org.apache.commons.logging.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class handles the accelerometer
  *
@@ -36,7 +33,7 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 	private Location currentLocation;
 	private int accelerometerType;
 
-	private final int ACCELEROMETER_LINEAR = 1;
+//	private final int ACCELEROMETER_LINEAR = 1;
 	private final int ACCELEROMETER_NORMAL = 2;
 	private final int ACCELEROMETER_NONE = 3;
 
@@ -49,9 +46,9 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 		accelerometerListener = new AccelerometerListener();
 		accelerometerSensor = getBestAccelerometerSensor();
 		// if there is no accelerometer write this to database
-		if (accelerometerType == ACCELEROMETER_NONE) {
-
-		}
+//		if (accelerometerType == ACCELEROMETER_NONE) {
+//
+//		}
 	}
 
 	private Sensor getBestAccelerometerSensor() {

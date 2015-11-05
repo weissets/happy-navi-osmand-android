@@ -6,7 +6,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
 
