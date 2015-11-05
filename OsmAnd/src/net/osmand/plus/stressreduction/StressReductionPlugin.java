@@ -56,7 +56,7 @@ public class StressReductionPlugin extends OsmandPlugin
 		UNIQUE_ID = UUIDCreator.id(osmandApplication);
 		// for debugging
 		if (BuildConfig.DEBUG) {
-			UNIQUE_ID = "Test_ID_26/10/15";
+			UNIQUE_ID = "Test_ID_04/11/15";
 		}
 
 		dataHandler = new DataHandler(osmandApplication);
@@ -126,6 +126,7 @@ public class StressReductionPlugin extends OsmandPlugin
 		if (!change.getName().equals(RouteProvider.RouteService.OSMAND.getName())) {
 			// tell user sr plugin not available in other modes, disable plugin
 			StressReductionPlugin.enablePlugin(null, osmandApplication, this, false);
+			sensorHandler.stopSensors();
 			showSrPluginDisabledDialog();
 		} else {
 			// enable plugin

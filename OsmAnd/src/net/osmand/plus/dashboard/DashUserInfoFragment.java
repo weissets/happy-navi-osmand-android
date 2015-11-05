@@ -66,7 +66,7 @@ public class DashUserInfoFragment extends DashBaseFragment {
 			settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
 		}
 		DashUserInfoFragment.settings = settings;
-		long lastDisplayTimeInMillis = settings.SR_LAST_DISPLAY_TIME.get();
+//		long lastDisplayTimeInMillis = settings.SR_LAST_DISPLAY_TIME.get();
 		int numberOfApplicationRuns = settings.SR_NUMBER_OF_APPLICATION_STARTS.get();
 		SrUserInfoState state = settings.SR_USER_INFO_STATE.get();
 

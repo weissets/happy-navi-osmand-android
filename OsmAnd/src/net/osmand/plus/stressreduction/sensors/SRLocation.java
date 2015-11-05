@@ -135,10 +135,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			if (routeDataObject != null) {
 				//				log.debug("updateLocation(): found rdo!");
 				// check if current segment is the same as last segment
-				if (routeDataObject.getId() == lastLoggedSegmentID) {
-					//					log.debug("updateLocation(): same id as last logged
-					// segment");
-				} else {
+				if (routeDataObject.getId() != lastLoggedSegmentID) {
 					log.debug("updateLocation(): logging: UniqueID=" +
 							StressReductionPlugin.getUUID() +
 							", SegmentID=" + routeDataObject.getId() + ", Name=" +

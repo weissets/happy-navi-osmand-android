@@ -5,7 +5,7 @@
 //      5. comment MyDatabaseTools in UploadService
 
 
-// TODO fix online tiles nullpointer
+// fixed online tiles nullpointer -> sr plugin only active if router service = osmand
 // https takes too long -> with html script from Bastian only ~2sec, TODO Why?
 // service not finishing properly -> fixed, service needs same process name as application!
 // Download limit set to 16 -> DownloadValidationManager
@@ -42,7 +42,7 @@
 // changed core logic, logging of segements directly to database, all the time not only while
 routing active
 // TODO Discussion about anonymisation (cut off beginn/end of route?), how about driver profile
-// TODO fix DE style for online tiles on maps.hcilab.org -> OPTIONAL?
-// TODO integrate maps.hcilab.org online tiles -> Server Capacity?
-// TODO download complete germany at once, or DACH
+// OPTIONAL fix DE style for online tiles on maps.hcilab.org
+// OPTIONAL integrate maps.hcilab.org online tiles -> Server Capacity?
+// OPTIONAL download complete germany at once, or DACH
 // start disclaimer from elsewhere (OsmandApplication.java?) -> moved to fragments
