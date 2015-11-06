@@ -32,7 +32,7 @@
 	<string name="poi_baby_goods">Товары для детей</string>
 	<string name="poi_bag">Сумки, чемоданы</string>
 	<string name="poi_bathroom_furnishing">Сантехника, ванные</string>
-	<string name="poi_bed">Спальные принадлежности</string>
+	<string name="poi_bed">Магазин постельного белья</string>
 	<string name="poi_boutique">Бутик</string>
 	<string name="poi_carpet">Магазин ковров</string>
 	<string name="poi_charity">Благотворительный магазин</string>
@@ -415,7 +415,7 @@
 	<string name="poi_croquet">Крокет</string>
 	<string name="poi_cycling">Велосипедный спорт</string>
 	<string name="poi_diving">Прыжки в воду</string>
-	<string name="poi_scuba_diving">Подводное плавание</string>
+	<string name="poi_scuba_diving">Плавание с аквалангом</string>
 	<string name="poi_dog_racing">Собачьи бега</string>
 	<string name="poi_equestrian">Верховая езда</string>
 	<string name="poi_golf">Гольф</string>
@@ -454,7 +454,7 @@
 	<string name="poi_attraction">Достопримечательность</string>
 	<string name="poi_memorial">Памятник, мемориал</string>
 	<string name="poi_artwork">Произведение искусства</string>
-	<string name="poi_archaeological_site">Раскопки</string>
+	<string name="poi_archaeological_site">Археологические раскопки</string>
 	<string name="poi_battlefield">Поле битвы</string>
 	<string name="poi_boundary_stone">Межевой камень</string>
 	<string name="poi_castle">Замок</string>
@@ -848,23 +848,23 @@
 	<string name="poi_public_transport_stop_position">Остановка общественного транспорта</string>
 	<string name="poi_railway_buffer_stop">Железнодорожный буфер</string>
 	<string name="poi_junction">Перекрёсток</string>
-	<string name="poi_observation_tower">Смотровая башня</string>
+	<string name="poi_observation_tower">Наблюдательная башня</string>
 	<string name="poi_bell_tower">Колокольня</string>
-	<string name="poi_industrial">Промышленный район</string>
+	<string name="poi_industrial">Промышленная зона</string>
 	<string name="poi_allotments">Сады</string>
-	<string name="poi_farmyard">Сельскохозяйственный двор</string>
+	<string name="poi_farmyard">Фермерское хозяйство</string>
 	<string name="poi_meadow">Луг</string>
 	<string name="poi_landuse_railway">Территория железной дороги</string>
 	<string name="poi_basin">Искусственный водоём</string>
 
-	<string name="poi_storage_tank">Резервуар</string>
+	<string name="poi_storage_tank">Бак для жидкости</string>
 
 	<string name="poi_neighbourhood">Микрорайон</string>
 	<string name="poi_residential">Жилой район</string>
 	<string name="poi_religious">Религиозное землепользование</string>
 
 <!--	<string name="poi_general_tourist_attraction_yes">Достопримечательность (тип неизвестен)</string>-->
-	<string name="poi_attraction_amusement_ride">Парк атракционов</string>
+	<string name="poi_attraction_amusement_ride">Атракцион</string>
 	<string name="poi_wilderness_hut">Лесной домик</string>
 	<string name="poi_hunting_lodge">Охотничий домик</string>
 
@@ -913,7 +913,7 @@
 	<string name="poi_crossing_unmarked">Неразмеченный</string>
 
 	<string name="poi_population">Население</string>
-	<string name="poi_start_date">Дата окончания постройки</string>
+	<string name="poi_start_date">Дата открытия</string>
 	<string name="poi_wheelchair">Доступно для инвалидных кресел</string>
 	<string name="poi_wheelchair_no">Недоступно для инвалидных кресел</string>
 	<string name="poi_wheelchair_limited">Инвалидные кресла: ограничено</string>
@@ -1545,7 +1545,7 @@
 	<string name="poi_memorial_bust">Бюст</string>
 	<string name="poi_memorial_blue_plaque">Синяя табличка</string>
 	<string name="poi_memorial_jizo">Дзидзо</string>
-	<string name="poi_memorial_cross">Крест</string>
+	<string name="poi_memorial_cross">В виде креста</string>
 	<string name="poi_memorial_vehicle">Средство передвижения</string>
 	<string name="poi_memorial_stolperstein">Камень преткновения</string>
 	<string name="poi_memorial_obelisk">Обелиск</string>
@@ -2335,5 +2335,41 @@
 	<string name="poi_club_freemasonry">Масонская Ложа</string>
 	<string name="poi_club_sailing">Клуб парусного спорта</string>
 	<string name="poi_club_scout">Клуб скаутов</string>
+
+	<string name="poi_historic_threshing_floor">Историческое гумно</string>
+	<string name="poi_historic_gallows">Историческая виселица</string>
+	<string name="poi_historic_railway">Историческая железная дорога</string>
+
+	<string name="poi_square">Площадь</string>
+	<string name="poi_artist_name">Художник, автор</string>
+	<string name="poi_sculptor">Скульптор</string>
+
+	<string name="poi_building_type_church">Тип здания: церковь</string>
+	<string name="poi_building_type_chapel">Тип здания: часовня</string>
+	<string name="poi_building_type_mosque">Тип здания: мечеть</string>
+	<string name="poi_building_type_temple">Тип здания: храм</string>
+	<string name="poi_building_type_cathedral">Тип здания: собор</string>
+	<string name="poi_building_type_monastery">Тип здания: монастырь</string>
+	<string name="poi_building_type_basilica">Тип здания: базилика</string>
+	<string name="poi_building_type_synagogue">Тип здания: синагога</string>
+	<string name="poi_building_type_shrine">Тип здания: святыня</string>
+
+	<string name="poi_cross">Крест</string>
+	<string name="poi_summit_cross">Крест на вершине: есть</string>
+
+	<string name="poi_prison_camp">Бывший тюремный лагерь</string>
+	<string name="poi_concentration_camp">Тип: концентрационный лагерь</string>
+	<string name="poi_pow_camp">Тип: для военнопленных</string>
+	<string name="poi_labor_camp">Тип: исправительно-трудовой</string>
+	<string name="poi_concentration_camp_nazism">Тип: нацистский</string>
+	<string name="poi_concentration_camp_gulag">Тип: гулаг</string>
+
+	<string name="poi_temperature">Температура</string>
+	<string name="poi_bathing_yes">Купание: да</string>
+	<string name="poi_bathing_no">Купание: нет</string>
+
+	<string name="poi_traffic_calming_island">Островок (препятствие)</string>
+
+	<string name="poi_boat_storage">Место для хранения лодок</string>
 
 </resources>

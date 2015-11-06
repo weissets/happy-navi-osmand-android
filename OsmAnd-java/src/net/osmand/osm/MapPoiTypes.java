@@ -168,7 +168,7 @@ public class MapPoiTypes {
 				addIf(tm, pt, matcher);
 			}
 			for (PoiType pt : pc.getPoiTypes()) {
-				if (pt.isReference() || pt.isNameOnly()) {
+				if (pt.isReference()){
 					continue;
 				}
 				addIf(tm, pt, matcher);
@@ -290,6 +290,7 @@ public class MapPoiTypes {
 							for(String lng : MapRenderingTypes.langs) {
 								parsePoiAdditional(parser, lastCategory, lastFilter, lastType, lng);
 							}
+							parsePoiAdditional(parser, lastCategory, lastFilter, lastType, "en");
 						}
 						parsePoiAdditional(parser, lastCategory, lastFilter, lastType, null);
 					} else if (name.equals("poi_type")) {

@@ -217,7 +217,7 @@ public class DashNewVersionFragment extends DashBaseFragment {
 		INITIAL
 	}
 
-	public static class NewVersionShouldShow extends DashboardOnMap.SettingsShouldShow {
+	public static class NewVersionShouldShow extends DashboardOnMap.DefaultShouldShow {
 
 		@Override
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {

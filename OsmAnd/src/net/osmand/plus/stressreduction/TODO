@@ -6,9 +6,9 @@
 
 
 // TODO neuer branch -> ordner umbenennen
-// TODO von Pascal anderes Android gerät holen für 2. installation
+// von Pascal anderes Android gerät holen für 2. installation
 // TODO online karten funktionieren nicht, oder kompliziert
-// TODO frage in userinfo einbauen
+// TODO frage in user info einbauen
 // TODO pickers mit ok button oder schließen auf tap
 // TODO sr dialog erscheint nicht ohne routing!?
 // TODO online karte navigation (fehler bei der routenberechnung, startpunkt / ziel zuweit von nächster straße entfernt

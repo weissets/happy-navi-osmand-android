@@ -1732,7 +1732,7 @@
 	<string name="poi_memorial_koshinto">Koshinto</string>
 	<string name="poi_memorial_blue_plaque">"Blå  plakette"</string>
 	<string name="poi_memorial_jizo">Jizo</string>
-	<string name="poi_memorial_cross">Kors</string>
+	<string name="poi_memorial_cross">Korsformet</string>
 	<string name="poi_memorial_vehicle">Køretøj</string>
 	<string name="poi_memorial_obelisk">Obelisk</string>
 
@@ -2383,5 +2383,50 @@
 
 	<string name="poi_historic_farm">Historisk gård</string>
 	<string name="poi_historic_railway_station">Historisk jernbanestation</string>
+
+<string name="poi_club_freemasonry">Frimurerloge</string>
+	<string name="poi_club_sailing">Sejlklub</string>
+	<string name="poi_club_scout">Spejdergruppe</string>
+
+
+<string name="poi_historic_threshing_floor">Historisk tærskeplads</string>
+	<string name="poi_historic_gallows">Historisk galge</string>
+	<string name="poi_historic_railway">Historisk jernbane</string>
+
+<string name="poi_square">Plads</string>
+
+<string name="poi_building_type_church">Bygningstype: kirke</string>
+	<string name="poi_building_type_chapel">Bygningstype: kapel</string>
+	<string name="poi_building_type_mosque">Bygningstype: moské</string>
+	<string name="poi_building_type_temple">Bygningstype: tempel</string>
+	<string name="poi_building_type_cathedral">Bygningstype: katedral</string>
+	<string name="poi_building_type_monastery">Bygningstype: kloster</string>
+	<string name="poi_building_type_basilica">Bygningstype: basilika</string>
+	<string name="poi_building_type_synagogue">Bygningstype: synagoge</string>
+	<string name="poi_building_type_shrine">Bygningstype: helgenskrin</string>
+
+<string name="poi_artist_name">Kunstner</string>
+	<string name="poi_sculptor">Billedhugger</string>
+
+	<string name="poi_cross">Kors</string>
+	<string name="poi_summit_cross">Topkors: ja</string>
+
+	<string name="poi_prison_camp">Tidligere fangelejr</string>
+	<string name="poi_concentration_camp">Type: koncentrationslejr</string>
+	<string name="poi_pow_camp">Type: krigsfangelejr</string>
+	<string name="poi_labor_camp">Type: arbejdslejr</string>
+	<string name="poi_concentration_camp_nazism">Type: nazistisk</string>
+	<string name="poi_concentration_camp_gulag">Type: gulag</string>
+
+<string name="poi_temperature">Temperatur</string>
+	<string name="poi_bathing_yes">Badning: ja</string>
+	<string name="poi_bathing_no">Badning: nej</string>
+
+<string name="poi_wiki_link">Wiki</string>
+
+
+<string name="poi_traffic_calming_island">Trafikhelle</string>
+	<string name="poi_boat_storage">Bådopbevaring</string>
+
 
 </resources>

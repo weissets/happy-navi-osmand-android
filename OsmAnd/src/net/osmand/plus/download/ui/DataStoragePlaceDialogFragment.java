@@ -31,10 +31,15 @@ public class DataStoragePlaceDialogFragment extends DialogFragment {
 
 	private File internalStorage;
 	private File externalStorage;
+	public static boolean isInterestedInFirstTime = true;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		final Dialog dialog = new Dialog(getActivity(), R.style.BottomSheet_Dialog);
+		boolean isLightTheme = ((OsmandApplication) getActivity().getApplication())
+				.getSettings().OSMAND_THEME.get() == OsmandSettings.OSMAND_LIGHT_THEME;
+		int themeId = isLightTheme ? R.style.OsmandLightTheme_BottomSheet
+				: R.style.OsmandDarkTheme_BottomSheet;
+		final Dialog dialog = new Dialog(getActivity(), themeId);
 		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		return dialog;
 	}
@@ -55,7 +60,7 @@ public class DataStoragePlaceDialogFragment extends DialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		internalStorage = getInternalStorageDirectory(getActivity());
-		externalStorage = getExternalStorageDirectory();
+		externalStorage = getMyApplication().getSettings().getSecondaryStorage();
 
 		final View view = inflater.inflate(R.layout.fragment_data_storage_place_dialog, container,
 				false);
@@ -89,14 +94,11 @@ public class DataStoragePlaceDialogFragment extends DialogFragment {
 		closeImageButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				isInterestedInFirstTime = false;
 				dismiss();
 			}
 		});
 		return view;
-	}
-
-	public static File getExternalStorageDirectory() {
-		return OsmandSettings.getSecondaryStorage();
 	}
 
 	public static File getInternalStorageDirectory(Activity activity) {
@@ -140,6 +142,7 @@ public class DataStoragePlaceDialogFragment extends DialogFragment {
 				public void onClick(View v) {
 					saveFilesLocation(OsmandSettings.EXTERNAL_STORAGE_TYPE_DEFAULT,
 							internalStorage, getActivity());
+					isInterestedInFirstTime = false;
 					dismiss();
 				}
 			};
@@ -150,6 +153,7 @@ public class DataStoragePlaceDialogFragment extends DialogFragment {
 				public void onClick(View v) {
 					saveFilesLocation(OsmandSettings.EXTERNAL_STORAGE_TYPE_EXTERNAL_FILE,
 							externalStorage, getActivity());
+					isInterestedInFirstTime = false;
 					dismiss();
 				}
 			};

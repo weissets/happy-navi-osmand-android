@@ -1,5 +1,11 @@
 package net.osmand.plus.download;
 
+import net.osmand.IndexConstants;
+import net.osmand.map.OsmandRegions;
+import net.osmand.map.WorldRegion;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.download.DownloadOsmandIndexesHelper.AssetIndexItem;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -11,12 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import net.osmand.IndexConstants;
-import net.osmand.map.OsmandRegions;
-import net.osmand.map.WorldRegion;
-import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.download.DownloadOsmandIndexesHelper.AssetIndexItem;
-
 public class DownloadResources extends DownloadResourceGroup {
 	public boolean isDownloadedFromInternet = false;
 	public boolean mapVersionIsIncreased = false;
@@ -25,7 +25,6 @@ public class DownloadResources extends DownloadResourceGroup {
 	private Map<String, String> indexActivatedFileNames = new LinkedHashMap<>();
 	private List<IndexItem> rawResources;
 	private List<IndexItem> itemsToUpdate = new ArrayList<>();
-	//public static final String WORLD_BASEMAP_KEY = "world_basemap.obf.zip";
 	public static final String WORLD_SEAMARKS_KEY = "world_seamarks_basemap";
 	
 	
@@ -37,6 +36,48 @@ public class DownloadResources extends DownloadResourceGroup {
 	
 	public List<IndexItem> getItemsToUpdate() {
 		return itemsToUpdate;
+	}
+
+	public IndexItem getWorldBaseMapItem() {
+		DownloadResourceGroup worldMaps = getSubGroupById(DownloadResourceGroupType.WORLD_MAPS.getDefaultId());
+		IndexItem worldMap = null;
+		List<IndexItem> list = worldMaps.getIndividualResources();
+		if(list != null) {
+			for(IndexItem ii  : list) {
+				if(ii.getBasename().equalsIgnoreCase(WorldRegion.WORLD_BASEMAP)) {
+					worldMap = ii;
+					break;
+				}
+			}
+		}
+		return worldMap;
+	}
+
+	public IndexItem getIndexItem(String fileName) {
+		IndexItem res = null;
+		if (rawResources == null) {
+			return null;
+		}
+		for (IndexItem item : rawResources) {
+			if (fileName.equals(item.getFileName())) {
+				res = item;
+				break;
+			}
+		}
+		return res;
+	}
+
+	public List<IndexItem> getIndexItems(String fileNamePrefix) {
+		List<IndexItem> res = new LinkedList<>();
+		if (rawResources == null) {
+			return res;
+		}
+		for (IndexItem item : rawResources) {
+			if (item.getFileName().toLowerCase().startsWith(fileNamePrefix)) {
+				res.add(item);
+			}
+		}
+		return res;
 	}
 
 	public void updateLoadedFiles() {
@@ -203,10 +244,10 @@ public class DownloadResources extends DownloadResourceGroup {
 		otherMapsGroup.addGroup(otherMapsScreen);
 
 		DownloadResourceGroup voiceGroup = new DownloadResourceGroup(this, DownloadResourceGroupType.VOICE_GROUP);
-		DownloadResourceGroup voiceScreenRec = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_REC);
 		DownloadResourceGroup voiceScreenTTS = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_TTS);
-		DownloadResourceGroup voiceRec = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_HEADER_REC);
+		DownloadResourceGroup voiceScreenRec = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_REC);
 		DownloadResourceGroup voiceTTS = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_HEADER_TTS);
+		DownloadResourceGroup voiceRec = new DownloadResourceGroup(voiceGroup, DownloadResourceGroupType.VOICE_HEADER_REC);
 
 		DownloadResourceGroup worldMaps = new DownloadResourceGroup(this, DownloadResourceGroupType.WORLD_MAPS);
 		Map<WorldRegion, List<IndexItem> > groupByRegion = new LinkedHashMap<WorldRegion, List<IndexItem>>();
@@ -278,8 +319,8 @@ public class DownloadResources extends DownloadResourceGroup {
 
 		voiceScreenTTS.addGroup(voiceTTS);
 		voiceScreenRec.addGroup(voiceRec);
-		voiceGroup.addGroup(voiceScreenRec);
 		voiceGroup.addGroup(voiceScreenTTS);
+		voiceGroup.addGroup(voiceScreenRec);
 		addGroup(voiceGroup);
 
 		createHillshadeSRTMGroups();
@@ -287,7 +328,6 @@ public class DownloadResources extends DownloadResourceGroup {
 		updateLoadedFiles();
 		return true;
 	}
-
 
 
 }

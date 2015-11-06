@@ -99,6 +99,11 @@ public abstract class MenuTitleController {
 	}
 
 	protected void acquireNameAndType() {
+		nameStr = "";
+		typeStr = "";
+		streetStr = "";
+		addressUnknown = false;
+
 		MenuController menuController = getMenuController();
 		PointDescription pointDescription = getPointDescription();
 		if (menuController != null) {
@@ -116,7 +121,9 @@ public abstract class MenuTitleController {
 		if (Algorithms.isEmpty(nameStr)) {
 			if (!Algorithms.isEmpty(typeStr)) {
 				nameStr = typeStr;
-				typeStr = "";
+				if (menuController == null || menuController.getMenuType() == MenuController.MenuType.STANDARD) {
+					typeStr = "";
+				}
 			} else {
 				nameStr = getMapActivity().getString(R.string.address_unknown);
 				addressUnknown = true;
@@ -139,10 +146,12 @@ public abstract class MenuTitleController {
 									object.getRef(), object.getDestinationName(settings.MAP_PREFERRED_LOCALE.get()));
 
 							if (!Algorithms.isEmpty(streetStr)) {
-								if (getObject() == null) {
+								MenuController menuController = getMenuController();
+								if (menuController == null || menuController.displayStreetNameinTitle()) {
 									nameStr = streetStr;
 									addressUnknown = false;
 									streetStr = "";
+									getPointDescription().setName(nameStr);
 								}
 								getMapActivity().runOnUiThread(new Runnable() {
 									public void run() {

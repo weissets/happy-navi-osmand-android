@@ -196,6 +196,7 @@
 	<string name="poi_traffic_calming_rumble_strip">Rumble strip</string>
 	<string name="poi_traffic_calming_table">Table</string>
 	<string name="poi_traffic_calming_choker">Choker</string>
+	<string name="poi_traffic_calming_island">Traffic island</string>
 	<string name="poi_traffic_signals">Stop light</string>
 
 	<string name="poi_car_repair">Car repair</string>
@@ -1693,7 +1694,7 @@
 	<string name="poi_memorial_koshinto">Koshinto</string>
 	<string name="poi_memorial_blue_plaque">Blue plaque</string>
 	<string name="poi_memorial_jizo">Jizo</string>
-	<string name="poi_memorial_cross">Cross</string>
+	<string name="poi_memorial_cross">Cross-shaped</string>
 	<string name="poi_memorial_vehicle">Vehicle</string>
 	<string name="poi_memorial_stolperstein">Stolperstein</string>
 	<string name="poi_memorial_obelisk">Obelisk</string>
@@ -2340,6 +2341,40 @@
 	<string name="poi_club_freemasonry">Masonic Lodge</string>
 	<string name="poi_club_sailing">Sailing club</string>
 	<string name="poi_club_scout">Scout club</string>
+
+	<string name="poi_historic_threshing_floor">Historic threshing floor</string>
+	<string name="poi_historic_gallows">Historic gallows</string>
+	<string name="poi_historic_railway">Historic railway</string>
+
+	<string name="poi_square">Square</string>
+	<string name="poi_artist_name">Artist</string>
+	<string name="poi_sculptor">Sculptor</string>
+
+	<string name="poi_building_type_church">Building type: church</string>
+	<string name="poi_building_type_chapel">Building type: chapel</string>
+	<string name="poi_building_type_mosque">Building type: mosque</string>
+	<string name="poi_building_type_temple">Building type: temple</string>
+	<string name="poi_building_type_cathedral">Building type: cathedral</string>
+	<string name="poi_building_type_monastery">Building type: monastery</string>
+	<string name="poi_building_type_basilica">Building type: basilica</string>
+	<string name="poi_building_type_synagogue">Building type: synagogue</string>
+	<string name="poi_building_type_shrine">Building type: shrine</string>
+
+	<string name="poi_cross">Cross</string>
+	<string name="poi_summit_cross">Summit cross: yes</string>
+
+	<string name="poi_prison_camp">Former prison camp</string>
+	<string name="poi_concentration_camp">Type: concentration camp</string>
+	<string name="poi_pow_camp">Type: pow camp</string>
+	<string name="poi_labor_camp">Type: labor camp</string>
+	<string name="poi_concentration_camp_nazism">Type: nazi</string>
+	<string name="poi_concentration_camp_gulag">Type: gulag</string>
+
+	<string name="poi_temperature">Temperature</string>
+	<string name="poi_bathing_yes">Bathing: yes</string>
+	<string name="poi_bathing_no">Bathing: no</string>
+
+	<string name="poi_boat_storage">Boat storage</string>
 
 
 </resources>

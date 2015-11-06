@@ -100,36 +100,18 @@ public class DownloadResourceGroup {
 		this.parentGroup = parentGroup;
 	}
 
-	public WorldRegion getIndexItemRegion(IndexItem item) {
-		DownloadResourceGroup group = getIndexItemGroup(item);
+	public static WorldRegion getRegion(DownloadResourceGroup group) {
 		if (group != null) {
 			if (group.getRegion() != null) {
 				return group.getRegion();
 			} else if (group.getParentGroup() != null) {
-				return group.getParentGroup().getRegion();
-			}
-		}
-		return null;
-	}
-
-	public DownloadResourceGroup getIndexItemGroup(IndexItem item) {
-		DownloadResourceGroup res = null;
-		for (DownloadResourceGroup group : getGroups()) {
-			if (group.getIndividualResources() != null) {
-				for (IndexItem i : group.getIndividualResources()) {
-					if (i == item) {
-						res = group;
-						break;
-					}
-				}
+				return getRegion(group.getParentGroup());
 			} else {
-				res = group.getIndexItemGroup(item);
-				if (res != null) {
-					break;
-				}
+				return null;
 			}
+		} else {
+			return null;
 		}
-		return res;
 	}
 
 	public void trimEmptyGroups() {
@@ -224,6 +206,7 @@ public class DownloadResourceGroup {
 	}
 	
 	public void addItem(IndexItem i) {
+		i.setRelatedGroup(this);
 		individualResources.add(i);
 	}
 	

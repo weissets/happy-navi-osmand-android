@@ -1,13 +1,12 @@
 package net.osmand.plus;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 
 import net.osmand.IProgress;
 import net.osmand.IndexConstants;
@@ -19,7 +18,6 @@ import net.osmand.map.WorldRegion;
 import net.osmand.osm.AbstractPoiType;
 import net.osmand.osm.MapPoiTypes;
 import net.osmand.plus.activities.DayNightHelper;
-import net.osmand.plus.activities.HelpActivity;
 import net.osmand.plus.activities.SavingTrackHelper;
 import net.osmand.plus.download.DownloadActivity;
 import net.osmand.plus.helpers.AvoidSpecificRoads;
@@ -42,13 +40,15 @@ import net.osmand.util.Algorithms;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import btools.routingapp.BRouterServiceConnection;
 
 /**
@@ -65,7 +65,7 @@ public class AppInitializer implements IProgress {
 	private static final String VERSION_INSTALLED = "VERSION_INSTALLED"; //$NON-NLS-1$
 	private static final String EXCEPTION_FILE_SIZE = "EXCEPTION_FS"; //$NON-NLS-1$
 
-	public static final String LATEST_CHANGES_URL = "changes-2.1.html";
+	public static final String LATEST_CHANGES_URL = "http://osmand.net/help/changes-2.1.html";
 	public static final int APP_EXIT_CODE = 4;
 	public static final String APP_EXIT_KEY = "APP_EXIT_KEY";
 	private OsmandApplication app;
@@ -78,23 +78,23 @@ public class AppInitializer implements IProgress {
 	private long startTime;
 	private long startBgTime;
 	private boolean appInitializing = true;
-	private List<String> warnings = new ArrayList<String>();
+	private List<String> warnings = new ArrayList<>();
 	private String taskName;
-	private List<AppInitializeListener> listeners = new ArrayList<AppInitializer.AppInitializeListener>();
+	private List<AppInitializeListener> listeners = new ArrayList<>();
 	private SharedPreferences startPrefs;
 	
 	public enum InitEvents {
 		FAVORITES_INITIALIZED, NATIVE_INITIALIZED,
 		NATIVE_OPEN_GLINITIALIZED,
 		TASK_CHANGED, MAPS_INITIALIZED, POI_TYPES_INITIALIZED, ASSETS_COPIED, INIT_RENDERERS,
-		RESTORE_BACKUPS, INDEX_REGION_BOUNDARIES, SAVE_GPX_TRACKS, LOAD_GPX_TRACKS;
+		RESTORE_BACKUPS, INDEX_REGION_BOUNDARIES, SAVE_GPX_TRACKS, LOAD_GPX_TRACKS
 	}
 	
 	public interface AppInitializeListener {
 		
-		public void onProgress(AppInitializer init, InitEvents event);
+		void onProgress(AppInitializer init, InitEvents event);
 		
-		public void onFinish(AppInitializer init);
+		void onFinish(AppInitializer init);
 	}
 	
 	
@@ -162,20 +162,12 @@ public class AppInitializer implements IProgress {
 		initUiVars(activity);
 		return firstTime;
 	}
-	
-	public void setFirstTime(boolean firstTime) {
-		this.firstTime = firstTime;
-	}
-	
+
 	public boolean checkAppVersionChanged(Activity activity) {
 		initUiVars(activity);
 		boolean showRecentChangesDialog = !firstTime && appVersionChanged;
 //		showRecentChangesDialog = true;
 		if (showRecentChangesDialog && !activityChangesShowed) {
-			final Intent helpIntent = new Intent(activity, HelpActivity.class);
-			helpIntent.putExtra(HelpActivity.TITLE, Version.getAppVersion(app));
-			helpIntent.putExtra(HelpActivity.URL, LATEST_CHANGES_URL);
-			activity.startActivity(helpIntent);
 			activityChangesShowed = true;
 			return true;
 		}
@@ -374,9 +366,7 @@ public class AppInitializer implements IProgress {
 			if (routingXml.exists() && routingXml.canRead()) {
 				try {
 					return RoutingConfiguration.parseFromInputStream(new FileInputStream(routingXml));
-				} catch (XmlPullParserException e) {
-					throw new IllegalStateException(e);
-				} catch (IOException e) {
+				} catch (XmlPullParserException | IOException e) {
 					throw new IllegalStateException(e);
 				}
 			} else {
@@ -667,8 +657,6 @@ public class AppInitializer implements IProgress {
 						}
 					}
 				}, "Initializing app").start();
-		;
-
 	}
 
 

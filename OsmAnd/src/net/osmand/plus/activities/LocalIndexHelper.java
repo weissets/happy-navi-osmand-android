@@ -82,6 +82,8 @@ public class LocalIndexHelper {
 			info.setDescription(getInstalledDate(f));
 		} else if(info.getType() == LocalIndexType.TTS_VOICE_DATA){
 			info.setDescription(getInstalledDate(f));
+		} else if(info.getType() == LocalIndexType.DEACTIVATED){
+			info.setDescription(getInstalledDate(f));
 		} else if(info.getType() == LocalIndexType.VOICE_DATA){
 			info.setDescription(getInstalledDate(f));
 		}
@@ -94,12 +96,12 @@ public class LocalIndexHelper {
 		
 		loadObfData(app.getAppPath(IndexConstants.MAPS_PATH), result, false, loadTask, loadedMaps);
 		loadObfData(app.getAppPath(IndexConstants.ROADS_INDEX_DIR), result, false, loadTask, loadedMaps);
-		loadObfData(app.getAppPath(IndexConstants.BACKUP_INDEX_DIR), result, true, loadTask, loadedMaps);
 		loadTilesData(app.getAppPath(IndexConstants.TILES_INDEX_DIR), result, false, loadTask);
 		loadSrtmData(app.getAppPath(IndexConstants.SRTM_INDEX_DIR), result, loadTask);
 		loadWikiData(app.getAppPath(IndexConstants.WIKI_INDEX_DIR), result, loadTask);
-		loadVoiceData(app.getAppPath(IndexConstants.TTSVOICE_INDEX_EXT_ZIP), result, true, loadTask);
+		//loadVoiceData(app.getAppPath(IndexConstants.TTSVOICE_INDEX_EXT_ZIP), result, true, loadTask);
 		loadVoiceData(app.getAppPath(IndexConstants.VOICE_INDEX_DIR), result, false, loadTask);
+		loadObfData(app.getAppPath(IndexConstants.BACKUP_INDEX_DIR), result, true, loadTask, loadedMaps);
 		
 		return result;
 	}
@@ -107,16 +109,26 @@ public class LocalIndexHelper {
 
 	private void loadVoiceData(File voiceDir, List<LocalIndexInfo> result, boolean backup, LoadLocalIndexTask loadTask) {
 		if (voiceDir.canRead()) {
+			//First list TTS files, they are preferred
 			for (File voiceF : listFilesSorted(voiceDir)) {
-				if (voiceF.isDirectory()) {
+				if (voiceF.isDirectory() && !MediaCommandPlayerImpl.isMyData(voiceF) && (Build.VERSION.SDK_INT >= 4)) {
 					LocalIndexInfo info = null;
-					if (MediaCommandPlayerImpl.isMyData(voiceF)) {
-						info = new LocalIndexInfo(LocalIndexType.VOICE_DATA, voiceF, backup);
-					} else if (Build.VERSION.SDK_INT >= 4) {
-						if (TTSCommandPlayerImpl.isMyData(voiceF)) {
-							info = new LocalIndexInfo(LocalIndexType.TTS_VOICE_DATA, voiceF, backup);
-						}
+					if (TTSCommandPlayerImpl.isMyData(voiceF)) {
+						info = new LocalIndexInfo(LocalIndexType.TTS_VOICE_DATA, voiceF, backup);
 					}
+					if(info != null) {
+						updateDescription(info);
+						result.add(info);
+						loadTask.loadFile(info);
+					}
+				}
+			}
+
+			//Now list recorded voices
+			for (File voiceF : listFilesSorted(voiceDir)) {
+				if (voiceF.isDirectory() && MediaCommandPlayerImpl.isMyData(voiceF)) {
+					LocalIndexInfo info = null;
+					info = new LocalIndexInfo(LocalIndexType.VOICE_DATA, voiceF, backup);
 					if(info != null){
 						updateDescription(info);
 						result.add(info);
@@ -213,7 +225,8 @@ public class LocalIndexHelper {
 		SRTM_DATA(R.string.local_indexes_cat_srtm, R.drawable.ic_plugin_srtm),
 		WIKI_DATA(R.string.local_indexes_cat_wiki, R.drawable.ic_plugin_wikipedia),
 		TTS_VOICE_DATA(R.string.local_indexes_cat_tts, R.drawable.ic_action_volume_up),
-		VOICE_DATA(R.string.local_indexes_cat_voice, R.drawable.ic_action_volume_up);
+		VOICE_DATA(R.string.local_indexes_cat_voice, R.drawable.ic_action_volume_up),
+		DEACTIVATED(R.string.local_indexes_cat_backup, R.drawable.ic_type_archive);
 //		AV_DATA(R.string.local_indexes_cat_av);;
 
 		@StringRes
@@ -229,6 +242,24 @@ public class LocalIndexHelper {
 		LocalIndexType(@StringRes int resId){
 			this.resId = resId;
 			this.iconResource = R.drawable.ic_map;
+
+			//TODO: Adjust icon of backed up files to original type
+			//if (getString(resId) == R.string.local_indexes_cat_backup) {
+			//	if (i.getOriginalType() == LocalIndexType.MAP_DATA) {
+			//		this.iconResource = R.drawable.ic_map;
+			//	} else if (i.getOriginalType() == LocalIndexType.TILES_DATA) {
+			//		this.iconResource = R.drawable.ic_map;
+			//	} else if (i.getOriginalType() == LocalIndexType.SRTM_DATA) {
+			//		this.iconResource = R.drawable.ic_plugin_srtm;
+			//	} else if (i.getOriginalType() == LocalIndexType.WIKI_DATA) {
+			//		this.iconResource = R.drawable.ic_plugin_wikipedia;
+			//	} else if (i.getOriginalType() == LocalIndexType.TTS_VOICE_DATA) {
+			//		this.iconResource =  R.drawable.ic_action_volume_up;
+			//	} else if (i.getOriginalType() == LocalIndexType.VOICE_DATA) {
+			//		this.iconResource = R.drawable.ic_action_volume_up;
+			//	} else if (i.getOriginalType() == LocalIndexType.AV_DATA) {
+			//		this.iconResource = R.drawable.ic_action_volume_up;
+			//	}
 		}
 		public String getHumanString(Context ctx){
 			return ctx.getString(resId);

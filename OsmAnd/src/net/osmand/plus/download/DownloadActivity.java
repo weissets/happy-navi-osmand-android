@@ -12,8 +12,11 @@ import java.util.Set;
 import net.osmand.IProgress;
 import net.osmand.PlatformUtil;
 import net.osmand.access.AccessibleToast;
+import net.osmand.data.LatLon;
 import net.osmand.map.WorldRegion;
+import net.osmand.map.WorldRegion.RegionParams;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.OsmandSettings.DrivingRegion;
 import net.osmand.plus.OsmandSettings.MetricsConstants;
@@ -21,15 +24,18 @@ import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.ActionBarProgressActivity;
 import net.osmand.plus.activities.LocalIndexInfo;
+import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.TabActivity;
 import net.osmand.plus.base.BasicProgressAsyncTask;
 import net.osmand.plus.download.DownloadIndexesThread.DownloadEvents;
-import net.osmand.plus.download.DownloadResourceGroup.DownloadResourceGroupType;
 import net.osmand.plus.download.ui.ActiveDownloadsDialogFragment;
+import net.osmand.plus.download.ui.BottomSheetDownloadFragment;
 import net.osmand.plus.download.ui.DataStoragePlaceDialogFragment;
 import net.osmand.plus.download.ui.DownloadResourceGroupFragment;
 import net.osmand.plus.download.ui.LocalIndexesFragment;
 import net.osmand.plus.download.ui.UpdatesIndexFragment;
+import net.osmand.plus.openseamapsplugin.NauticalMapsPlugin;
+import net.osmand.plus.srtmplugin.SRTMPlugin;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.views.controls.PagerSlidingTabStrip;
 
@@ -41,14 +47,21 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +96,11 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	private DownloadIndexesThread downloadThread;
 	private DownloadValidationManager downloadValidationManager;
 	protected WorldRegion downloadItem;
+
+	private boolean srtmDisabled;
+	private boolean srtmNeedsInstallation;
+	private boolean nauticalPluginDisabled;
+	private boolean freeVersion;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +190,7 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	@Override
 	protected void onResume() {
 		super.onResume();
+		initAppStatusVariables();
 		getMyApplication().getAppCustomization().resumeActivity(DownloadActivity.class, this);
 		downloadThread.setUiActivity(this);
 		downloadInProgress();
@@ -206,19 +225,22 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	public void onPause() {
 		super.onPause();
 		getMyApplication().getAppCustomization().pauseActivity(DownloadActivity.class);
-		downloadThread.setUiActivity(null);
+		downloadThread.resetUiActivity(this);
 	}
 
 	@Override
 	@UiThread
 	public void downloadHasFinished() {
 		visibleBanner.updateBannerInProgress();
-		if(downloadItem != null && !WorldRegion.WORLD_BASEMAP.equals(downloadItem.getRegionDownloadNameLC())) {
+		if(downloadItem != null && downloadItem != getMyApplication().getRegions().getWorldRegion()
+				&& !WorldRegion.WORLD_BASEMAP.equals(downloadItem.getRegionDownloadNameLC())) {
+
 			boolean firstMap = !getMyApplication().getSettings().FIRST_MAP_IS_DOWNLOADED.get();
 			if(firstMap) {
 				initSettingsFirstMap(downloadItem);
 			}
 			showGoToMap(downloadItem);
+			downloadItem = null;
 		}
 		for (WeakReference<Fragment> ref : fragSet) {
 			Fragment f = ref.get();
@@ -499,14 +521,14 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 		};
 		task.execute();
 	}
-	
+
 	private void initSettingsFirstMap(WorldRegion reg) {
-		// TODO test set correctly (4 tests): when you download first Australia, Japan, Luxembourgh, US  
 		getMyApplication().getSettings().FIRST_MAP_IS_DOWNLOADED.set(true);
 		DrivingRegion drg = null;
-		boolean americanSigns = "american".equals(reg.getRegionRoadSigns());
-		boolean leftHand = "yes".equals(reg.getRegionLeftHandDriving());
-		MetricsConstants mc  = "miles".equals(reg.getRegionMetric()) ?
+		RegionParams params = reg.getParams();
+		boolean americanSigns = "american".equals(params.getRegionRoadSigns());
+		boolean leftHand = "yes".equals(params.getRegionLeftHandDriving());
+		MetricsConstants mc  = "miles".equals(params.getRegionMetric()) ?
 				MetricsConstants.MILES_AND_FOOTS : MetricsConstants.KILOMETERS_AND_METERS;
 		for (DrivingRegion r : DrivingRegion.values()) {
 			if(r.americanSigns == americanSigns && r.leftHandDriving == leftHand && 
@@ -518,8 +540,9 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 		if (drg != null) {
 			getMyApplication().getSettings().DRIVING_REGION.set(drg);
 		}
-		String lng = reg.getRegionLang();
-		if (lng != null) {
+		String lang = params.getRegionLang();
+		if (lang != null) {
+			String lng = lang.split(",")[0];
 			String setTts = null;
 			for (String s : OsmandSettings.TTS_AVAILABLE_VOICES) {
 				if (lng.startsWith(s)) {
@@ -536,45 +559,39 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	}
 	
 	public void setDownloadItem(WorldRegion region) {
-		downloadItem = region;
+		if(downloadItem == null) {
+			downloadItem = region;
+		} else if(region == null) {
+			downloadItem = null;
+		}
 	}
 	
-	private void showGoToMap(WorldRegion worldRegion) {
-		// TODO Show dialog go to map (coordinates to open take from WorldRegion.getCenter)
-		
+	private void showGoToMap(WorldRegion region) {
+		GoToMapFragment fragment = new GoToMapFragment();
+		fragment.regionCenter = region.getRegionCenter();
+		fragment.regionName = region.getLocaleName();
+		fragment.show(getFragmentManager(), GoToMapFragment.TAG);
 	}
 	
 	private void showDownloadWorldMapIfNeeded() {
 		if(getDownloadThread().getCurrentDownloadingItem() == null) {
 			return;
 		}
-		DownloadResourceGroup worldMaps = getDownloadThread().getIndexes().
-				getSubGroupById(DownloadResourceGroupType.WORLD_MAPS.getDefaultId());
-		IndexItem worldMap = null;
-		List<IndexItem> list = worldMaps.getIndividualResources();
-		if(list != null) {
-			for(IndexItem ii  : list) {
-				if(ii.getBasename().equalsIgnoreCase(WorldRegion.WORLD_BASEMAP)) {
-					worldMap = ii;
-					break;
-				}
-			}
-		}
-		
-		if(!SUGGESTED_TO_DOWNLOAD_BASEMAP && worldMap != null && (!worldMap.isDownloaded() || worldMap.isOutdated()) && 
+		IndexItem worldMap = getDownloadThread().getIndexes().getWorldBaseMapItem();
+		if(!SUGGESTED_TO_DOWNLOAD_BASEMAP && worldMap != null && (!worldMap.isDownloaded() || worldMap.isOutdated()) &&
 				!getDownloadThread().isDownloading(worldMap)) {
 			SUGGESTED_TO_DOWNLOAD_BASEMAP = true;
-			// TODO Show dialog Download world map with 2 buttons to download it or no			
+			AskMapDownloadFragment fragment = new AskMapDownloadFragment();
+			fragment.indexItem = worldMap;
+			fragment.show(getFragmentManager(), AskMapDownloadFragment.TAG);
 		}
-		
 	}
 	
 	private void showFirstTimeExternalStorage() {
-		// TODO finish + test & hide dialog if the download has started
 		final boolean firstTime = getMyApplication().getAppInitializer().isFirstTime(this);
 		final boolean externalExists =
-				DataStoragePlaceDialogFragment.getExternalStorageDirectory() != null;
-		if (firstTime && externalExists) {
+				getMyApplication().getSettings().getSecondaryStorage() != null;
+		if (firstTime && externalExists && DataStoragePlaceDialogFragment.isInterestedInFirstTime) {
 			new DataStoragePlaceDialogFragment().show(getFragmentManager(), null);
 		}
 	}
@@ -613,4 +630,175 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 
 		messageTextView.setText(R.string.device_memory);
 	}
+
+	public boolean isSrtmDisabled() {
+		return srtmDisabled;
+	}
+
+	public boolean isSrtmNeedsInstallation() {
+		return srtmNeedsInstallation;
+	}
+
+	public boolean isNauticalPluginDisabled() {
+		return nauticalPluginDisabled;
+	}
+
+	public boolean isFreeVersion() {
+		return freeVersion;
+	}
+
+	public void initAppStatusVariables() {
+		srtmDisabled = OsmandPlugin.getEnabledPlugin(SRTMPlugin.class) == null;
+		nauticalPluginDisabled = OsmandPlugin.getEnabledPlugin(NauticalMapsPlugin.class) == null;
+		freeVersion = Version.isFreeVersion(getMyApplication());
+		OsmandPlugin srtmPlugin = OsmandPlugin.getPlugin(SRTMPlugin.class);
+		srtmNeedsInstallation = srtmPlugin == null || srtmPlugin.needsInstallation();
+
+	}
+
+	public static class AskMapDownloadFragment extends BottomSheetDownloadFragment {
+		public static final String TAG = "AskMapDownloadFragment";
+
+		private static final String KEY_ASK_MAP_DOWNLOAD_ITEM_FILENAME = "key_ask_map_download_item_filename";
+		private IndexItem indexItem;
+
+		@Nullable
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			if (savedInstanceState != null) {
+				String itemFileName = savedInstanceState.getString(KEY_ASK_MAP_DOWNLOAD_ITEM_FILENAME);
+				if (itemFileName != null) {
+					indexItem = getMyApplication().getDownloadThread().getIndexes().getIndexItem(itemFileName);
+				}
+			}
+			View view = inflater.inflate(R.layout.ask_map_download_fragment, container, false);
+			((ImageView) view.findViewById(R.id.titleIconImageView))
+					.setImageDrawable(getIcon(R.drawable.ic_map, R.color.osmand_orange));
+
+			Button actionButtonOk = (Button) view.findViewById(R.id.actionButtonOk);
+
+			String titleText = null;
+			String descriptionText = null;
+
+			if (indexItem != null) {
+				if (indexItem.getBasename().equalsIgnoreCase(WorldRegion.WORLD_BASEMAP)) {
+					titleText = getString(R.string.index_item_world_basemap);
+					descriptionText = getString(R.string.world_map_download_descr);
+				}
+
+				actionButtonOk.setText(getString(R.string.shared_string_download) + " (" + indexItem.getSizeDescription(getActivity()) + ")");
+			}
+
+			if (titleText != null) {
+				((TextView) view.findViewById(R.id.titleTextView))
+						.setText(titleText);
+			}
+			if (descriptionText != null) {
+				((TextView) view.findViewById(R.id.descriptionTextView))
+						.setText(descriptionText);
+			}
+
+			final ImageButton closeImageButton = (ImageButton) view.findViewById(R.id.closeImageButton);
+			closeImageButton.setImageDrawable(getContentIcon(R.drawable.ic_action_remove_dark));
+			closeImageButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					dismiss();
+				}
+			});
+
+			actionButtonOk.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (indexItem != null) {
+						((DownloadActivity) getActivity()).startDownload(indexItem);
+						dismiss();
+					}
+				}
+			});
+
+			view.findViewById(R.id.actionButtonCancel)
+					.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dismiss();
+						}
+					});
+
+			return view;
+		}
+
+		@Override
+		public void onSaveInstanceState(@NonNull Bundle outState) {
+			if (indexItem != null) {
+				outState.putString(KEY_ASK_MAP_DOWNLOAD_ITEM_FILENAME, indexItem.getFileName());
+			}
+		}
+
+
+		
+	}
+	
+	public static class GoToMapFragment extends BottomSheetDownloadFragment {
+		public static final String TAG = "GoToMapFragment";
+
+		private static final String KEY_GOTO_MAP_REGION_CENTER = "key_goto_map_region_center";
+		private static final String KEY_GOTO_MAP_REGION_NAME = "key_goto_map_region_name";
+		private LatLon regionCenter;
+		private String regionName;
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			if (savedInstanceState != null) {
+				regionName = savedInstanceState.getString(KEY_GOTO_MAP_REGION_NAME, "");
+				Object rCenterObj = savedInstanceState.getSerializable(KEY_GOTO_MAP_REGION_CENTER);
+				if (rCenterObj != null) {
+					regionCenter = (LatLon) rCenterObj;
+				} else {
+					regionCenter = new LatLon(0, 0);
+				}
+			}
+
+			View view = inflater.inflate(R.layout.go_to_map_fragment, container, false);
+			((ImageView) view.findViewById(R.id.titleIconImageView))
+					.setImageDrawable(getIcon(R.drawable.ic_map, R.color.osmand_orange));
+			((TextView) view.findViewById(R.id.descriptionTextView))
+					.setText(getActivity().getString(R.string.map_downloaded_descr, regionName));
+
+			final ImageButton closeImageButton = (ImageButton) view.findViewById(R.id.closeImageButton);
+			closeImageButton.setImageDrawable(getContentIcon(R.drawable.ic_action_remove_dark));
+			closeImageButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(getActivity() instanceof DownloadActivity) {
+						((DownloadActivity) getActivity()).setDownloadItem(null);
+					}
+					dismiss();
+				}
+			});
+
+			view.findViewById(R.id.actionButton)
+					.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							OsmandApplication app = (OsmandApplication) getActivity().getApplication();
+							app.getSettings().setMapLocationToShow(regionCenter.getLatitude(), regionCenter.getLongitude(), 5, null);
+							dismiss();
+							MapActivity.launchMapActivityMoveToTop(getActivity());
+						}
+					});
+
+			return view;
+		}
+
+		@Override
+		public void onSaveInstanceState(@NonNull Bundle outState) {
+			outState.putString(KEY_GOTO_MAP_REGION_NAME, regionName);
+			outState.putSerializable(KEY_GOTO_MAP_REGION_CENTER, regionCenter);
+		}
+
+		
+		
+	}
+
 }
