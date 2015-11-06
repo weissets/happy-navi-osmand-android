@@ -13,10 +13,13 @@
 
     <!-- Not translatable -->
     <string name="last_release">
-        - New road indexes (including map data, poi, address)
-        - New speed system (knots and minutes per km)
-        - New context menu
-        - Drawer and start with the map
+        \u2022 Reworked context-sensitive UI for tapping locations on the map and handling location items on other screens\n\n
+        \u2022 Chose if primary app control should be Dashboard or Menu based\n\n
+        \u2022 New Wikipedia data, now downloads per country, and with much more complete data\n\n
+        \u2022 Better route recalculation (after repeated attempts engine now suggests a different route)\n\n
+        \u2022 POI Search now supports more specific queries (like fuel type and religion specific queries)\n\n
+        \u2022 Map data download structure and interface reworked\n\n
+        and more...
         </string>
     <string name="ga_api_key">UA-28342846-2</string>
     <string name="ga_dispatchPeriod">10</string>
@@ -42,7 +45,11 @@
 	\n\tHarry van der Wolf - contributor (contribute to country boundaries + configuration file + address files and else), active forum participant.
     </string>
     <string name="app_edition"></string>
+    <string name="support_email">hcilab@gmail.com</string>
     <string name="preferred_locale_no_translate">Display language</string>
     <string name="system_locale_no_translate">Device language</string>
 	<string name="osmo">OsMo</string>
+    <string name="tag_poi_amenity">amenity</string>
+    <string name="tag_poi_name">name</string>
+
 </resources>

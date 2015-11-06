@@ -251,7 +251,7 @@ public class DashUserInfoFragment extends DashBaseFragment {
 		DO_NOT_SHOW_AGAIN
 	}
 
-	public static class UserInfoShouldShow extends DashboardOnMap.SettingsShouldShow {
+	public static class UserInfoShouldShow extends DashboardOnMap.DefaultShouldShow {
 
 		@Override
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {

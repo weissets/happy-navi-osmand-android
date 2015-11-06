@@ -27,7 +27,6 @@ import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.OsmandSettings.CommonPreference;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.dashboard.DashboardOnMap;
 import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.mapcontextmenu.MapContextMenu;
 import net.osmand.plus.views.AnimateDraggingMapThread;
@@ -164,6 +163,12 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 	}
 
 	@Override
+	public String getHelpFileName() {
+		return "feature_articles/parking-plugin.html";
+	}
+
+
+	@Override
 	public void registerLayers(MapActivity activity) {
 		// remove old if existing after turn
 		if(parkingLayer != null) {
@@ -262,6 +267,7 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 				}
 				addOrRemoveParkingEvent(false);
 				setParkingPosition(mapActivity, latitude, longitude, false);
+				showContextMenuIfNeeded(mapActivity);
 				mapActivity.getMapView().refreshMap();
 			}
 		});
@@ -269,7 +275,17 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 		choose.show();
 
 	}
-	
+
+	private void showContextMenuIfNeeded(final MapActivity mapActivity) {
+		if (parkingLayer != null) {
+			MapContextMenu menu = mapActivity.getContextMenu();
+			if (menu.isVisible()) {
+				menu.show(new LatLon(parkingPosition.getLatitude(), parkingPosition.getLongitude()),
+						parkingLayer.getObjectName(parkingPosition), parkingPosition);
+			}
+		}
+	}
+
 	/**
 	 * Method creates confirmation dialog for deletion of a parking location.
 	 */
@@ -282,10 +298,7 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				showDeleteEventWarning(activity);
-				if (parkingLayer != null) {
-					parkingLayer.refresh();
-				}
-				clearParkingPosition();
+				cancelParking();
 				if (activity instanceof MapActivity) {
 					((MapActivity) activity).getContextMenu().close();
 				}
@@ -307,7 +320,12 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 		Builder setTime = new AlertDialog.Builder(mapActivity);
 		setTime.setView(setTimeParking);
 		setTime.setTitle(mapActivity.getString(R.string.osmand_parking_time_limit_title));
-		setTime.setNegativeButton(R.string.shared_string_cancel, null);
+		setTime.setNegativeButton(R.string.shared_string_cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				cancelParking();
+			}
+		});
 		final TextView  textView = (TextView) setTimeParking.findViewById(R.id.parkTime);
 		final TimePicker timePicker = (TimePicker) setTimeParking.findViewById(R.id.parking_time_picker);
 
@@ -316,7 +334,7 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 			private boolean mIgnoreEvent = false;
             private Calendar cal = Calendar.getInstance();
 
-			
+
 			@Override
 			public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
                 if (mIgnoreEvent) {
@@ -362,6 +380,7 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 				} else {
 					addOrRemoveParkingEvent(false);
 				}
+				showContextMenuIfNeeded(mapActivity);
 			}
 		});
 		setTime.create();
@@ -413,14 +432,17 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 		setParkingType(isLimited);
 		setParkingStartTime(Calendar.getInstance().getTimeInMillis());
 		if (parkingLayer != null) {
-			MapContextMenu menu = mapActivity.getContextMenu();
-			if (menu.isVisible()) {
-				menu.show(new LatLon(latitude, longitude), parkingLayer.getObjectName(parkingPosition), parkingPosition);
-			}
 			parkingLayer.refresh();
 		}
 	}
-	
+
+	private void cancelParking() {
+		if (parkingLayer != null) {
+			parkingLayer.refresh();
+		}
+		clearParkingPosition();
+	}
+
 	@Override
 	public void registerOptionsMenuItems(final MapActivity mapActivity, ContextMenuAdapter helper) {
     }
@@ -544,7 +566,9 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 			timeStringBuilder.append(ctx.getString(R.string.osmand_parking_hour));
 		}
 
-		timeStringBuilder.append(" ");
+		if (timeStringBuilder.length() > 0) {
+			timeStringBuilder.append(" ");
+		}
 		timeStringBuilder.append(minutes);
 		timeStringBuilder.append(" ");
 		timeStringBuilder.append(ctx.getString(R.string.osmand_parking_minute));
@@ -600,7 +624,6 @@ public class ParkingPositionPlugin extends OsmandPlugin {
 
 	@Override
 	public DashFragmentData getCardFragment() {
-		return new DashFragmentData(DashParkingFragment.TAG, DashParkingFragment.class,
-				DashParkingFragment.TITLE_ID, new DashboardOnMap.DefaultShouldShow(), 50, null);
+		return DashParkingFragment.FRAGMENT_DATA;
 	}
 }

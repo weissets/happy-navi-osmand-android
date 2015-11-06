@@ -36,9 +36,16 @@ public class DashOsmEditsFragment extends DashBaseFragment
 	public static final int TITLE_ID = R.string.osm_settings;
 
 	private static final String ROW_NUMBER_TAG = TAG + "_row_number";
+
+	private static final DashFragmentData.ShouldShowFunction SHOULD_SHOW_FUNCTION =
+			new DashboardOnMap.DefaultShouldShow() {
+				@Override
+				public int getTitleId() {
+					return TITLE_ID;
+				}
+			};
 	static final DashFragmentData FRAGMENT_DATA =
-			new DashFragmentData(TAG, DashOsmEditsFragment.class, TITLE_ID,
-					new DashboardOnMap.DefaultShouldShow(), 130, ROW_NUMBER_TAG);
+			new DashFragmentData(TAG, DashOsmEditsFragment.class, SHOULD_SHOW_FUNCTION, 130, ROW_NUMBER_TAG);
 
 	OsmEditingPlugin plugin;
 
@@ -133,7 +140,7 @@ public class DashOsmEditsFragment extends DashBaseFragment
 	// TODO: 9/7/15 Redesign osm notes.
 	private void uploadItem(final OsmPoint point) {
 		AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-		b.setMessage(getString(R.string.local_osm_changes_upload_all_confirm, 1));
+		b.setMessage(getString(R.string.local_osm_changes_upload_all_confirm));
 		b.setPositiveButton(R.string.shared_string_yes, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

@@ -47,7 +47,6 @@ public class OsmEditingPlugin extends OsmandPlugin {
 	private OsmandApplication app;
 	OpenstreetmapsDbHelper dbpoi;
 	OsmBugsDbHelper dbbug;
-	private EditingPOIDialogProvider poiActions;
 
 	@Override
 	public String getId() {
@@ -137,13 +136,6 @@ public class OsmEditingPlugin extends OsmandPlugin {
 		return SettingsOsmEditingActivity.class;
 	}
 
-	public EditingPOIDialogProvider getPoiActions(MapActivity activity) {
-		if (poiActions == null) {
-			poiActions = new EditingPOIDialogProvider(activity, this);
-		}
-		return poiActions;
-	}
-
 	@Override
 	public void registerMapContextMenuActions(final MapActivity mapActivity,
 											  final double latitude,
@@ -174,7 +166,7 @@ public class OsmEditingPlugin extends OsmandPlugin {
 				return true;
 			}
 		};
-		if (selectedObj instanceof Amenity) {
+		if (selectedObj instanceof Amenity && !((Amenity) selectedObj).getType().isWiki()) {
 			adapter.item(R.string.poi_context_menu_modify).iconColor(R.drawable.ic_action_edit_dark).listen(listener).position(1).reg();
 			adapter.item(R.string.poi_context_menu_delete).iconColor(R.drawable.ic_action_delete_dark).listen(listener).position(2).reg();
 		} else {
@@ -329,6 +321,12 @@ public class OsmEditingPlugin extends OsmandPlugin {
 	@Override
 	public int getAssetResourceName() {
 		return R.drawable.osm_editing;
+	}
+
+
+	@Override
+	public String getHelpFileName() {
+		return "feature_articles/osm-editing-plugin.html";
 	}
 
 	public static String getEditName(OsmPoint point) {

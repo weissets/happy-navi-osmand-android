@@ -26,7 +26,6 @@ import net.osmand.osm.edit.OSMSettings;
 import net.osmand.plus.IconsCache;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
-import net.osmand.plus.osmedit.data.EditPoiData;
 import net.osmand.plus.osmedit.dialogs.OpeningHoursDaysDialogFragment;
 import net.osmand.plus.osmedit.dialogs.OpeningHoursHoursDialogFragment;
 import net.osmand.util.Algorithms;
@@ -231,8 +230,13 @@ public class BasicEditPoiFragment extends Fragment
 				linearLayout.addView(getView(i));
 			}
 			if (!data.isInEdit()) {
-				data.putTag(OSMSettings.OSMTagKey.OPENING_HOURS.getValue(),
-						openingHours.toStringNoMonths());
+				String openingHoursString = openingHours.toStringNoMonths();
+				if (!TextUtils.isEmpty(openingHoursString)) {
+					data.putTag(OSMSettings.OSMTagKey.OPENING_HOURS.getValue(),
+							openingHoursString);
+				} else {
+					data.removeTag(OSMSettings.OSMTagKey.OPENING_HOURS.getValue());
+				}
 			}
 		}
 

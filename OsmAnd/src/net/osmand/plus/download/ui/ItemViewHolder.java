@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.osmand.access.AccessibleToast;
+import net.osmand.map.WorldRegion;
 import net.osmand.plus.OsmandPlugin;
-import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.LocalIndexHelper.LocalIndexType;
@@ -33,7 +33,6 @@ import net.osmand.plus.download.DownloadResources;
 import net.osmand.plus.download.IndexItem;
 import net.osmand.plus.download.ui.LocalIndexesFragment.LocalIndexOperationTask;
 import net.osmand.plus.helpers.FileNameTranslationHelper;
-import net.osmand.plus.openseamapsplugin.NauticalMapsPlugin;
 import net.osmand.plus.srtmplugin.SRTMPlugin;
 
 import java.io.File;
@@ -60,6 +59,7 @@ public class ItemViewHolder {
 	
 	boolean showTypeInDesc;
 	boolean showTypeInName;
+	boolean showParentRegionName;
 	boolean showRemoteDate;
 	boolean silentCancelDownload;
 	boolean showProgressInDesc;
@@ -99,6 +99,11 @@ public class ItemViewHolder {
 		this.showRemoteDate = showRemoteDate;
 	}
 	
+	
+	public void setShowParentRegionName(boolean showParentRegionName) {
+		this.showParentRegionName = showParentRegionName;
+	}
+	
 	public void setShowProgressInDescr(boolean b) {
 		showProgressInDesc = b;
 	}
@@ -115,17 +120,14 @@ public class ItemViewHolder {
 		this.showTypeInName = showTypeInName;
 	}
 
-
-	// FIXME don't initialize on every row 
 	private void initAppStatusVariables() {
-		srtmDisabled = OsmandPlugin.getEnabledPlugin(SRTMPlugin.class) == null;
-		nauticalPluginDisabled = OsmandPlugin.getEnabledPlugin(NauticalMapsPlugin.class) == null;
-		freeVersion = Version.isFreeVersion(context.getMyApplication());
-		OsmandPlugin srtmPlugin = OsmandPlugin.getPlugin(SRTMPlugin.class);
-		srtmNeedsInstallation = srtmPlugin == null || srtmPlugin.needsInstallation();
+		srtmDisabled = context.isSrtmDisabled();
+		nauticalPluginDisabled = context.isNauticalPluginDisabled();
+		freeVersion = context.isFreeVersion();
+		srtmNeedsInstallation = context.isSrtmNeedsInstallation();
 	}
 
-	public void bindIndexItem(final IndexItem indexItem, final DownloadResourceGroup parentOptional) {
+	public void bindIndexItem(final IndexItem indexItem) {
 		initAppStatusVariables();
 		boolean isDownloading = context.getDownloadThread().isDownloading(indexItem);
 		int progress = -1;
@@ -137,7 +139,7 @@ public class ItemViewHolder {
 		if(showTypeInName) {
 			nameTextView.setText(indexItem.getType().getString(context));
 		} else {
-			nameTextView.setText(indexItem.getVisibleName(context, context.getMyApplication().getRegions(), false));
+			nameTextView.setText(indexItem.getVisibleName(context, context.getMyApplication().getRegions(), showParentRegionName));
 		}
 		if(!disabled) {
 			nameTextView.setTextColor(textColorPrimary);
@@ -209,7 +211,8 @@ public class ItemViewHolder {
 	protected void download(IndexItem indexItem, DownloadResourceGroup parentOptional) {
 		boolean handled = false;
 		if(parentOptional != null) {
-			context.setDownloadItem(parentOptional.getRegion());
+			WorldRegion region = DownloadResourceGroup.getRegion(parentOptional);
+			context.setDownloadItem(region);
 		}
 		if (indexItem.getType() == DownloadActivityType.ROADS_FILE && parentOptional != null) {
 			for (IndexItem ii : parentOptional.getIndividualResources()) {
@@ -245,7 +248,7 @@ public class ItemViewHolder {
 	private boolean checkDisabledAndClickAction(final IndexItem item) {
 		RightButtonAction clickAction = getClickAction(item);
 		boolean disabled = clickAction != RightButtonAction.DOWNLOAD;
-		OnClickListener action = getRightButtonAction(item, clickAction, null);
+		OnClickListener action = getRightButtonAction(item, clickAction);
 		if (clickAction != RightButtonAction.DOWNLOAD) {
 			rightButton.setText(R.string.get_plugin);
 			rightButton.setVisibility(View.VISIBLE);
@@ -288,7 +291,7 @@ public class ItemViewHolder {
 		return clickAction;
 	}
 
-	public OnClickListener getRightButtonAction(final IndexItem item, final RightButtonAction clickAction, final DownloadResourceGroup parentOptional) {
+	public OnClickListener getRightButtonAction(final IndexItem item, final RightButtonAction clickAction) {
 		if (clickAction != RightButtonAction.DOWNLOAD) {
 			return new View.OnClickListener() {
 				@Override
@@ -332,9 +335,9 @@ public class ItemViewHolder {
 							context.makeSureUserCancelDownload(item);
 						}
 					} else if(item.isDownloaded() && !item.isOutdated()){
-						contextMenu(v, item, parentOptional);
+						contextMenu(v, item, item.getRelatedGroup());
 					} else {
-						download(item, parentOptional);
+						download(item, item.getRelatedGroup());
 					}
 				}
 			};

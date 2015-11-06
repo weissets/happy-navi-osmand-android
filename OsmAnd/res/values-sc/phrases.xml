@@ -26,7 +26,7 @@
 	<string name="poi_baby_goods">Butega pro pitzinnos</string>
 	<string name="poi_bag">Valigeria</string>
 	<string name="poi_bathroom_furnishing">Arredu bagnu</string>
-	<string name="poi_bed">Arredu aposentu de letu</string>
+	<string name="poi_bed">Butega arredu aposentu de letu</string>
 	<string name="poi_boutique">Butega de moda</string>
 	<string name="poi_carpet">Butega de tapetes</string>
 	<string name="poi_chemist">Potecaria</string>
@@ -636,8 +636,8 @@
 		<string name="poi_communication">Comunicatzione</string>
 		<string name="poi_sightseeing">Vista turìstica</string>
 		<string name="poi_internet_access">Atzessu ìnternet</string>
-	<string name="poi_club">Tzirculu</string>
-	<string name="poi_cafe_and_restaurant">Tzilleris e ristorantes</string>
+	<string name="poi_club">Tzìrculu</string>
+	<string name="poi_cafe_and_restaurant">Cafeterias e ristorantes</string>
 	<string name="poi_shop_food">Butega alimentare</string>
 	<string name="poi_road_obstacle">Impèigu/ostàculu istradale</string>
 		<string name="poi_accomodation">Allògiu</string>
@@ -1427,4 +1427,124 @@
 	<string name="poi_megalith_type_nuraghe">Casta de megalitu: nuraghe</string>
 	<string name="poi_megalith_type_stone_circle">Casta de megalitu: tzìrculu de pedras</string>
 	<string name="poi_megalith_type_passage_grave">Casta de megalitu: tumba a passaditzu</string>
+	<string name="poi_historic_era_paleolithic">Època istòrica: paleolìticu (2.6 milliones de annos – 10000 BP)</string>
+	<string name="poi_historic_era_mesolithic">Època istòrica: mesolìticu</string>
+	<string name="poi_historic_era_neolithic">Època istòrica: neolìticu</string>
+	<string name="poi_historic_era_chalcolithic">Època istòrica: calcolìticu (IV-III millènniu AC.)</string>
+
+	<string name="poi_historic_stone">Pedra istòrica</string>
+	<string name="poi_square">Pratza</string>
+
+	<string name="poi_building_type_church">Casta de edifìtziu: crèsia</string>
+	<string name="poi_building_type_chapel">Casta de edifìtziu: capella</string>
+	<string name="poi_building_type_mosque">Casta de edifìtziu: moschea</string>
+	<string name="poi_building_type_temple">Casta de edifìtziu: tèmpiu</string>
+	<string name="poi_building_type_cathedral">Casta de edifìtziu: Seu/Catedrale</string>
+	<string name="poi_building_type_monastery">Casta de edifìtziu: monastèriu/muristene</string>
+	<string name="poi_building_type_basilica">Casta de edifìtziu: basìlica</string>
+	<string name="poi_building_type_synagogue">Casta de edifìtziu: sinagoga</string>
+	<string name="poi_building_type_shrine">Casta de edifìtziu: sacràriu</string>
+
+<string name="poi_cross">Rughe</string>
+	<string name="poi_summit_cross">Rughe de cùcuru: eja</string>
+
+	<string name="poi_prison_camp">Campu de presonia</string>
+	<string name="poi_concentration_camp">Casta: campu de cuntzentramentu</string>
+	<string name="poi_pow_camp">Casta: campu pro presoneris de gherra</string>
+	<string name="poi_labor_camp">Casta: campu de traballu</string>
+	<string name="poi_concentration_camp_nazism">Casta: nazista</string>
+	<string name="poi_concentration_camp_gulag">Casta: gulag</string>
+
+	<string name="poi_temperature">Temperadura</string>
+	<string name="poi_artist_name">Artista</string>
+	<string name="poi_sculptor">Iscultura</string>
+
+	<string name="poi_fortification_type_hill_fort">Casta de fortificatzione: fortilesa de montigru</string>
+	<string name="poi_fortification_type_limes">Casta de fortificatzione: limes</string>
+	<string name="poi_fortification_type_sconce">Casta de fortificatzione: fortinu</string>
+	<string name="poi_fortification_type_ring_ditch">Casta de fortificatzione: fossa tzirculare</string>
+
+	<string name="poi_pa">Pa (aposentamentos fortificados maori)</string>
+
+	<string name="poi_historic_farm">Fatoria istòrica</string>
+	<string name="poi_historic_railway_station">Istatzione ferroviària istòrica</string>
+
+	<string name="poi_club_freemasonry">Lògia Massònica</string>
+	<string name="poi_club_sailing">Tzìrculu de vela</string>
+	<string name="poi_club_scout">Tzìrculu de scautismu (scouts)</string>
+
+	<string name="poi_historic_threshing_floor">Argiola istòrica</string>
+	<string name="poi_historic_gallows">Furca istòrica</string>
+	<string name="poi_tunnel_railway">Tunnel ferroviàriu</string>
+	<string name="poi_bridge_railway">Ponte ferroviàriu</string>
+	<string name="poi_historic_railway">Ferrovia istòrica</string>
+
+	<string name="poi_route_railway_ref">Àndala ferroviària</string>
+
+	<string name="poi_wiki_link">Wiki</string>
+
+
+<string name="poi_traffic_calming_island">Ìsula iscrobatràfficu</string>
+	<string name="poi_tourism_yes">Ogetu turìsticu</string>
+	<string name="poi_information_route_marker">Marcadore de àndala</string>
+	<string name="poi_board_type_notice">Betrinedda</string>
+	<string name="poi_garden">Giardinu</string>
+
+	<string name="poi_heath">Ghiddostraju</string>
+	<string name="poi_grass">Erba</string>
+	<string name="poi_grassland">Campura</string>
+	<string name="poi_scrub">Prunitzàrgiu</string>
+	<string name="poi_farmland">Terrinu agrìculu</string>
+	<string name="poi_logging">Àrea pro disboscamentu</string>
+	<string name="poi_windfall">Frutos rutos in terra</string>
+	<string name="poi_level">Livellu</string>
+	<string name="poi_rtsa_scale">Iscala RTSA</string>
+
+	<string name="poi_piste_difficulty_easy">Dificultade pista: fàtzile</string>
+	<string name="poi_piste_difficulty_intermediate">Dificultade pista: intermèdia</string>
+	<string name="poi_piste_difficulty_advanced">Dificultade pista: avantzada</string>
+	<string name="poi_piste_difficulty_novice">Dificultade pista: printzipiante</string>
+	<string name="poi_piste_difficulty_expert">Dificultade pista: espertu</string>
+	<string name="poi_piste_difficulty_freeride">Dificultade pista: movimentu lìberu (freeride)</string>
+	<string name="poi_garden_type_residential">Casta de giardinu: residentziale</string>
+	<string name="poi_garden_type_community">Casta de giardinu: comunitàriu</string>
+	<string name="poi_garden_type_private">Casta de giardinu: privadu</string>
+	<string name="poi_garden_type_botanical">Casta de giardinu: botànicu</string>
+
+	<string name="poi_garden_style_kitchen">Casta de giardinu: coghina</string>
+	<string name="poi_garden_style_rosarium">Casta de giardinu: rosedu</string>
+	<string name="poi_garden_style_french">Casta de giardinu: frantzesu</string>
+	<string name="poi_garden_style_english">Casta de giardinu: inglesu</string>
+	<string name="poi_garden_style_japanese">Casta de giardinu: giaponesu</string>
+
+	<string name="poi_capacity">Capatzidade</string>
+	<string name="poi_capacity_disabled_yes">Logu riservadu pro sos disàbiles</string>
+	<string name="poi_capacity_disabled_no">Perunu logu riservadu pro sos disàbiles</string>
+	<string name="poi_capacity_disabled">Logu riservadu pro sos disàbiles</string>
+	<string name="poi_capacity_women_yes">Logu riservadu pro sas fèminas</string>
+	<string name="poi_capacity_women_no">Perunu logu riservadu pro sas fèminas</string>
+	<string name="poi_capacity_women">Logu riservadu pro sas fèminas</string>
+	<string name="poi_capacity_pupils">Logu riservadu pro sos istudiantes</string>
+	<string name="poi_capacity_teachers">Logu riservadu pro sos insinnantes</string>
+	<string name="poi_capacity_parent_yes">Logu riservadu pro babbos e mammas</string>
+	<string name="poi_capacity_parent_no">Perunu logu riservadu pro babbos e mammas</string>
+	<string name="poi_capacity_parent">Logu riservadu pro babbos e mammas</string>
+
+	<string name="poi_aerialway_occupancy">Capatzidade cabina/cadira/màchina</string>
+	<string name="poi_aerialway_capacity">Capatzidade pro ora</string>
+	<string name="poi_aerialway_duration">Tempus de biàgiu mèdiu (minutos)</string>
+	<string name="poi_aerialway_bubble_yes">Tancadu</string>
+	<string name="poi_aerialway_bubble_no">Non tancadu</string>
+	<string name="poi_aerialway_heating_yes">Caentamentu</string>
+	<string name="poi_aerialway_heating_no">Chene caentamentu</string>
+	<string name="poi_aerialway_bicycle_yes">Bitzicletas: permitias</string>
+	<string name="poi_aerialway_bicycle_no">Bitzicletas: non permitias</string>
+	<string name="poi_aerialway_bicycle_summer">Bitzicletas: permitias in s\'istiu ebbia</string>
+	<string name="poi_aerialway_access_entry">Intrada ebbia</string>
+	<string name="poi_aerialway_access_exit">Essida ebbia</string>
+	<string name="poi_aerialway_access_both">Intrada e essida</string>
+	<string name="poi_aerialway_summer_access_entry">Atzessu in s\'istiu: intrada ebbia</string>
+	<string name="poi_aerialway_summer_access_exit">Atzessu in s\'istiu: essida ebbia</string>
+	<string name="poi_aerialway_summer_access_both">Atzessu in s\'istiu: intrada e essida</string>
+
 	</resources>

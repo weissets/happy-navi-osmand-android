@@ -48,6 +48,9 @@
     <string name="preferred_locale_no_translate" translatable="false">Display language</string>
     <string name="system_locale_no_translate" translatable="false">Device language</string>
     <string name="osmo" translatable="false">OsMo</string>
+    <string name="tag_poi_amenity" translatable="false">amenity</string>
+    <string name="tag_poi_name" translatable="false">name</string>
+    <string name="support_email"  translatable="false">hcilab@gmail.com</string>
     <!--
     	 Disclaimer:
          If you are going to translate strings, please make sure:
@@ -57,8 +60,20 @@
          3. All your modified/created strings are in the top of the file (to make easier find what\'s translated).
     PLEASE: Have a look at http://code.google.com/p/osmand/wiki/UIConsistency, it may really improve your and our work  :-)  Thx - Hardy
     -->
-    <string name="simulate_initial_startup_descr">"Resets flag indicating first startup, keep other settings in the original state"</string>
-    <string name="simulate_initial_startup">Simulate initial startup</string>
+    <string name="shared_string_update">Update</string>
+    <string name="rec_photo_description">Photo %1$s</string>
+    <string name="rec_audio_description">Audio %1$s</string>
+    <string name="rec_video_description">Video %1$s</string>
+    <string name="shared_string_upload">Upload</string>
+    <string name="osm_edit_created_poi">Created OSM POI</string>
+    <string name="osm_edit_created_bug">Created OSM bug</string>
+    <string name="world_map_download_descr">World basemap (covering the whole world at small zooms) is missing or outdated. Please consider downloading World basemap for a complete environment.</string>
+    <string name="shared_string_qr_code">QR-code</string>
+    <string name="map_downloaded">Map downloaded</string>
+    <string name="map_downloaded_descr">Map of %1$s has been downloaded. Go back to the map to start using it.</string>
+    <string name="go_to_map">Go to the map</string>
+    <string name="simulate_initial_startup_descr">"Sets the flag indicating first app startup, keeps all other settings unchanged"</string>
+    <string name="simulate_initial_startup">Simulate first app start</string>
     <string name="share_geo">geo:</string>
     <string name="share_menu_location">Share location</string>
     <string name="shared_string_send">Send</string>
@@ -92,7 +107,7 @@
     <string name="gps_wake_up_timer">GPS wake-up interval</string>
 	<string name="favourites_edit_dialog_title">Favorite information</string>
     <string name="simulate_your_location_stop_descr">Stop simulating your position</string>
-    <string name="simulate_your_location_descr">Simulate using recorded GPX or calculated route</string>
+    <string name="simulate_your_location_descr">Simulate using a calculated route or a recorded GPX</string>
     <string name="address_unknown">Address is not known yet</string>
     <string name="av_locations_descr">GPX file with note locations</string>
     <string name="av_locations">Locations</string>
@@ -307,7 +322,7 @@
 	<string name="route_points">Route points</string>
 	<string name="track_segments">Track segments</string>
 	<string name="track_points">Track points</string>
-	<string name="online_map_settings">Online maps</string>
+	<string name="shared_string_online_maps">Online maps</string>
 	<string name="osmand_rastermaps_plugin_description">With this plugin you can access many types of online (so called tile or raster) maps, from predefined Openstreetmap tiles (like Mapnik) to satellite images and special purpose layers like weather maps, climate maps, geological maps, hillshade layers, etc.
 		\n\nAny of these maps can either be used as the main (base) map to be displayed on the Happy Navi (OsmAnd) map screen, or as an overlay or underlay to another base map (like Happy Navi (OsmAnd)\'s standard offline maps). In order to make any underlay map more visible, certain elements of the Happy Navi (OsmAnd) vector maps can easily be hidden via the \'Configure map\' menu as desired.
 		\n\nTile maps can be obtained directly via online sources, or can be prepared for offline use (and manually copied to Happy Navi (OsmAnd)\'s data folder) as an sqlite database which can be produced by a variety of 3rd party map preparation tools.
@@ -355,8 +370,8 @@
 	\nBoth the location and time are visible on the Happy Navi (OsmAnd) dashboard as well as in widget on the map screen. An alarm can be added to the Android calendar as a reminder.</string>
 	<string name="osmand_distance_planning_plugin_name">Distance calculator &amp; planning tool</string>
 	<string name="osmand_distance_planning_plugin_description">This plugin provides a map screen widget allowing to create paths by tapping on the map, or use or modify existing GPX files, to plan a trip and measure the distance between points. The results can be saved as a GPX file, which can later be used for guidance.</string>
-	<string name="accessibility_preferences">Accessibility</string>
-	<string name="osmand_accessibility_description">This plugin makes the device\'s accessibility features available directly in Happy Navi (OsmAnd). It facilitates e.g. adjusting the speech rate for TTS voices, configuring directional-pad screen navigation, using a trackball for zoom control, or using text-to-speech feedback, like for auto announcing your position.</string>
+	<string name="shared_string_accessibility">Accessibility</string>
+	<string name="osmand_accessibility_description">This plugin makes the device\'s accessibility features available directly in OsmAnd. It facilitates e.g. adjusting the speech rate for TTS voices, configuring directional-pad screen navigation, using a trackball for zoom control, or using text-to-speech feedback, like for auto announcing your position.</string>
 	<string name="osm_settings">OSM editing</string>
 	<string name="osm_editing_plugin_description">Via this plugin Happy Navi (OsmAnd) can be used to make OSM contributions like creating or modifying OSM POI objects, opening or commenting OSM bugs, and contributing recorded GPX files. OSM is a community driven, global public domain mapping project. For details please refer to http://openstreetmap.org. Active participation is appreciated, and contributions can be made directly from Happy Navi (OsmAnd), if you specify your personal OSM credentials in the app.</string>
 	<string name="osmand_development_plugin_description">This plugin displays settings for development and debugging features like to test or simulate routing, the screen rendering performance, or voice prompting. These settings are intended for developers and are not needed for the general user.</string>
@@ -805,7 +820,7 @@
 	<string name="map_magnifier">Map magnifier</string>
 	<string name="base_world_map">World basemap</string>
     <string name="about_version">Version :</string>
-    <string name="about_settings">About</string>
+    <string name="shared_string_about">About</string>
     <string name="about_settings_descr">Version info, licenses, project members</string>
     <string name="local_index_tile_data_zooms">Zooms downloaded: %1$s</string>
     <string name="local_index_tile_data_expire">Expire (minutes): %1$s</string>
@@ -915,7 +930,6 @@
 	<string name="prefer_in_routing_descr">Prefer motorways</string>
     <string name="max_speed_none">none</string>
     <string name="index_name_openmaps">OpenMaps EU</string>
-    <string name="download_hillshade_item">Hillshades</string>
     <string name="download_wikipedia_maps">Wikipedia</string>
     <string name="download_hillshade_maps">Hillshades</string>
     <string name="local_indexes_cat_srtm">Contour lines</string>
@@ -2039,8 +2053,6 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 	<string name="next_proceed">Next</string>
 	<string name="opening_at">Opening at</string>
 	<string name="closing_at">Closing at</string>
-	<string name="tag_poi_name">name</string>
-	<string name="tag_poi_amenity">amenity</string>
 	<string name="contact_info">Contact info</string>
 	<string name="description">Description</string>
 	<string name="add_opening_hours">Add opening hours</string>
@@ -2074,12 +2086,31 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="free_downloads_used">Free downloads used</string>
     <string name="free_downloads_used_description">You can set how many free downloads you have used</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="application_dir_description">Choose where you want to save map files.</string>
-    <string name="show_on_start_description">Happy Navi (OsmAnd) app will start from map screen</string>
+    <string name="show_on_start_description">\'Off\' directly launches map screen</string>
+    <string name="enter_country_name">Enter country name</string>
+    <string name="new_version">New version</string>
+    <string name="begin_with_osmand_menu_group">First steps with OsmAnd</string>
+    <string name="features_menu_group">Features</string>
+    <string name="help_us_to_improve_menu_group">Help us to improve OsmAnd</string>
+    <string name="other_menu_group">Other</string>
+    <string name="plugins_menu_group">Plugins</string>
+    <string name="first_usage_item">First usage</string>
+    <string name="first_usage_item_description">How to download maps, set basic settings</string>
+    <string name="navigation_item_description">Setup navigation</string>
+    <string name="planning_trip_item">Planning a trip</string>
+    <string name="faq_item">FAQ</string>
+    <string name="faq_item_description">How to use plugins</string>
+    <string name="map_viewing_item">Map viewing</string>
+    <string name="search_on_the_map_item">Map searching</string>
+    <string name="instalation_troubleshooting_item">Installation and troubleshooting</string>
+    <string name="techical_articles_item">Technical articles</string>
+    <string name="versions_item">Versions</string>
+    <string name="feedback">Feedback</string>
+    <string name="contact_us">Contact us</string>
+    <string name="map_legend">Map legend</string>
 
-    <string name="sr_plugin_description">This plugin aims at improving route calculation for
+<string name="sr_plugin_description">This plugin aims at improving route calculation for
         driving with less stress. For a full description visit our info page: \n
         http://maps.hcilab.org/info</string>
     <string name="sr_plugin_name">Stress Reduction Plugin</string>

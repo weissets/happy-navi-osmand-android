@@ -1,23 +1,35 @@
 package net.osmand.plus.mapcontextmenu;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 
+import net.osmand.binary.BinaryMapDataObject;
 import net.osmand.data.Amenity;
 import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
+import net.osmand.plus.GPXUtilities.WptPt;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
+import net.osmand.plus.TargetPointsHelper.TargetPoint;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.audionotes.AudioVideoNotesPlugin.Recording;
 import net.osmand.plus.helpers.SearchHistoryHelper;
-import net.osmand.plus.mapcontextmenu.details.AmenityMenuController;
-import net.osmand.plus.mapcontextmenu.details.FavouritePointMenuController;
-import net.osmand.plus.mapcontextmenu.details.HistoryMenuController;
-import net.osmand.plus.mapcontextmenu.details.MyLocationMenuController;
-import net.osmand.plus.mapcontextmenu.details.ParkingPositionController;
-import net.osmand.plus.mapcontextmenu.details.PointDescriptionMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.AmenityMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.AudioVideoNoteMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.EditPOIMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.FavouritePointMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.HistoryMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.MapDataMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.MyLocationMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.OsMoMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.ParkingPositionMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.PointDescriptionMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.TargetPointMenuController;
+import net.osmand.plus.mapcontextmenu.controllers.WptPtMenuController;
+import net.osmand.plus.mapcontextmenu.other.ShareMenu;
+import net.osmand.plus.osmedit.OsmPoint;
+import net.osmand.plus.osmo.OsMoGroupsStorage.OsMoDevice;
 
 public abstract class MenuController extends BaseMenuController {
 
@@ -27,11 +39,25 @@ public abstract class MenuController extends BaseMenuController {
 		public static final int FULL_SCREEN = 4;
 	}
 
+	public enum MenuType {
+		STANDARD,
+		MULTI_LINE
+	}
+
 	private MenuBuilder builder;
 	private int currentMenuState;
+	private MenuType menuType = MenuType.STANDARD;
+	private PointDescription pointDescription;
 
-	public MenuController(MenuBuilder builder, MapActivity mapActivity) {
+	protected TitleButtonController leftTitleButtonController;
+	protected TitleButtonController rightTitleButtonController;
+	protected TitleButtonController topRightTitleButtonController;
+
+	protected TitleProgressController titleProgressController;
+
+	public MenuController(MenuBuilder builder, PointDescription pointDescription, MapActivity mapActivity) {
 		super(mapActivity);
+		this.pointDescription = pointDescription;
 		this.builder = builder;
 		this.currentMenuState = getInitialMenuState();
 	}
@@ -41,25 +67,40 @@ public abstract class MenuController extends BaseMenuController {
 	}
 
 	public static MenuController getMenuController(MapActivity mapActivity,
-												   PointDescription pointDescription, Object object) {
+												   PointDescription pointDescription, Object object, MenuType menuType) {
 		OsmandApplication app = mapActivity.getMyApplication();
 		MenuController menuController = null;
 		if (object != null) {
 			if (object instanceof Amenity) {
-				menuController = new AmenityMenuController(app, mapActivity, (Amenity) object);
+				menuController = new AmenityMenuController(app, mapActivity, pointDescription, (Amenity) object);
 			} else if (object instanceof FavouritePoint) {
-				menuController = new FavouritePointMenuController(app, mapActivity, (FavouritePoint) object);
+				menuController = new FavouritePointMenuController(app, mapActivity, pointDescription, (FavouritePoint) object);
 			} else if (object instanceof SearchHistoryHelper.HistoryEntry) {
-				menuController = new HistoryMenuController(app, mapActivity, (SearchHistoryHelper.HistoryEntry) object);
+				menuController = new HistoryMenuController(app, mapActivity, pointDescription, (SearchHistoryHelper.HistoryEntry) object);
+			} else if (object instanceof TargetPoint) {
+				menuController = new TargetPointMenuController(app, mapActivity, pointDescription, (TargetPoint) object);
+			} else if (object instanceof OsMoDevice) {
+				menuController = new OsMoMenuController(app, mapActivity, pointDescription, (OsMoDevice) object);
+			} else if (object instanceof Recording) {
+				menuController = new AudioVideoNoteMenuController(app, mapActivity, pointDescription, (Recording) object);
+			} else if (object instanceof OsmPoint) {
+				menuController = new EditPOIMenuController(app, mapActivity, pointDescription, (OsmPoint) object);
+			} else if (object instanceof WptPt) {
+				menuController = new WptPtMenuController(app, mapActivity, pointDescription, (WptPt) object);
+			} else if (object instanceof BinaryMapDataObject) {
+				menuController = new MapDataMenuController(app, mapActivity, pointDescription, (BinaryMapDataObject) object);
 			} else if (object instanceof LatLon) {
 				if (pointDescription.isParking()) {
-					menuController = new ParkingPositionController(app, mapActivity, pointDescription, (LatLon) object);
+					menuController = new ParkingPositionMenuController(app, mapActivity, pointDescription);
 				} else if (pointDescription.isMyLocation()) {
-					menuController = new MyLocationMenuController(app, mapActivity, pointDescription, (LatLon) object);
+					menuController = new MyLocationMenuController(app, mapActivity, pointDescription);
 				}
 			}
 		} else {
 			menuController = new PointDescriptionMenuController(app, mapActivity, pointDescription);
+		}
+		if (menuController != null) {
+			menuController.menuType = menuType;
 		}
 		return menuController;
 	}
@@ -77,6 +118,10 @@ public abstract class MenuController extends BaseMenuController {
 			addPlainMenuItem(R.drawable.map_my_location, PointDescription.getLocationName(getMapActivity(),
 					latLon.getLatitude(), latLon.getLongitude(), true).replaceAll("\n", ""));
 		}
+	}
+
+	public PointDescription getPointDescription() {
+		return pointDescription;
 	}
 
 	public int getInitialMenuState() {
@@ -107,6 +152,10 @@ public abstract class MenuController extends BaseMenuController {
 		return currentMenuState;
 	}
 
+	public MenuType getMenuType() {
+		return menuType;
+	}
+
 	public boolean slideUp() {
 		int v = currentMenuState;
 		for (int i = 0; i < 2; i++) {
@@ -135,18 +184,27 @@ public abstract class MenuController extends BaseMenuController {
 		this.currentMenuState = currentMenuState;
 	}
 
-	public boolean hasTitleButton() {
-		return false;
+	public TitleButtonController getLeftTitleButtonController() {
+		return leftTitleButtonController;
 	}
 
-	public String getTitleButtonCaption() {
-		return "";
+	public TitleButtonController getRightTitleButtonController() {
+		return rightTitleButtonController;
 	}
 
-	public void titleButtonPressed() {
+	public TitleButtonController getTopRightTitleButtonController() {
+		return topRightTitleButtonController;
 	}
 
-	public boolean shouldShowButtons() {
+	public TitleProgressController getTitleProgressController() {
+		return titleProgressController;
+	}
+
+	public boolean fabVisible() {
+		return true;
+	}
+
+	public boolean buttonsVisible() {
 		return true;
 	}
 
@@ -159,6 +217,10 @@ public abstract class MenuController extends BaseMenuController {
 	}
 
 	public boolean needTypeStr() {
+		return menuType != MenuType.STANDARD;
+	}
+
+	public boolean displayStreetNameinTitle() {
 		return false;
 	}
 
@@ -174,5 +236,49 @@ public abstract class MenuController extends BaseMenuController {
 
 	public String getNameStr() { return ""; }
 
-	public abstract void saveEntityState(Bundle bundle, String key);
+	public void share(LatLon latLon, String title) {
+		ShareMenu.show(latLon, title, getMapActivity());
+	}
+
+	public void updateData() {
+	}
+
+	public abstract class TitleButtonController {
+		public String caption = "";
+		public int leftIconId = 0;
+		public boolean needRightText = false;
+		public String rightTextCaption = "";
+		public boolean visible = true;
+
+		public Drawable getLeftIcon() {
+			if (leftIconId != 0) {
+				return getIcon(leftIconId, getResIdFromAttribute(R.attr.contextMenuButtonColor));
+			} else {
+				return null;
+			}
+		}
+
+		public abstract void buttonPressed();
+	}
+
+	public abstract class TitleProgressController {
+		public String caption = "";
+		public int progress = 0;
+		public boolean indeterminate;
+		public boolean visible;
+		public boolean buttonVisible;
+
+		public void setIndexesDownloadMode() {
+			caption = getMapActivity().getString(R.string.downloading_list_indexes);
+			indeterminate = true;
+			buttonVisible = false;
+		}
+
+		public void setMapDownloadMode() {
+			indeterminate = false;
+			buttonVisible = true;
+		}
+
+		public abstract void buttonPressed();
+	}
 }

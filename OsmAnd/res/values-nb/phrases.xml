@@ -203,4 +203,13 @@
 	<string name="poi_capital">Hovedstad</string>
 	<string name="poi_residential">Boligområde</string>
 
+	<string name="poi_historic_farm">Historisk gårdsbruk</string>
+	<string name="poi_historic_railway_station">Historisk jernbanestasjon</string>
+
+	<string name="poi_historic_railway">Historisk jernbane</string>
+
+<string name="poi_bathing_no">Bading: nei</string>
+
+<string name="poi_temperature">Temperatur</string>
+	<string name="poi_bathing_yes">Bading: ja</string>
 	</resources>

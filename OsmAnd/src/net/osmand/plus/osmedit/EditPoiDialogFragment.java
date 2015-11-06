@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -44,6 +46,7 @@ import android.widget.Toast;
 import net.osmand.PlatformUtil;
 import net.osmand.access.AccessibleToast;
 import net.osmand.data.Amenity;
+import net.osmand.data.LatLon;
 import net.osmand.osm.PoiType;
 import net.osmand.osm.edit.EntityInfo;
 import net.osmand.osm.edit.Node;
@@ -53,7 +56,6 @@ import net.osmand.plus.OsmandPlugin;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.osmedit.data.EditPoiData;
 import net.osmand.plus.osmedit.dialogs.DeletePoiDialogFragment;
 import net.osmand.plus.osmedit.dialogs.PoiSubTypeDialogFragment;
 import net.osmand.plus.osmedit.dialogs.PoiTypeDialogFragment;
@@ -62,8 +64,8 @@ import net.osmand.util.Algorithms;
 import org.apache.commons.logging.Log;
 
 import java.io.Serializable;
-import java.text.MessageFormat;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditPoiDialogFragment extends DialogFragment {
@@ -76,7 +78,6 @@ public class EditPoiDialogFragment extends DialogFragment {
 
 	private EditPoiData editPoiData;
 	private ViewPager viewPager;
-	private boolean isLocalEdit;
 	private AutoCompleteTextView poiTypeEditText;
 	private Node node;
 	private Map<String, PoiType> allTranslatedSubTypes;
@@ -94,7 +95,6 @@ public class EditPoiDialogFragment extends DialogFragment {
 		} else if (!settings.isInternetConnectionAvailable(true)) {
 			mOpenstreetmapUtil = new OpenstreetmapLocalUtil(plugin, activity);
 		} else {
-			isLocalEdit = false;
 			mOpenstreetmapUtil = new OpenstreetmapRemoteUtil(activity);
 		}
 
@@ -135,7 +135,7 @@ public class EditPoiDialogFragment extends DialogFragment {
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dismiss();
+				dismissCheckForChanges();
 			}
 		});
 
@@ -189,12 +189,11 @@ public class EditPoiDialogFragment extends DialogFragment {
 						Uri.parse("https://wiki.openstreetmap.org/wiki/Map_Features")));
 			}
 		});
-		onlineDocumentationButton.setImageDrawable(
-				getMyApplication().getIconsCache()
-						.getPaintedContentIcon(R.drawable.ic_action_help,
-								getResources().getColor(
-										isLightTheme ? R.color.inactive_item_orange
-												: R.color.dash_search_icon_dark)));
+
+		final int colorId = isLightTheme ? R.color.inactive_item_orange : R.color.dash_search_icon_dark;
+		final int color = getResources().getColor(colorId);
+		onlineDocumentationButton.setImageDrawable(getMyApplication().getIconsCache()
+				.getPaintedContentIcon(R.drawable.ic_action_help, color));
 		final ImageButton poiTypeButton = (ImageButton) view.findViewById(R.id.poiTypeButton);
 		poiTypeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -217,7 +216,12 @@ public class EditPoiDialogFragment extends DialogFragment {
 			@Override
 			public void afterTextChanged(Editable s) {
 				if (!getEditPoiData().isInEdit()) {
-					getEditPoiData().putTag(OSMSettings.OSMTagKey.NAME.getValue(), s.toString());
+					if (!TextUtils.isEmpty(s)) {
+						getEditPoiData().putTag(OSMSettings.OSMTagKey.NAME.getValue(),
+								s.toString());
+					} else {
+						getEditPoiData().removeTag(OSMSettings.OSMTagKey.NAME.getValue());
+					}
 				}
 			}
 		});
@@ -242,11 +246,10 @@ public class EditPoiDialogFragment extends DialogFragment {
 		});
 		poiNameEditText.setOnEditorActionListener(mOnEditorActionListener);
 		poiTypeEditText.setOnEditorActionListener(mOnEditorActionListener);
+		poiTypeEditText.setText(editPoiData.amenity.getSubType());
 
 		Button saveButton = (Button) view.findViewById(R.id.saveButton);
-		int saveButtonTextId = isLocalEdit ? R.string.shared_string_save :
-				R.string.default_buttons_commit;
-		saveButton.setText(saveButtonTextId);
+		saveButton.setText(R.string.shared_string_save);
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -266,6 +269,14 @@ public class EditPoiDialogFragment extends DialogFragment {
 		setAdapterForPoiTypeEditText();
 		setCancelable(false);
 		return view;
+	}
+
+	@NonNull
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		final Dialog dialog = super.onCreateDialog(savedInstanceState);
+		dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		return dialog;
 	}
 
 	private void save() {
@@ -301,23 +312,17 @@ public class EditPoiDialogFragment extends DialogFragment {
 				new Runnable() {
 					@Override
 					public void run() {
-						if (isLocalEdit) {
-							AccessibleToast.makeText(
-									getActivity(),
-									R.string.osm_changes_added_to_local_edits,
-									Toast.LENGTH_LONG).show();
-						} else {
-							final String message = node.getId() == -1 ?
-									getResources().getString(R.string.poi_action_add)
-									: getResources().getString(R.string.poi_action_change);
-
-							AccessibleToast.makeText(
-									getActivity(),
-									MessageFormat.format(
-											getResources().getString(
-													R.string.poi_action_succeded_template), message),
-									Toast.LENGTH_LONG).show();
+						OsmEditingPlugin plugin = OsmandPlugin.getPlugin(OsmEditingPlugin.class);
+						if (plugin != null) {
+							List<OpenstreetmapPoint> points = plugin.getDBPOI().getOpenstreetmapPoints();
+							OsmPoint point = points.get(points.size() - 1);
+							if (getActivity() instanceof MapActivity) {
+								MapActivity mapActivity = (MapActivity) getActivity();
+								mapActivity.getContextMenu().showOrUpdate(new LatLon(point.getLatitude(), point.getLongitude()),
+										plugin.getOsmEditsLayer(mapActivity).getObjectName(point), point);
+							}
 						}
+
 						if (getActivity() instanceof MapActivity) {
 							((MapActivity) getActivity()).getMapView().refreshMap(true);
 						}
@@ -336,15 +341,22 @@ public class EditPoiDialogFragment extends DialogFragment {
 					if (event.getAction() == KeyEvent.ACTION_DOWN) {
 						return true;
 					} else {
-						new AreYouSureDialogFrgament().show(getChildFragmentManager(),
-								"AreYouSureDialogFrgament");
+						dismissCheckForChanges();
 						return true;
 					}
-				} else {
-					return false;
 				}
+				return false;
 			}
 		});
+	}
+
+	private void dismissCheckForChanges() {
+		if (editPoiData.hasChangesBeenMade()) {
+			new AreYouSureDialogFragment().show(getChildFragmentManager(),
+					"AreYouSureDialogFragment");
+		} else {
+			dismiss();
+		}
 	}
 
 	@Override
@@ -355,7 +367,7 @@ public class EditPoiDialogFragment extends DialogFragment {
 
 
 	public static EditPoiDialogFragment createAddPoiInstance(double latitude, double longitude,
-													   OsmandApplication application) {
+															 OsmandApplication application) {
 		Node node = new Node(latitude, longitude, -1);
 		Amenity amenity;
 		amenity = new Amenity();
@@ -453,8 +465,26 @@ public class EditPoiDialogFragment extends DialogFragment {
 				subCategories.put(Algorithms.capitalizeFirstLetterAndLowercase(s.getKey()), s.getValue());
 			}
 		}
-		final ArrayAdapter<Object> adapter = new ArrayAdapter<>(getActivity(),
-				R.layout.list_textview, subCategories.keySet().toArray());
+		final ArrayAdapter<Object> adapter;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			adapter = new ArrayAdapter<>(getActivity(),
+					R.layout.list_textview, subCategories.keySet().toArray());
+		} else {
+			TypedValue typedValue = new TypedValue();
+			Resources.Theme theme = getActivity().getTheme();
+			theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true);
+			final int textColor = typedValue.data;
+
+			adapter = new ArrayAdapter<Object>(getActivity(),
+					R.layout.list_textview, subCategories.keySet().toArray()) {
+				@Override
+				public View getView(int position, View convertView, ViewGroup parent) {
+					final View view = super.getView(position, convertView, parent);
+					((TextView) view.findViewById(R.id.textView)).setTextColor(textColor);
+					return view;
+				}
+			};
+		}
 		poiTypeEditText.setAdapter(adapter);
 		poiTypeEditText.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -462,7 +492,9 @@ public class EditPoiDialogFragment extends DialogFragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				Object item = parent.getAdapter().getItem(position);
 				LOG.debug("item=" + item);
+				//noinspection SuspiciousMethodCalls
 				if (subCategories.containsKey(item)) {
+					//noinspection SuspiciousMethodCalls
 					String keyName = subCategories.get(item).getKeyName();
 					poiTypeEditText.setText(keyName);
 				}
@@ -570,7 +602,7 @@ public class EditPoiDialogFragment extends DialogFragment {
 		}
 	}
 
-	public static class AreYouSureDialogFrgament extends DialogFragment {
+	public static class AreYouSureDialogFragment extends DialogFragment {
 		@NonNull
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -600,6 +632,7 @@ public class EditPoiDialogFragment extends DialogFragment {
 					return handled;
 				}
 			};
+
 	public interface OnFragmentActivatedListener {
 		void onFragmentActivated();
 	}

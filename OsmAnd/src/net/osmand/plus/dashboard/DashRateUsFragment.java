@@ -1,27 +1,25 @@
 package net.osmand.plus.dashboard;
 
-import net.osmand.plus.OsmandSettings;
-import net.osmand.plus.R;
-import net.osmand.plus.activities.MapActivity;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import net.osmand.plus.OsmandSettings;
+import net.osmand.plus.R;
+import net.osmand.plus.activities.MapActivity;
+
 import java.util.Calendar;
 
 public class DashRateUsFragment extends DashBaseFragment {
     public static final String TAG = "DASH_RATE_US_FRAGMENT";
-
-    // TODO move to resources
-    public static final String EMAIL = "hcilab@gmail.com"; //"support@osmand.net";
 
     // Imported in shouldShow method
     private static OsmandSettings settings;
@@ -61,6 +59,8 @@ public class DashRateUsFragment extends DashBaseFragment {
 		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
 
 		int bannerFreeRuns = 0;
+        
+		boolean toReturn = false;
 
 		switch (state) {
 			case LIKED:
@@ -142,15 +142,16 @@ public class DashRateUsFragment extends DashBaseFragment {
                     }
                     dashboard.refreshDashboardFragments();
                     return;
-                case USER_HATES_APP:
+                case USER_DISLIKES_APP:
+                	String email = getString(R.string.support_email);
                     settings.RATE_US_STATE.set(RateUsState.DISLIKED_WITH_MESSAGE);
                     settings.NUMBER_OF_APPLICATION_STARTS.set(0);
                     settings.LAST_DISPLAY_TIME.set(System.currentTimeMillis());
                     dashboard.refreshDashboardFragments();
                     Intent sendEmail = new Intent(Intent.ACTION_SENDTO);
                     sendEmail.setType("text/plain");
-                    sendEmail.setData(Uri.parse("mailto:" + EMAIL));
-                    sendEmail.putExtra(Intent.EXTRA_EMAIL, EMAIL);
+                    sendEmail.setData(Uri.parse("mailto:" + email));
+                    sendEmail.putExtra(Intent.EXTRA_EMAIL, email);
                     startActivity(sendEmail);
                     break;
             }
@@ -176,7 +177,7 @@ public class DashRateUsFragment extends DashBaseFragment {
         public void onClick(View v) {
             switch (state) {
                 case INITIAL_STATE:
-                    state = FragmentState.USER_HATES_APP;
+                    state = FragmentState.USER_DISLIKES_APP;
 
                     header.setText(getResources().getString(R.string.user_hates_app_get_feedback));
                     subheader.setText(getResources().getString(R.string.user_hates_app_get_feedback_long));
@@ -186,7 +187,7 @@ public class DashRateUsFragment extends DashBaseFragment {
                 case USER_LIKES_APP:
                     settings.RATE_US_STATE.set(RateUsState.IGNORED);
                     break;
-                case USER_HATES_APP:
+                case USER_DISLIKES_APP:
                     settings.RATE_US_STATE.set(RateUsState.DISLIKED_WITHOUT_MESSAGE);
                     break;
             }
@@ -199,7 +200,7 @@ public class DashRateUsFragment extends DashBaseFragment {
     private enum FragmentState {
         INITIAL_STATE,
         USER_LIKES_APP,
-        USER_HATES_APP
+        USER_DISLIKES_APP
     }
 
     public enum RateUsState {
@@ -210,7 +211,7 @@ public class DashRateUsFragment extends DashBaseFragment {
         DISLIKED_WITHOUT_MESSAGE
     }
 
-    public static class RateUsShouldShow extends DashboardOnMap.SettingsShouldShow {
+    public static class RateUsShouldShow extends DashboardOnMap.DefaultShouldShow {
         @Override
         public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
             return DashRateUsFragment.shouldShow(settings)

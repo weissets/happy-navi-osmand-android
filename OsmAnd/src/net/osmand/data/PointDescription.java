@@ -1,10 +1,7 @@
 package net.osmand.data;
 
-import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-import java.util.StringTokenizer;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.jwetherell.openmap.common.LatLonPoint;
 import com.jwetherell.openmap.common.UTMPoint;
@@ -13,18 +10,19 @@ import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.util.Algorithms;
-import android.content.Context;
-import android.support.annotation.NonNull;
 
-public class PointDescription implements Serializable {
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+import java.util.StringTokenizer;
+
+public class PointDescription {
 	private String type = "";
 	private String name = "";
 	private String typeName;
 
 	private double lat = 0;
 	private double lon = 0;
-
-	private static final long serialVersionUID = 4078409090417168638L;
 
 	public static final String POINT_TYPE_FAVORITE = "favorite";
 	public static final String POINT_TYPE_WPT = "wpt";
@@ -41,7 +39,8 @@ public class PointDescription implements Serializable {
 	public static final String POINT_TYPE_ALARM = "alarm";
 	public static final String POINT_TYPE_TARGET = "destination";
 	public static final String POINT_TYPE_OSM_BUG = "bug";
-	
+	public static final String POINT_TYPE_WORLD_REGION = "world_region";
+
 
 	public static final PointDescription LOCATION_POINT = new PointDescription(POINT_TYPE_LOCATION, "");
 
@@ -241,7 +240,7 @@ public class PointDescription implements Serializable {
 	}
 
 	public static PointDescription deserializeFromString(String s, LatLon l) {
-		PointDescription pd = null;
+		PointDescription pd = null ;
 		if (s != null && s.length() > 0) {
 			int in = s.indexOf('#');
 			if (in >= 0) {
@@ -254,7 +253,10 @@ public class PointDescription implements Serializable {
 				}
 			}
 		}
-		if(pd != null && pd.isLocation() && l != null) {
+		if(pd == null) {
+			pd = new PointDescription(POINT_TYPE_LOCATION, "");
+		}
+		if(pd.isLocation() && l != null) {
 			pd.setLat(l.getLatitude());
 			pd.setLon(l.getLongitude());
 		}

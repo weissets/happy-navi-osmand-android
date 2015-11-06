@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import net.osmand.PlatformUtil;
 import net.osmand.StringMatcher;
 import net.osmand.osm.AbstractPoiType;
@@ -31,7 +31,6 @@ import net.osmand.osm.PoiType;
 import net.osmand.osm.edit.OSMSettings;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
-import net.osmand.plus.osmedit.data.EditPoiData;
 import net.osmand.util.Algorithms;
 
 import org.apache.commons.logging.Log;
@@ -81,9 +80,11 @@ public class AdvancedEditPoiFragment extends Fragment
 				(LinearLayout) view.findViewById(R.id.editTagsList);
 
 		final MapPoiTypes mapPoiTypes = ((OsmandApplication) getActivity().getApplication()).getPoiTypes();
-		allTranslatedSubTypes = mapPoiTypes.getAllTranslatedNames();
-		mAdapter = new TagAdapterLinearLayoutHack(editTagsLineaLayout, getData(),
-				mapPoiTypes);
+		// TODO: 10/27/15 Probably use executor so loading would be paralleled.
+		new InitTranslatedTypesTask(mapPoiTypes).execute();
+		mAdapter = new TagAdapterLinearLayoutHack(editTagsLineaLayout, getData());
+		// TODO do not restart initialization every time, and probably move initialization to appInit
+		new InitTagsAndValuesAutocompleteTask(mapPoiTypes).execute();
 //		setListViewHeightBasedOnChildren(editTagsLineaLayout);
 		Button addTagButton = (Button) view.findViewById(R.id.addTagButton);
 		addTagButton.setOnClickListener(new View.OnClickListener() {
@@ -150,29 +151,16 @@ public class AdvancedEditPoiFragment extends Fragment
 	public class TagAdapterLinearLayoutHack {
 		private final LinearLayout linearLayout;
 		private final EditPoiData editPoiData;
-		private final Map<String, AbstractPoiType> allTypes;
-		private final HashSet<String> tagKeys;
-		private final HashSet<String> valueKeys;
+		private final ArrayAdapter<String> tagAdapter;
+		private final ArrayAdapter<String> valueAdapter;
 
 		public TagAdapterLinearLayoutHack(LinearLayout linearLayout,
-										  EditPoiData editPoiData,
-										  MapPoiTypes mapPoiTypes) {
+										  EditPoiData editPoiData) {
 			this.linearLayout = linearLayout;
 			this.editPoiData = editPoiData;
-			this.allTypes = mapPoiTypes.getAllTypesTranslatedNames(new StringMatcher() {
-				@Override
-				public boolean matches(String name) {
-					return true;
-				}
-			});
 
-			tagKeys = new HashSet<>();
-			valueKeys = new HashSet<>();
-			for (AbstractPoiType abstractPoiType : allTypes.values()) {
-				addPoiToStringSet(abstractPoiType, tagKeys, valueKeys);
-			}
-			addPoiToStringSet(mapPoiTypes.getOtherMapCategory(), tagKeys, valueKeys);
-
+			tagAdapter = new ArrayAdapter<>(linearLayout.getContext(), R.layout.list_textview);
+			valueAdapter = new ArrayAdapter<>(linearLayout.getContext(), R.layout.list_textview);
 		}
 
 		public void updateViews() {
@@ -234,19 +222,16 @@ public class AdvancedEditPoiFragment extends Fragment
 				}
 			});
 
-			ArrayAdapter<Object> tagAdapter = new ArrayAdapter<>(linearLayout.getContext(),
-					R.layout.list_textview, tagKeys.toArray());
 			tagEditText.setAdapter(tagAdapter);
 			tagEditText.setThreshold(1);
 			tagEditText.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					final String[] tags = tagKeys.toArray(new String[tagKeys.size()]);
-					builder.setItems(tags, new Dialog.OnClickListener() {
+					builder.setAdapter(tagAdapter, new Dialog.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							tagEditText.setText(tags[which]);
+							tagAdapter.getItem(which);
 						}
 
 					});
@@ -273,19 +258,17 @@ public class AdvancedEditPoiFragment extends Fragment
 					}
 				}
 			});
-			ArrayAdapter<Object> valueAdapter = new ArrayAdapter<>(linearLayout.getContext(),
-					R.layout.list_textview, valueKeys.toArray());
+
 			valueEditText.setAdapter(valueAdapter);
 			valueEditText.setThreshold(1);
 			valueEditText.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					final String[] values = valueKeys.toArray(new String[tagKeys.size()]);
-					builder.setItems(values, new Dialog.OnClickListener() {
+					builder.setAdapter(valueAdapter, new Dialog.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							valueEditText.setText(values[which]);
+							valueAdapter.getItem(which);
 						}
 
 					});
@@ -295,6 +278,18 @@ public class AdvancedEditPoiFragment extends Fragment
 			});
 
 			return convertView;
+		}
+
+		public void setTagData(String[] tags) {
+			tagAdapter.clear();
+			tagAdapter.addAll(tags);
+			tagAdapter.notifyDataSetChanged();
+		}
+
+		public void setValueData(String[] values) {
+			valueAdapter.clear();
+			valueAdapter.addAll(values);
+			valueAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -336,5 +331,54 @@ public class AdvancedEditPoiFragment extends Fragment
 			throw new IllegalArgumentException("abstractPoiType can't be instance of class "
 					+ abstractPoiType.getClass());
 		}
+	}
+
+	class InitTagsAndValuesAutocompleteTask extends AsyncTask<Void, Void, Map<String, AbstractPoiType>> {
+		private final MapPoiTypes mapPoiTypes;
+
+		public InitTagsAndValuesAutocompleteTask(MapPoiTypes mapPoiTypes) {
+			this.mapPoiTypes = mapPoiTypes;
+		}
+
+		@Override
+		protected Map<String, AbstractPoiType> doInBackground(Void... params) {
+			return mapPoiTypes.getAllTypesTranslatedNames(new StringMatcher() {
+				@Override
+				public boolean matches(String name) {
+					return true;
+				}
+			});
+		}
+
+		@Override
+		protected void onPostExecute(Map<String, AbstractPoiType> result) {
+			HashSet<String> tagKeys = new HashSet<>();
+			HashSet<String> valueKeys = new HashSet<>();
+			for (AbstractPoiType abstractPoiType : result.values()) {
+				addPoiToStringSet(abstractPoiType, tagKeys, valueKeys);
+			}
+			addPoiToStringSet(mapPoiTypes.getOtherMapCategory(), tagKeys, valueKeys);
+			mAdapter.setTagData(tagKeys.toArray(new String[tagKeys.size()]));
+			mAdapter.setValueData(valueKeys.toArray(new String[valueKeys.size()]));
+		}
+	}
+
+	class InitTranslatedTypesTask extends AsyncTask<Void, Void, Map<String, PoiType>> {
+		private final MapPoiTypes mapPoiTypes;
+
+		public InitTranslatedTypesTask(MapPoiTypes mapPoiTypes) {
+			this.mapPoiTypes = mapPoiTypes;
+		}
+
+		@Override
+		protected Map<String, PoiType> doInBackground(Void... params) {
+			return mapPoiTypes.getAllTranslatedNames();
+		}
+
+		@Override
+		protected void onPostExecute(Map<String, PoiType> result) {
+			allTranslatedSubTypes = result;
+		}
+
 	}
 }
