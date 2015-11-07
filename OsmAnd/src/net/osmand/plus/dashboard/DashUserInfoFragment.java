@@ -8,6 +8,7 @@ import net.osmand.plus.stressreduction.database.SQLiteLogger;
 
 import org.apache.commons.logging.Log;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -21,17 +22,17 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class DashUserInfoFragment extends DashBaseFragment {
 
 	private static final Log log = PlatformUtil.getLog(DashUserInfoFragment.class);
 
 	public static final String TAG = "DASH_USER_INFO_FRAGMENT";
 
-//	public static final String EMAIL = "hcilab@gmail.com";
-
 	// Imported in shouldShow method
 	private static OsmandSettings settings;
-	private FragmentState state = FragmentState.INITIAL_STATE;
+	private FragmentState state = FragmentState.INITIAL;
 	private UserInfoDismissListener userInfoDismissListener;
 
 	@Override
@@ -66,17 +67,18 @@ public class DashUserInfoFragment extends DashBaseFragment {
 			settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
 		}
 		DashUserInfoFragment.settings = settings;
-//		long lastDisplayTimeInMillis = settings.SR_LAST_DISPLAY_TIME.get();
+		long lastDisplayTimeInMillis = settings.SR_LAST_DISPLAY_TIME.get();
 		int numberOfApplicationRuns = settings.SR_NUMBER_OF_APPLICATION_STARTS.get();
 		SrUserInfoState state = settings.SR_USER_INFO_STATE.get();
 
-		log.debug("shouldShow(): state=" + state + ", numberOfApplicationStarts=" + numberOfApplicationRuns);
+		log.debug("shouldShow(): state=" + state + ", numberOfApplicationStarts=" +
+				numberOfApplicationRuns);
 
-//		Calendar modifiedTime = Calendar.getInstance();
-//		Calendar lastDisplayTime = Calendar.getInstance();
-//		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
+		Calendar modifiedTime = Calendar.getInstance();
+		Calendar lastDisplayTime = Calendar.getInstance();
+		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
 
-		int bannerFreeRuns = 0;
+		int bannerFreeRuns;
 
 		switch (state) {
 			case SHARED_INFO:
@@ -84,32 +86,22 @@ public class DashUserInfoFragment extends DashBaseFragment {
 				return false;
 			case INITIAL_STATE:
 				log.debug("shouldShow(): initial state");
-				break;
+				modifiedTime.add(Calendar.HOUR, -72);
+				bannerFreeRuns = 5;
+				return modifiedTime.after(lastDisplayTime) &&
+						numberOfApplicationRuns >= bannerFreeRuns;
 			case USER_INFO_DELAYED:
 				log.debug("shouldShow(): user info delayed");
-//				modifiedTime.add(Calendar.WEEK_OF_YEAR, -1);
-				bannerFreeRuns = 5;
-				break;
+				modifiedTime.add(Calendar.HOUR, -48);
+				bannerFreeRuns = 3;
+				return modifiedTime.after(lastDisplayTime) &&
+						numberOfApplicationRuns >= bannerFreeRuns;
 			case DO_NOT_SHOW_AGAIN:
 				log.debug("shouldShow(): do not show again");
 				return false;
 			default:
 				throw new IllegalStateException("Unexpected state:" + state);
 		}
-
-		if (state != SrUserInfoState.INITIAL_STATE) {
-			if (/*modifiedTime.after(lastDisplayTime) && */numberOfApplicationRuns >=
-					bannerFreeRuns) {
-				settings.SR_USER_INFO_STATE.set(SrUserInfoState.INITIAL_STATE);
-//				modifiedTime = Calendar.getInstance();
-			} else {
-				return false;
-			}
-		}
-		// Initial state now
-//		modifiedTime.add(Calendar.HOUR, -72);
-		bannerFreeRuns = 3;
-		return /*modifiedTime.after(lastDisplayTime) &&*/ numberOfApplicationRuns >= bannerFreeRuns;
 	}
 
 	@Override
@@ -144,7 +136,7 @@ public class DashUserInfoFragment extends DashBaseFragment {
 		@Override
 		public void onClick(View v) {
 			switch (state) {
-				case INITIAL_STATE:
+				case INITIAL:
 					state = FragmentState.USER_SHARES;
 					layout.setVisibility(View.VISIBLE);
 					gender.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +206,7 @@ public class DashUserInfoFragment extends DashBaseFragment {
 		@Override
 		public void onClick(View v) {
 			switch (state) {
-				case INITIAL_STATE:
+				case INITIAL:
 					state = FragmentState.USER_DECLINES;
 
 					header.setText(getResources().getString(R.string.sr_user_info_declined));
@@ -239,7 +231,7 @@ public class DashUserInfoFragment extends DashBaseFragment {
 	}
 
 	private enum FragmentState {
-		INITIAL_STATE,
+		INITIAL,
 		USER_SHARES,
 		USER_DECLINES
 	}
@@ -282,7 +274,8 @@ public class DashUserInfoFragment extends DashBaseFragment {
 	private void showPicker(String which, final Button caller) {
 		switch (which) {
 			case "gender":
-				final String genders[] = {"-", getResources().getString(R.string.sr_user_info_male),
+				final String genders[] = {"-", getResources().getString(R.string
+						.sr_user_info_male),
 						getResources().getString(R.string.sr_user_info_female)};
 
 				NumberPicker genderPicker = new NumberPicker(settings.getContext());
@@ -290,7 +283,8 @@ public class DashUserInfoFragment extends DashBaseFragment {
 				genderPicker.setMaxValue(genders.length - 1);
 				genderPicker.setDisplayedValues(genders);
 				genderPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-				caller.setText(genders[0]);
+				genderPicker.setValue(1);
+				caller.setText(genders[1]);
 
 				NumberPicker.OnValueChangeListener gernderChangedListener =
 						new NumberPicker.OnValueChangeListener() {
@@ -303,7 +297,16 @@ public class DashUserInfoFragment extends DashBaseFragment {
 
 				genderPicker.setOnValueChangedListener(gernderChangedListener);
 
-				new AlertDialog.Builder(getActivity()).setView(genderPicker).show();
+				AlertDialog.Builder builderGender =
+						new AlertDialog.Builder(getActivity()).setView(genderPicker);
+				builderGender.setPositiveButton(R.string.shared_string_ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						});
+				builderGender.show();
 				break;
 			case "age":
 				NumberPicker agePicker = new NumberPicker(settings.getContext());
@@ -324,7 +327,16 @@ public class DashUserInfoFragment extends DashBaseFragment {
 
 				agePicker.setOnValueChangedListener(ageChangedListener);
 
-				new AlertDialog.Builder(getActivity()).setView(agePicker).show();
+				AlertDialog.Builder builderAge =
+						new AlertDialog.Builder(getActivity()).setView(agePicker);
+				builderAge.setPositiveButton(R.string.shared_string_ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+						});
+				builderAge.show();
 				break;
 		}
 	}

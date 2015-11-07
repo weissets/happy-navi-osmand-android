@@ -6,14 +6,14 @@
 
 
 // TODO neuer branch -> ordner umbenennen
-// von Pascal anderes Android gerät holen für 2. installation
 // TODO online karten funktionieren nicht, oder kompliziert
-// TODO frage in user info einbauen
-// TODO pickers mit ok button oder schließen auf tap
 // TODO sr dialog erscheint nicht ohne routing!?
 // TODO online karte navigation (fehler bei der routenberechnung, startpunkt / ziel zuweit von nächster straße entfernt
-// TODO info text und play store: bei erstem start mit wlan verbunden sein um daten für sprache und karten herunterzuladen damit app richtig funktioniert
 // TODO Dominik fragen wegen generischem dashboard popup (z.b. für fragebogen, o.ä.)
+// von Pascal anderes Android gerät holen für 2. installation
+// frage in user info einbauen
+// pickers mit ok button oder schließen auf tap
+// info text und play store: bei erstem start mit wlan verbunden sein um daten für sprache und karten herunterzuladen damit app richtig funktioniert
 
 
 

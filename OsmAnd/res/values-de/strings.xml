@@ -2083,6 +2083,8 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	    führen kann. Wenn sie die Mobildaten Nutzung reduzieren möchten, können sie \'Wifi
 	    Upload\' in den Plugin Einstellungen aktivieren.
         Dieses Plugin ist standardmäßig aktiviert! Wenn Sie es deaktivieren möchten gehen sie zu \'Einstellungen\' → \'Plugins\'. \n\n
+	    Es ist empfehlenswert sich jetzt mit einem WLAN-Netz zu verbinden um die nötigen
+	    Kartendaten und Sprachdateien herunterzuladen! \n\n
         Für eine ausführliche Beschreibung dieses Projekts besuchen Sie unsere Informationsseite
 	    (https://maps.hci.simtech.uni-stuttgart.de/info) oder schauen sie in \'Hilfe\' in der App
 	    nach. Der Quellcode kann bei GitHub
@@ -2128,14 +2130,15 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_user_info_header">Um unser Forschungsprojekt zu verbessern würden wir ihnen
 		gerne ein paar Fragen stellen!</string>
     <string name="sr_user_info_text">Es würde uns sehr helfen wenn sie uns ihr Geschlecht,
-	    Alter und das Automodell mitteilen würden.</string>
+	    Alter und das Automodell mitteilen würden. Möchten sie uns diese Informationen
+	    mitteilen?</string>
 	<string name="sr_user_info_enter">Bitte geben sie ihre Angaben in die unten stehenden
 		Felder ein.</string>
     <string name="sr_user_info_enter_info">Klicken sie \'Speichern\' um die Informationen zu
 	    speichern oder \'Abbrechen\' um den Vorgang zu beenden.</string>
 	<string name="sr_user_info_declined">Vielleicht später?</string>
-    <string name="sr_user_info_declined_info">Sie können uns ihre Informationen auch gerne später
-	    mitteilen!</string>
+    <string name="sr_user_info_declined_info">Möchten sie uns diese Informationen später
+	    mitteilen?</string>
 	<string name="sr_user_info_gender">Geschlecht</string>
 	<string name="sr_user_info_male">Männlich</string>
 	<string name="sr_user_info_female">Weiblich</string>

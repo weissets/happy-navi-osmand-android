@@ -2123,6 +2123,8 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
         you would like to reduce mobile data you can activate \'Wifi Upload\' in the plugin
         settings.
 		\n\nThe plugin for this feature is activated by default! You can disable it in the settings.
+        \n\nIt is recommended to connect now to a Wi-Fi network in order to download the required
+        map data and voice files!
         \n\nFor a full description of this project visit our info page
         (https://maps.hci.simtech.uni-stuttgart.de/info) or visit the \'Help\' section in this
         app. The source code can be found at GitHub (https://github.com/weissets/happy-navi-osmand).
@@ -2163,13 +2165,14 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_user_info_header">To improve our research we would like to ask you a
         few questions!</string>
     <string name="sr_user_info_text">We would really appreciate it if you could tell us
-        about your gender, age and car model.</string>
+        about your gender, age and car model. Would you like to share this information with
+    us?</string>
     <string name="sr_user_info_enter">Please enter your information in the forms below.</string>
     <string name="sr_user_info_enter_info">Click \'Save\' to save the information\'s or \'Cancel\'
         to abort.</string>
     <string name="sr_user_info_declined">Maybe later?</string>
-    <string name="sr_user_info_declined_info">You can share your information\'s later on if
-    you like!</string>
+    <string name="sr_user_info_declined_info">Would you like to share your
+        information\'s later?</string>
     <string name="sr_user_info_gender">Gender</string>
     <string name="sr_user_info_male">Male</string>
     <string name="sr_user_info_female">Female</string>

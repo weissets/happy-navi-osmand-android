@@ -51,16 +51,13 @@ public class UploadService extends WakefulIntentService {
 	protected void doWakefulWork(Intent intent) {
 		SQLiteLogger sqLiteLogger = SQLiteLogger.getSQLiteLogger(this);
 		//		receiverUpload = intent.getBooleanExtra(Constants.RECEIVER_UPLOAD, false);
-		log.debug("doWakefulWork(): checking if there is data to upload...");
-		if (SQLiteLogger.checkForData() && ((System.currentTimeMillis() - timeout) > 10000)) {
+		if ((System.currentTimeMillis() - timeout) > 10000) {
 			timeout = System.currentTimeMillis();
 			//	Log.d(StressReductionPlugin.TAG, "#DEBUG# UploadService.java:
 			//      doWakefulWork(): copy database to sdcard...");
 			//	copyDatabaseToSDCard();
-			log.debug("doWakefulWork(): found data in database, start uploading...");
+			log.debug("doWakefulWork(): start uploading...");
 			new UploadTask().execute(sqLiteLogger);
-		} else {
-			log.debug("doWakefulWork(): there is no data to upload");
 		}
 	}
 

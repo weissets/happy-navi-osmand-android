@@ -6,6 +6,7 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.stressreduction.database.SQLiteLogger;
 
 import org.apache.commons.logging.Log;
 
@@ -24,6 +25,11 @@ public class ConnectionHandler {
 	 * @param osmandApplication The OsmandApplication
 	 */
 	public static void uploadData(final OsmandApplication osmandApplication) {
+		// check if there is data to upload
+		if (!SQLiteLogger.checkForData()) {
+			log.debug("uploadData(): no data in database, closing...");
+			return;
+		}
 		if (osmandApplication.getSettings().SR_USE_WIFI_ONLY.get()) {
 			log.debug("uploadData(): try to upload data via Wifi...");
 			if (osmandApplication.getSettings().isWifiConnected()) {
@@ -57,7 +63,7 @@ public class ConnectionHandler {
 	}
 
 	/**
-	 * Download data via the wakeful intent service
+	 * Download data via the wakeful intent service TODO use simple download without service
 	 *
 	 * @param osmandApplication The OsmandApplication
 	 */
