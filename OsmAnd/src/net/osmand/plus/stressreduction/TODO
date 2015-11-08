@@ -3,13 +3,15 @@
 //      3. add +1 to Constants and change Server URI
 //		4. update changelog (in app and hp)
 //      5. comment MyDatabaseTools in UploadService
+//      6. remove mock location permission
 
 
 // TODO neuer branch -> ordner umbenennen
 // TODO online karten funktionieren nicht, oder kompliziert
 // TODO sr dialog erscheint nicht ohne routing!?
 // TODO online karte navigation (fehler bei der routenberechnung, startpunkt / ziel zuweit von nächster straße entfernt
-// TODO Dominik fragen wegen generischem dashboard popup (z.b. für fragebogen, o.ä.)
+// TODO Dominik fragen wegen generischem dashboard popup (z.b. für fragebogen, o.ä.) -> json object
+// TODO checken ob die uuid nach neuinstallation/upgrade bestehen bleibt
 // von Pascal anderes Android gerät holen für 2. installation
 // frage in user info einbauen
 // pickers mit ok button oder schließen auf tap

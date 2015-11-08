@@ -36,6 +36,11 @@ public class StressReductionSettings extends SettingsBaseActivity {
 				.sr_settings_notification_sound_description);
 		preferenceScreen.addPreference(notificationSoundPreference);
 
+//		CheckBoxPreference speechInputPreference = createCheckBoxPreference(settings.SR_SPEECH_INPUT);
+//		speechInputPreference.setTitle(R.string.sr_settings_speech_input_title);
+//		speechInputPreference.setSummary(R.string.sr_settings_speech_input_description);
+//		preferenceScreen.addPreference(speechInputPreference);
+
 		CheckBoxPreference useWifiOnlyPreference =
 				createCheckBoxPreference(settings.SR_USE_WIFI_ONLY);
 		useWifiOnlyPreference.setTitle(R.string.sr_settings_use_wifi_only_title);

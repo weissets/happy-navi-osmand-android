@@ -119,7 +119,7 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			if (currentLocation != null) {
-				if (accelerometerType == ACCELEROMETER_NORMAL) {
+//				if (accelerometerType == ACCELEROMETER_NORMAL) {
 
 					// alpha is calculated as t / (t + dT) with t, the low-pass filter's
 					// time-constant and dT, the event delivery rate
@@ -139,7 +139,7 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 //							", y-Axis=" + accelerationXYZ[1] +
 //							", z-Axis=" + accelerationXYZ[2]);
 
-				}
+//				}
 //				if (accelerometerType == ACCELEROMETER_LINEAR) {
 //					log.debug("onSensorChanged(): LINEAR: x-Axis=" + event.values[0] + ", " +
 //							"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);

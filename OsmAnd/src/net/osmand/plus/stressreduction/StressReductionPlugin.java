@@ -264,6 +264,11 @@ public class StressReductionPlugin extends OsmandPlugin
 	}
 
 	@Override
+	public String getHelpFileName() {
+		return "feature_articles/sr-plugin.html";
+	}
+
+	@Override
 	public void mapActivityResume(MapActivity activity) {
 		super.mapActivityResume(activity);
 

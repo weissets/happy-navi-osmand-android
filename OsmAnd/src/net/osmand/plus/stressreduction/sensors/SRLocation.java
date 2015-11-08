@@ -41,9 +41,11 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	private final FragmentHandler fragmentHandler;
 	private final RoutingSimulation routingSimulation;
 	private final CurrentPositionHelper currentPositionHelper;
-	private Location currentLocation;
-	private Location lastDialogLocation;
-	private RoutingLog routingLog;
+	private static Location currentLocation;
+	private static Location lastDialogLocation;
+	private static RoutingLog routingLog;
+	private static RouteDataObject routeDataObject;
+	private static RouteSegmentResult routeSegmentResult;
 	private int leftDistance;
 	private long lastLoggedSegmentID;
 	private long lastDialogSegmentID;
@@ -129,8 +131,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			timerLocation = System.currentTimeMillis();
 			// try getting info's from route segment result for the current
 			// route data object or the last known route segment
-			RouteDataObject routeDataObject;
-			RouteSegmentResult routeSegmentResult = routingHelper.getCurrentSegmentResult();
+			routeSegmentResult = routingHelper.getCurrentSegmentResult();
 			if (routeSegmentResult != null) {
 				//				log.debug("updateLocation(): looking for rdo from
 				// routingHelper...");

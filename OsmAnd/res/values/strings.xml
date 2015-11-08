@@ -2148,6 +2148,12 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_settings_title">Stress Reduction Settings</string>
     <string name="sr_settings_notification_sound_title">Notification Sound</string>
     <string name="sr_settings_notification_sound_description">This will notify you with a sound when a new evaluation dialog is displayed.</string>
+    <string name="sr_settings_speech_input_title">Speech Input</string>
+    <string name="sr_settings_speech_input_description">Speech Input</string>
+    <string name="sr_speech_input_say">Say:</string>
+    <string name="sr_speech_input_good">Good</string>
+    <string name="sr_speech_input_normal">Normal</string>
+    <string name="sr_speech_input_bad">Bad</string>
     <string name="sr_settings_use_wifi_only_title">Wifi-only Upload</string>
     <string name="sr_settings_use_wifi_only_description">Use only wifi connection for uploading data to the server (reducing mobile data usage).</string>
     <string name="sr_settings_location_simulation_title">Routing Simulation</string>

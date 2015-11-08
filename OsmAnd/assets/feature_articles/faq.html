@@ -20,6 +20,7 @@
 <li><a href="#contour_lines_not_visible">Contour lines are not showing up</a></li>
 <li><a href="#countour_lines_feet">Is there a way to have the Contour Lines display in feet also, instead of meters? </a></li>
 <li><a href="#installation_issue">I can't install or upgrade the app</a></li>
+<li><a href="#reinstalling">I uninstalled the app/I use a new device. Do I have to buy OsmAnd again?</a></li>
 </ul>
 
 <div class="subtitle">Using OsmAnd's Navigation</div>
@@ -124,14 +125,20 @@ Copies can also be invoked in OsmAnd itself via Menu/Settings/General/Data stora
 
 <div class="question">
 <div class="subtitle" id="importing_gpx">I have a GPX file, how do I get it into OsmAnd?</div>
+<b>Android</b>
 <ul class="list">
   <li>You can download and open it via File Browser or Dropbox and select OsmAnd as a target application</li>
   <li>You can put it in OsmAnd home folder : osmand/tracks/(optional_sub-folder)/your_file.gpx</li>
 </ul>
 </div>
-
+<b>iOS</b>
+<ul class="list">
+  <li>To open GPX file in OsmAnd, just download it and select OsmAnd as an app to open it. That's it: you'll view the file normally in the application.</li>
+</ul>
+</div>
 <div class="question">
 <div class="subtitle" id="contour_lines_not_visible">Contour lines are not showing up</div>
+<b>Android</b>
 <div class="content">Please follow these steps:
 <ul class="list">
  <li> Check if the Contour Maps plugin you bought is enabled under Settings &#8212; Plugins &#8212; checkmark Contour Lines Plugin. </li>
@@ -140,8 +147,14 @@ Copies can also be invoked in OsmAnd itself via Menu/Settings/General/Data stora
  <li> If you additionally have hillshade layer data present, its display can independently be enabled in Menu &#8212; Map Layers &#8212; Hillshade Layer. </li>
  </ul>
 </div>
+<b>iOS</b>
+<ul class="list">
+<li>If the contour lines do not show up, please follow these steps:</li>
+<li>Check if the Contour Maps plugin is enabled under Maps &#38; Resources — Plugins — Contour Lines. If you haven't purchased the plugin, you have to do it first.</li>
+<li>Next you have to download the contour line files of the areas you need. To do it, please go to Maps &#38; Resources and choose country. On that page, you'll see contour lines and hillshade downloads close to the main map file.</li>
+<li>Then just go to the map and zoom in until you see the lines. If you need hillshade as well, just download the hillshade file, then tap the map button on the left and turn Hillshade switcher on.</li>
+</ul>
 </div>
-
 <div class="question">
 <div class="subtitle" id="countour_lines_feet">Is there a way to have the Contour Lines display in feet also, instead of meters?</div>
 <div class="content">Unfortunately not. This would require the generation of completely seperate contour line data with different geometry and labels.</div>
@@ -289,14 +302,22 @@ Currently, OsmAnd can only make use of the elements that consists of a single no
 <div class="question">
 <div class="subtitle" id="drain_too_much_power">OsmAnd seems to drain too much battery power</div>
 <div class="content">
-<p>There have on and off been user reports about this. We made lots of measurements and could never really reproduce it, even though under some circumstances OsmAnd is reported responsible for 90% of the battery usage. Üöease be aware that OsmAnd does not run anything in background except its Sleep mode (background service), and this needs to be specifically enabled (via OsmAnd's GPX recording or Navigation guidance functionality). If enabled, you will always see the OsmAnd sleep mode icon in the status bar (can also be stopped there). So unless the sleep mode is active, if you exit the app (go to home screen or press the Exit button), OsmAnd will stop working and will not cause any power consumption.</p>
+<p>There have on and off been user reports about this. We made lots of measurements and could never really reproduce it, even though under some circumstances OsmAnd is reported responsible for 90% of the battery usage. Please be aware that OsmAnd does not run anything in background except its Sleep mode (background service), and this needs to be specifically enabled (via OsmAnd's GPX recording or Navigation guidance functionality). If enabled, you will always see the OsmAnd sleep mode icon in the status bar (can also be stopped there). So unless the sleep mode is active, if you exit the app (go to home screen or press the Exit button), OsmAnd will stop working and will not cause any power consumption.</p>
 
 <p>Power usage issues were reported with Android 2.3 and Android 4.0. In Android 4.0 you can double-check details of what causes how much battery drain. If you check CPU time / screen time / GPS time consumed by OsmAnd (in android's standard power manager) you will see that the numbers don't add up correctly. For example, 2 min GPS, 2 min CPU, 1 min Screen causes 30% consumption. If you have some better good evidence, please contact us.</p>
 
 <p>PS: If you use OsmAnd for hiking or otherwise carry your device in a lose pocket where accidental pressing of the device's power switch may occur, it is also advisable to put OsmAnd to the background (by hitting the device's Home button), before putting the device to sleep. Reason: If OsmAnd's map screen is the foreground application, any accidental (unnoticed) push on the power button will not only activate the screen briefly (this is unavoidable), but may then <u>also</u> briefly activate GPS, which is quite a battery eater.</p>
 </div>
+<div class="question">
+<div class="subtitle" id="reinstalling">I uninstalled the app/I use a new device. Do I have to buy OsmAnd again?</div>
+<div class="content">
+  <ul><b>Android</b>
+  <li> No. Just enter PlayMarket app using the same account you used to buy OsmAnd, then find OsmAnd through Search and install it again.</li>
+</ul>
+<ul><b>iOS</b>
+  <li> No. All you have to do is enter Appstore and install OsmAnd once again. You can use it on as many devices as you want without the need to buy the app again.You may see the "Buy" button, but you won't have to pay: just press it to download the app without paying again.</li>
+</ul>
 </div>
-
 <div class="question">
 <div class="subtitle" id="development">OsmAnd Development</div>
 <div class="content">
@@ -328,15 +349,8 @@ And OsmAnd specific intents:
   <li> http://download.osmand.net/go?lat=&amp;lon=&amp;z=</li>
 </ul>
 </div>
-</div>
-
-<div class="question">
-<div class="subtitle" id="map_creator">Creating your own maps and OsmAndMapCreator</div>
-<div class="content">
 <h4 class="help" id="">OsmAndMapCreator fails with message: OutOfMemoryError </h4>
 The file you try to process with OsmAndMapCreator is too large. Either try to process a smaller file, or increase the memory for OsmAndMapCreator in the .sh or .bat file. The -Xmx parameter specifies how much memory the program can consume. Settings can be different for 64bit (more than 1.5GB) and 32bit (max around 1.5GB) machines.
-
-
 <h4 class="help" id="">After converting an .osm to .obf with only a POI index, the .obf is empty, although original .osm file did contain POIs. What is wrong? </h4>
 It could be that a crucial tag was missing for OsmAndMapCreator to recognize a POI when you converted the osm from another source, like Garmin. If a point in the OSM file looks like this:
 <xmp>
