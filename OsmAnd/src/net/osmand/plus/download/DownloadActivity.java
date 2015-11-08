@@ -79,6 +79,7 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	List<TabActivity.TabItem> mTabs = new ArrayList<TabActivity.TabItem>();
 	public static final String FILTER_KEY = "filter";
 	public static final String FILTER_CAT = "filter_cat";
+	public static final String FILTER_GROUP = "filter_group";
 
 	public static final String TAB_TO_OPEN = "Tab_to_open";
 	public static final String LOCAL_TAB = "local";
@@ -92,6 +93,7 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	private ViewPager viewPager;
 	private String filter;
 	private String filterCat;
+	private String filterGroup;
 	protected Set<WeakReference<Fragment>> fragSet = new HashSet<>();
 	private DownloadIndexesThread downloadThread;
 	private DownloadValidationManager downloadValidationManager;
@@ -166,6 +168,7 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 		if (intent != null && intent.getExtras() != null) {
 			filter = intent.getExtras().getString(FILTER_KEY);
 			filterCat = intent.getExtras().getString(FILTER_CAT);
+			filterGroup = intent.getExtras().getString(FILTER_GROUP);
 		}
 		showFirstTimeExternalStorage();
 	}
@@ -605,6 +608,12 @@ public class DownloadActivity extends ActionBarProgressActivity implements Downl
 	public String getFilterCatAndClear() {
 		String res = filterCat;
 		filterCat = null;
+		return res;
+	}
+
+	public String getFilterGroupAndClear() {
+		String res = filterGroup;
+		filterGroup = null;
 		return res;
 	}
 

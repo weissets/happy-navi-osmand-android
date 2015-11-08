@@ -1357,7 +1357,7 @@ public class OsmandSettings {
 		} else {
 			File[] externals = ctx.getExternalFilesDirs(null);
 			for (File file : externals) {
-				if (!file.getAbsolutePath().contains("emulated")) {
+				if (file != null && !file.getAbsolutePath().contains("emulated")) {
 					return file;
 				}
 			}
@@ -1831,9 +1831,9 @@ public class OsmandSettings {
 	}
 	
 	Map<String, CommonPreference<String>> customRoutingProps = new LinkedHashMap<String, OsmandSettings.CommonPreference<String>>();
-	public CommonPreference<String> getCustomRoutingProperty(String attrName){
+	public CommonPreference<String> getCustomRoutingProperty(String attrName, String defValue){
 		if(!customRoutingProps.containsKey(attrName)){
-			customRoutingProps.put(attrName, new StringPreference("prouting_"+attrName, "").makeProfile());
+			customRoutingProps.put(attrName, new StringPreference("prouting_"+attrName, defValue).makeProfile());
 		}
 		return customRoutingProps.get(attrName);
 	}

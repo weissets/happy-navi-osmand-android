@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import net.osmand.IProgress;
 import net.osmand.IndexConstants;
 import net.osmand.PlatformUtil;
@@ -65,7 +64,8 @@ public class AppInitializer implements IProgress {
 	private static final String VERSION_INSTALLED = "VERSION_INSTALLED"; //$NON-NLS-1$
 	private static final String EXCEPTION_FILE_SIZE = "EXCEPTION_FS"; //$NON-NLS-1$
 
-	public static final String LATEST_CHANGES_URL = "http://osmand.net/help/changes-2.1.html";
+	// public static final String LATEST_CHANGES_URL = "http://osmand.net/help/changes-2.2.html";
+	public static final String LATEST_CHANGES_URL = null; // not enough to read
 	public static final int APP_EXIT_CODE = 4;
 	public static final String APP_EXIT_KEY = "APP_EXIT_KEY";
 	private OsmandApplication app;
@@ -267,8 +267,24 @@ public class AppInitializer implements IProgress {
 		}
 		app.poiTypes.setPoiTranslator(new MapPoiTypes.PoiTranslator() {
 			
+			public String getLangTranslation(String l) {
+				try {
+					Field f = R.string.class.getField("lang_"+l);
+					if (f != null) {
+						Integer in = (Integer) f.get(null);
+						return app.getString(in);
+					}
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+				return l;
+			}
+			
 			@Override
 			public String getTranslation(AbstractPoiType type) {
+				if(type.getBaseLangType() != null) {
+					return getTranslation(type.getBaseLangType()) +  " (" + getLangTranslation(type.getLang()).toLowerCase() +")";
+				}
 				try {
 					Field f = R.string.class.getField("poi_" + type.getIconKeyName());
 					if (f != null) {

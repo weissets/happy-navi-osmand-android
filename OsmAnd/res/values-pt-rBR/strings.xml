@@ -1800,4 +1800,13 @@
 	<string name="count_of_lines">Número de linhas</string>
 <string name="are_you_sure">Tem certeza?</string>
 	<string name="unsaved_changes_will_be_lost">Quaisquer alterações não salvas serão perdidas. Continuar?</string>
-</resources>
+<string name="shared_string_update">Atualizar</string>
+    
+    
+    
+    <string name="shared_string_upload">Enviar</string>
+    <string name="osm_edit_created_poi">POI OSM criado</string>
+    <string name="osm_edit_created_bug">Erro no OSM criado</string>
+    <string name="shared_string_qr_code">QR-code</string>
+    <string name="map_downloaded">Mapa baixado</string>
+    </resources>

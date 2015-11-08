@@ -2061,12 +2061,12 @@ Afghanistan, Albanie, Algérie, Allemagne, Andorre, Angola, Anguilla, Antigua-et
     <string name="first_usage_item_description">Comment télécharger des cartes et définir les paramètres de base</string>
     <string name="navigation_item_description">Configurer la navigation</string>
     <string name="faq_item">FAQ</string>
-    <string name="faq_item_description">Comment utiliser les greffons</string>
+    <string name="faq_item_description">Foire aux questions</string>
     <string name="map_viewing_item">Affichage de la carte</string>
     <string name="search_on_the_map_item">Rechercher de carte</string>
     <string name="planning_trip_item">Préparer un trajet</string>
 
-    <string name="osmand_ski_maps_item">Cartes de ski OsmAnd</string>
+    
 
     <string name="instalation_troubleshooting_item">Installation et débogage</string>
     <string name="techical_articles_item">Articles techniques</string>
@@ -2078,7 +2078,11 @@ Afghanistan, Albanie, Algérie, Allemagne, Andorre, Angola, Anguilla, Antigua-et
     <string name="osm_edit_created_bug">Bugs déclarés sur OSM</string>
     <string name="map_legend">Légende</string>
 <string name="shared_string_upload">Téléchargement</string>
-    <string name="rec_photo_description">Photo %1$s</string>
-    <string name="rec_audio_description">Audio %1$s</string>
-    <string name="rec_video_description">Vidéo %1$s</string>
+    
+    
+    
+    <string name="shared_string_update">Mise à jour</string>
+    <string name="read_more">Lire plus</string>
+    <string name="whats_new">Quoi de neuf dans</string>
+    <string name="rendering_attr_hideProposed_name">Masquer les objets proposés</string>
     </resources>

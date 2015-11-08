@@ -2,6 +2,7 @@ package net.osmand.plus.mapcontextmenu.controllers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
@@ -13,8 +14,10 @@ import net.osmand.map.WorldRegion;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.download.DownloadActivity;
 import net.osmand.plus.download.DownloadActivityType;
 import net.osmand.plus.download.DownloadIndexesThread;
+import net.osmand.plus.download.DownloadResourceGroup;
 import net.osmand.plus.download.DownloadValidationManager;
 import net.osmand.plus.download.IndexItem;
 import net.osmand.plus.helpers.FileNameTranslationHelper;
@@ -23,6 +26,9 @@ import net.osmand.plus.mapcontextmenu.MenuController;
 import net.osmand.util.Algorithms;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MapDataMenuController extends MenuController {
@@ -69,7 +75,16 @@ public class MapDataMenuController extends MenuController {
 		topRightTitleButtonController = new TitleButtonController() {
 			@Override
 			public void buttonPressed() {
-				// todo other maps
+				getMapActivity().getContextMenu().close();
+
+				DownloadResourceGroup group = downloadThread.getIndexes().getRegionGroup(region);
+				if (group != null) {
+					final Intent intent = new Intent(getMapActivity(), getMapActivity().getMyApplication()
+							.getAppCustomization().getDownloadIndexActivity());
+					intent.putExtra(DownloadActivity.FILTER_GROUP, group.getUniqueId());
+					intent.putExtra(DownloadActivity.TAB_TO_OPEN, DownloadActivity.DOWNLOAD_TAB);
+					getMapActivity().startActivity(intent);
+				}
 			}
 		};
 		topRightTitleButtonController.caption = getMapActivity().getString(R.string.download_select_map_types);
@@ -92,7 +107,7 @@ public class MapDataMenuController extends MenuController {
 
 	@Override
 	protected int getSupportedMenuStatesPortrait() {
-		return MenuState.HEADER_ONLY;
+		return MenuState.HEADER_ONLY | MenuState.HALF_SCREEN;
 	}
 
 	@Override
@@ -131,6 +146,23 @@ public class MapDataMenuController extends MenuController {
 
 	@Override
 	public void addPlainMenuItems(String typeStr, PointDescription pointDescription, LatLon latLon) {
+		if (indexItem != null) {
+			addPlainMenuItem(R.drawable.ic_action_info_dark, indexItem.getSizeDescription(getMapActivity()), false);
+		}
+		if (region != null && !Algorithms.isEmpty(region.getParams().getWikiLink())) {
+			String[] items = region.getParams().getWikiLink().split(":");
+			String url;
+			if (items.length > 1) {
+				url = "https://" + items[0] + ".wikipedia.org/wiki/" + items[1].replace(' ', '_');
+			} else {
+				url = "https://wikipedia.org/wiki/" + items[0].replace(' ', '_');
+			}
+			addPlainMenuItem(R.drawable.ic_world_globe_dark, url, true);
+		}
+		if (indexItem != null) {
+			DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(getMapActivity());
+			addPlainMenuItem(R.drawable.ic_action_data, indexItem.getRemoteDate(dateFormat), false);
+		}
 	}
 
 	@Override
@@ -146,11 +178,13 @@ public class MapDataMenuController extends MenuController {
 	@Override
 	public void updateData() {
 		if (indexItem == null) {
-			otherIndexItems = downloadThread.getIndexes().getIndexItems(region.getRegionDownloadNameLC());
-			for (IndexItem i : otherIndexItems) {
+			otherIndexItems = new LinkedList<>(downloadThread.getIndexes().getIndexItems(region));
+			Iterator<IndexItem> it = otherIndexItems.iterator();
+			while (it.hasNext()) {
+				IndexItem i = it.next();
 				if (i.getType() == DownloadActivityType.NORMAL_FILE) {
 					indexItem = i;
-					otherIndexItems.remove(i);
+					it.remove();
 					break;
 				}
 			}
@@ -159,11 +193,9 @@ public class MapDataMenuController extends MenuController {
 		topRightTitleButtonController.visible = otherIndexItems.size() > 0;
 		if (indexItem != null) {
 			if (indexItem.isOutdated()) {
-				leftTitleButtonController.caption = getMapActivity().getString(R.string.shared_string_update)
-						+ " (" + indexItem.getSizeDescription(getMapActivity()) + ")";
+				leftTitleButtonController.caption = getMapActivity().getString(R.string.shared_string_update);
 			} else {
-				leftTitleButtonController.caption = getMapActivity().getString(R.string.shared_string_download)
-						+ " (" + indexItem.getSizeDescription(getMapActivity()) + ")";
+				leftTitleButtonController.caption = getMapActivity().getString(R.string.shared_string_download);
 			}
 		}
 		rightTitleButtonController.visible = indexItem != null && indexItem.isDownloaded();
@@ -226,6 +258,7 @@ public class MapDataMenuController extends MenuController {
 						}
 
 						protected void onPostExecute(Void result) {
+							getMapActivity().getMapLayers().getDownloadedRegionsLayer().updateObjects();
 							getMapActivity().refreshMap();
 						}
 

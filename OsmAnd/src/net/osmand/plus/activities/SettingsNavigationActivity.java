@@ -271,8 +271,11 @@ public class SettingsNavigationActivity extends SettingsBaseActivity {
 						for(Object o : vls) {
 							svlss[i++] = o.toString();
 						}
-						basePref = createListPreference(settings.getCustomRoutingProperty(p.getId()), 
-								p.getPossibleValueDescriptions(), svlss, SettingsBaseActivity.getRoutingStringPropertyName(this, p.getId(), p.getName()), SettingsBaseActivity.getRoutingStringPropertyDescription(this, p.getId(), p.getDescription()));
+						basePref = createListPreference(settings.getCustomRoutingProperty(p.getId(), 
+								p.getType() == RoutingParameterType.NUMERIC ? "0.0" : "-"), 
+								p.getPossibleValueDescriptions(), svlss, 
+								SettingsBaseActivity.getRoutingStringPropertyName(this, p.getId(), p.getName()), 
+								SettingsBaseActivity.getRoutingStringPropertyDescription(this, p.getId(), p.getDescription()));
 					}
 					basePref.setTitle(SettingsBaseActivity.getRoutingStringPropertyName(this, p.getId(), p.getName()));
 					basePref.setSummary(SettingsBaseActivity.getRoutingStringPropertyDescription(this, p.getId(), p.getDescription()));

@@ -1,14 +1,5 @@
 package net.osmand.osm;
 
-import net.osmand.PlatformUtil;
-import net.osmand.StringMatcher;
-import net.osmand.data.Amenity;
-import net.osmand.util.Algorithms;
-
-import org.apache.commons.logging.Log;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +15,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+
+import net.osmand.PlatformUtil;
+import net.osmand.StringMatcher;
+import net.osmand.data.Amenity;
+import net.osmand.util.Algorithms;
+
+import org.apache.commons.logging.Log;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 
 public class MapPoiTypes {
@@ -286,23 +286,25 @@ public class MapPoiTypes {
 						if(lastCategory == null) {
 							lastCategory = getOtherMapCategory();
 						}
+						PoiType baseType = parsePoiAdditional(parser, lastCategory, lastFilter, lastType, null, null);
 						if("true".equals(parser.getAttributeValue("", "lang"))) {
 							for(String lng : MapRenderingTypes.langs) {
-								parsePoiAdditional(parser, lastCategory, lastFilter, lastType, lng);
+								parsePoiAdditional(parser, lastCategory, lastFilter, lastType, lng, baseType);
 							}
-							parsePoiAdditional(parser, lastCategory, lastFilter, lastType, "en");
+							parsePoiAdditional(parser, lastCategory, lastFilter, lastType, "en", baseType);
 						}
-						parsePoiAdditional(parser, lastCategory, lastFilter, lastType, null);
+						
 					} else if (name.equals("poi_type")) {
 						if(lastCategory == null) {
 							lastCategory = getOtherMapCategory();
 						}
+						lastType = parsePoiType(allTypes, parser, lastCategory, lastFilter, null, null);
 						if("true".equals(parser.getAttributeValue("", "lang"))) {
 							for(String lng : MapRenderingTypes.langs) {
-								parsePoiType(allTypes, parser, lastCategory, lastFilter, lng);
+								parsePoiType(allTypes, parser, lastCategory, lastFilter, lng, lastType);
 							}
 						}
-						lastType = parsePoiType(allTypes, parser, lastCategory, lastFilter, null);
+						
 					}
 				} else if (tok == XmlPullParser.END_TAG) {
 					String name = parser.getName();
@@ -343,8 +345,8 @@ public class MapPoiTypes {
 	}
 
 
-	private void parsePoiAdditional(XmlPullParser parser, PoiCategory lastCategory, PoiFilter lastFilter,
-			PoiType lastType, String lang) {
+	private PoiType parsePoiAdditional(XmlPullParser parser, PoiCategory lastCategory, PoiFilter lastFilter,
+			PoiType lastType, String lang, PoiType langBaseType) {
 		String oname = parser.getAttributeValue("", "name");
 		if(lang != null) {
 			oname += ":" + lang;
@@ -354,6 +356,8 @@ public class MapPoiTypes {
 			otag += ":" + lang;
 		}
 		PoiType tp = new PoiType(this, lastCategory, oname);
+		tp.setBaseLangType(langBaseType);
+		tp.setLang(lang);
 		tp.setAdditional(lastType != null ? lastType : 
 			 (lastFilter != null ? lastFilter : lastCategory));
 		tp.setTopVisible(Boolean.parseBoolean(parser.getAttributeValue("", "top")));
@@ -369,11 +373,12 @@ public class MapPoiTypes {
 		} else if (lastCategory != null) {
 			lastCategory.addPoiAdditional(tp);
 		}
+		return tp;
 	}
 
 
 	private PoiType parsePoiType(final Map<String, PoiType> allTypes, XmlPullParser parser, PoiCategory lastCategory,
-			PoiFilter lastFilter, String lang) {
+			PoiFilter lastFilter, String lang, PoiType langBaseType) {
 		String oname = parser.getAttributeValue("", "name");
 		if(lang != null) {
 			oname += ":" + lang;
@@ -383,12 +388,15 @@ public class MapPoiTypes {
 		if(lang != null) {
 			otag += ":" + lang;
 		}
+		tp.setBaseLangType(langBaseType);
+		tp.setLang(lang);
 		tp.setOsmTag(otag);
 		tp.setOsmValue(parser.getAttributeValue("", "value"));
 		tp.setOsmTag2(parser.getAttributeValue("", "tag2"));
 		tp.setOsmValue2(parser.getAttributeValue("", "value2"));
 		tp.setText("text".equals(parser.getAttributeValue("", "type")));
 		tp.setNameOnly("true".equals(parser.getAttributeValue("", "name_only")));
+		tp.setNameTag(parser.getAttributeValue("", "name_tag"));
 		tp.setRelation("true".equals(parser.getAttributeValue("", "relation")));
 		if (lastFilter != null) {
 			lastFilter.addPoiType(tp);
@@ -544,7 +552,6 @@ public class MapPoiTypes {
 	
 	
 	public Amenity parseAmenity(String tag, String val, boolean relation, Map<String, String> otherTags) {
-		boolean hasName = !Algorithms.isEmpty(otherTags.get("name"));
 		initPoiTypesByTag();
 		PoiType pt = poiTypesByTag.get(tag+"/"+val);
 		if(pt == null) {
@@ -561,6 +568,11 @@ public class MapPoiTypes {
 		if(pt.getCategory() == getOtherMapCategory()) {
 			return null;
 		}
+		String nameValue = otherTags.get("name");
+		if(pt.getNameTag() != null) {
+			 nameValue = otherTags.get(pt.getNameTag());
+		}
+		boolean hasName = !Algorithms.isEmpty(nameValue);
 		if(!hasName && pt.isNameOnly()) {
 			return null;
 		}
@@ -571,12 +583,15 @@ public class MapPoiTypes {
 		Amenity a = new Amenity();
 		a.setType(pt.getCategory());
 		a.setSubType(pt.getKeyName());
+		if(pt.getNameTag() != null) {
+			a.setName(nameValue);
+		}
 		// additional info
 		Iterator<Entry<String, String>> it = otherTags.entrySet().iterator();
 		while(it.hasNext()) {
 			Entry<String, String> e = it.next();
 			String otag = e.getKey();
-			if(!otag.equals(tag)) {
+			if(!otag.equals(tag) && !otag.equals("name")) {
 				PoiType pat = poiTypesByTag.get(otag+"/"+e.getValue());
 				if(pat == null) {
 					 pat = poiTypesByTag.get(otag);

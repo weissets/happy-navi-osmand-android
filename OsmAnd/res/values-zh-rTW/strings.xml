@@ -1851,7 +1851,7 @@
     <string name="av_locations_descr">GPX 檔案加上地點注解</string>
     <string name="av_locations">地點</string>
 
-    <string name="tag_poi_amenity">便利設施</string>
+    
     <string name="contact_info">連絡資訊</string>
     <string name="description">記述</string>
     <string name="add_opening_hours">增加營業時間</string>
@@ -1946,12 +1946,12 @@
     <string name="first_usage_item_description">如何下載地圖、設置基本設定</string>
     <string name="navigation_item_description">設置導航</string>
     <string name="faq_item">常見問題</string>
-    <string name="faq_item_description">如何使用外掛元件</string>
+    <string name="faq_item_description">常見的問題</string>
     <string name="map_viewing_item">地圖檢視</string>
     <string name="search_on_the_map_item">地圖查詢中</string>
     <string name="planning_trip_item">規劃一次旅程</string>
 
-    <string name="osmand_ski_maps_item">OsmAnd 滑雪地圖</string>
+    
 
     <string name="instalation_troubleshooting_item">安裝和疑難排除</string>
     <string name="techical_articles_item">技術文章</string>
@@ -1962,8 +1962,12 @@
     <string name="osm_edit_created_bug">建立 OSM 的錯誤</string>
     <string name="map_legend">地圖圖例</string>
     <string name="shared_string_upload">上傳</string>
-<string name="rec_photo_description">照片 %1$s</string>
-    <string name="rec_audio_description">音訊 %1$s</string>
-    <string name="rec_video_description">視訊 %1$s</string>
+
+    
+    
     <string name="shared_string_update">更新</string>
-    </resources>
+    <string name="rendering_attr_hideProposed_name">隱藏已提出的物件</string>
+<string name="read_more">讀取更多</string>
+    <string name="whats_new">有什麼新的在</string>
+    <!-- string name="map_legend_item_description">圖例為 OsmAnd 預設的地圖樣式，網路需連接以去顯示</string -->
+</resources>

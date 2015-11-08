@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Happy Navi (OsmAnd)</string>
     <string name="app_version">2.2.0</string>
     <string name="app_name_version">Happy Navi (OsmAnd) 2.2.0</string>
@@ -12,12 +12,12 @@
     -->
 
     <!-- Not translatable -->
-    <string name="last_release">
-        \u2022 Reworked context-sensitive UI for tapping locations on the map and handling location items on other screens\n\n
-        \u2022 Chose if primary app control should be Dashboard or Menu based\n\n
+    <string name="release_2_3">
+        \u2022 New context-sensitive UI for tapping locations on the map and on other screens\n\n
+        \u2022 Choice between Dashboard or Menu as primary app control\n\n
         \u2022 New Wikipedia data, now downloads per country, and with much more complete data\n\n
         \u2022 Better route recalculation (after repeated attempts engine now suggests a different route)\n\n
-        \u2022 POI Search now supports more specific queries (like fuel type and religion specific queries)\n\n
+        \u2022 POI Search now supports more specific queries\n\n
         \u2022 Map data download structure and interface reworked\n\n
         and more...
         </string>

@@ -60,10 +60,10 @@
          3. All your modified/created strings are in the top of the file (to make easier find what\'s translated).
     PLEASE: Have a look at http://code.google.com/p/osmand/wiki/UIConsistency, it may really improve your and our work  :-)  Thx - Hardy
     -->
+    <string name="read_more">Read more</string>
+    <string name="whats_new">What\'s new in</string>
+    <string name="rendering_attr_hideProposed_name">Hide proposed objects</string>
     <string name="shared_string_update">Update</string>
-    <string name="rec_photo_description">Photo %1$s</string>
-    <string name="rec_audio_description">Audio %1$s</string>
-    <string name="rec_video_description">Video %1$s</string>
     <string name="shared_string_upload">Upload</string>
     <string name="osm_edit_created_poi">Created OSM POI</string>
     <string name="osm_edit_created_bug">Created OSM bug</string>
@@ -2100,7 +2100,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="navigation_item_description">Setup navigation</string>
     <string name="planning_trip_item">Planning a trip</string>
     <string name="faq_item">FAQ</string>
-    <string name="faq_item_description">How to use plugins</string>
+    <string name="faq_item_description">Frequently asked questions</string>
     <string name="map_viewing_item">Map viewing</string>
     <string name="search_on_the_map_item">Map searching</string>
     <string name="instalation_troubleshooting_item">Installation and troubleshooting</string>
@@ -2109,6 +2109,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="feedback">Feedback</string>
     <string name="contact_us">Contact us</string>
     <string name="map_legend">Map legend</string>
+    <!-- string name="map_legend_item_description">Legend for OsmAnd default map style, Internet connectivity needed to display</string -->
 
 <string name="sr_plugin_description">This plugin aims at improving route calculation for
         driving with less stress. For a full description visit our info page: \n
