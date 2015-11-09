@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version='1.0' encoding='utf-8'?>
 <resources>
 	<string name="regions">Regionen</string>
 	<string name="region_maps">Regionsweite Karten</string>
@@ -2079,7 +2079,6 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
     <string name="map_downloaded">Karte heruntergeladen</string>
     <string name="map_downloaded_descr">Karte von %1$s wurde heruntergeladen. Gehen Sie zur Karte, um sie zu benutzen.</string>
     <string name="go_to_map">Zur Karte gehen</string>
-    </resources>
 
 	<string name="sr_plugin_description">Dieses Plugin zielt auf die Verbesserung der
 		Routenberechnung ab für ein Fahren mit weniger Stress. Für eine ausführliche Beschreibung

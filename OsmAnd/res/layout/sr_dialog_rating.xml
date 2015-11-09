@@ -67,28 +67,27 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:padding="5dp">
+			android:layout_marginLeft="45dp"
+			android:layout_marginStart="45dp"
+			android:orientation="horizontal">
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/shared_string_say" />
+				android:layout_weight="30"
+				android:text="@string/sr_speech_input_good" />
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/shared_string_good" />
+				android:layout_weight="30"
+				android:text="@string/sr_speech_input_normal" />
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/shared_string_normal" />
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/shared_string_bad" />
+				android:layout_weight="18"
+				android:text="@string/sr_speech_input_bad" />
 
 		</LinearLayout>
 
