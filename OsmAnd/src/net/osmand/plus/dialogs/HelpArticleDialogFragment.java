@@ -70,6 +70,7 @@ public class HelpArticleDialogFragment extends DialogFragment {
 		String url = getArguments().getString(URL);
 		webView = (WebView) view.findViewById(R.id.webView);
 		webView.getSettings().setJavaScriptEnabled(true);
+
 		if (assetName != null) {
 			String fileContents = getAssetAsString(assetName, getActivity());
 
@@ -85,8 +86,11 @@ public class HelpArticleDialogFragment extends DialogFragment {
 					if (url.startsWith("http://osmand.net/features?id=")) {
 						String id = url.substring("http://osmand.net/features?id=".length());
 						dismiss();
-						instantiateWithAsset("feature_articles/" + id + ".html", getString(R.string.shared_string_help))
-								.show(getActivity().getSupportFragmentManager(), "DIALOG_HELP_ARTICLE");
+						LOG.debug("shouldOverrideUrlLoading(): id=" + id);
+						instantiateWithAsset("feature_articles/" + id + ".html",
+								getString(R.string.shared_string_help))
+								.show(getActivity().getSupportFragmentManager(),
+										"DIALOG_HELP_ARTICLE");
 					}
 					return false;
 				}
@@ -118,6 +122,7 @@ public class HelpArticleDialogFragment extends DialogFragment {
 	}
 
 	public static HelpArticleDialogFragment instantiateWithAsset(String assetName, String name) {
+		LOG.debug("instantiateWithAsset(): assetName=" + assetName + ", name=" + name);
 		Bundle args = new Bundle();
 		args.putString(ASSET_NAME, assetName);
 		args.putString(NAME, name);

@@ -14,6 +14,7 @@ import net.osmand.plus.stressreduction.connectivity.ConnectionHandler;
 import net.osmand.plus.stressreduction.connectivity.ConnectionReceiver;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.fragments.FragmentHandler;
+import net.osmand.plus.stressreduction.fragments.FragmentSRDialog;
 import net.osmand.plus.stressreduction.sensors.SensorHandler;
 import net.osmand.plus.stressreduction.tools.Calculation;
 import net.osmand.plus.stressreduction.tools.UUIDCreator;
@@ -25,6 +26,7 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.widget.ImageButton;
 
@@ -56,7 +58,7 @@ public class StressReductionPlugin extends OsmandPlugin
 		UNIQUE_ID = UUIDCreator.id(osmandApplication);
 		// for debugging
 		if (BuildConfig.DEBUG) {
-			UNIQUE_ID = "Test_ID_04/11/15";
+			UNIQUE_ID = "Test_ID_09/11/15";
 		}
 
 		dataHandler = new DataHandler(osmandApplication);

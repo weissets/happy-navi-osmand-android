@@ -13,11 +13,14 @@
     -->
 
     <!-- Not translatable -->
-    <string name="last_release" translatable="false">
-        - New road indexes (including map data, poi, address)
-        - New speed system (knots and minutes per km)
-        - New context menu
-        - Drawer and start with the map
+    <string name="release_2_3" translatable="false">
+        \u2022 New context-sensitive UI for tapping locations on the map and on other screens\n\n
+        \u2022 Choice between Dashboard or Menu as primary app control\n\n
+        \u2022 New Wikipedia data, now downloads per country, and with much more complete data\n\n
+        \u2022 Better route recalculation (after repeated attempts engine now suggests a different route)\n\n
+        \u2022 POI Search now supports more specific queries\n\n
+        \u2022 Map data download structure and interface reworked\n\n
+        and more…
         </string>
     <string name="ga_api_key" translatable="false">UA-28342846-2</string>
     <string name="ga_dispatchPeriod" translatable="false">10</string>
@@ -50,7 +53,7 @@
     <string name="osmo" translatable="false">OsMo</string>
     <string name="tag_poi_amenity" translatable="false">amenity</string>
     <string name="tag_poi_name" translatable="false">name</string>
-    <string name="support_email"  translatable="false">hcilab@gmail.com</string>
+    <string name="support_email"  translatable="false">hcilab@gmail.com</string>-->
     <!--
     	 Disclaimer:
          If you are going to translate strings, please make sure:

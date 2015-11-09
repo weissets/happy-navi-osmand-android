@@ -6,9 +6,9 @@
 //      6. remove mock location permission
 
 
-// TODO neuer branch -> ordner umbenennen
-// TODO online karten funktionieren nicht, oder kompliziert
-// TODO sr dialog erscheint nicht ohne routing!?
+// neuer branch -> ordner umbenennen -> kaum möglich wegen ndk
+// online karten funktionieren nicht, oder kompliziert -> gefixed in neuer version
+// sr dialog erscheint nicht ohne routing!? -> funktioniert
 // TODO online karte navigation (fehler bei der routenberechnung, startpunkt / ziel zuweit von nächster straße entfernt
 // TODO Dominik fragen wegen generischem dashboard popup (z.b. für fragebogen, o.ä.) -> json object
 // TODO checken ob die uuid nach neuinstallation/upgrade bestehen bleibt

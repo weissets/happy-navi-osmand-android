@@ -143,7 +143,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			}
 
 			if (routeDataObject != null) {
-				//				log.debug("updateLocation(): found rdo!");
+				log.debug("updateLocation(): found rdo!");
 				// check if current segment is the same as last segment
 				if (routeDataObject.getId() != lastLoggedSegmentID) {
 					log.debug("updateLocation(): logging: UniqueID=" +
@@ -340,13 +340,15 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if (!isSpeedBelowThreshold(currentLocation, Constants.MINIMUM_DRIVING_SPEED)) {
+				if (fragmentHandler.isSRDialogVisible() && !isSpeedBelowThreshold(currentLocation,
+						Constants.MINIMUM_DRIVING_SPEED)) {
 					log.debug("run(): driving but dialog still showing, closing dialog...");
 					fragmentHandler.hideSRDialog();
 					checkingDialog = false;
 					DataHandler.setTimestampLastStressValue(Calculation.getCurrentDateTimeMs());
 				} else {
-					log.debug("run(): speed now higher than dialog speed limit, not showing dialog");
+					log.debug(
+							"run(): speed now higher than dialog speed limit, not showing dialog");
 				}
 			}
 		}
