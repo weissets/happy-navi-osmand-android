@@ -211,6 +211,9 @@ public abstract class OsmandPlugin {
 	public void mapActivityDestroy(MapActivity activity) {
 	}
 
+	public void mapActivityScreenOff(MapActivity activity) {
+	}
+
 	public boolean destinationReached() {
 		return true;
 	}
@@ -344,6 +347,11 @@ public abstract class OsmandPlugin {
 		}
 	}
 
+	public static void onMapActivityScreenOff(MapActivity activity) {
+		for (OsmandPlugin plugin : getEnabledPlugins()) {
+			plugin.mapActivityScreenOff(activity);
+		}
+	}
 
 	public static boolean onDestinationReached() {
 		boolean b = true;

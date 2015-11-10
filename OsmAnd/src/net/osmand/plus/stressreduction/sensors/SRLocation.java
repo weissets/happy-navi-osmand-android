@@ -273,7 +273,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			isLastDialog = true;
 			fragmentHandler.showSRDialog(dataHandler);
 		}
-		if (routingLog != null && (System.currentTimeMillis() -
+		if (routingLog != null && currentLocation != null && (System.currentTimeMillis() -
 				Calculation.getTimeFromDateString(routingLog.getTimeRoutingStart())) >
 				Constants.ROUTING_LOG_TIMEOUT) {
 			log.debug("routeWasCancelled(): left distance=" + leftDistance +

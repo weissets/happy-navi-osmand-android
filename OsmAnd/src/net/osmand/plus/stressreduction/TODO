@@ -2,7 +2,7 @@
 // 		2. add +1 to version code in manifest
 //      3. add +1 to Constants and change Server URI
 //      4. add +1 to version on server
-//		5. update changelog (in app and hp)
+//		5. update changelog (in app and play store)
 //      6. comment MyDatabaseTools in UploadService
 //      7. remove mock location permission
 
