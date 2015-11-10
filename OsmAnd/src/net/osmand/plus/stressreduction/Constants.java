@@ -11,13 +11,13 @@ public class Constants {
 	public static final String PLUGIN_ID = "net.osmand.plus.stressreduction.plugin";
 
 	/** version code of the info dialog */
-	private static final String INFO_VERSION_CODE = "2.2.0-214";
+	private static final String INFO_VERSION_CODE = "2.2.0-215";
 
 	/** version string of the info dialog */
 	public static final String INFO_VERSION = "info_" + INFO_VERSION_CODE;
 
 	/** version code of the what's new dialog */
-	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-214";
+	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-215";
 
 	/** version string of the what's new dialog */
 	public static final String WHATS_NEW_VERSION = "whats_new_" + WHATS_NEW_VERSION_CODE;
@@ -57,7 +57,7 @@ public class Constants {
 
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
-			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/upload.html";
+			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload.php";
 
 	/** uri of the database upload script (DEBUG EMULATOR) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_EMULATOR =
@@ -65,7 +65,7 @@ public class Constants {
 
 	/** uri of the database upload script (DEBUG DEVICE) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_DEVICE =
-			"http://192.168.2.100:8888/upload/db_upload_v1.2_debug.php";
+			"http://141.58.49.216:8888/upload/db_upload_v1.3_debug.php";
 
 	/** uri of the database download script */
 	public static final String URI_DATABASE_DOWNLOAD =

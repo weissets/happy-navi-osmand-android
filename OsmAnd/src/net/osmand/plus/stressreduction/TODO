@@ -1,9 +1,10 @@
 // TODO BEFORE RELEASE ###
 // 		2. add +1 to version code in manifest
 //      3. add +1 to Constants and change Server URI
-//		4. update changelog (in app and hp)
-//      5. comment MyDatabaseTools in UploadService
-//      6. remove mock location permission
+//      4. add +1 to version on server
+//		5. update changelog (in app and hp)
+//      6. comment MyDatabaseTools in UploadService
+//      7. remove mock location permission
 
 
 // neuer branch -> ordner umbenennen -> kaum möglich wegen ndk

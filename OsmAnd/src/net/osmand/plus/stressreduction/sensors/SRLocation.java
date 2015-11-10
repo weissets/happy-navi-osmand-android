@@ -189,11 +189,13 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		// dialog timeout set to 30s TODO check how big the timeout should be
 		if (System.currentTimeMillis() - timerDialog <
 				(Constants.DIALOG_TIMEOUT / SIMULATION_SPEED)) {
-			log.debug("isDialogTimeout(): true");
+			log.debug("isDialogTimeout(): true, " + (System.currentTimeMillis() - timerDialog) +
+					" < " + (Constants.DIALOG_TIMEOUT / SIMULATION_SPEED));
 			return true;
+		} else {
+			timerDialog = System.currentTimeMillis();
+			return false;
 		}
-		timerDialog = System.currentTimeMillis();
-		return false;
 	}
 
 	/**
@@ -340,8 +342,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				if (fragmentHandler.isSRDialogVisible() && !isSpeedBelowThreshold(currentLocation,
-						Constants.MINIMUM_DRIVING_SPEED)) {
+				if (!isSpeedBelowThreshold(currentLocation, Constants.MINIMUM_DRIVING_SPEED)) {
 					log.debug("run(): driving but dialog still showing, closing dialog...");
 					fragmentHandler.hideSRDialog();
 					checkingDialog = false;

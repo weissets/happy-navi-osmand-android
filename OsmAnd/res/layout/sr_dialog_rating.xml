@@ -56,7 +56,7 @@
 			android:src="@drawable/sr_smiley_sad" />
 	</LinearLayout>
 
-	<LinearLayout
+	<!--<LinearLayout
 		android:id="@+id/speechLayout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -96,6 +96,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 
-	</LinearLayout>
+	</LinearLayout>-->
 
 </LinearLayout>

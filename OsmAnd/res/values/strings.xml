@@ -2139,15 +2139,16 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_plugin_info_title">%1$s</string>
     <string name="sr_plugin_whats_new_title">What\'s New</string>
     <string name="sr_plugin_whats_new_description">
+        Version 2.2.0-215
+        \n\n• Performance improvements for older devices
+        \n\n• New help articles
+        \n\n• Improved user interface
+        \n\n\n
         Version 2.2.0-214
         \n\n• Updated version 2.2
         \n\n• New look and feel
         \n\n• Fixed native support
         \n\n• Performance improvements
-        \n\n\n
-		Version 2.1.0-212
-        \n\n• Settings option for using only wifi connection for data upload (default: false)
-		\n\n• Fixed some minor bugs
     </string>
     <string name="sr_settings_title">Stress Reduction Settings</string>
     <string name="sr_settings_notification_sound_title">Notification Sound</string>

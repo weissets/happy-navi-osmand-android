@@ -36,8 +36,8 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 
 	private static SRDialogButtonClickListener srDialogButtonClickListener;
 	private static String PLAY_SOUND = "play_sound";
-	private ProgressBar speechProgress;
-	private LinearLayout speechLayout;
+//	private ProgressBar speechProgress;
+//	private LinearLayout speechLayout;
 
 	public static FragmentSRDialog newInstance(SRDialogButtonClickListener listener,
 	                                           boolean playSound) {

@@ -66,18 +66,23 @@ public class FragmentHandler {
 	}
 
 	public boolean isSRDialogVisible() {
-		FragmentSRDialog fragmentSRDialog =
-				(FragmentSRDialog) mapActivity.getSupportFragmentManager()
-						.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
-		return fragmentSRDialog != null && fragmentSRDialog.isVisible();
+		if (mapActivity != null) {
+			FragmentSRDialog fragmentSRDialog =
+					(FragmentSRDialog) mapActivity.getSupportFragmentManager()
+							.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+			return fragmentSRDialog != null && fragmentSRDialog.isVisible();
+		}
+		return false;
 	}
 
 	public void hideSRDialog() {
-		FragmentSRDialog fragmentSRDialog =
-				(FragmentSRDialog) mapActivity.getSupportFragmentManager()
-						.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
-		if (fragmentSRDialog != null) {
-			fragmentSRDialog.dismiss();
+		if (mapActivity != null) {
+			FragmentSRDialog fragmentSRDialog =
+					(FragmentSRDialog) mapActivity.getSupportFragmentManager()
+							.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+			if (fragmentSRDialog != null) {
+				fragmentSRDialog.dismiss();
+			}
 		}
 	}
 
@@ -140,6 +145,5 @@ public class FragmentHandler {
 	private boolean isTimeout(long time) {
 		return (System.currentTimeMillis() - time) < 2000;
 	}
-
 
 }

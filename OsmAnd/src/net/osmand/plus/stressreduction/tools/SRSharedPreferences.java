@@ -63,4 +63,22 @@ public class SRSharedPreferences {
 		sharedPreferences.edit().putBoolean(Constants.UPLOAD_MODE_WIFI, onlyWifi).apply();
 	}
 
+	public static String[] getUserInfo(final Context context) {
+		SharedPreferences sharedPreferences =
+				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
+		String[] ret = new String[3];
+		ret[0] = sharedPreferences.getString(Constants.USER_GENDER, "none");
+		ret[1] = sharedPreferences.getString(Constants.USER_AGE, "0");
+		ret[2] = sharedPreferences.getString(Constants.USER_CAR, "none");
+		return ret;
+	}
+
+	public static void setUserInfo(final Context context, String gender, String age, String car) {
+		SharedPreferences sharedPreferences =
+				context.getSharedPreferences(Constants.PLUGIN_ID, Context.MODE_PRIVATE);
+		sharedPreferences.edit().putString(Constants.USER_GENDER, gender).apply();
+		sharedPreferences.edit().putString(Constants.USER_AGE, age).apply();
+		sharedPreferences.edit().putString(Constants.USER_CAR, car).apply();
+	}
+
 }

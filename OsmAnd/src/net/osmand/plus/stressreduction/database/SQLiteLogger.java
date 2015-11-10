@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import net.osmand.PlatformUtil;
 import net.osmand.binary.RouteDataObject;
+import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.StressReductionPlugin;
 import net.osmand.plus.stressreduction.tools.Calculation;
+import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
 
@@ -25,9 +27,11 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 
 	private static SQLiteLogger sqLiteLogger;
 	private int userPk;
+	private OsmandApplication osmandApplication;
 
 	private SQLiteLogger(Context context) {
 		super(context, Constants.DATABASE_NAME, null, 1);
+		osmandApplication = (OsmandApplication) context.getApplicationContext();
 		userPk = 1;
 	}
 
@@ -102,10 +106,16 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 	}
 
 	public void insertUser() {
+		String[] userInfo = SRSharedPreferences.getUserInfo(osmandApplication);
+		log.debug("insertUser(): inserting " + userInfo[0] + ", " + userInfo[1] + ", " +
+				userInfo[2]);
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(Constants.ID, StressReductionPlugin.getUUID());
+		contentValues.put(Constants.USER_GENDER, userInfo[0]);
+		contentValues.put(Constants.USER_AGE, Integer.valueOf(userInfo[1]));
+		contentValues.put(Constants.USER_CAR, userInfo[2]);
 		getWritableDatabase().insertWithOnConflict(Constants.USERS, null, contentValues,
-				SQLiteDatabase.CONFLICT_IGNORE);
+				SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	public void insertSegmentInfo(SegmentInfo segmentInfo) {
@@ -193,17 +203,7 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 	}
 
 	public void insertUserInfo(String gender, String age, String car) {
-		SQLiteDatabase db = sqLiteLogger.getWritableDatabase();
-		db.execSQL("DROP TABLE IF EXISTS " + Constants.USERS);
-		db.execSQL(Constants.CREATE_TABLE_USERS);
-
-		ContentValues contentValues = new ContentValues();
-
-		contentValues.put(Constants.ID, StressReductionPlugin.getUUID());
-		contentValues.put(Constants.USER_GENDER, gender);
-		contentValues.put(Constants.USER_AGE, Integer.valueOf(age));
-		contentValues.put(Constants.USER_CAR, car);
-
-		getWritableDatabase().insert(Constants.USERS, null, contentValues);
+		SRSharedPreferences.setUserInfo(osmandApplication, gender, age, car);
+		insertUser();
 	}
 }
