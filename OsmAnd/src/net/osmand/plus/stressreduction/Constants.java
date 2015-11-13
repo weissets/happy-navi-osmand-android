@@ -1,5 +1,9 @@
 package net.osmand.plus.stressreduction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class contains constants used by the stress reduction plugin
  *
@@ -55,6 +59,35 @@ public class Constants {
 	/** value of the highest stress value */
 	public static final int STRESS_VALUE_HIGH = 0;
 
+	public static final String SPEECH_INPUT = "speech_input";
+	public static final String SPEECH_VALIDATION = "speech_validation";
+
+	public static final List<String> SPEECH_INPUT_GOOD =
+			Arrays.asList("good", "gut", "great", "perfect", "perfekt", "prima", "super",
+					"superb");
+	public static final List<String> SPEECH_INPUT_NORMAL =
+			Arrays.asList("normal", "medium", "ok", "okay", "oki");
+	public static final List<String> SPEECH_INPUT_BAD =
+			Arrays.asList("bad", "schlecht", "stress", "stressful", "stressed", "stressing",
+					"stressig", "tiring", "tire", "tired", "tiresome", "anstrengend");
+	public static final List<String> SPEECH_VALIDATION_CONFIRM =
+			Arrays.asList("ok", "okay", "oki", "yes", "ja", "confirm", "bestaetigen", "right",
+					"richtig", "correct", "korrekt");
+	public static final List<String> SPEECH_VALIDATION_RETRY =
+			Arrays.asList("abort", "cancel", "abbrechen", "again", "nochmal", "retry",
+					"wiederholen", "false", "falsch", "back", "zurueck");
+	//	public static final List<String> SPEECH_ABORT =
+	//			Arrays.asList("abort", "end", "abbrechen", "ende");
+	public static final List<String> SPEECH_INPUT_ALL =
+			Arrays.asList("good", "gut", "great", "perfect", "perfekt", "prima", "super", "superb",
+					"normal", "medium", "ok", "okay", "oki", "bad", "schlecht", "stress",
+					"stressful", "stressed", "stressing", "stressig", "tiring", "tire", "tired",
+					"tiresome", "anstrengend");
+	public static final List<String> SPEECH_VALIDATION_ALL =
+			Arrays.asList("ok", "okay", "oki", "yes", "ja", "confirm", "bestaetigen", "right",
+					"richtig", "correct", "korrekt", "abort", "cancel", "abbrechen", "again",
+					"nochmal", "retry", "wiederholen", "false", "falsch", "back", "zurueck");
+
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
 			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload.php";
@@ -76,8 +109,7 @@ public class Constants {
 			"http://10.0.2.2:8888/download/db_download_debug.php";
 
 	/** uri of the homepage */
-	public static final String URI_HOMEPAGE =
-			"https://maps.hci.simtech.uni-stuttgart.de/info";
+	public static final String URI_HOMEPAGE = "https://maps.hci.simtech.uni-stuttgart.de/info";
 
 	/** uri of the version code */
 	public static final String URI_VERSION_CODE =
@@ -180,46 +212,53 @@ public class Constants {
 			"), " +
 			"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY + "));";
 
-	public static final String CREATE_TABLE_OSM_SEGMENTS = "CREATE TABLE IF NOT EXISTS " + OSM_SEGMENTS + " (" +
-			ID + " integer NOT NULL PRIMARY KEY, " +
-			NAME + " varchar(255), " +
-			HIGHWAY + " varchar(255), " +
-			LANES + " smallint(1), " +
-			MAX_SPEED + " smallint(3), " +
-			ONEWAY + " smallint(1));";
+	public static final String CREATE_TABLE_OSM_SEGMENTS =
+			"CREATE TABLE IF NOT EXISTS " + OSM_SEGMENTS + " (" +
+					ID + " integer NOT NULL PRIMARY KEY, " +
+					NAME + " varchar(255), " +
+					HIGHWAY + " varchar(255), " +
+					LANES + " smallint(1), " +
+					MAX_SPEED + " smallint(3), " +
+					ONEWAY + " smallint(1));";
 
-	public static final String CREATE_TABLE_LOCATIONS = "CREATE TABLE IF NOT EXISTS " + LOCATIONS + " (" +
-			LATITUDE + " double NOT NULL, " +
-			LONGITUDE + " double NOT NULL, " +
-			SPEED + " smallint(3) NOT NULL, " +
-			ACC_X + " float(10) NOT NULL, " +
-			ACC_Y + " float(10) NOT NULL, " +
-			ACC_Z + " float(10) NOT NULL, " +
-			DIRECTION + " integer(3) NOT NULL, " +
-			TIMESTAMP + " timestamp NOT NULL, " +
-			USER_PK + " integer NOT NULL, " +
-			PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
-			"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY + "));";
+	public static final String CREATE_TABLE_LOCATIONS =
+			"CREATE TABLE IF NOT EXISTS " + LOCATIONS + " (" +
+					LATITUDE + " double NOT NULL, " +
+					LONGITUDE + " double NOT NULL, " +
+					SPEED + " smallint(3) NOT NULL, " +
+					ACC_X + " float(10) NOT NULL, " +
+					ACC_Y + " float(10) NOT NULL, " +
+					ACC_Z + " float(10) NOT NULL, " +
+					DIRECTION + " integer(3) NOT NULL, " +
+					TIMESTAMP + " timestamp NOT NULL, " +
+					USER_PK + " integer NOT NULL, " +
+					PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
+					"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY +
+					"));";
 
-	public static final String CREATE_TABLE_APP_LOGS = "CREATE TABLE IF NOT EXISTS " + APP_LOGS + " (" +
-			TIME_APP_OPEN + " timestamp NOT NULL, " +
-			USER_PK + " integer NOT NULL, " +
-			PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
-			"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY + "));";
+	public static final String CREATE_TABLE_APP_LOGS =
+			"CREATE TABLE IF NOT EXISTS " + APP_LOGS + " (" +
+					TIME_APP_OPEN + " timestamp NOT NULL, " +
+					USER_PK + " integer NOT NULL, " +
+					PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
+					"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY +
+					"));";
 
-	public static final String CREATE_TABLE_ROUTING_LOGS = "CREATE TABLE IF NOT EXISTS " + ROUTING_LOGS + " (" +
-			START_LAT + " double NOT NULL, " +
-			START_LON + " double NOT NULL, " +
-			END_LAT + " double NOT NULL, " +
-			END_LON + " double NOT NULL, " +
-			ABORT_LAT + " double, " +
-			ABORT_LON + " double, " +
-			TIME_ROUTING_START + " timestamp NOT NULL, " +
-			TIME_ROUTING_END_CALC + " timestamp NOT NULL, " +
-			TIME_ROUTING_END + " timestamp, " +
-			TIME_ROUTING_ABORT + " timestamp, " +
-			DISTANCE_TO_END + " integer, " +
-			USER_PK + " integer NOT NULL, " +
-			PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
-			"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY + "));";
+	public static final String CREATE_TABLE_ROUTING_LOGS =
+			"CREATE TABLE IF NOT EXISTS " + ROUTING_LOGS + " (" +
+					START_LAT + " double NOT NULL, " +
+					START_LON + " double NOT NULL, " +
+					END_LAT + " double NOT NULL, " +
+					END_LON + " double NOT NULL, " +
+					ABORT_LAT + " double, " +
+					ABORT_LON + " double, " +
+					TIME_ROUTING_START + " timestamp NOT NULL, " +
+					TIME_ROUTING_END_CALC + " timestamp NOT NULL, " +
+					TIME_ROUTING_END + " timestamp, " +
+					TIME_ROUTING_ABORT + " timestamp, " +
+					DISTANCE_TO_END + " integer, " +
+					USER_PK + " integer NOT NULL, " +
+					PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
+					"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY +
+					"));";
 }

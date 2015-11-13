@@ -1,0 +1,28 @@
+#JSGF V1.0;
+
+grammar validation;
+
+<word> = ok         |
+         okay       |
+         oki        |
+         yes        |
+         ja         |
+         confirm    |
+         bestaetigen|
+         right      |
+         richtig    |
+         correct    |
+         korrekt    |
+         abort      |
+         cancel     |
+         abbrechen  |
+         again      |
+         nochmal    |
+         retry      |
+         wiederholen|
+         false      |
+         falsch     |
+         back       |
+         zurueck    ;
+
+public <validation> = <word>;

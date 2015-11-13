@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
+import android.speech.RecognitionListener;
+import android.speech.SpeechRecognizer;
 
 /**
  * This class enables the stress reduction plugin settings in the menu
@@ -36,10 +39,30 @@ public class StressReductionSettings extends SettingsBaseActivity {
 				.sr_settings_notification_sound_description);
 		preferenceScreen.addPreference(notificationSoundPreference);
 
-//		CheckBoxPreference speechInputPreference = createCheckBoxPreference(settings.SR_SPEECH_INPUT);
-//		speechInputPreference.setTitle(R.string.sr_settings_speech_input_title);
-//		speechInputPreference.setSummary(R.string.sr_settings_speech_input_description);
-//		preferenceScreen.addPreference(speechInputPreference);
+		CheckBoxPreference speechInputPreference =
+				createCheckBoxPreference(settings.SR_SPEECH_INPUT);
+		speechInputPreference.setTitle(R.string.sr_settings_speech_input_title);
+		speechInputPreference.setSummary(R.string.sr_settings_speech_input_description);
+		preferenceScreen.addPreference(speechInputPreference);
+		speechInputPreference
+				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+					@Override
+					public boolean onPreferenceClick(Preference preference) {
+						CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+						if (SpeechRecognizer.isRecognitionAvailable(settings.getContext())) {
+							log.debug("onPreferenceClick(): speechRecognizer available");
+							checkBoxPreference.setChecked(!checkBoxPreference.isChecked());
+							return checkBoxPreference.isChecked();
+						} else {
+							checkBoxPreference.setChecked(false);
+							checkBoxPreference
+									.setSummary(R.string.sr_settings_speech_input_not_available);
+							//						Settings.ACTION_INPUT_METHOD_SETTINGS
+							return false;
+						}
+					}
+				});
 
 		CheckBoxPreference useWifiOnlyPreference =
 				createCheckBoxPreference(settings.SR_USE_WIFI_ONLY);

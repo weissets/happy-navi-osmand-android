@@ -1,0 +1,31 @@
+#JSGF V1.0;
+
+grammar input;
+
+<word> = good        |
+         gut         |
+         great       |
+         perfect     |
+         perfekt     |
+         prima       |
+         super       |
+         superb      |
+         normal      |
+         medium      |
+         ok          |
+         okay        |
+         oki         |
+         bad         |
+         schlecht    |
+         stress      |
+         stressful   |
+         stressed    |
+         stressing   |
+         stressig    |
+         tiring      |
+         tire        |
+         tired       |
+         tiresome    |
+         anstrengend ;
+
+public <input> = <word>;

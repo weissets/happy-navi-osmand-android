@@ -4,5 +4,8 @@
         android:state_pressed="true"
         android:drawable="@drawable/sr_smiley_sad_5_pressed" />
     <item
+        android:state_selected="true"
+        android:drawable="@drawable/sr_smiley_sad_5_selected" />
+    <item
         android:drawable="@drawable/sr_smiley_sad_5" />
 </selector>

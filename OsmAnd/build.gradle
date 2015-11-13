@@ -153,7 +153,13 @@ android {
 			signingConfig signingConfigs.publishing
 		}
 	}
+//task copyPocketSphinxAssets(type: Sync) {
+	ant.importBuild 'assets.xml'
+	preBuild.dependsOn(list, checksum)
+	clean.dependsOn(clean_assets)
+//}
 }
+
 
 def replaceNoTranslate(line) {
 	if (line.contains("\"app_name\"") && System.getenv("TARGET_APP_NAME")) {
@@ -336,4 +342,5 @@ dependencies {
 	qtcoredebugCompile "net.osmand:OsmAndCore_android:0.1-SNAPSHOT@aar"
 	qtcoreCompile "net.osmand:OsmAndCore_androidNativeRelease:0.1-SNAPSHOT@aar"
 	qtcoreCompile "net.osmand:OsmAndCore_android:0.1-SNAPSHOT@aar"
+	compile files('libs/pocketsphinx-android-5prealpha-nolib.jar')
 }

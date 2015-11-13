@@ -18,6 +18,7 @@ import net.osmand.plus.stressreduction.fragments.FragmentSRDialog;
 import net.osmand.plus.stressreduction.sensors.SensorHandler;
 import net.osmand.plus.stressreduction.tools.Calculation;
 import net.osmand.plus.stressreduction.tools.UUIDCreator;
+import net.osmand.plus.stressreduction.voice.SRPocketSphinx;
 
 import org.apache.commons.logging.Log;
 
@@ -90,6 +91,9 @@ public class StressReductionPlugin extends OsmandPlugin
 
 		// download stress reduction database
 		ConnectionHandler.downloadSRData(osmandApplication);
+
+		// init speech
+		SRPocketSphinx.getInstance().init(osmandApplication);
 	}
 
 	/**
@@ -298,6 +302,27 @@ public class StressReductionPlugin extends OsmandPlugin
 
 		// start sensors
 		sensorHandler.startSensors();
+
+		// TODO remove
+		FragmentSRDialog fragmentSRDialog =
+				(FragmentSRDialog) activity.getSupportFragmentManager()
+						.findFragmentByTag(Constants.FRAGMENT_SR_DIALOG);
+
+		if (fragmentSRDialog == null) {
+			boolean playSound = osmandApplication.getSettings().SR_NOTIFICATION_SOUND.get();
+			fragmentSRDialog = FragmentSRDialog.newInstance(dataHandler, playSound);
+			FragmentTransaction fragmentTransaction =
+					activity.getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.add(fragmentSRDialog, Constants.FRAGMENT_SR_DIALOG);
+			fragmentTransaction.disallowAddToBackStack();
+			fragmentTransaction.commit();
+		} else {
+			FragmentTransaction fragmentTransaction =
+					activity.getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.show(fragmentSRDialog);
+			fragmentTransaction.disallowAddToBackStack();
+			fragmentTransaction.commit();
+		}
 	}
 
 	@Override

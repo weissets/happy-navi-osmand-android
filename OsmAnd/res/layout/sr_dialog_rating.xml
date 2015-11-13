@@ -33,7 +33,7 @@
 			android:layout_weight="0.33"
 			android:background="@color/color_transparent"
 			android:scaleType="centerInside"
-			android:src="@drawable/sr_smiley_happy" />
+			android:src="@drawable/sr_smiley_happy_drawable" />
 
 		<ImageButton
 			android:id="@+id/imageButtonFaceNeutral"
@@ -43,7 +43,7 @@
 			android:layout_weight="0.33"
 			android:background="@color/color_transparent"
 			android:scaleType="centerInside"
-			android:src="@drawable/sr_smiley_neutral" />
+			android:src="@drawable/sr_smiley_neutral_drawable" />
 
 		<ImageButton
 			android:id="@+id/imageButtonFaceSad"
@@ -53,49 +53,61 @@
 			android:layout_weight="0.33"
 			android:background="@color/color_transparent"
 			android:scaleType="centerInside"
-			android:src="@drawable/sr_smiley_sad" />
+			android:src="@drawable/sr_smiley_sad_drawable" />
 	</LinearLayout>
 
-	<!--<LinearLayout
+	<LinearLayout
 		android:id="@+id/speechLayout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:padding="5dp"
 		android:visibility="gone">
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="45dp"
-			android:layout_marginStart="45dp"
 			android:orientation="horizontal">
 
 			<TextView
-				android:layout_width="wrap_content"
+				android:layout_width="100dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="30"
-				android:text="@string/sr_speech_input_good" />
+				android:layout_weight="33"
+				android:gravity="center"
+				android:text="@string/sr_speech_input_good"
+				android:textColor="@color/ctx_menu_info_text_dark" />
 
 			<TextView
-				android:layout_width="wrap_content"
+				android:layout_width="100dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="30"
-				android:text="@string/sr_speech_input_normal" />
+				android:layout_weight="33"
+				android:gravity="center"
+				android:text="@string/sr_speech_input_normal"
+				android:textColor="@color/ctx_menu_info_text_dark" />
 
 			<TextView
-				android:layout_width="wrap_content"
+				android:layout_width="100dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="18"
-				android:text="@string/sr_speech_input_bad" />
+				android:layout_weight="33"
+				android:gravity="center"
+				android:text="@string/sr_speech_input_bad"
+				android:textColor="@color/ctx_menu_info_text_dark" />
 
 		</LinearLayout>
 
-		<ProgressBar
-			android:id="@+id/speechProgress"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
+		<ImageView
+			android:id="@+id/speechImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_margin="10dp"
+			android:src="@android:drawable/ic_btn_speak_now" />
 
-	</LinearLayout>-->
+		<TextView
+			android:id="@+id/sr_test_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/ctx_menu_info_text_dark" />
+
+	</LinearLayout>
 
 </LinearLayout>
