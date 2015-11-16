@@ -62,31 +62,28 @@ public class Constants {
 	public static final String SPEECH_INPUT = "speech_input";
 	public static final String SPEECH_VALIDATION = "speech_validation";
 
-	public static final List<String> SPEECH_INPUT_GOOD =
-			Arrays.asList("good", "gut", "great", "perfect", "perfekt", "prima", "super",
-					"superb");
-	public static final List<String> SPEECH_INPUT_NORMAL =
-			Arrays.asList("normal", "medium", "ok", "okay", "oki");
-	public static final List<String> SPEECH_INPUT_BAD =
-			Arrays.asList("bad", "schlecht", "stress", "stressful", "stressed", "stressing",
-					"stressig", "tiring", "tire", "tired", "tiresome", "anstrengend");
+	public static final List<String> SPEECH_INPUT_GOOD = Arrays.asList("good", "gut");
+	public static final List<String> SPEECH_INPUT_NORMAL = Arrays.asList("normal");
+	public static final List<String> SPEECH_INPUT_BAD = Arrays.asList("bad", "schlecht");
 	public static final List<String> SPEECH_VALIDATION_CONFIRM =
-			Arrays.asList("ok", "okay", "oki", "yes", "ja", "confirm", "bestaetigen", "right",
-					"richtig", "correct", "korrekt");
+			Arrays.asList("confirm", "bestaetigen");
 	public static final List<String> SPEECH_VALIDATION_RETRY =
-			Arrays.asList("abort", "cancel", "abbrechen", "again", "nochmal", "retry",
-					"wiederholen", "false", "falsch", "back", "zurueck");
-	//	public static final List<String> SPEECH_ABORT =
-	//			Arrays.asList("abort", "end", "abbrechen", "ende");
+			Arrays.asList("retry", "wiederholen");
 	public static final List<String> SPEECH_INPUT_ALL =
-			Arrays.asList("good", "gut", "great", "perfect", "perfekt", "prima", "super", "superb",
-					"normal", "medium", "ok", "okay", "oki", "bad", "schlecht", "stress",
-					"stressful", "stressed", "stressing", "stressig", "tiring", "tire", "tired",
-					"tiresome", "anstrengend");
+			Arrays.asList("good", "gut", "normal", "bad", "schlecht");
 	public static final List<String> SPEECH_VALIDATION_ALL =
-			Arrays.asList("ok", "okay", "oki", "yes", "ja", "confirm", "bestaetigen", "right",
-					"richtig", "correct", "korrekt", "abort", "cancel", "abbrechen", "again",
-					"nochmal", "retry", "wiederholen", "false", "falsch", "back", "zurueck");
+			Arrays.asList("confirm", "bestaetigen", "retry", "wiederholen");
+
+	public static final Float[] SPEECH_VALUES =
+			{1.0f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.6f, 1.7f, 1.8f, 1.9f, 2.0f, 2.1f, 2.2f, 2.3f,
+					2.4f, 2.5f, 2.6f, 2.7f, 2.8f, 2.9f, 3.0f, 3.1f, 3.2f, 3.3f, 3.4f, 3.5f, 3.6f,
+					3.7f, 3.8f, 3.9f, 4.0f, 4.1f, 4.2f, 4.3f, 4.4f, 4.5f, 4.6f, 4.7f, 4.8f, 4.9f,
+					5.0f};
+	public static final String[] SPEECH_VALUES_E =
+			{"1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0", "2.1",
+					"2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "3.0", "3.1", "3.2",
+					"3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0", "4.1", "4.2", "4.3",
+					"4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5.0"};
 
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =

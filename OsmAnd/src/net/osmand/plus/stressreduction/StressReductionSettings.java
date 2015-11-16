@@ -5,12 +5,14 @@ import net.osmand.plus.BuildConfig;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.SettingsBaseActivity;
 import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
+import net.osmand.plus.stressreduction.voice.SRPocketSphinx;
 
 import org.apache.commons.logging.Log;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -44,25 +46,23 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		speechInputPreference.setTitle(R.string.sr_settings_speech_input_title);
 		speechInputPreference.setSummary(R.string.sr_settings_speech_input_description);
 		preferenceScreen.addPreference(speechInputPreference);
-		speechInputPreference
-				.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+		ListPreference speechValuePreference =
+				createListPreference(settings.SR_SPEECH_VALUE, Constants.SPEECH_VALUES_E,
+						Constants.SPEECH_VALUES);
+		speechValuePreference.setTitle(R.string.sr_settings_speech_values_title);
+		speechValuePreference.setSummary(R.string.sr_settings_speech_values_description);
+		speechValuePreference
+				.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
 					@Override
-					public boolean onPreferenceClick(Preference preference) {
-						CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
-						if (SpeechRecognizer.isRecognitionAvailable(settings.getContext())) {
-							log.debug("onPreferenceClick(): speechRecognizer available");
-							checkBoxPreference.setChecked(!checkBoxPreference.isChecked());
-							return checkBoxPreference.isChecked();
-						} else {
-							checkBoxPreference.setChecked(false);
-							checkBoxPreference
-									.setSummary(R.string.sr_settings_speech_input_not_available);
-							//						Settings.ACTION_INPUT_METHOD_SETTINGS
-							return false;
-						}
+					public boolean onPreferenceChange(Preference preference, Object newValue) {
+						float value = Float.valueOf(newValue.toString());
+						SRPocketSphinx.getInstance().init(settings.getContext(), value);
+						return true;
 					}
 				});
+		preferenceScreen.addPreference(speechValuePreference);
 
 		CheckBoxPreference useWifiOnlyPreference =
 				createCheckBoxPreference(settings.SR_USE_WIFI_ONLY);

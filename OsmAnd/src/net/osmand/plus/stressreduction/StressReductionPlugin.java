@@ -93,7 +93,8 @@ public class StressReductionPlugin extends OsmandPlugin
 		ConnectionHandler.downloadSRData(osmandApplication);
 
 		// init speech
-		SRPocketSphinx.getInstance().init(osmandApplication);
+		SRPocketSphinx.getInstance().init(osmandApplication, osmandApplication.getSettings()
+				.SR_SPEECH_VALUE.get());
 	}
 
 	/**

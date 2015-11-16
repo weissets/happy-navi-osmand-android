@@ -42,26 +42,19 @@ public class SRPocketSphinx implements RecognitionListener {
 	private String mode;
 	private String debug;
 
-//	private String KEY_GOOD;
-//	private String KEY_NORMAL;
-//	private String KEY_BAD;
-
 	private SRPocketSphinx() {
 
 	}
 
-	public void init(final OsmandApplication osmandApplication) {
+	public void init(final OsmandApplication osmandApplication, final float threshold) {
 		this.osmandApplication = osmandApplication;
-//		KEY_GOOD = osmandApplication.getString(R.string.sr_speech_input_good).toLowerCase();
-//		KEY_NORMAL = osmandApplication.getString(R.string.sr_speech_input_normal).toLowerCase();
-//		KEY_BAD = osmandApplication.getString(R.string.sr_speech_input_bad).toLowerCase();
 		new AsyncTask<Void, Void, Exception>() {
 			@Override
 			protected Exception doInBackground(Void... params) {
 				try {
 					Assets assets = new Assets(osmandApplication);
 					File assetDir = assets.syncAssets();
-					setupRecognizer(assetDir);
+					setupRecognizer(assetDir, threshold);
 				} catch (IOException e) {
 					return e;
 				}
@@ -84,7 +77,8 @@ public class SRPocketSphinx implements RecognitionListener {
 		return instance;
 	}
 
-	private void setupRecognizer(File assetsDir) throws IOException {
+	// TODO adapt acoustic model
+	private void setupRecognizer(File assetsDir, float threshold) throws IOException {
 		// The recognizer can be configured to perform multiple searches
 		// of different kind and switch between them
 		speechRecognizer =
@@ -95,8 +89,7 @@ public class SRPocketSphinx implements RecognitionListener {
 						// space on the device)
 						//						.setRawLogDir(assetsDir)
 						// Threshold to tune for keyphrase to balance between false alarms
-						// and
-						// misses
+						// and misses
 						.setKeywordThreshold(1e-45f)
 						// Use context-independent phonetic search, context-dependent is
 						// too slow for mobile
@@ -119,7 +112,7 @@ public class SRPocketSphinx implements RecognitionListener {
 						// values give faster decoding but reduced accuracy.
 						.setInteger("-pl_window", 0)
 						// voice volume threshold
-						.setFloat("-vad_threshold", 3.8f)
+						.setFloat("-vad_threshold", threshold)
 						// add keywords
 //						.setString("-kws", new File(assetsDir, "keywords.list").getPath())
 						.getRecognizer();
@@ -223,7 +216,7 @@ public class SRPocketSphinx implements RecognitionListener {
 			log.debug(debug);
 			speechImage.clearAnimation();
 			stopListening();
-			dialog.setResult(mode, result, debug);
+			dialog.setResult(mode, result);
 		}
 	}
 

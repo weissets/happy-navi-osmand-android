@@ -2123,6 +2123,19 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_settings_title">Stress Reduzierung Einstellungen</string>
 	<string name="sr_settings_notification_sound_title">Benachrichtigungston</string>
 	<string name="sr_settings_notification_sound_description">Spielt einen Ton ab, wenn ein neuer Evaluierungsdialog angezeigt wird.</string>
+	<string name="sr_settings_speech_input_title">Spracheingabe (experimentell)</string>
+	<string name="sr_settings_speech_input_description">Steuern sie den Evaluierungsdialog per
+		Spracheingabe. Bitte passen sie die Erkennungsschwelle unten an, um die
+		Erkennungsrate zu verbessern (falls erforderlich)!</string>
+	<string name="sr_settings_speech_values_title">Spracheingabe Erkennungsschwelle</string>
+    <string name="sr_settings_speech_values_description">Erhöhen sie den Wert, wenn die
+	    Spracheingabe oft durch Nebengeräusche aktiviert wird. Verringern sie den Wert,
+	    wenn die Spracheingabe nicht auf Sprache reagiert.</string>
+	<string name="sr_speech_input_good">Gut</string>
+	<string name="sr_speech_input_normal">Normal</string>
+	<string name="sr_speech_input_bad">Schlecht</string>
+	<string name="sr_speech_validation_confirm">Bestätigen</string>
+	<string name="sr_speech_validation_retry">Wiederholen</string>
 	<string name="sr_settings_use_wifi_only_title">Nur Wifi Upload</string>
 	<string name="sr_settings_use_wifi_only_description">Benutze für das Hochladen der Daten auf den Server nur die WiFi Verbindung (reduziert den mobilen Datenverbrauch).</string>
 	<string name="sr_settings_location_simulation_title">Routingsimulation</string>

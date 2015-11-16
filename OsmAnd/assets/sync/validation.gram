@@ -2,27 +2,9 @@
 
 grammar validation;
 
-<word> = ok         |
-         okay       |
-         oki        |
-         yes        |
-         ja         |
-         confirm    |
+<word> = confirm    |
          bestaetigen|
-         right      |
-         richtig    |
-         correct    |
-         korrekt    |
-         abort      |
-         cancel     |
-         abbrechen  |
-         again      |
-         nochmal    |
          retry      |
-         wiederholen|
-         false      |
-         falsch     |
-         back       |
-         zurueck    ;
+         wiederholen;
 
 public <validation> = <word>;

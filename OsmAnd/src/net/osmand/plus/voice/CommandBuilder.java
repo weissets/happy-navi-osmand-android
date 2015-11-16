@@ -129,10 +129,6 @@ public class CommandBuilder {
 	public CommandBuilder speedAlarm(){
 		return addCommand(C_SPEAD_ALARM);
 	}
-
-	public CommandBuilder generic(String command){
-		return addCommand(command);
-	}
 	
 	public CommandBuilder attention(String type){
 		return addCommand(C_ATTENTION, type);
