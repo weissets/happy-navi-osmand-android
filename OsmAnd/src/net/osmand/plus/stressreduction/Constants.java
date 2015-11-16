@@ -112,6 +112,10 @@ public class Constants {
 	public static final String URI_VERSION_CODE =
 			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version";
 
+	/** uri of the blank dash fragment content */
+	public static final String URI_JSON_BLANK =
+			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/blank";
+
 	/** convert meter per second to kilometer per hour */
 	public static final float MS_TO_KMH = 3.6f;
 

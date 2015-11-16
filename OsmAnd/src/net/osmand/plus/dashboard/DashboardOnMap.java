@@ -73,6 +73,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	private static final DashFragmentData.ShouldShowFunction rateUsShouldShow = new DashRateUsFragment.RateUsShouldShow();
 	private static final DashFragmentData.ShouldShowFunction userInfoShouldShow = new DashUserInfoFragment.UserInfoShouldShow();
 	private static final DashFragmentData.ShouldShowFunction newVersionShouldShow = new DashNewVersionFragment.NewVersionShouldShow();
+	private static final DashFragmentData.ShouldShowFunction blankShouldShow = new DashBlankFragment.BlankShouldShow();
 
 	private static final DefaultShouldShow defaultShouldShow = new DefaultShouldShow();
 	private static final DashFragmentData.ShouldShowFunction errorShouldShow = new ErrorShouldShow();
@@ -82,8 +83,10 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 					newVersionShouldShow, 0, null),
 			new DashFragmentData(DashUserInfoFragment.TAG, DashUserInfoFragment.class,
 					userInfoShouldShow, 1, null),
+			new DashFragmentData(DashBlankFragment.TAG, DashBlankFragment.class,
+					blankShouldShow, 2, null),
 			new DashFragmentData(DashRateUsFragment.TAG, DashRateUsFragment.class,
-					rateUsShouldShow, 2, null),
+					rateUsShouldShow, 3, null),
 			
 			new DashFragmentData(DashErrorFragment.TAG, DashErrorFragment.class,
 					errorShouldShow, 30, null),
@@ -917,6 +920,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 		return rateUsShouldShow.shouldShow(settings, mapActivity, DashRateUsFragment.TAG)
 				|| userInfoShouldShow.shouldShow(settings, mapActivity, DashUserInfoFragment.TAG)
 				|| newVersionShouldShow.shouldShow(settings, mapActivity, DashNewVersionFragment.TAG)
+				|| blankShouldShow.shouldShow(settings, mapActivity, DashBlankFragment.TAG)
 				|| errorShouldShow.shouldShow(null, mapActivity, null);
 	}
 

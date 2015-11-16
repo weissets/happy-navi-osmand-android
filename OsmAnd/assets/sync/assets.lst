@@ -1,4 +1,3 @@
-cmudict-en-us.dict
 en-us-ptm/README
 en-us-ptm/feat.params
 en-us-ptm/mdef
@@ -8,4 +7,5 @@ en-us-ptm/sendump
 en-us-ptm/transition_matrices
 en-us-ptm/variances
 input.gram
+sr_dialog.dict
 validation.gram

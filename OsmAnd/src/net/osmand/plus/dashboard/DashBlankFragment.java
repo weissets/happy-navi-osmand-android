@@ -4,36 +4,43 @@ import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
-import net.osmand.plus.stressreduction.database.SQLiteLogger;
+import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class DashBlankFragment extends DashBaseFragment {
 
 	private static final Log log = PlatformUtil.getLog(DashBlankFragment.class);
 
-	public static final String TAG = "DASH_USER_INFO_FRAGMENT";
+	public static final String TAG = "DASH_BLANK_FRAGMENT";
 
 	// Imported in shouldShow method
 	private static OsmandSettings settings;
-	private FragmentState state = FragmentState.INITIAL;
-	private UserInfoDismissListener userInfoDismissListener;
+	private BlankDismissListener blankDismissListener;
+
+	private static JSONObject jsonObject;
+	private static String locale;
 
 	@Override
 	public void onOpenDash() {
@@ -44,206 +51,180 @@ public class DashBlankFragment extends DashBaseFragment {
 	public View initView(LayoutInflater inflater, @Nullable ViewGroup container,
 	                     @Nullable Bundle savedInstanceState) {
 		View view = getActivity().getLayoutInflater()
-				.inflate(R.layout.sr_dash_user_info_fragment, container, false);
-		TextView header = (TextView) view.findViewById(R.id.header);
-		TextView subheader = (TextView) view.findViewById(R.id.subheader);
-		Button genderButton = (Button) view.findViewById(R.id.buttonGender);
-		Button ageButton = (Button) view.findViewById(R.id.buttonAge);
-		EditText carText = (EditText) view.findViewById(R.id.editTextCar);
-		LinearLayout layout = (LinearLayout) view.findViewById(R.id.layoutUserInfo);
-		Button positiveButton = (Button) view.findViewById(R.id.positive_button);
-		Button negativeButton = (Button) view.findViewById(R.id.negative_button);
-		positiveButton.setOnClickListener(
-				new PositiveButtonListener(header, subheader, positiveButton, negativeButton,
-						genderButton, ageButton, carText, layout));
-		negativeButton.setOnClickListener(
-				new NegativeButtonListener(header, subheader, positiveButton, negativeButton));
-		userInfoDismissListener = new UserInfoDismissListener(dashboard, settings);
+				.inflate(R.layout.sr_dash_blank_fragment, container, false);
+		loadText(view);
+		blankDismissListener = new BlankDismissListener(dashboard, settings);
 		return view;
 	}
 
-	public static boolean shouldShow(OsmandSettings settings) {
-		if (!settings.SR_LAST_DISPLAY_TIME.isSet()) {
-			settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
+	private void loadText(View view) {
+		TextView header = (TextView) view.findViewById(R.id.header);
+		TextView subheader = (TextView) view.findViewById(R.id.subheader);
+		Button positiveButton = (Button) view.findViewById(R.id.blank_positive_button);
+		Button neutralButton = (Button) view.findViewById(R.id.blank_neutral_button);
+		Button negativeButton = (Button) view.findViewById(R.id.blank_negative_button);
+		positiveButton.setOnClickListener(new PositiveButtonListener());
+		neutralButton.setOnClickListener(new NeutralButtonListener());
+		negativeButton.setOnClickListener(new NegativeButtonListener());
+
+		try {
+			jsonObject = new JSONObject(settings.SR_CURRENT_BLANK.get());
+			if (settings.PREFERRED_LOCALE.get().toLowerCase().contains("de")) {
+				locale = "blank_de";
+			} else {
+				locale = "blank_en";
+			}
+			header.setText(jsonObject.getJSONObject(locale).getString("header"));
+			subheader.setText(jsonObject.getJSONObject(locale).getString("subheader"));
+			positiveButton.setText(jsonObject.getJSONObject(locale).getString("positiveButton"));
+			neutralButton.setText(jsonObject.getJSONObject(locale).getString("neutralButton"));
+			negativeButton.setText(jsonObject.getJSONObject(locale).getString("negativeButton"));
+
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
+	}
+
+	public static boolean shouldShow(final OsmandSettings settings) {
 		DashBlankFragment.settings = settings;
-		long lastDisplayTimeInMillis = settings.SR_LAST_DISPLAY_TIME.get();
-		int numberOfApplicationRuns = settings.SR_NUMBER_OF_APPLICATION_STARTS.get();
-		SrUserInfoState state = settings.SR_USER_INFO_STATE.get();
 
-		log.debug("shouldShow(): state=" + state + ", numberOfApplicationStarts=" +
-				numberOfApplicationRuns);
-
-		Calendar modifiedTime = Calendar.getInstance();
-		Calendar lastDisplayTime = Calendar.getInstance();
-		lastDisplayTime.setTimeInMillis(lastDisplayTimeInMillis);
-
-		int bannerFreeRuns;
-
-		switch (state) {
-			case SHARED_INFO:
-				log.debug("shouldShow(): already shared info");
-				return false;
-			case INITIAL_STATE:
-				log.debug("shouldShow(): initial state");
-				modifiedTime.add(Calendar.HOUR, -72);
-				bannerFreeRuns = 5;
-				return modifiedTime.after(lastDisplayTime) &&
-						numberOfApplicationRuns >= bannerFreeRuns;
-			case USER_INFO_DELAYED:
-				log.debug("shouldShow(): user info delayed");
-				modifiedTime.add(Calendar.HOUR, -48);
-				bannerFreeRuns = 3;
-				return modifiedTime.after(lastDisplayTime) &&
-						numberOfApplicationRuns >= bannerFreeRuns;
-			case DO_NOT_SHOW_AGAIN:
-				log.debug("shouldShow(): do not show again");
-				return false;
-			default:
-				throw new IllegalStateException("Unexpected state:" + state);
+		long lastServerCheckTimeInMillis = settings.SR_BLANK_LAST_SERVER_CHECK_TIME.get();
+		Calendar lastServerCheckTime = Calendar.getInstance();
+		lastServerCheckTime.setTimeInMillis(lastServerCheckTimeInMillis);
+		Calendar modifiedCheckTime = Calendar.getInstance();
+		modifiedCheckTime.add(Calendar.HOUR, -24);
+		if (modifiedCheckTime.after(lastServerCheckTime)) {
+			getJsonObject();
+			settings.SR_BLANK_LAST_SERVER_CHECK_TIME.set(System.currentTimeMillis());
 		}
+
+		int currentVersion = settings.SR_CURRENT_BLANK_VERSION.get();
+		int serverVersion;
+		if (settings.SR_CURRENT_BLANK.get().equals("")) {
+			return false;
+		} else {
+			try {
+				jsonObject = new JSONObject(settings.SR_CURRENT_BLANK.get());
+				serverVersion = jsonObject.getJSONObject("version").getInt("version");
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
+		if (serverVersion > currentVersion) {
+			settings.SR_BLANK_STATE.set(SrBlankState.INITIAL);
+			settings.SR_CURRENT_BLANK_VERSION.set(serverVersion);
+			log.debug("shouldShow(): new version, back to inital");
+		}
+
+		SrBlankState state = settings.SR_BLANK_STATE.get();
+		long laterTimeInMillis = settings.SR_BLANK_LATER_TIME.get();
+		Calendar laterTime = Calendar.getInstance();
+		laterTime.setTimeInMillis(laterTimeInMillis);
+		Calendar modifiedTime = Calendar.getInstance();
+
+		if (state == SrBlankState.DO_NOT_SHOW_AGAIN) {
+			log.debug("shouldShow(): do not show again");
+			return false;
+		} else if (state == SrBlankState.INITIAL) {
+			log.debug("shouldShow(): inital");
+			return true;
+		} else if (state == SrBlankState.LATER) {
+			log.debug("shouldShow(): later");
+			modifiedTime.add(Calendar.HOUR, -24);
+		}
+
+		if (state == SrBlankState.LATER && modifiedTime.after(laterTime)) {
+			log.debug("shouldShow(): time for later is up, back to initial");
+			settings.SR_BLANK_STATE.set(SrBlankState.INITIAL);
+		}
+
+		return false;
+	}
+
+	private static void getJsonObject() {
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					log.debug("getJsonObject()");
+					URL url = new URL(Constants.URI_JSON_BLANK);
+					HttpsURLConnection httpsURLConnection =
+							(HttpsURLConnection) url.openConnection();
+					httpsURLConnection.setRequestMethod("GET");
+					httpsURLConnection.setDoInput(true); // allow inputs
+					httpsURLConnection.setDoOutput(true); // allow outputs
+					httpsURLConnection.setUseCaches(false); // no cached copy
+					httpsURLConnection.setRequestProperty("Connection", "Close");
+					httpsURLConnection.setRequestProperty("ENCTYPE", "text/plain");
+					httpsURLConnection.connect();
+
+					BufferedReader in = new BufferedReader(
+							new InputStreamReader(httpsURLConnection.getInputStream()));
+					String line;
+					StringBuilder stringBuilder = new StringBuilder();
+					while ((line = in.readLine()) != null) {
+						stringBuilder.append(line);
+					}
+					log.debug("getJsonObject(): json = " + stringBuilder.toString());
+					settings.SR_CURRENT_BLANK.set(stringBuilder.toString());
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}.start();
 	}
 
 	@Override
 	public DismissListener getDismissCallback() {
-		return userInfoDismissListener;
+		return blankDismissListener;
 	}
 
 	public class PositiveButtonListener implements View.OnClickListener {
 
-		private TextView header;
-		private TextView subheader;
-		private Button gender;
-		private Button age;
-		private EditText car;
-		private Button positiveButton;
-		private Button negativeButton;
-		private LinearLayout layout;
-
-		public PositiveButtonListener(TextView header, TextView subheader, Button positiveButton,
-		                              Button negativeButton, Button gender, Button age,
-		                              EditText car, LinearLayout layout) {
-			this.header = header;
-			this.subheader = subheader;
-			this.gender = gender;
-			this.age = age;
-			this.car = car;
-			this.layout = layout;
-			this.positiveButton = positiveButton;
-			this.negativeButton = negativeButton;
+		@Override
+		public void onClick(View v) {
+			try {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(jsonObject.getJSONObject
+						(locale).getString("url")));
+				startActivity(intent);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			settings.SR_BLANK_STATE.set(SrBlankState.DO_NOT_SHOW_AGAIN);
+			dashboard.refreshDashboardFragments();
 		}
+	}
+
+	public class NeutralButtonListener implements View.OnClickListener {
 
 		@Override
 		public void onClick(View v) {
-			switch (state) {
-				case INITIAL:
-					state = FragmentState.USER_SHARES;
-					layout.setVisibility(View.VISIBLE);
-					gender.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							showPicker("gender", gender);
-						}
-					});
-					age.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							showPicker("age", age);
-						}
-					});
-					header.setText(getResources().getString(R.string.sr_user_info_enter));
-					subheader.setText(getResources().getString(R.string.sr_user_info_enter_info));
-					positiveButton.setText(getResources().getString(R.string.shared_string_save));
-					negativeButton.setText(getResources().getString(R.string
-							.shared_string_cancel));
-					return;
-				case USER_SHARES:
-					if (gender.getText().toString().equals("")) {
-						Toast.makeText(settings.getContext(),
-								getResources().getString(R.string.sr_user_info_provide_gender),
-								Toast.LENGTH_LONG).show();
-					} else if (age.getText().toString().equals("")) {
-						Toast.makeText(settings.getContext(),
-								getResources().getString(R.string.sr_user_info_provide_age),
-								Toast.LENGTH_LONG).show();
-					} else if (car.getText().toString().equals("")) {
-						Toast.makeText(settings.getContext(),
-								getResources().getString(R.string.sr_user_info_provide_car),
-								Toast.LENGTH_LONG).show();
-					} else {
-						settings.SR_USER_INFO_STATE.set(SrUserInfoState.SHARED_INFO);
-						SQLiteLogger.getSQLiteLogger(settings.getContext())
-								.insertUserInfo(gender.getText().toString(),
-										age.getText().toString(), car.getText().toString());
-						dashboard.refreshDashboardFragments();
-					}
-					return;
-				case USER_DECLINES:
-					settings.SR_USER_INFO_STATE.set(SrUserInfoState.USER_INFO_DELAYED);
-					settings.SR_NUMBER_OF_APPLICATION_STARTS.set(0);
-					settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
-					dashboard.refreshDashboardFragments();
-					break;
-			}
+			settings.SR_BLANK_LATER_TIME.set(System.currentTimeMillis());
+			settings.SR_BLANK_STATE.set(SrBlankState.LATER);
+			dashboard.refreshDashboardFragments();
 		}
 	}
 
 	public class NegativeButtonListener implements View.OnClickListener {
 
-		private TextView header;
-		private TextView subheader;
-		private Button positiveButton;
-		private Button negativeButton;
-
-		public NegativeButtonListener(TextView header, TextView subheader, Button positiveButton,
-		                              Button negativeButton) {
-			this.header = header;
-			this.subheader = subheader;
-			this.positiveButton = positiveButton;
-			this.negativeButton = negativeButton;
-		}
-
 		@Override
 		public void onClick(View v) {
-			switch (state) {
-				case INITIAL:
-					state = FragmentState.USER_DECLINES;
-
-					header.setText(getResources().getString(R.string.sr_user_info_declined));
-					subheader
-							.setText(getResources().getString(R.string
-									.sr_user_info_declined_info));
-					positiveButton.setText(getResources().getString(R.string.shared_string_ok));
-					negativeButton.setText(
-							getResources().getString(R.string.shared_string_do_not_show_again));
-					return;
-				case USER_SHARES:
-					settings.SR_USER_INFO_STATE.set(SrUserInfoState.USER_INFO_DELAYED);
-					break;
-				case USER_DECLINES:
-					settings.SR_USER_INFO_STATE.set(SrUserInfoState.DO_NOT_SHOW_AGAIN);
-					break;
-			}
-			settings.SR_NUMBER_OF_APPLICATION_STARTS.set(0);
-			settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
+			settings.SR_BLANK_STATE.set(SrBlankState.DO_NOT_SHOW_AGAIN);
 			dashboard.refreshDashboardFragments();
 		}
 	}
 
-	private enum FragmentState {
-		INITIAL,
-		USER_SHARES,
-		USER_DECLINES
+	public enum SrBlankState {
+		LATER,
+		DO_NOT_SHOW_AGAIN,
+		INITIAL
 	}
 
-	public enum SrUserInfoState {
-		INITIAL_STATE,
-		SHARED_INFO,
-		USER_INFO_DELAYED,
-		DO_NOT_SHOW_AGAIN
-	}
-
-	public static class UserInfoShouldShow extends DashboardOnMap.DefaultShouldShow {
+	public static class BlankShouldShow extends DashboardOnMap.DefaultShouldShow {
 
 		@Override
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
@@ -252,92 +233,22 @@ public class DashBlankFragment extends DashBaseFragment {
 		}
 	}
 
-	private static class UserInfoDismissListener implements DismissListener {
+	private static class BlankDismissListener implements DismissListener {
 
 		private DashboardOnMap dashboardOnMap;
 		private OsmandSettings settings;
 
-		public UserInfoDismissListener(DashboardOnMap dashboardOnMap, OsmandSettings settings) {
+		public BlankDismissListener(DashboardOnMap dashboardOnMap, OsmandSettings settings) {
 			this.dashboardOnMap = dashboardOnMap;
 			this.settings = settings;
 		}
 
 		@Override
 		public void onDismiss() {
-			settings.SR_USER_INFO_STATE.set(SrUserInfoState.USER_INFO_DELAYED);
-			settings.SR_NUMBER_OF_APPLICATION_STARTS.set(0);
-			settings.SR_LAST_DISPLAY_TIME.set(System.currentTimeMillis());
+			settings.SR_BLANK_LATER_TIME.set(System.currentTimeMillis());
+			settings.SR_BLANK_STATE.set(SrBlankState.LATER);
 			dashboardOnMap.refreshDashboardFragments();
 		}
 	}
 
-	private void showPicker(String which, final Button caller) {
-		switch (which) {
-			case "gender":
-				final String genders[] = {"-", getResources().getString(R.string
-						.sr_user_info_male),
-						getResources().getString(R.string.sr_user_info_female)};
-
-				NumberPicker genderPicker = new NumberPicker(settings.getContext());
-				genderPicker.setMinValue(0);
-				genderPicker.setMaxValue(genders.length - 1);
-				genderPicker.setDisplayedValues(genders);
-				genderPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-				genderPicker.setValue(1);
-				caller.setText(genders[1]);
-
-				NumberPicker.OnValueChangeListener gernderChangedListener =
-						new NumberPicker.OnValueChangeListener() {
-							@Override
-							public void onValueChange(NumberPicker picker, int oldVal, int
-									newVal) {
-								caller.setText(genders[newVal]);
-							}
-						};
-
-				genderPicker.setOnValueChangedListener(gernderChangedListener);
-
-				AlertDialog.Builder builderGender =
-						new AlertDialog.Builder(getActivity()).setView(genderPicker);
-				builderGender.setPositiveButton(R.string.shared_string_ok,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						});
-				builderGender.show();
-				break;
-			case "age":
-				NumberPicker agePicker = new NumberPicker(settings.getContext());
-				agePicker.setMaxValue(100);
-				agePicker.setMinValue(16);
-				agePicker.setValue(30);
-				agePicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-				caller.setText("30");
-
-				NumberPicker.OnValueChangeListener ageChangedListener =
-						new NumberPicker.OnValueChangeListener() {
-							@Override
-							public void onValueChange(NumberPicker picker, int oldVal, int
-									newVal) {
-								caller.setText(String.valueOf(newVal));
-							}
-						};
-
-				agePicker.setOnValueChangedListener(ageChangedListener);
-
-				AlertDialog.Builder builderAge =
-						new AlertDialog.Builder(getActivity()).setView(agePicker);
-				builderAge.setPositiveButton(R.string.shared_string_ok,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.dismiss();
-							}
-						});
-				builderAge.show();
-				break;
-		}
-	}
 }

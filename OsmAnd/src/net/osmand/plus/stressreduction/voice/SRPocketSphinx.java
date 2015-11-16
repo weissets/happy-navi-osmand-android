@@ -83,7 +83,7 @@ public class SRPocketSphinx implements RecognitionListener {
 		// of different kind and switch between them
 		speechRecognizer =
 				defaultSetup().setAcousticModel(new File(assetsDir, "en-us-ptm")).setDictionary(
-						new File(assetsDir, "cmudict-en-us.dict"))
+						new File(assetsDir, "sr_dialog.dict"))
 
 						// To disable logging of raw audio comment out this call (takes a lot of
 						// space on the device)

@@ -24,6 +24,7 @@ import net.osmand.plus.access.AccessibilityMode;
 import net.osmand.plus.access.RelativeDirectionStyle;
 import net.osmand.plus.api.SettingsAPI;
 import net.osmand.plus.api.SettingsAPI.SettingsEditor;
+import net.osmand.plus.dashboard.DashBlankFragment;
 import net.osmand.plus.dashboard.DashNewVersionFragment;
 import net.osmand.plus.dashboard.DashRateUsFragment;
 import net.osmand.plus.dashboard.DashUserInfoFragment;
@@ -966,6 +967,7 @@ public class OsmandSettings {
 	// this value string is synchronized with settings_pref.xml preference name
 	public final OsmandPreference<Boolean> SR_NOTIFICATION_SOUND = new BooleanPreference("sr_play_sound", true).makeGlobal();
 	public final OsmandPreference<Boolean> SR_SPEECH_INPUT = new BooleanPreference("sr_speech_input", false).makeGlobal();
+	public final OsmandPreference<Float> SR_SPEECH_VALUE = new FloatPreference("sr_speech_value", 3.8f).makeGlobal();
 	public final OsmandPreference<Boolean> SR_USE_WIFI_ONLY = new BooleanPreference("sr_use_wifi_only", false).makeGlobal();
 	public final OsmandPreference<Boolean> SR_LOCATION_SIMULATION = new BooleanPreference("sr_location_simulation", false).makeGlobal();
 	public final OsmandPreference<Boolean> SR_ROUTING = new BooleanPreference("sr_routing", false).makeGlobal();
@@ -996,6 +998,24 @@ public class OsmandSettings {
 			new EnumIntPreference<>("sr_new_version_state",
 					DashNewVersionFragment.SrNewVersionState.INITIAL, DashNewVersionFragment
 					.SrNewVersionState.values()).makeGlobal();
+
+	// For BlankVersionFragment
+	public final OsmandPreference<Long> SR_BLANK_LAST_SERVER_CHECK_TIME =
+			new LongPreference("sr_blank_last_server_check_time", 0).makeGlobal().cache();
+
+	public final OsmandPreference<Long> SR_BLANK_LATER_TIME =
+			new LongPreference("sr_blank_last_check_time", 0).makeGlobal().cache();
+
+	public final OsmandPreference<String> SR_CURRENT_BLANK = new StringPreference
+			("sr_current_blank", "").makeGlobal().cache();
+
+	public final OsmandPreference<Integer> SR_CURRENT_BLANK_VERSION = new IntPreference
+			("sr_current_blank_version", 0).makeGlobal().cache();
+
+	public final OsmandPreference<DashBlankFragment.SrBlankState> SR_BLANK_STATE =
+			new EnumIntPreference<>("sr_blank_state",
+					DashBlankFragment.SrBlankState.INITIAL, DashBlankFragment
+					.SrBlankState.values()).makeGlobal();
 	
 	// this value string is synchronized with settings_pref.xml preference name
 	public final OsmandPreference<Boolean> DEBUG_RENDERING_INFO = new BooleanPreference("debug_rendering", false).makeGlobal();
