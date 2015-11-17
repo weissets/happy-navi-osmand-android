@@ -2,8 +2,6 @@ package net.osmand.plus.myplaces;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,7 +28,6 @@ import android.widget.TextView;
 import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
-import net.osmand.plus.ContextMenuAdapter;
 import net.osmand.plus.FavouritesDbHelper;
 import net.osmand.plus.GPXUtilities.GPXFile;
 import net.osmand.plus.GPXUtilities.WptPt;
@@ -47,7 +44,6 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.activities.OsmAndListFragment;
 import net.osmand.plus.activities.TrackActivity;
 import net.osmand.plus.base.FavoriteImageDrawable;
-import net.osmand.plus.dialogs.DirectionsDialogs;
 import net.osmand.plus.helpers.ColorDialogs;
 import net.osmand.util.Algorithms;
 
@@ -206,7 +202,7 @@ public class SelectedGPXFragment extends OsmAndListFragment {
 	}
 	
 	protected void saveAsFavorites(final GpxDisplayItemType gpxDisplayItemType) {
-		Builder b = new AlertDialog.Builder(getMyActivity());
+		AlertDialog.Builder b = new AlertDialog.Builder(getMyActivity());
 		final EditText editText = new EditText(getMyActivity());
 		final List<GpxDisplayGroup> gs = filterGroups(gpxDisplayItemType);
 		if (gs.size() == 0) {
@@ -280,7 +276,7 @@ public class SelectedGPXFragment extends OsmAndListFragment {
         ColorDialogs.setupColorSpinner(getActivity(), getGpx().getColor(0), colorSpinner, list);
 		
 		final Spinner sp = (Spinner) view.findViewById(R.id.Spinner);
-		Builder bld = new AlertDialog.Builder(getMyActivity());
+		AlertDialog.Builder bld = new AlertDialog.Builder(getMyActivity());
 		final List<Double> distanceSplit = new ArrayList<Double>();
 		final TIntArrayList timeSplit = new TIntArrayList();
 		if(groups.size() == 0) {
@@ -348,20 +344,32 @@ public class SelectedGPXFragment extends OsmAndListFragment {
 							: null);
 				}
 				if(vis.isChecked() && sf.getGpxFile() != null) {
-					WptPt wpt = sf.getGpxFile().findPointToShow();
-					if (wpt != null) {
-						app.getSettings().setMapLocationToShow(wpt.getLatitude(), wpt.getLongitude(), 15, null, false,
-								false); //$NON-NLS-1$
-						MapActivity.launchMapActivityMoveToTop(activity);
+					if (groups.size() > 0 && groups.get(0).getModifiableList().size() > 0) {
+						GpxDisplayItem item = groups.get(0).getModifiableList().get(0);
+						app.getSettings().setMapLocationToShow(item.locationStart.lat, item.locationStart.lon,
+								15,
+								new PointDescription(PointDescription.POINT_TYPE_GPX_ITEM, item.group.getGpxName()),
+								false,
+								item); //$NON-NLS-1$
+					} else {
+						WptPt wpt = sf.getGpxFile().findPointToShow();
+						if (wpt != null) {
+							app.getSettings().setMapLocationToShow(wpt.getLatitude(), wpt.getLongitude(),
+									15,
+									new PointDescription(PointDescription.POINT_TYPE_WPT, wpt.name),
+									false,
+									wpt); //$NON-NLS-1$
+						}
 					}
+					MapActivity.launchMapActivityMoveToTop(activity);
 				}
 			}
 		});
-		
+
 		bld.show();
-		
+
 	}
-	
+
 	private void updateSplit(final List<GpxDisplayGroup> groups, final List<Double> distanceSplit,
 			final TIntArrayList timeSplit, final int which, final SelectedGpxFile sf) {
 		new AsyncTask<Void, Void, Void>() {
@@ -484,14 +492,26 @@ public class SelectedGPXFragment extends OsmAndListFragment {
 
 		GpxDisplayItem child = adapter.getItem(position);
 
+		if (child.group.getGpx() != null) {
+			app.getSelectedGpxHelper().setGpxFileToDisplay(child.group.getGpx());
+		}
+
 		final OsmandSettings settings = app.getSettings();
 		LatLon location = new LatLon(child.locationStart.lat, child.locationStart.lon);
 
-		settings.setMapLocationToShow(location.getLatitude(), location.getLongitude(),
-				settings.getLastKnownMapZoom(),
-				new PointDescription(PointDescription.POINT_TYPE_FAVORITE, Html.fromHtml(child.name).toString()),
-				false,
-				child.locationStart); //$NON-NLS-1$
+		if (child.group.getType() == GpxDisplayItemType.TRACK_POINTS) {
+			settings.setMapLocationToShow(location.getLatitude(), location.getLongitude(),
+					settings.getLastKnownMapZoom(),
+					new PointDescription(PointDescription.POINT_TYPE_WPT, child.locationStart.name),
+					false,
+					child.locationStart);
+		} else {
+			settings.setMapLocationToShow(location.getLatitude(), location.getLongitude(),
+					settings.getLastKnownMapZoom(),
+					new PointDescription(PointDescription.POINT_TYPE_GPX_ITEM, child.group.getGpxName()),
+					false,
+					child);
+		}
 		MapActivity.launchMapActivityMoveToTop(getActivity());
 /*
 //		if(child.group.getType() == GpxDisplayItemType.TRACK_POINTS ||

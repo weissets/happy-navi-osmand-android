@@ -4,7 +4,6 @@
 //      4. add +1 to version on server
 //		5. update changelog (in app and play store)
 //      6. comment MyDatabaseTools in UploadService
-//      7. remove mock location permission
 
 
 // neuer branch -> ordner umbenennen -> kaum möglich wegen ndk

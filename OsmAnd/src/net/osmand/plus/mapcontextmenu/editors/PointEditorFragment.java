@@ -45,19 +45,6 @@ public abstract class PointEditorFragment extends Fragment {
 	private View view;
 	private int mainViewHeight;
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		getEditor().saveState(outState);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null)
-			getEditor().restoreState(savedInstanceState);
-	}
-
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -272,10 +259,16 @@ public abstract class PointEditorFragment extends Fragment {
 
 	public void setCategory(String name) {
 		AutoCompleteTextViewEx categoryEdit = (AutoCompleteTextViewEx) view.findViewById(R.id.category_edit);
-		String n = name.length() == 0 ? getString(R.string.shared_string_favorites) : name;
+		String n = name.length() == 0 ? getDefaultCategoryName() : name;
 		categoryEdit.setText(n);
 		ImageView categoryImage = (ImageView) view.findViewById(R.id.category_image);
 		categoryImage.setImageDrawable(getCategoryIcon());
+		ImageView nameImage = (ImageView) view.findViewById(R.id.name_image);
+		nameImage.setImageDrawable(getNameIcon());
+	}
+
+	protected String getDefaultCategoryName() {
+		return getString(R.string.shared_string_none);
 	}
 
 	protected MapActivity getMapActivity() {
@@ -295,7 +288,6 @@ public abstract class PointEditorFragment extends Fragment {
 
 	public void dismiss(boolean includingMenu) {
 		if (includingMenu) {
-			//getMapActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 			getMapActivity().getSupportFragmentManager().popBackStack();
 			getMapActivity().getContextMenu().close();
 		} else {
@@ -327,7 +319,7 @@ public abstract class PointEditorFragment extends Fragment {
 	public String getCategoryTextValue() {
 		AutoCompleteTextViewEx categoryEdit = (AutoCompleteTextViewEx) view.findViewById(R.id.category_edit);
 		String name = categoryEdit.getText().toString().trim();
-		return name.equals(getString(R.string.shared_string_favorites)) ? "" : name;
+		return name.equals(getDefaultCategoryName()) ? "" : name;
 	}
 
 	public String getDescriptionTextValue() {
@@ -346,4 +338,8 @@ public abstract class PointEditorFragment extends Fragment {
 		);
 	}
 
+	protected Drawable getPaintedIcon(int iconId, int color) {
+		IconsCache iconsCache = getMapActivity().getMyApplication().getIconsCache();
+		return iconsCache.getPaintedContentIcon(iconId, color);
+	}
 }

@@ -6,6 +6,7 @@ import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.dashboard.DashBaseFragment;
 import net.osmand.plus.dashboard.DashboardOnMap;
+import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
 
 import org.apache.commons.logging.Log;
@@ -245,14 +246,15 @@ public class DashUserInfoFragment extends DashBaseFragment {
 		DO_NOT_SHOW_AGAIN
 	}
 
-	public static class UserInfoShouldShow extends DashboardOnMap.DefaultShouldShow {
-
-		@Override
-		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
-			return DashUserInfoFragment.shouldShow(settings) &&
-					super.shouldShow(settings, activity, tag);
-		}
-	}
+	public static final DashFragmentData.ShouldShowFunction SHOULD_SHOW_FUNCTION =
+			new DashboardOnMap.DefaultShouldShow() {
+				@Override
+				public boolean shouldShow(OsmandSettings settings, MapActivity activity,
+				                          String tag) {
+					return DashUserInfoFragment.shouldShow(settings) &&
+							super.shouldShow(settings, activity, tag);
+				}
+			};
 
 	private static class UserInfoDismissListener implements DismissListener {
 

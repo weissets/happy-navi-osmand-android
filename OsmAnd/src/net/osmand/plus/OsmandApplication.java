@@ -2,8 +2,6 @@ package net.osmand.plus;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -40,7 +39,7 @@ import net.osmand.plus.activities.SavingTrackHelper;
 import net.osmand.plus.activities.SettingsActivity;
 import net.osmand.plus.api.SQLiteAPI;
 import net.osmand.plus.api.SQLiteAPIImpl;
-import net.osmand.plus.dashboard.DashRateUsFragment;
+import net.osmand.plus.dialogs.RateUsBottomSheetDialog;
 import net.osmand.plus.download.DownloadIndexesThread;
 import net.osmand.plus.helpers.AvoidSpecificRoads;
 import net.osmand.plus.helpers.WaypointHelper;
@@ -173,8 +172,8 @@ public class OsmandApplication extends Application {
 		if (routingHelper != null) {
 			routingHelper.getVoiceRouter().onApplicationTerminate();
 		}
-        if(DashRateUsFragment.shouldShow(osmandSettings)) {
-            osmandSettings.RATE_US_STATE.set(DashRateUsFragment.RateUsState.IGNORED);
+        if(RateUsBottomSheetDialog.shouldShow(osmandSettings)) {
+            osmandSettings.RATE_US_STATE.set(RateUsBottomSheetDialog.RateUsState.IGNORED);
         }
         getNotificationHelper().removeServiceNotification();
 	}
@@ -342,7 +341,7 @@ public class OsmandApplication extends Application {
 		String voiceProvider = osmandSettings.VOICE_PROVIDER.get();
 		if (voiceProvider == null || OsmandSettings.VOICE_PROVIDER_NOT_USE.equals(voiceProvider)) {
 			if (warningNoneProvider && voiceProvider == null) {
-				Builder builder = new AccessibleAlertBuilder(uiContext);
+				AlertDialog.Builder builder = new AccessibleAlertBuilder(uiContext);
 				LinearLayout ll = new LinearLayout(uiContext);
 				ll.setOrientation(LinearLayout.VERTICAL);
 				final TextView tv = new TextView(uiContext);
@@ -408,7 +407,7 @@ public class OsmandApplication extends Application {
 
 	public synchronized void closeApplication(final Activity activity) {
 		if (getNavigationService() != null) {
-			Builder bld = new AlertDialog.Builder(activity);
+			AlertDialog.Builder bld = new AlertDialog.Builder(activity);
 			bld.setMessage(R.string.background_service_is_enabled_question);
 			bld.setPositiveButton(R.string.shared_string_yes, new DialogInterface.OnClickListener() {
 				@Override

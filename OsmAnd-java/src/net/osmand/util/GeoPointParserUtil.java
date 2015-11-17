@@ -397,6 +397,22 @@ public class GeoPointParserUtil {
 		actual = GeoPointParserUtil.parse(url);
 		assertGeoPoint(actual, new GeoParsedPoint(dlat, dlon, z));
 
+		// whatsapp
+		// https://maps.google.com/maps?q=loc:34.99393,-106.61568 (You)
+		z = GeoParsedPoint.NO_ZOOM;
+		url = "https://maps.google.com/maps?q=loc:" + dlat + "," + dlon + " (You)";
+		System.out.println("url: " + url);
+		actual = GeoPointParserUtil.parse(url);
+		assertGeoPoint(actual, new GeoParsedPoint(dlat, dlon, z));
+
+		// whatsapp
+		// https://maps.google.com/maps?q=loc:34.99393,-106.61568 (USER NAME)
+		z = GeoParsedPoint.NO_ZOOM;
+		url = "https://maps.google.com/maps?q=loc:" + dlat + "," + dlon + " (USER NAME)";
+		System.out.println("url: " + url);
+		actual = GeoPointParserUtil.parse(url);
+		assertGeoPoint(actual, new GeoParsedPoint(dlat, dlon, z));
+
 		// http://www.google.com/maps/search/food/34,-106,14z
 		url = "http://www.google.com/maps/search/food/" + ilat + "," + ilon + "," + z + "z";
 		System.out.println("url: " + url);
@@ -933,7 +949,15 @@ public class GeoPointParserUtil {
 					} else if (params.containsKey("saddr")) {
 						return parseGoogleMapsPath(params.get("saddr"), params);
 					} else if (params.containsKey("q")) {
-						return parseGoogleMapsPath(params.get("q"), params);
+						String opath = params.get("q");
+						final String pref = "loc:";
+						if(opath.contains(pref)) {
+							opath = opath.substring(opath.lastIndexOf(pref) + pref.length());
+						}
+						final String postf = "\\s\\((\\p{L}|\\s)*\\)$";
+						opath = opath.replaceAll(postf, "");
+						System.out.println("opath=" + opath);
+						return parseGoogleMapsPath(opath, params);
 					}
 					if (fragment != null) {
 						Pattern p = Pattern.compile(".*[!&]q=([^&!]+).*");
@@ -947,8 +971,7 @@ public class GeoPointParserUtil {
 							"loc:", "/"};
 					for (String pref : pathPrefixes) {
 						if (path.contains(pref)) {
-							path = path.substring(path.lastIndexOf(pref)
-									+ pref.length());
+							path = path.substring(path.lastIndexOf(pref) + pref.length());
 							return parseGoogleMapsPath(path, params);
 						}
 					}

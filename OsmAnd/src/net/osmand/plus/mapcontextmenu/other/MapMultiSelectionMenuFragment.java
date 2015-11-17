@@ -41,7 +41,7 @@ public class MapMultiSelectionMenuFragment extends Fragment implements AdapterVi
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		menu = ((MapActivity) getActivity()).getMultiSelectionMenu();
+		menu = ((MapActivity) getActivity()).getContextMenu().getMultiSelectionMenu();
 
 		view = inflater.inflate(R.layout.menu_obj_selection_fragment, container, false);
 
@@ -72,7 +72,7 @@ public class MapMultiSelectionMenuFragment extends Fragment implements AdapterVi
 	}
 
 	public static void showInstance(final MapActivity mapActivity) {
-		MapMultiSelectionMenu menu = mapActivity.getMultiSelectionMenu();
+		MapMultiSelectionMenu menu = mapActivity.getContextMenu().getMultiSelectionMenu();
 
 		int slideInAnim = menu.getSlideInAnimation();
 		int slideOutAnim = menu.getSlideOutAnimation();
@@ -154,8 +154,8 @@ public class MapMultiSelectionMenuFragment extends Fragment implements AdapterVi
 
 		// Text line 2
 		TextView line2 = (TextView) view.findViewById(R.id.context_menu_line2);
-		line2.setText(item.getLocationStr());
-		Drawable slIcon = item.getSecondLineIcon();
+		line2.setText(item.getTypeStr());
+		Drawable slIcon = item.getTypeIcon();
 		line2.setCompoundDrawablesWithIntrinsicBounds(slIcon, null, null, null);
 		line2.setCompoundDrawablePadding(dpToPx(5f));
 	}

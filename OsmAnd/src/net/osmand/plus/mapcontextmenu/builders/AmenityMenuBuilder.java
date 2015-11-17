@@ -41,21 +41,40 @@ public class AmenityMenuBuilder extends MenuBuilder {
 	protected void buildRow(final View view, Drawable icon, final String text, final String textPrefix, int textColor, boolean isWiki, boolean isText, boolean needLinks) {
 		boolean light = app.getSettings().isLightContent();
 
+		if (!isFirstRow()) {
+			buildRowDivider(view, false);
+		}
+
+		final String txt;
+		if (!Algorithms.isEmpty(textPrefix)) {
+			txt = textPrefix + ": " + text;
+		} else {
+			txt = text;
+		}
+
 		LinearLayout ll = new LinearLayout(view.getContext());
 		ll.setOrientation(LinearLayout.HORIZONTAL);
 		LinearLayout.LayoutParams llParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		ll.setLayoutParams(llParams);
+		ll.setBackgroundResource(resolveAttribute(view.getContext(), android.R.attr.selectableItemBackground));
+		ll.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				copyToClipboard(txt, view.getContext());
+				return true;
+			}
+		});
 
 		// Icon
 		LinearLayout llIcon = new LinearLayout(view.getContext());
 		llIcon.setOrientation(LinearLayout.HORIZONTAL);
-		llIcon.setLayoutParams(new LinearLayout.LayoutParams(dpToPx(72f), isFirstRow() ? dpToPx(48f) - dpToPx(SHADOW_HEIGHT_BOTTOM_DP) : dpToPx(48f)));
+		llIcon.setLayoutParams(new LinearLayout.LayoutParams(dpToPx(72f), dpToPx(48f)));
 		llIcon.setGravity(Gravity.CENTER_VERTICAL);
 		ll.addView(llIcon);
 
 		ImageView iconView = new ImageView(view.getContext());
 		LinearLayout.LayoutParams llIconParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		llIconParams.setMargins(dpToPx(16f), isFirstRow() ? dpToPx(12f) - dpToPx(SHADOW_HEIGHT_BOTTOM_DP / 2f) : dpToPx(12f), dpToPx(32f), dpToPx(12f));
+		llIconParams.setMargins(dpToPx(16f), dpToPx(12f), dpToPx(32f), dpToPx(12f));
 		llIconParams.gravity = Gravity.CENTER_VERTICAL;
 		iconView.setLayoutParams(llIconParams);
 		iconView.setScaleType(ImageView.ScaleType.CENTER);
@@ -69,7 +88,7 @@ public class AmenityMenuBuilder extends MenuBuilder {
 
 		TextView textView = new TextView(view.getContext());
 		LinearLayout.LayoutParams llTextParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		llTextParams.setMargins(0, isFirstRow() ? dpToPx(8f) - dpToPx(SHADOW_HEIGHT_BOTTOM_DP) : dpToPx(8f), 0, dpToPx(8f));
+		llTextParams.setMargins(0, dpToPx(8f), 0, dpToPx(8f));
 		textView.setLayoutParams(llTextParams);
 		textView.setTextSize(16);
 		textView.setTextColor(app.getResources().getColor(light ? R.color.ctx_menu_info_text_light : R.color.ctx_menu_info_text_dark));
@@ -86,28 +105,9 @@ public class AmenityMenuBuilder extends MenuBuilder {
 			textView.setMinLines(1);
 			textView.setMaxLines(10);
 		}
-		if (!Algorithms.isEmpty(textPrefix)) {
-			textView.setText(textPrefix + ": " + text);
-		} else {
-			textView.setText(text);
-		}
+		textView.setText(txt);
 		if (textColor > 0) {
 			textView.setTextColor(view.getResources().getColor(textColor));
-		}
-		if (isWiki) {
-			textView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					POIMapLayer.showWikipediaDialog(view.getContext(), app, amenity);
-				}
-			});
-		} else if (isText) {
-			textView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					POIMapLayer.showDescriptionDialog(view.getContext(), app, text, textPrefix);
-				}
-			});
 		}
 
 		LinearLayout.LayoutParams llTextViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -118,22 +118,27 @@ public class AmenityMenuBuilder extends MenuBuilder {
 
 		((LinearLayout) view).addView(ll);
 
-		View horizontalLine = new View(view.getContext());
-		LinearLayout.LayoutParams llHorLineParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(1f));
-		llHorLineParams.gravity = Gravity.BOTTOM;
-		horizontalLine.setLayoutParams(llHorLineParams);
-
-		horizontalLine.setBackgroundColor(app.getResources().getColor(light ? R.color.ctx_menu_info_divider_light : R.color.ctx_menu_info_divider_dark));
-
-		((LinearLayout) view).addView(horizontalLine);
+		if (isWiki) {
+			ll.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					POIMapLayer.showWikipediaDialog(view.getContext(), app, amenity);
+				}
+			});
+		} else if (isText && text.length() > 200) {
+			ll.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					POIMapLayer.showDescriptionDialog(view.getContext(), app, text, textPrefix);
+				}
+			});
+		}
 
 		rowBuilt();
 	}
 
 	@Override
-	public void build(View view) {
-		super.build(view);
-
+	public void buildInternal(View view) {
 		boolean hasWiki = false;
 		MapPoiTypes poiTypes = app.getPoiTypes();
 		for (Map.Entry<String, String> e : amenity.getAdditionalInfo().entrySet()) {

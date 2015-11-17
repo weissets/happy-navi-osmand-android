@@ -1720,4 +1720,171 @@
 	<string name="poi_diet_gluten_free_only">Només dieta per celíacs</string>
 	<string name="poi_diet_gluten_free_yes">Dieta per celíacs</string>
 	<string name="poi_diet_gluten_free_no">Dieta per celíacs:no</string>
+	<string name="poi_payment_icsf_yes">S\'accepten targes IC Stored Fare</string>
+	<string name="poi_payment_icsf_no">No s\'accepten targes IC Stored Fare</string>
+	<string name="poi_diet_kosher_only">Només dieta kosher</string>
+	<string name="poi_diet_kosher_yes">Dieta kosher</string>
+	<string name="poi_diet_kosher_no">Dieta kosher: no</string>
+	<string name="poi_diet_halal_only">Només dieta halal</string>
+	<string name="poi_diet_halal_yes">Dieta halal</string>
+	<string name="poi_diet_halal_no">Dieta halal: no</string>
+	<string name="poi_diet_lactose_free_only">Només dieta sense lactosa</string>
+	<string name="poi_diet_lactose_free_yes">Dieta sense lactosa</string>
+	<string name="poi_diet_lactose_free_no">Dieta sense lactosa: no</string>
+	<string name="poi_drive_in_yes">Servei dins el vehicle: sí</string>
+	<string name="poi_drive_in_no">Servei dins el vehicle: no</string>
+	<string name="poi_drive_through_yes">Cua per vehicles: sí</string>
+	<string name="poi_drive_through_no">Cua per vehicles: sí</string>
+
+	<string name="poi_takeaway_yes">Per emportar-se</string>
+	<string name="poi_takeaway_no">No es pot emportar</string>
+	<string name="poi_takeaway_only">Només per emportar-se</string>
+
+	<string name="poi_delivery_yes">Lliurament a domicili</string>
+	<string name="poi_delivery_no">Sense lliurament a domicili</string>
+	<string name="poi_delivery_only">Només per lliurament a domicili</string>
+
+	<string name="poi_outdoor_seating_yes">Seients exteriors</string>
+	<string name="poi_outdoor_seating_no">Sense seients exteriors</string>
+	<string name="poi_outdoor_seating_terrace">Seients exteriors: terrassa</string>
+	<string name="poi_outdoor_seating_sidewalk">Seients exteriors: vorera</string>
+	<string name="poi_outdoor_seating_pedestrian_zone">Seients exteriors: zona de vianants</string>
+	<string name="poi_outdoor_seating_garden">Seients exteriors: jardí</string>
+	<string name="poi_outdoor_seating_patio">Seients exteriors: pati</string>
+
+	<string name="poi_cocktails_yes">Còctels</string>
+
+	<string name="poi_second_hand_yes">Articles de segona mà</string>
+	<string name="poi_second_hand_no">Cap article de segona mà</string>
+	<string name="poi_second_hand_only">Només articles de segona mà</string>
+
+	<string name="poi_service_parts">Recanvis</string>
+	<string name="poi_service_dealer">Venda</string>
+	<string name="poi_service_repair">Reparació</string>
+	<string name="poi_service_repair_no">No es fan reparacions</string>
+	<string name="poi_service_electrical">Reparació de vehicles elèctrics</string>
+	<string name="poi_motorcycle_repair">Reparació de motos</string>
+	<string name="poi_self_service_yes">Autoservei</string>
+	<string name="poi_self_service_no">No hi ha autoservei</string>
+	<string name="poi_automated_yes">Automatitzat</string>
+	<string name="poi_automated_no">No automatitzat</string>
+	<string name="poi_full_service_yes">Servei integral</string>
+	<string name="poi_brushless_yes">Rentacotxes de raspall</string>
+	<string name="poi_brushless_no">Rentacotxes de raspall: no</string>
+	<string name="poi_car_wash_no">Rentacotxes: no</string>
+
+	<string name="poi_male_yes">Homes</string>
+	<string name="poi_male_no">Prohibit pels homes</string>
+	<string name="poi_female_yes">Dones</string>
+	<string name="poi_female_no">Prohibit per dones</string>
+	<string name="poi_public_bath">Bany públic</string>
+
+	<string name="poi_indoor_yes">Cobert</string>
+	<string name="poi_indoor_no">Exterior</string>
+	<string name="poi_toilets_yes">Amb lavabos</string>
+	<string name="poi_toilets_no">Sense lavabos</string>
+	<string name="poi_toilets_wheelchair_yes">Accés al bany per cadira de rodes: sí</string>
+	<string name="poi_toilets_wheelchair_no">Accés al bany per cadira de rodes: no</string>
+	<string name="poi_toilets_access_customers">Accés al lavabo: clients</string>
+	<string name="poi_toilets_access_permissive">Accés al lavabo: tolerant</string>
+	<string name="poi_toilets_access_community">Accés al lavabo: públic</string>
+	<string name="poi_resource_gravel">Grava</string>
+	<string name="poi_resource_gypsum">Guix</string>
+	<string name="poi_resource_mineral_oil">Oli mineral</string>
+	<string name="poi_resource_slate_iron_ore_copper">Pissarra, mineral de ferro i coure</string>
+	<string name="poi_wetland_wet_meadow">Prat humit</string>
+	<string name="poi_historic_quarry">Pedrera històrica</string>
+
+	<string name="poi_resource_aggregate">Àrid</string>
+	<string name="poi_resource_antimony">Antimoni</string>
+	<string name="poi_resource_asbestos">Asbest</string>
+	<string name="poi_resource_barite">Baritina</string>
+	<string name="poi_resource_basalt">Basalt</string>
+	<string name="poi_resource_bauxite">Bauxita</string>
+	<string name="poi_resource_beryl">Beril</string>
+	<string name="poi_resource_bismuth">Bismut</string>
+	<string name="poi_resource_cereal">Cereals</string>
+	<string name="poi_resource_chromite">Cromita</string>
+	<string name="poi_resource_clay">Argila</string>
+	<string name="poi_resource_coal">Carbó</string>
+	<string name="poi_resource_copper">Coure</string>
+	<string name="poi_resource_diamond">Diamants</string>
+	<string name="poi_wetland_mud">Fangar</string>
+
+	<string name="poi_beach_sand">Tipus de platja: sorra</string>
+	<string name="poi_beach_shingle">Tipus de platja: còdols</string>
+	<string name="poi_beach_rocky">Tipus de platja: roques</string>
+
+	<string name="poi_chimney">Xemeneia</string>
+	<string name="poi_palm">Palmera</string>
+	<string name="poi_cypress">Xiprer</string>
+	<string name="poi_flagpole">Asta</string>
+
+	<string name="poi_bench_yes">Amb seients</string>
+	<string name="poi_bench_no">Sense seients</string>
+	<string name="poi_waste_basket_yes">Amb cossi de la brossa</string>
+	<string name="poi_waste_basket_no">Sense cossi de la brossa</string>
+
+	<string name="poi_shelter_type_public_transport">Tipus de refugi: transport públic</string>
+	<string name="poi_shelter_type_picnic_shelter">Tipus de refugi: glorieta</string>
+	<string name="poi_shelter_type_weather_shelter">Tipus de refugi: refugi meteorològic</string>
+	<string name="poi_shelter_type_basic_hut">Tipus de refugi: cabana bàsica</string>
+	<string name="poi_shelter_type_building">Tipus de refugi: edifici</string>
+	<string name="poi_shelter_type_rock_shelter">Tipus de refugi: refugi de roca</string>
+	<string name="poi_shelter_type_sun_shelter">Tipus de refugi: refugi solar</string>
+	<string name="poi_shelter_type_tent">Tipus de refugi: tenda</string>
+	<string name="poi_shelter_type_abandoned">Tipus de refugi: abandonat</string>
+
+	<string name="poi_internet_access_type_wlan">Tipus d\'accés d\'Internet: wlan</string>
+	<string name="poi_internet_access_type_terminal">Tipus d\'accés d\'Internet: terminal</string>
+	<string name="poi_internet_access_type_wired">Tipus d\'accés d\'Internet: per cable</string>
+	<string name="poi_internet_access_type_public">Tipus d\'accés d\'Internet: públic</string>
+	<string name="poi_internet_access_type_service">Tipus d\'accés d\'Internet: servei</string>
+	<string name="poi_internet_access_type_no">Tipus d\'accés d\'Internet: cap</string>
+
+	<string name="poi_maxwidth">Amplada màxima</string>
+	<string name="poi_iata">Codi IATA</string>
+	<string name="poi_icao">Codi ICAO</string>
+	<string name="poi_faa">Codi FAA</string>
+	
+	<string name="poi_artwork_type_sculpture">Tipus d\'obra artística: escultura</string>
+	<string name="poi_artwork_type_statue">Tipus d\'obra artística: estàtua</string>
+	<string name="poi_artwork_type_mural">Tipus d\'obra artística: mural</string>
+	<string name="poi_artwork_type_architecture">Tipus d\'obra artística: arquitectura</string>
+	<string name="poi_artwork_type_painting">Tipus d\'obra artística: pintura</string>
+	<string name="poi_artwork_type_stone">Tipus d\'obra artística: pedra</string>
+	<string name="poi_artwork_type_bust">Tipus d\'obra artística: bust</string>
+	<string name="poi_artwork_type_installation">Tipus d\'obra artística: instal·lació</string>
+	<string name="poi_artwork_type_mosaic">Tipus d\'obra artística: mosaic</string>
+	<string name="poi_artwork_type_relief">Tipus d\'obra artística: relleu</string>
+	<string name="poi_artwork_type_graffiti">Tipus d\'obra artística: grafit</string>
+	<string name="poi_artwork_type_stele">Tipus d\'obra artística: estela</string>
+	<string name="poi_artwork_type_fountain">Tipus d\'obra artística: font</string>
+
+	<string name="poi_width">Amplada</string>
+
+	<string name="poi_architect_name">Arquitecte</string>
+
+	<string name="poi_architecture_modern">Arquitectura: moderna</string>
+	<string name="poi_architecture_stalinist_neoclassicism">Arquitectura: neoclàssica estalinista</string>
+	<string name="poi_architecture_eclectic">Arquitectura: eclèctica</string>
+	<string name="poi_architecture_contemporary">Arquitectura: contemporània</string>
+	<string name="poi_architecture_constructivism">Arquitectura: constructivisme</string>
+	<string name="poi_architecture_neoclassicism">Arquitectura: neoclàssica</string>
+	<string name="poi_architecture_victorian">Arquitectura: victoriana</string>
+	<string name="poi_architecture_classicism">Arquitectura: classicisme</string>
+	<string name="poi_architecture_gothic">Arquitectura: gòtic</string>
+	<string name="poi_architecture_baroque">Arquitectura: barroc</string>
+	<string name="poi_tunnel_railway">Túnel ferroviari</string>
+	<string name="poi_bridge_structure_beam">Estructura del pont: bigues</string>
+	<string name="poi_bridge_structure_simple_suspension">Estructura del pont: suspensió simple</string>
+	<string name="poi_bridge_structure_suspension">Estructura del pont: suspensió</string>
+	<string name="poi_bridge_structure_arch">Estructura del pont: arc</string>
+	<string name="poi_bridge_structure_truss">Estructura del pont: gelosia</string>
+	<string name="poi_bridge_structure_floating">Estructura del pont: flotant</string>
+	<string name="poi_bridge_structure_cable_stayed">Estructura del pont: atirantat</string>
+	<string name="poi_bridge_structure_boardwalk">Estructura del pont: passarel·la</string>
+	<string name="poi_bridge_structure_simple_wooden">Estructura del pont: fusta senzilla</string>
+	<string name="poi_bridge_structure_viaduct">Estructura del pont: viaducte</string>
+	<string name="poi_bridge_structure_aqueduct">Estructura del pont: aqüeducte</string>
 	</resources>

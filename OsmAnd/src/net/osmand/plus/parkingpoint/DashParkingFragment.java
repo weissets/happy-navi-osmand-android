@@ -1,10 +1,10 @@
 package net.osmand.plus.parkingpoint;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +68,7 @@ public class DashParkingFragment extends DashLocationFragment {
 			public void onClick(View v) {
 				LatLon point = plugin.getParkingPosition();
 				getMyApplication().getSettings().setMapLocationToShow(point.getLatitude(), point.getLongitude(),
-						15, new PointDescription(PointDescription.POINT_TYPE_FAVORITE, plugin.getParkingDescription(getActivity())), false,
+						15, new PointDescription(PointDescription.POINT_TYPE_PARKING_MARKER, getString(R.string.osmand_parking_position_name)), false,
 						point); //$NON-NLS-1$
 				MapActivity.launchMapActivityMoveToTop(getActivity());
 			}

@@ -262,7 +262,7 @@ public class StressReductionPlugin extends OsmandPlugin
 
 	@Override
 	public int getAssetResourceName() {
-		return 0;
+		return R.drawable.sr_plugin;
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 package net.osmand.plus;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 
 import net.osmand.IProgress;
 import net.osmand.IndexConstants;
@@ -52,21 +52,23 @@ import java.util.Random;
 import btools.routingapp.BRouterServiceConnection;
 
 /**
- * Created by Denis
- * on 03.03.15.
  */
 public class AppInitializer implements IProgress {
+	// 22 - 2.2
+	private static final int CURRENT_VERSION_FOR_UGPRADE = 22;
 
+	
 	public static final boolean TIPS_AND_TRICKS = false;
 	private static final String FIRST_TIME_APP_RUN = "FIRST_TIME_APP_RUN"; //$NON-NLS-1$
+	private static final String VERSION_INSTALLED_NUMBER = "VERSION_INSTALLED_NUMBER"; //$NON-NLS-1$
 	public static final String NUMBER_OF_STARTS = "NUMBER_OF_STARTS"; //$NON-NLS-1$
 	public static final String FIRST_INSTALLED = "FIRST_INSTALLED"; //$NON-NLS-1$
 	private static final String VECTOR_INDEXES_CHECK = "VECTOR_INDEXES_CHECK"; //$NON-NLS-1$
 	private static final String VERSION_INSTALLED = "VERSION_INSTALLED"; //$NON-NLS-1$
 	private static final String EXCEPTION_FILE_SIZE = "EXCEPTION_FS"; //$NON-NLS-1$
 
-	// public static final String LATEST_CHANGES_URL = "http://osmand.net/help/changes-2.2.html";
-	public static final String LATEST_CHANGES_URL = null; // not enough to read
+	public static final String LATEST_CHANGES_URL = "http://osmand.net/blog?id=osmand-2-2-released";
+//	public static final String LATEST_CHANGES_URL = null; // not enough to read
 	public static final int APP_EXIT_CODE = 4;
 	public static final String APP_EXIT_KEY = "APP_EXIT_KEY";
 	private OsmandApplication app;
@@ -130,7 +132,13 @@ public class AppInitializer implements IProgress {
 			firstTime = true;
 			startPrefs.edit().putBoolean(FIRST_TIME_APP_RUN, true).commit();
 			startPrefs.edit().putString(VERSION_INSTALLED, Version.getFullVersion(app)).commit();
+			startPrefs.edit().putInt(VERSION_INSTALLED_NUMBER, CURRENT_VERSION_FOR_UGPRADE).commit();
 		} else if (!Version.getFullVersion(app).equals(startPrefs.getString(VERSION_INSTALLED, ""))) {
+			if(startPrefs.getInt(VERSION_INSTALLED_NUMBER, 0) < 22) {
+				app.getSettings().SHOW_DASHBOARD_ON_START.set(true);
+				app.getSettings().SHOW_DASHBOARD_ON_MAP_SCREEN.set(true);
+				app.getSettings().SHOW_CARD_TO_CHOOSE_DRAWER.set(true);
+			}
 			startPrefs.edit().putString(VERSION_INSTALLED, Version.getFullVersion(app)).commit();
 			appVersionChanged = true;
 		}

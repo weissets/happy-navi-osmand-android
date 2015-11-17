@@ -1,10 +1,10 @@
 package net.osmand.plus.mapcontextmenu.controllers;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 
 import net.osmand.binary.BinaryMapDataObject;
 import net.osmand.data.LatLon;
@@ -38,14 +38,11 @@ public class MapDataMenuController extends MenuController {
 
 	private DownloadIndexesThread downloadThread;
 
-	public MapDataMenuController(OsmandApplication app, MapActivity mapActivity, PointDescription pointDescription, final BinaryMapDataObject dataObject) {
+	public MapDataMenuController(OsmandApplication app, MapActivity mapActivity, PointDescription pointDescription, BinaryMapDataObject dataObject) {
 		super(new MenuBuilder(app), pointDescription, mapActivity);
-		OsmandRegions osmandRegions = app.getRegions();
-		String fullName = osmandRegions.getFullName(dataObject);
-		this.region = osmandRegions.getRegionData(fullName);
+		initData(app, dataObject);
 		downloadThread = app.getDownloadThread();
 
-		mapActivity.getSupportFragmentManager();
 		leftTitleButtonController = new TitleButtonController() {
 			@Override
 			public void buttonPressed() {
@@ -102,6 +99,20 @@ public class MapDataMenuController extends MenuController {
 		updateData();
 	}
 
+	private void initData(OsmandApplication app, BinaryMapDataObject dataObject) {
+		OsmandRegions osmandRegions = app.getRegions();
+		String fullName = osmandRegions.getFullName(dataObject);
+		this.region = osmandRegions.getRegionData(fullName);
+	}
+
+	@Override
+	protected void setObject(Object object) {
+		if (object instanceof BinaryMapDataObject) {
+			initData(getMapActivity().getMyApplication(), (BinaryMapDataObject) object);
+			updateData();
+		}
+	}
+
 	@Override
 	protected int getSupportedMenuStatesPortrait() {
 		return MenuState.HEADER_ONLY | MenuState.HALF_SCREEN;
@@ -114,7 +125,7 @@ public class MapDataMenuController extends MenuController {
 
 	@Override
 	public Drawable getLeftIcon() {
-		return getIcon(R.drawable.ic_map, R.color.osmand_orange_dark, R.color.osmand_orange);
+		return getIcon(R.drawable.ic_map, R.color.osmand_orange);
 	}
 
 	@Override

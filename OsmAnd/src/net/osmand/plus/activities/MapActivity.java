@@ -62,15 +62,14 @@ import net.osmand.plus.activities.search.SearchActivity;
 import net.osmand.plus.base.FailSafeFuntions;
 import net.osmand.plus.base.MapViewTrackingUtilities;
 import net.osmand.plus.dashboard.DashboardOnMap;
+import net.osmand.plus.dialogs.ErrorBottomSheetDialog;
+import net.osmand.plus.dialogs.RateUsBottomSheetDialog;
 import net.osmand.plus.dialogs.WhatsNewDialogFragment;
 import net.osmand.plus.download.DownloadIndexesThread.DownloadEvents;
 import net.osmand.plus.helpers.GpxImportHelper;
 import net.osmand.plus.helpers.WakeLockHelper;
 import net.osmand.plus.mapcontextmenu.MapContextMenu;
 import net.osmand.plus.mapcontextmenu.MapContextMenuFragment;
-import net.osmand.plus.mapcontextmenu.editors.FavoritePointEditor;
-import net.osmand.plus.mapcontextmenu.editors.PointEditor;
-import net.osmand.plus.mapcontextmenu.other.MapMultiSelectionMenu;
 import net.osmand.plus.render.RendererRegistry;
 import net.osmand.plus.resources.ResourceManager;
 import net.osmand.plus.routing.RoutingHelper;
@@ -88,6 +87,7 @@ import net.osmand.util.Algorithms;
 import org.apache.commons.logging.Log;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -104,7 +104,6 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 
 	private static MapViewTrackingUtilities mapViewTrackingUtilities;
 	private static MapContextMenu mapContextMenu = new MapContextMenu();
-	private static MapMultiSelectionMenu mapMultiSelectionMenu;
 
 	private BroadcastReceiver screenOffReceiver;
 
@@ -138,12 +137,9 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 	private boolean intentLocation = false;
 
 	private DashboardOnMap dashboardOnMap = new DashboardOnMap(this);
-	private FavoritePointEditor favoritePointEditor;
 	private AppInitializeListener initListener;
 	private IMapDownloaderCallback downloaderCallback;
 	private DrawerLayout drawerLayout;
-
-	public static final String SHOULD_SHOW_DASHBOARD_ON_START = "should_show_dashboard_on_start";
 
 	private Notification getNotification() {
 		Intent notificationIndent = new Intent(this, getMyApplication().getAppCustomization().getMapActivity());
@@ -171,11 +167,6 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 		app.applyTheme(this);
 		supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		if (mapMultiSelectionMenu == null) {
-			mapMultiSelectionMenu = new MapMultiSelectionMenu(this);
-		} else {
-			mapMultiSelectionMenu.setMapActivity(this);
-		}
 		mapContextMenu.setMapActivity(this);
 
 		super.onCreate(savedInstanceState);
@@ -399,12 +390,18 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 	protected void onResume() {
 		super.onResume();
 		long tm = System.currentTimeMillis();
+
 		if (app.isApplicationInitializing() || DashboardOnMap.staticVisible) {
 			if (!dashboardOnMap.isVisible()) {
-				final OsmandSettings.CommonPreference<Boolean> shouldShowDashboardOnStart =
-						settings.registerBooleanPreference(MapActivity.SHOULD_SHOW_DASHBOARD_ON_START, true);
-				if (shouldShowDashboardOnStart.get() || dashboardOnMap.hasCriticalMessages())
+				if (settings.SHOW_DASHBOARD_ON_START.get()) {
 					dashboardOnMap.setDashboardVisibility(true, DashboardOnMap.staticVisibleType);
+				} else {
+					if (ErrorBottomSheetDialog.shouldShow(settings, this)) {
+						new ErrorBottomSheetDialog().show(getFragmentManager(), "dialog");
+					} else if (RateUsBottomSheetDialog.shouldShow(settings)) {
+						new RateUsBottomSheetDialog().show(getFragmentManager(), "dialog");
+					}
+				}
 			}
 		}
 		dashboardOnMap.updateLocation(true, true, false);
@@ -997,24 +994,6 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 		return mapContextMenu;
 	}
 
-	public MapMultiSelectionMenu getMultiSelectionMenu() {
-		return mapMultiSelectionMenu;
-	}
-
-	public FavoritePointEditor getFavoritePointEditor() {
-		if (favoritePointEditor == null) {
-			favoritePointEditor = new FavoritePointEditor(app, this);
-		}
-		return favoritePointEditor;
-	}
-
-	public PointEditor getPointEditor(String tag) {
-		if (favoritePointEditor != null && favoritePointEditor.getFragmentTag().equals(tag)) {
-			return favoritePointEditor;
-		}
-		return null;
-	}
-
 	public void openDrawer() {
 		mapActions.updateDrawerMenu();
 		drawerLayout.openDrawer(Gravity.LEFT);
@@ -1043,9 +1022,9 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 	// DownloadEvents
 	@Override
 	public void newDownloadIndexes() {
-		MapContextMenuFragment contextMenuFragment = getContextMenu().findMenuFragment();
-		if (contextMenuFragment != null) {
-			contextMenuFragment.newDownloadIndexes();
+		WeakReference<MapContextMenuFragment> fragmentRef = getContextMenu().findMenuFragment();
+		if (fragmentRef != null) {
+			fragmentRef.get().newDownloadIndexes();
 		}
 		if (getMapLayers().getDownloadedRegionsLayer().updateObjects()) {
 			refreshMap();
@@ -1054,9 +1033,9 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 
 	@Override
 	public void downloadInProgress() {
-		MapContextMenuFragment contextMenuFragment = getContextMenu().findMenuFragment();
-		if (contextMenuFragment != null) {
-			contextMenuFragment.downloadInProgress();
+		WeakReference<MapContextMenuFragment> fragmentRef = getContextMenu().findMenuFragment();
+		if (fragmentRef != null) {
+			fragmentRef.get().downloadInProgress();
 		}
 		if (getMapLayers().getDownloadedRegionsLayer().updateObjects()) {
 			refreshMap();
@@ -1065,9 +1044,9 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 
 	@Override
 	public void downloadHasFinished() {
-		MapContextMenuFragment contextMenuFragment = getContextMenu().findMenuFragment();
-		if (contextMenuFragment != null) {
-			contextMenuFragment.downloadHasFinished();
+		WeakReference<MapContextMenuFragment> fragmentRef = getContextMenu().findMenuFragment();
+		if (fragmentRef != null) {
+			fragmentRef.get().downloadHasFinished();
 		}
 		if (getMapLayers().getDownloadedRegionsLayer().updateObjects()) {
 			refreshMap();

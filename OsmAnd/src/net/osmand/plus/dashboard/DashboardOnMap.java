@@ -73,26 +73,18 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	public static DashboardType staticVisibleType = DashboardType.DASHBOARD;
 	public static final String SHOULD_SHOW = "should_show";
 
-	private static final DashFragmentData.ShouldShowFunction rateUsShouldShow = new DashRateUsFragment.RateUsShouldShow();
-	private static final DashFragmentData.ShouldShowFunction userInfoShouldShow = new DashUserInfoFragment.UserInfoShouldShow();
-	private static final DashFragmentData.ShouldShowFunction newVersionShouldShow = new DashNewVersionFragment.NewVersionShouldShow();
-	private static final DashFragmentData.ShouldShowFunction blankShouldShow = new DashBlankFragment.BlankShouldShow();
-
-	private static final DefaultShouldShow defaultShouldShow = new DefaultShouldShow();
-	private static final DashFragmentData.ShouldShowFunction errorShouldShow = new ErrorShouldShow();
-
 	private final DashFragmentData[] fragmentsData = new DashFragmentData[]{
 			new DashFragmentData(DashNewVersionFragment.TAG, DashNewVersionFragment.class,
-					newVersionShouldShow, 0, null),
+					DashNewVersionFragment.SHOULD_SHOW_FUNCTION, 0, null),
 			new DashFragmentData(DashUserInfoFragment.TAG, DashUserInfoFragment.class,
-					userInfoShouldShow, 1, null),
+					DashUserInfoFragment.SHOULD_SHOW_FUNCTION, 1, null),
 			new DashFragmentData(DashBlankFragment.TAG, DashBlankFragment.class,
-					blankShouldShow, 2, null),
+					DashBlankFragment.SHOULD_SHOW_FUNCTION, 2, null),
 			new DashFragmentData(DashRateUsFragment.TAG, DashRateUsFragment.class,
-					rateUsShouldShow, 3, null),
+					DashRateUsFragment.SHOULD_SHOW_FUNCTION, 3, null),
 			
 			new DashFragmentData(DashErrorFragment.TAG, DashErrorFragment.class,
-					errorShouldShow, 30, null),
+					DashErrorFragment.SHOULD_SHOW_FUNCTION, 30, null),
 			new DashFragmentData(DashNavigationFragment.TAG, DashNavigationFragment.class,
 					DashNavigationFragment.SHOULD_SHOW_FUNCTION, 40, null),
 			new DashFragmentData(DashWaypointsFragment.TAG, DashWaypointsFragment.class,
@@ -518,7 +510,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	}
 
 	public void refreshContent(boolean force) {
-		if (visibleType == DashboardType.WAYPOINTS || force) {
+		if (visibleType == DashboardType.WAYPOINTS || visibleType == DashboardType.WAYPOINTS_EDIT  || force) {
 			updateListAdapter();
 		} else {
 			listAdapter.notifyDataSetChanged();
@@ -701,7 +693,8 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 				inLocationUpdate = false;
 				for (WeakReference<DashBaseFragment> df : fragList) {
 					if (df.get() instanceof DashLocationFragment) {
-						((DashLocationFragment) df.get()).updateLocation(centerChanged, locationChanged, compassChanged);
+						((DashLocationFragment) df.get())
+								.updateLocation(centerChanged, locationChanged, compassChanged);
 					}
 				}
 			}
@@ -918,15 +911,6 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 		transaction.show(frag).commit();
 	}
 
-	public boolean hasCriticalMessages() {
-		final OsmandSettings settings = getMyApplication().getSettings();
-		return rateUsShouldShow.shouldShow(settings, mapActivity, DashRateUsFragment.TAG)
-				|| userInfoShouldShow.shouldShow(settings, mapActivity, DashUserInfoFragment.TAG)
-				|| newVersionShouldShow.shouldShow(settings, mapActivity, DashNewVersionFragment.TAG)
-				|| blankShouldShow.shouldShow(settings, mapActivity, DashBlankFragment.TAG)
-				|| errorShouldShow.shouldShow(null, mapActivity, null);
-	}
-
 	View getParentView() {
 		return dashboardView;
 	}
@@ -949,15 +933,4 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 			return settings.registerBooleanPreference(SHOULD_SHOW + tag, true).makeGlobal().get();
 		}
 	}
-
-	private static class ErrorShouldShow extends DashFragmentData.ShouldShowFunction {
-		// If settings null. No changes in setting will be made.
-		@Override
-		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
-			return activity.getMyApplication().getAppInitializer()
-					.checkPreviousRunsForExceptions(activity, settings != null);
-		}
-	}
-
-	
 }

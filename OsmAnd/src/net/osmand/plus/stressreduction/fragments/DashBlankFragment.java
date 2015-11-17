@@ -6,6 +6,7 @@ import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.dashboard.DashBaseFragment;
 import net.osmand.plus.dashboard.DashboardOnMap;
+import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
@@ -189,8 +190,8 @@ public class DashBlankFragment extends DashBaseFragment {
 		@Override
 		public void onClick(View v) {
 			try {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(jsonObject.getJSONObject
-						(locale).getString("url")));
+				Intent intent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse(jsonObject.getJSONObject(locale).getString("url")));
 				startActivity(intent);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -225,14 +226,15 @@ public class DashBlankFragment extends DashBaseFragment {
 		INITIAL
 	}
 
-	public static class BlankShouldShow extends DashboardOnMap.DefaultShouldShow {
-
-		@Override
-		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
-			return DashBlankFragment.shouldShow(settings) &&
-					super.shouldShow(settings, activity, tag);
-		}
-	}
+	public static final DashFragmentData.ShouldShowFunction SHOULD_SHOW_FUNCTION =
+			new DashboardOnMap.DefaultShouldShow() {
+				@Override
+				public boolean shouldShow(OsmandSettings settings, MapActivity activity,
+				                          String tag) {
+					return DashBlankFragment.shouldShow(settings) &&
+							super.shouldShow(settings, activity, tag);
+				}
+			};
 
 	private static class BlankDismissListener implements DismissListener {
 

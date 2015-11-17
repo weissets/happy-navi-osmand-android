@@ -1,11 +1,10 @@
 package net.osmand.plus.monitoring;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
@@ -24,6 +23,7 @@ import net.osmand.ValueHolder;
 import net.osmand.plus.ApplicationMode;
 import net.osmand.plus.ContextMenuAdapter;
 import net.osmand.plus.ContextMenuAdapter.OnContextMenuClick;
+import net.osmand.plus.GPXUtilities.WptPt;
 import net.osmand.plus.NavigationService;
 import net.osmand.plus.OsmAndFormatter;
 import net.osmand.plus.OsmAndTaskManager.OsmAndTaskRunnable;
@@ -133,13 +133,22 @@ public class OsmandMonitoringPlugin extends OsmandPlugin {
 			@Override
 			public boolean onContextMenuClick(ArrayAdapter<?> adapter, int resId, int pos, boolean isChecked) {
 				if (resId == R.string.context_menu_item_add_waypoint) {
-					mapActivity.getMapActions().addWaypoint(latitude, longitude);
+					mapActivity.getContextMenu().addWptPt();
+				} else if (resId == R.string.context_menu_item_edit_waypoint) {
+					mapActivity.getContextMenu().editWptPt();
 				}
 				return true;
 			}
 		};
 		adapter.item(R.string.context_menu_item_add_waypoint).iconColor(R.drawable.ic_action_gnew_label_dark)
-		.listen(listener).reg();
+				.listen(listener).reg();
+		if (selectedObj instanceof WptPt) {
+			WptPt pt = (WptPt) selectedObj;
+			if (app.getSelectedGpxHelper().getSelectedGPXFile(pt) != null) {
+				adapter.item(R.string.context_menu_item_edit_waypoint).iconColor(R.drawable.ic_action_edit_dark)
+						.listen(listener).reg();
+			}
+		}
 	}
 	
 	public static final int[] SECONDS = new int[] {0, 1, 2, 3, 5, 10, 15, 30, 60, 90};
@@ -247,7 +256,7 @@ public class OsmandMonitoringPlugin extends OsmandPlugin {
 	private void controlDialog(final Activity map) {
 		final boolean wasTrackMonitored = settings.SAVE_GLOBAL_TRACK_TO_GPX.get();
 		
-		Builder bld = new AlertDialog.Builder(map);
+		AlertDialog.Builder bld = new AlertDialog.Builder(map);
 		final TIntArrayList items = new TIntArrayList();
 		if(wasTrackMonitored) {
 			items.add(R.string.gpx_monitoring_stop);
@@ -381,7 +390,7 @@ public class OsmandMonitoringPlugin extends OsmandPlugin {
 
 	public static void showIntervalChooseDialog(final Context uiCtx, final String patternMsg,
 			String title, final int[] seconds, final int[] minutes, final ValueHolder<Boolean> choice, final ValueHolder<Integer> v, OnClickListener onclick){
-		Builder dlg = new AlertDialog.Builder(uiCtx);
+		AlertDialog.Builder dlg = new AlertDialog.Builder(uiCtx);
 		dlg.setTitle(title);
 		WindowManager mgr = (WindowManager) uiCtx.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics dm = new DisplayMetrics();

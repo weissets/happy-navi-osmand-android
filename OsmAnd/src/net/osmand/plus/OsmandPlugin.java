@@ -100,17 +100,18 @@ public abstract class OsmandPlugin {
 	public static void initPlugins(OsmandApplication app) {
 		OsmandSettings settings = app.getSettings();
 		Set<String> enabledPlugins = settings.getEnabledPlugins();
+		allPlugins.add(new StressReductionPlugin(app));
 		allPlugins.add(new OsmandRasterMapsPlugin(app));
 		allPlugins.add(new OsmandMonitoringPlugin(app));
 		allPlugins.add(new OsMoPlugin(app));
 		checkMarketPlugin(app, new SRTMPlugin(app), true, SRTM_PLUGIN_COMPONENT_PAID, SRTM_PLUGIN_COMPONENT);
 
-		// ? questionable - definitely not market plugin 
-//		checkMarketPlugin(app, new TouringViewPlugin(app), false, TouringViewPlugin.COMPONENT, null);
+		// ? questionable - definitely not market plugin
+		//		checkMarketPlugin(app, new TouringViewPlugin(app), false, TouringViewPlugin.COMPONENT, null);
 		checkMarketPlugin(app, new NauticalMapsPlugin(app), false, NauticalMapsPlugin.COMPONENT, null);
 		checkMarketPlugin(app, new SkiMapsPlugin(app), false, SkiMapsPlugin.COMPONENT, null);
 
-//		checkMarketPlugin(app, new RoutePointsPlugin(app), false /*FIXME*/, RoutePointsPlugin.ROUTE_POINTS_PLUGIN_COMPONENT, null);
+		//		checkMarketPlugin(app, new RoutePointsPlugin(app), false /*FIXME*/, RoutePointsPlugin.ROUTE_POINTS_PLUGIN_COMPONENT, null);
 		allPlugins.add(new AudioVideoNotesPlugin(app));
 		checkMarketPlugin(app, new ParkingPositionPlugin(app), false,
 				ParkingPositionPlugin.PARKING_PLUGIN_COMPONENT, null);
@@ -118,7 +119,6 @@ public abstract class OsmandPlugin {
 		allPlugins.add(new AccessibilityPlugin(app));
 		allPlugins.add(new OsmEditingPlugin(app));
 		allPlugins.add(new OsmandDevelopmentPlugin(app));
-		allPlugins.add(new StressReductionPlugin(app));
 
 		activatePlugins(app, enabledPlugins);
 	}

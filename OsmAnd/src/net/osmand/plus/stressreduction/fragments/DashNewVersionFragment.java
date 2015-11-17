@@ -7,6 +7,7 @@ import net.osmand.plus.Version;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.dashboard.DashBaseFragment;
 import net.osmand.plus.dashboard.DashboardOnMap;
+import net.osmand.plus.dashboard.tools.DashFragmentData;
 import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
@@ -219,14 +220,15 @@ public class DashNewVersionFragment extends DashBaseFragment {
 		INITIAL
 	}
 
-	public static class NewVersionShouldShow extends DashboardOnMap.DefaultShouldShow {
-
-		@Override
-		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
-			return DashNewVersionFragment.shouldShow(settings) &&
-					super.shouldShow(settings, activity, tag);
-		}
-	}
+	public static final DashFragmentData.ShouldShowFunction SHOULD_SHOW_FUNCTION =
+			new DashboardOnMap.DefaultShouldShow() {
+				@Override
+				public boolean shouldShow(OsmandSettings settings, MapActivity activity,
+				                          String tag) {
+					return DashNewVersionFragment.shouldShow(settings) &&
+							super.shouldShow(settings, activity, tag);
+				}
+			};
 
 	private static class NewVersionDismissListener implements DismissListener {
 
