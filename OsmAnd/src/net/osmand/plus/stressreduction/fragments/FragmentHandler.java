@@ -11,7 +11,6 @@ import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 
 import org.apache.commons.logging.Log;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 /**

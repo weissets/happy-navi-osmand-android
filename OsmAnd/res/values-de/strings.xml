@@ -2109,24 +2109,28 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_dialog_title">Wie haben Ihnen die letzten Straßenabschnitte gefallen?</string>
 	<string name="sr_plugin_whats_new_title">Was Ist Neu</string>
     <string name="sr_plugin_whats_new_description">
+	    Version 2.2.0-216
+        \n\n• Sprachsteuerung für den Evaluierungsdialog
+        \n• Fehlerverbesserungen
+        \n\n\n
 	    Version 2.2.0-215
         \n\n• Performance Verbesserung für ältere Geräte
-        \n\n• Neue Hilfe-Artikel
-        \n\n• Verbesserte Benutzeroberfläche
+        \n• Neue Hilfe-Artikel
+        \n• Verbesserte Benutzeroberfläche
         \n\n\n
         Version 2.2.0-214
 	    \n\n• Update auf Version 2.2
-        \n\n• Neues Design
-        \n\n• Native Unterstützung
-        \n\n• Performance Verbesserungen
+        \n• Neues Design
+        \n• Native Unterstützung
+        \n• Performance Verbesserungen
     </string>
 	<string name="sr_settings_title">Stress Reduzierung Einstellungen</string>
 	<string name="sr_settings_notification_sound_title">Benachrichtigungston</string>
 	<string name="sr_settings_notification_sound_description">Spielt einen Ton ab, wenn ein neuer Evaluierungsdialog angezeigt wird.</string>
 	<string name="sr_settings_speech_input_title">Spracheingabe (experimentell)</string>
 	<string name="sr_settings_speech_input_description">Steuern sie den Evaluierungsdialog per
-		Spracheingabe. Bitte passen sie die Erkennungsschwelle unten an, um die
-		Erkennungsrate zu verbessern (falls erforderlich)!</string>
+		Spracheingabe. Bitte verwenden sie nur die angezeigten Wörter und passen sie die
+		Erkennungsschwelle unten an, um	die Erkennungsrate zu verbessern (falls erforderlich)!</string>
 	<string name="sr_settings_speech_values_title">Spracheingabe Erkennungsschwelle</string>
     <string name="sr_settings_speech_values_description">Erhöhen sie den Wert, wenn die
 	    Spracheingabe oft durch Nebengeräusche aktiviert wird. Verringern sie den Wert,

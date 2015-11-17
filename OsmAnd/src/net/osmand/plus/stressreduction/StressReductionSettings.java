@@ -15,9 +15,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
-import android.provider.Settings;
-import android.speech.RecognitionListener;
-import android.speech.SpeechRecognizer;
 
 /**
  * This class enables the stress reduction plugin settings in the menu
@@ -68,7 +65,6 @@ public class StressReductionSettings extends SettingsBaseActivity {
 				createCheckBoxPreference(settings.SR_USE_WIFI_ONLY);
 		useWifiOnlyPreference.setTitle(R.string.sr_settings_use_wifi_only_title);
 		useWifiOnlyPreference.setSummary(R.string.sr_settings_use_wifi_only_description);
-		preferenceScreen.addPreference(useWifiOnlyPreference);
 		useWifiOnlyPreference
 				.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
@@ -81,6 +77,7 @@ public class StressReductionSettings extends SettingsBaseActivity {
 						return state;
 					}
 				});
+		preferenceScreen.addPreference(useWifiOnlyPreference);
 
 		if (BuildConfig.DEBUG) {
 			CheckBoxPreference locationSimulationPreference =

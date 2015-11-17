@@ -36,7 +36,6 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 
 	private static final Log log = PlatformUtil.getLog(FragmentSRDialog.class);
 
-	private OsmandApplication osmandApplication;
 	private static SRDialogButtonClickListener srDialogButtonClickListener;
 	private static String PLAY_SOUND = "play_sound";
 	private ImageView speechImage;
@@ -128,7 +127,8 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		// voice and/or touch input
-		osmandApplication = (OsmandApplication) getActivity().getApplicationContext();
+		OsmandApplication osmandApplication =
+				(OsmandApplication) getActivity().getApplicationContext();
 		if (osmandApplication.getSettings().SR_SPEECH_INPUT.get()) {
 
 			speechRow = (TableRow) view.findViewById(R.id.speechRow);

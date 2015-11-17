@@ -5,20 +5,13 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.stressreduction.Constants;
-import net.osmand.plus.stressreduction.database.DatabaseBackup;
-import net.osmand.plus.stressreduction.database.SQLiteLogger;
 
 import org.apache.commons.logging.Log;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

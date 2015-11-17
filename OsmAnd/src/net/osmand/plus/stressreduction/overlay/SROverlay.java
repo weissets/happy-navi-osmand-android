@@ -6,8 +6,6 @@ import net.osmand.plus.views.OsmandMapTileView;
 
 import android.graphics.Canvas;
 
-import java.util.Arrays;
-
 // TODO implement the overlay
 /**
  * This class maps an overlay with stress reduction data to the road segments

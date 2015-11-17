@@ -2135,27 +2135,30 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 		\n\nThank you for supporting this research project!
 	</string>
     <string name="sr_dialog_title">How did you like the last couple street segments?</string>
-    <string name="sr_plugin_info_title">%1$s</string>
     <string name="sr_plugin_whats_new_title">What\'s New</string>
     <string name="sr_plugin_whats_new_description">
+        Version 2.2.0-216
+        \n\n• Control evaluation dialog with your voice
+        \n• Bugfixes
+        \n\n\n
         Version 2.2.0-215
         \n\n• Performance improvements for older devices
-        \n\n• New help articles
-        \n\n• Improved user interface
+        \n• New help articles
+        \n• Improved user interface
         \n\n\n
         Version 2.2.0-214
         \n\n• Updated version 2.2
-        \n\n• New look and feel
-        \n\n• Fixed native support
-        \n\n• Performance improvements
+        \n• New look and feel
+        \n• Fixed native support
+        \n• Performance improvements
     </string>
     <string name="sr_settings_title">Stress Reduction Settings</string>
     <string name="sr_settings_notification_sound_title">Notification Sound</string>
     <string name="sr_settings_notification_sound_description">This will notify you with a sound when a new evaluation dialog is displayed.</string>
     <string name="sr_settings_speech_input_title">Speech Input (experimental)</string>
     <string name="sr_settings_speech_input_description">Control the evaluation dialog with
-        your voice. Please adjust the threshold below to optimize the recognition rate (if
-        needed)!</string>
+        your voice. Please use only the displayed words and adjust the threshold below to
+        optimize the recognition rate (if needed)!</string>
     <string name="sr_settings_speech_values_title">Speech Recognition Threshold</string>
     <string name="sr_settings_speech_values_description">Increase value if speech
         recognition detects easily surrounding noise, decrease value if speech recognition

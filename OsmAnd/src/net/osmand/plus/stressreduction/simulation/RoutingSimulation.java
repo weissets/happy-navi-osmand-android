@@ -150,7 +150,7 @@ public class RoutingSimulation
 									.getLatitude());
 					locWait.setAccuracy(5.0f);
 					locWait.setSpeed(0f);
-					for (int i = 0; i < 40; i++) {
+					for (int i = 0; i < 100; i++) {
 						locWait.setTime(System.currentTimeMillis());
 						locWait.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
 						locationManager.setTestProviderLocation("gps", locWait);

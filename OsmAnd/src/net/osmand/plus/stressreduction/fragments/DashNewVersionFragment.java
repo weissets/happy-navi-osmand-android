@@ -1,10 +1,12 @@
-package net.osmand.plus.dashboard;
+package net.osmand.plus.stressreduction.fragments;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.dashboard.DashBaseFragment;
+import net.osmand.plus.dashboard.DashboardOnMap;
 import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;

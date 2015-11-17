@@ -77,10 +77,7 @@ public class SRPocketSphinx implements RecognitionListener {
 		return instance;
 	}
 
-	// TODO adapt acoustic model
 	private void setupRecognizer(File assetsDir, float threshold) throws IOException {
-		// The recognizer can be configured to perform multiple searches
-		// of different kind and switch between them
 		speechRecognizer =
 				defaultSetup().setAcousticModel(new File(assetsDir, "en-us-ptm")).setDictionary(
 						new File(assetsDir, "sr_dialog.dict"))
@@ -91,30 +88,33 @@ public class SRPocketSphinx implements RecognitionListener {
 						// Threshold to tune for keyphrase to balance between false alarms
 						// and misses
 						.setKeywordThreshold(1e-45f)
-						// Use context-independent phonetic search, context-dependent is
-						// too slow for mobile
+								// Use context-independent phonetic search, context-dependent is
+								// too slow for mobile
 						.setBoolean("-allphone_ci", true)
-						// This is the dsratio. In most cases -ds 2 gives the best performance,
-						// though accuracy suffers a bit. (Frame GMM computation downsampling
-						// ratio) Thus lower should be better and higher should be less accurate.
+								// This is the dsratio. In most cases -ds 2 gives the best
+								// performance, though accuracy suffers a bit. (Frame GMM
+								// computation downsampling ratio) Thus lower should be better
+								// and higher should be less accurate.
 						.setInteger("-ds", 1)
-						// The default value is 4, the fastest value is 2, but accuracy can
-						// suffer a bit depending on your acoustic model.
+								// The default value is 4, the fastest value is 2, but accuracy can
+								// suffer a bit depending on your acoustic model.
 						.setInteger("-topn", 4)
-						// This can be set quite low and still give you reasonable performance -
-						// try 5.
-//						.setInteger("-maxwpf", 5)
-						// Depending on the acoustic and language model this can be very helpful.
-						// Try 3000.
-//						.setInteger("-maxhmmpf", 3000)
-						// pl_window specifies lookahead distance in frames. Typical values are
-						// from 0 (don't use lookahead) to 10 (decode 10 frames ahead). Bigger
-						// values give faster decoding but reduced accuracy.
+								// This can be set quite low and still give you reasonable
+								// performance - try 5.
+								//						.setInteger("-maxwpf", 5)
+								// Depending on the acoustic and language model this can be very
+								// helpful - try 3000.
+								//						.setInteger("-maxhmmpf", 3000)
+								// pl_window specifies lookahead distance in frames. Typical
+								// values are from 0 (don't use lookahead) to 10 (decode 10
+								// frames ahead). Bigger values give faster decoding but reduced
+								// accuracy.
 						.setInteger("-pl_window", 0)
-						// voice volume threshold
+								// voice volume threshold
 						.setFloat("-vad_threshold", threshold)
-						// add keywords
-//						.setString("-kws", new File(assetsDir, "keywords.list").getPath())
+								// add keywords
+								//						.setString("-kws", new File(assetsDir,
+								// "keywords.list").getPath())
 						.getRecognizer();
 		speechRecognizer.addListener(this);
 
@@ -122,18 +122,11 @@ public class SRPocketSphinx implements RecognitionListener {
 		 * They are added here for demonstration. You can leave just one.
 		 */
 
-		// Add key phrase searches
-//		File file = new File(assetsDir, "keywords.list");
-//		speechRecognizer.addKeywordSearch("input", file);
-//		speechRecognizer.addKeyphraseSearch("good", KEY_GOOD);
-//		speechRecognizer.addKeyphraseSearch("normal", KEY_NORMAL);
-//		speechRecognizer.addKeyphraseSearch("bad", KEY_BAD);
-
-//		 Create grammar-based search for input recognition
+		//		 Create grammar-based search for input recognition
 		File inputGrammar = new File(assetsDir, "input.gram");
 		speechRecognizer.addGrammarSearch(Constants.SPEECH_INPUT, inputGrammar);
 
-//		 Create grammar-based search for validation recognition
+		//		 Create grammar-based search for validation recognition
 		File validationGrammar = new File(assetsDir, "validation.gram");
 		speechRecognizer.addGrammarSearch(Constants.SPEECH_VALIDATION, validationGrammar);
 	}
@@ -185,14 +178,16 @@ public class SRPocketSphinx implements RecognitionListener {
 	@Override
 	public void onPartialResult(Hypothesis hypothesis) {
 		if (hypothesis != null) {
-			debug = "onPartialResult(): \npartial = " + hypothesis.getHypstr() + "\nprobability =" +
+			debug = "onPartialResult(): \npartial = " + hypothesis.getHypstr() + "\nprobability " +
+					"=" +
 					" " + hypothesis.getProb() + "\nbestScore = " + hypothesis.getBestScore();
 			log.debug(debug);
 
-//			if (hypothesis.getHypstr().equals(KEY_GOOD) || hypothesis.getHypstr().equals
-//					(KEY_NORMAL) || hypothesis.getHypstr().equals(KEY_BAD)) {
-//				speechRecognizer.stop();
-//			}
+			//			if (hypothesis.getHypstr().equals(KEY_GOOD) || hypothesis.getHypstr()
+			// .equals
+			//					(KEY_NORMAL) || hypothesis.getHypstr().equals(KEY_BAD)) {
+			//				speechRecognizer.stop();
+			//			}
 			if (mode.equals(Constants.SPEECH_INPUT)) {
 				if (Constants.SPEECH_INPUT_ALL.toString()
 						.matches(".*\\b" + hypothesis.getHypstr() + "\\b.*")) {

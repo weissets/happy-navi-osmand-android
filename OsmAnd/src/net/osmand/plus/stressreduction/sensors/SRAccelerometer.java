@@ -134,21 +134,6 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 
 					accelerationXYZ = normalizeAcceleration(accelerationXYZ.clone());
 
-//					log.debug("onSensorChanged(): CALC_LINEAR: " +
-//							"x-Axis=" + accelerationXYZ[0] +
-//							", y-Axis=" + accelerationXYZ[1] +
-//							", z-Axis=" + accelerationXYZ[2]);
-
-//				}
-//				if (accelerometerType == ACCELEROMETER_LINEAR) {
-//					log.debug("onSensorChanged(): LINEAR: x-Axis=" + event.values[0] + ", " +
-//							"y-Axis=" + event.values[1] + ", z-Axis=" + event.values[2]);
-//					log.debug("- - -");
-//					accelerationXYZ[0] = event.values[0];
-//					accelerationXYZ[1] = event.values[1];
-//					accelerationXYZ[2] = event.values[2];
-//				}
-
 				dataHandler.writeLocationInfoToDatabase(
 						new LocationInfo(currentLocation.getLatitude(),
 								currentLocation.getLongitude(),

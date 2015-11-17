@@ -1,6 +1,5 @@
 package net.osmand.plus.stressreduction;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,13 +14,13 @@ public class Constants {
 	public static final String PLUGIN_ID = "net.osmand.plus.stressreduction.plugin";
 
 	/** version code of the info dialog */
-	private static final String INFO_VERSION_CODE = "2.2.0-215";
+	private static final String INFO_VERSION_CODE = "2.2.0-216";
 
 	/** version string of the info dialog */
 	public static final String INFO_VERSION = "info_" + INFO_VERSION_CODE;
 
 	/** version code of the what's new dialog */
-	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-215";
+	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-216";
 
 	/** version string of the what's new dialog */
 	public static final String WHATS_NEW_VERSION = "whats_new_" + WHATS_NEW_VERSION_CODE;

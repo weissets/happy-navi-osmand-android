@@ -1,9 +1,11 @@
-package net.osmand.plus.dashboard;
+package net.osmand.plus.stressreduction.fragments;
 
 import net.osmand.PlatformUtil;
 import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.dashboard.DashBaseFragment;
+import net.osmand.plus.dashboard.DashboardOnMap;
 import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
@@ -23,7 +25,6 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
 
