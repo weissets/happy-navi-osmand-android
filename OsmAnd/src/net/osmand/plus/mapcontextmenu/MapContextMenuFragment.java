@@ -47,7 +47,6 @@ import net.osmand.plus.views.OsmandMapTileView;
 import net.osmand.util.Algorithms;
 
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
-import static net.osmand.plus.mapcontextmenu.MenuBuilder.SHADOW_HEIGHT_BOTTOM_DP;
 import static net.osmand.plus.mapcontextmenu.MenuBuilder.SHADOW_HEIGHT_TOP_DP;
 
 
@@ -361,13 +360,8 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 		});
 
 		final ImageButton buttonWaypoint = (ImageButton) view.findViewById(R.id.context_menu_route_button);
-		if (getMyApplication().getTargetPointsHelper().getPointToNavigate() == null) {
-			buttonWaypoint.setImageDrawable(iconsCache.getIcon(R.drawable.ic_action_flag_dark,
+		buttonWaypoint.setImageDrawable(iconsCache.getIcon(R.drawable.map_action_flag_dark,
 				light ? R.color.icon_color : R.color.dashboard_subheader_text_dark));
-		} else {
-			buttonWaypoint.setImageDrawable(iconsCache.getIcon(R.drawable.map_action_waypoints,
-				light ? R.color.icon_color : R.color.dashboard_subheader_text_dark));
-		}
 		buttonWaypoint.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -376,7 +370,7 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 		});
 
 		final ImageButton buttonShare = (ImageButton) view.findViewById(R.id.context_menu_share_button);
-		buttonShare.setImageDrawable(iconsCache.getIcon(R.drawable.abc_ic_menu_share_mtrl_alpha,
+		buttonShare.setImageDrawable(iconsCache.getIcon(R.drawable.map_action_gshare_dark,
 				light ? R.color.icon_color : R.color.dashboard_subheader_text_dark));
 		buttonShare.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -386,7 +380,7 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 		});
 
 		final ImageButton buttonMore = (ImageButton) view.findViewById(R.id.context_menu_more_button);
-		buttonMore.setImageDrawable(iconsCache.getIcon(R.drawable.ic_overflow_menu_white,
+		buttonMore.setImageDrawable(iconsCache.getIcon(R.drawable.map_overflow_menu_white,
 				light ? R.color.icon_color : R.color.dashboard_subheader_text_dark));
 		buttonMore.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -685,7 +679,7 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 				menuTitleHeight = menuTopShadowHeight + menuTopShadowAllHeight + dy;
 				menuBottomViewHeight = view.findViewById(R.id.context_menu_bottom_view).getHeight();
 
-				menuFullHeightMax = menuTitleHeight + (menuBottomViewHeight > 0 ? menuBottomViewHeight : -dpToPx(SHADOW_HEIGHT_BOTTOM_DP));
+				menuFullHeightMax = menuTitleHeight + menuBottomViewHeight;
 
 				if (origMarkerX == 0 && origMarkerY == 0) {
 					origMarkerX = view.getWidth() / 2;
@@ -759,7 +753,8 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 
 	private void updateCompassVisibility() {
 		View compassView = view.findViewById(R.id.compass_layout);
-		if (menu.displayDistanceDirection() && menu.getCurrentMenuState() != MenuState.FULL_SCREEN) {
+		boolean gpsFixed = getMyApplication().getLocationProvider().getGPSInfo().fixed;
+		if (gpsFixed && menu.displayDistanceDirection() && menu.getCurrentMenuState() != MenuState.FULL_SCREEN) {
 			updateDistanceDirection();
 			compassView.setVisibility(View.VISIBLE);
 		} else {
@@ -802,7 +797,7 @@ public class MapContextMenuFragment extends Fragment implements DownloadEvents {
 		int posY = 0;
 		switch (destinationState) {
 			case MenuState.HEADER_ONLY:
-				posY = viewHeight - (menuTitleHeight - dpToPx(SHADOW_HEIGHT_BOTTOM_DP));
+				posY = viewHeight - menuTitleHeight;
 				break;
 			case MenuState.HALF_SCREEN:
 				posY = viewHeight - menuFullHeightMax;
