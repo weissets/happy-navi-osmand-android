@@ -107,8 +107,8 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 
 	public void insertUser() {
 		String[] userInfo = SRSharedPreferences.getUserInfo(osmandApplication);
-		log.debug("insertUser(): inserting " + userInfo[0] + ", " + userInfo[1] + ", " +
-				userInfo[2]);
+		log.debug("insertUser(): inserting " + StressReductionPlugin.getUUID() + ", " +
+				userInfo[0] + ", " + userInfo[1] + ", " + userInfo[2]);
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(Constants.ID, StressReductionPlugin.getUUID());
 		contentValues.put(Constants.USER_GENDER, userInfo[0]);

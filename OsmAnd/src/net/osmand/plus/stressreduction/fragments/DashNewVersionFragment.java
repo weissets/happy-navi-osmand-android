@@ -204,15 +204,6 @@ public class DashNewVersionFragment extends DashBaseFragment {
 		}
 	}
 
-	//	public class DismissButtonListener implements View.OnClickListener {
-	//
-	//		@Override
-	//		public void onClick(View v) {
-	//
-	//			dashboard.refreshDashboardFragments();
-	//		}
-	//	}
-
 	public enum SrNewVersionState {
 		NEW_VERSION,
 		LATER,

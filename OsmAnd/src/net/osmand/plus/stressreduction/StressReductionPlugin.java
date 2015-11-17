@@ -54,7 +54,7 @@ public class StressReductionPlugin extends OsmandPlugin
 		UNIQUE_ID = UUIDCreator.id(osmandApplication);
 		// for debugging
 		if (BuildConfig.DEBUG) {
-			UNIQUE_ID = "Test_ID_16/11/15";
+			UNIQUE_ID = "Test_ID";
 		}
 
 		dataHandler = new DataHandler(osmandApplication);

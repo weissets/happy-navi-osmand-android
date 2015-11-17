@@ -173,14 +173,14 @@ public class AppInitializer implements IProgress {
 	}
 
 	public boolean checkAppVersionChanged(Activity activity) {
-		initUiVars(activity);
-		boolean showRecentChangesDialog = !firstTime && appVersionChanged;
-//		showRecentChangesDialog = true;
-		if (showRecentChangesDialog && !activityChangesShowed) {
-			activityChangesShowed = true;
-			return true;
-		}
-		checkMapUpdates();
+//		initUiVars(activity);
+//		boolean showRecentChangesDialog = !firstTime && appVersionChanged;
+////		showRecentChangesDialog = true;
+//		if (showRecentChangesDialog && !activityChangesShowed) {
+//			activityChangesShowed = true;
+//			return true;
+//		}
+//		checkMapUpdates();
 
 		return false;
 	}
