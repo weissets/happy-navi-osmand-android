@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
@@ -62,8 +63,6 @@ import java.util.Locale;
 
 import btools.routingapp.BRouterServiceConnection;
 import btools.routingapp.IBRouterService;
-
-
 
 public class OsmandApplication extends MultiDexApplication {
 	public static final String EXCEPTION_PATH = "exception.log"; //$NON-NLS-1$
@@ -140,7 +139,13 @@ public class OsmandApplication extends MultiDexApplication {
 		OsmandPlugin.initPlugins(this);
 		System.out.println("Time to init plugins " + (System.currentTimeMillis() - timeToStart) + " ms. Should be less < 800 ms");
 	}
-	
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);
+	}
+
 	public AppInitializer getAppInitializer() {
 		return appInitializer;
 	}
@@ -488,8 +493,10 @@ public class OsmandApplication extends MultiDexApplication {
 				PrintStream printStream = new PrintStream(out);
 				ex.printStackTrace(printStream);
 				StringBuilder msg = new StringBuilder();
-				msg.append("Version  " + Version.getFullVersion(OsmandApplication.this) + "\n"). //$NON-NLS-1$ 
-						append(DateFormat.format("dd.MM.yyyy h:mm:ss", System.currentTimeMillis()));
+				msg.append("Version  ")
+						.append(Version.getFullVersion(OsmandApplication.this))
+						.append("\n") //$NON-NLS-1$
+						.append(DateFormat.format("dd.MM.yyyy h:mm:ss", System.currentTimeMillis()));
 				try {
 					PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
 					if (info != null) {
@@ -497,9 +504,11 @@ public class OsmandApplication extends MultiDexApplication {
 					}
 				} catch (Throwable e) {
 				}
-				msg.append("\n"). //$NON-NLS-1$//$NON-NLS-2$
-						append("Exception occured in thread " + thread.toString() + " : \n"). //$NON-NLS-1$ //$NON-NLS-2$
-						append(new String(out.toByteArray()));
+				msg.append("\n")
+						.append("Exception occured in thread ")
+						.append(thread.toString())
+						.append(" : \n")
+						.append(new String(out.toByteArray()));
 
 				if (file.getParentFile().canWrite()) {
 					BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
@@ -637,7 +646,7 @@ public class OsmandApplication extends MultiDexApplication {
 	}
 	
 	public String getLanguage() {
-		String lang = "";
+		String lang;
 		if (preferredLocale != null) {
 			lang = preferredLocale.getLanguage();
 		} else {

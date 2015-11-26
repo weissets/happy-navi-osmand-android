@@ -1,18 +1,20 @@
 package net.osmand.plus.mapcontextmenu;
 
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.view.View;
 import android.widget.LinearLayout;
-
 import net.osmand.CallbackWithObject;
-import net.osmand.IndexConstants;
 import net.osmand.data.FavouritePoint;
 import net.osmand.data.LatLon;
 import net.osmand.data.PointDescription;
 import net.osmand.plus.ContextMenuAdapter;
+import net.osmand.plus.TargetPointsHelper;
 import net.osmand.plus.GPXUtilities.GPXFile;
 import net.osmand.plus.GPXUtilities.WptPt;
+import net.osmand.plus.GpxSelectionHelper.SelectedGpxFile;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.helpers.GpxUiHelper;
@@ -29,7 +31,6 @@ import net.osmand.plus.views.ContextMenuLayer;
 import net.osmand.plus.views.OsmandMapLayer;
 import net.osmand.util.MapUtils;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -53,7 +54,6 @@ public class MapContextMenu extends MenuTitleController {
 	private LatLon myLocation;
 	private Float heading;
 	private boolean inLocationUpdate = false;
-	private long locationUpdateTime;
 
 	private int favActionIconId;
 
@@ -354,9 +354,44 @@ public class MapContextMenu extends MenuTitleController {
 	}
 
 	public void fabPressed() {
-		mapActivity.getMapActions().directionTo(latLon.getLatitude(), latLon.getLongitude(), getPointDescription());
 		hide();
-		mapActivity.getMapLayers().getMapControlsLayer().showRouteInfoControlDialog();
+		final TargetPointsHelper targets = mapActivity.getMyApplication().getTargetPointsHelper();
+		if(targets.getIntermediatePoints().isEmpty()) {
+			targets.navigateToPoint(latLon, true, -1, getPointDescription());
+			mapActivity.getMapActions().enterRoutePlanningModeGivenGpx(null, null, null, true);
+		} else {
+			Builder bld = new AlertDialog.Builder(mapActivity);
+			bld.setTitle(R.string.new_directions_point_dialog);
+			final int[] defaultVls = new int[] {0};
+			bld.setSingleChoiceItems(new String[]{
+					mapActivity.getString(R.string.clear_intermediate_points),
+					mapActivity.getString(R.string.keep_intermediate_points)
+//					mapActivity.getString(R.string.keep_and_add_destination_point)
+			}, 0, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					defaultVls[0] = which;
+				}
+			});
+			bld.setPositiveButton(R.string.shared_string_ok, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if(defaultVls[0] == 0) {
+						targets.removeAllWayPoints(false);
+						targets.navigateToPoint(latLon, true, -1, getPointDescription());
+						mapActivity.getMapActions().enterRoutePlanningModeGivenGpx(null, null, null, true);
+					} else {
+						//targets.navigateToPoint(latLon, true, targets.getIntermediatePoints().size() + 1, getPointDescription());
+						targets.navigateToPoint(latLon, true, -1, getPointDescription());
+						mapActivity.getMapActions().enterRoutePlanningModeGivenGpx(null, null, null, true);
+					}
+				}
+			});
+			bld.setNegativeButton(R.string.shared_string_cancel,null);
+			bld.show();
+		}
+//		mapActivity.getMapLayers().getMapControlsLayer().showRouteInfoControlDialog();
 	}
 
 	public void buttonWaypointPressed() {
@@ -401,20 +436,18 @@ public class MapContextMenu extends MenuTitleController {
 	}
 
 	public void addWptPt() {
-		if (object == null) {
-			String title = getTitleStr();
-			if (pointDescription.isWpt() || title.equals(addressNotKnownStr)) {
-				title = "";
-			}
+		String title = getTitleStr();
+		if (pointDescription.isWpt() || title.equals(addressNotKnownStr)) {
+			title = "";
+		}
 
-			final File dir = mapActivity.getMyApplication().getAppPath(IndexConstants.GPX_INDEX_DIR);
-			final List<String> list = GpxUiHelper.getSortedGPXFilenames(dir, false);
-			if (list.isEmpty()) {
-				GPXFile gpxFile = mapActivity.getMyApplication().getSavingTrackHelper().getCurrentGpx();
-				getWptPtPointEditor().add(gpxFile, latLon, title);
-			} else {
-				addNewWptToGPXFile(title);
-			}
+		final List<SelectedGpxFile> list
+				= mapActivity.getMyApplication().getSelectedGpxHelper().getSelectedGPXFiles();
+		if (list.isEmpty() || (list.size() == 1 && list.get(0).getGpxFile().showCurrentTrack)) {
+			GPXFile gpxFile = mapActivity.getMyApplication().getSavingTrackHelper().getCurrentGpx();
+			getWptPtPointEditor().add(gpxFile, latLon, title);
+		} else {
+			addNewWptToGPXFile(title);
 		}
 	}
 
@@ -627,5 +660,4 @@ public class MapContextMenu extends MenuTitleController {
 			}
 		});
 	}
-
 }

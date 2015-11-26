@@ -511,8 +511,14 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 
 	public void refreshContent(boolean force) {
 		if (visibleType == DashboardType.WAYPOINTS || visibleType == DashboardType.WAYPOINTS_EDIT
-				|| visibleType == DashboardType.CONFIGURE_MAP || force) {
+				|| force) {
 			updateListAdapter();
+		} else if (visibleType == DashboardType.CONFIGURE_MAP) {
+			int index = listView.getFirstVisiblePosition();
+			View v = listView.getChildAt(0);
+			int top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
+			updateListAdapter();
+			listView.setSelectionFromTop(index, top);
 		} else {
 			listAdapter.notifyDataSetChanged();
 		}
@@ -603,7 +609,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	public void navigationAction() {
 		RoutingHelper routingHelper = mapActivity.getRoutingHelper();
 		if (!routingHelper.isFollowingMode() && !routingHelper.isRoutePlanningMode()) {
-			mapActivity.getMapActions().enterRoutePlanningMode(null, null, false);
+			mapActivity.getMapActions().enterRoutePlanningMode(null, null);
 		} else {
 			mapActivity.getRoutingHelper().setRoutePlanningMode(true);
 			mapActivity.getMapViewTrackingUtilities().switchToRoutePlanningMode();
@@ -930,7 +936,7 @@ public class DashboardOnMap implements ObservableScrollViewCallbacks {
 	}
 
 	public static class DefaultShouldShow extends DashFragmentData.ShouldShowFunction {
-		
+
 		public boolean shouldShow(OsmandSettings settings, MapActivity activity, String tag) {
 			return settings.registerBooleanPreference(SHOULD_SHOW + tag, true).makeGlobal().get();
 		}

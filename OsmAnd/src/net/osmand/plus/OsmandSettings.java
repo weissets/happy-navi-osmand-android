@@ -1507,7 +1507,6 @@ public class OsmandSettings {
 	public final static String POINT_NAVIGATE_LAT = "point_navigate_lat"; //$NON-NLS-1$
 	public final static String POINT_NAVIGATE_LON = "point_navigate_lon"; //$NON-NLS-1$
 	public final static String POINT_NAVIGATE_ROUTE = "point_navigate_route_integer"; //$NON-NLS-1$
-	public final static int NAVIGATE_CURRENT_GPX = 2;
 	public final static int NAVIGATE = 1;
 	public final static String POINT_NAVIGATE_DESCRIPTION = "point_navigate_description"; //$NON-NLS-1$
 	public final static String START_POINT_LAT = "start_point_lat"; //$NON-NLS-1$
@@ -1558,6 +1557,9 @@ public class OsmandSettings {
 	public boolean clearIntermediatePoints() {
 		return settingsAPI.edit(globalPreferences).remove(INTERMEDIATE_POINTS).remove(INTERMEDIATE_POINTS_DESCRIPTION).commit();
 	}
+	
+	public final CommonPreference<Boolean> USE_INTERMEDIATE_POINTS_NAVIGATION = 
+			new BooleanPreference("use_intermediate_points_navigation", false).makeGlobal().cache();
 	
 	public List<String> getIntermediatePointDescriptions(int sz) {
 		List<String> list = new ArrayList<String>();
@@ -1662,11 +1664,7 @@ public class OsmandSettings {
 	}
 	
 	public boolean navigateDialog() {
-		return navigateDialog(false);
-	}
-	
-	public boolean navigateDialog(boolean gpx) {
-		return settingsAPI.edit(globalPreferences).putInt(POINT_NAVIGATE_ROUTE, gpx ? NAVIGATE_CURRENT_GPX : NAVIGATE).commit();
+		return settingsAPI.edit(globalPreferences).putInt(POINT_NAVIGATE_ROUTE, NAVIGATE).commit();
 	}
 	
 
