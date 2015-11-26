@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# bad solution, but nothing else worked on os x yosemite
+ANDROID_HOME="/Applications/android-sdk-macosx"
+ANDROID_NDK="/Applications/android-sdk-macosx/ndk-bundle"
+
 SCRIPT_LOC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 NAME=$(basename $(dirname "${BASH_SOURCE[0]}") )
 

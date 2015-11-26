@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
 
 android {
 	compileSdkVersion 23
-	buildToolsVersion "23.0.1"
+	buildToolsVersion "23.0.2"
 
 	signingConfigs {
 		development {
@@ -151,7 +151,7 @@ android {
 		release {
 			// proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
 			// minifyEnabled true
-			//proguardFiles 'proguard-project.txt'
+			// proguardFiles 'proguard-project.txt'
 			signingConfig signingConfigs.publishing
 		}
 	}
