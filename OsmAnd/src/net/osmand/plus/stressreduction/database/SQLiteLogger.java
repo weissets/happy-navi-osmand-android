@@ -155,7 +155,8 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 						//						"\" AND \"" + Constants.TIMESTAMP + "\" < \"" +
 						// endTimestamp +
 						"\"", null);
-		log.debug("updateStressValueInSegmentInfos(): updated " + updatedRows + " rows!");
+		log.debug("updateStressValueInSegmentInfos(): updated " + updatedRows + " rows with " +
+				"stress value = " + stressValue);
 	}
 
 	public void insertLocationInfo(LocationInfo locationInfo) {

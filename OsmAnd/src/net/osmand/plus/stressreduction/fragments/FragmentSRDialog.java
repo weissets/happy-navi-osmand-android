@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 
 import java.io.IOException;
@@ -45,7 +46,8 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 	private ImageButton buttonNeutral;
 	private ImageButton buttonSad;
 
-	private TableRow speechRow;
+	private LinearLayout speechLinearLayout;
+	private TableRow speechRowInput;
 	private TableRow speechRowValidate;
 
 	public static FragmentSRDialog newInstance(SRDialogButtonClickListener listener,
@@ -114,13 +116,13 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 			playNotificationSound();
 		}
 
-		buttonHappy = (ImageButton) view.findViewById(R.id.imageButtonFaceHappy);
+		buttonHappy = (ImageButton) view.findViewById(R.id.buttonHappy);
 		buttonHappy.setOnClickListener(this);
 
-		buttonNeutral = (ImageButton) view.findViewById(R.id.imageButtonFaceNeutral);
+		buttonNeutral = (ImageButton) view.findViewById(R.id.buttonNeutral);
 		buttonNeutral.setOnClickListener(this);
 
-		buttonSad = (ImageButton) view.findViewById(R.id.imageButtonFaceSad);
+		buttonSad = (ImageButton) view.findViewById(R.id.buttonSad);
 		buttonSad.setOnClickListener(this);
 
 		this.setCancelable(false);
@@ -131,12 +133,13 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 				(OsmandApplication) getActivity().getApplicationContext();
 		if (osmandApplication.getSettings().SR_SPEECH_INPUT.get()) {
 
-			speechRow = (TableRow) view.findViewById(R.id.speechRow);
-			speechRow.setVisibility(View.VISIBLE);
+			view.findViewById(R.id.linearLayoutSpeech).setVisibility(View.VISIBLE);
+
+			speechRowInput = (TableRow) view.findViewById(R.id.speechRowInput);
+			speechRowInput.setVisibility(View.VISIBLE);
 			speechRowValidate = (TableRow) view.findViewById(R.id.speechRowValidate);
 
 			speechImage = (ImageView) view.findViewById(R.id.speechImage);
-			speechImage.setVisibility(View.VISIBLE);
 
 			promptSpeechInput(Constants.SPEECH_INPUT, speechImage);
 		}
@@ -172,11 +175,11 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 	public void promptSpeechInput(String mode, ImageView speechImage) {
 		switch (mode) {
 			case Constants.SPEECH_INPUT:
-				speechRow.setVisibility(View.VISIBLE);
+				speechRowInput.setVisibility(View.VISIBLE);
 				speechRowValidate.setVisibility(View.GONE);
 				break;
 			case Constants.SPEECH_VALIDATION:
-				speechRow.setVisibility(View.GONE);
+				speechRowInput.setVisibility(View.GONE);
 				speechRowValidate.setVisibility(View.VISIBLE);
 				break;
 		}
@@ -189,13 +192,12 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 			case Constants.SPEECH_VALIDATION:
 				if (Constants.SPEECH_VALIDATION_CONFIRM.toString()
 						.matches(".*\\b" + result + "\\b.*")) {
-					selectedButton.setSelected(false);
-					selectedButton.setPressed(true);
+					selectedButton.setPressed(false);
 					onClick(selectedButton);
 					log.debug("setResult(): button confirmed and button pressed!");
 				} else if (Constants.SPEECH_VALIDATION_RETRY.toString()
 						.matches(".*\\b" + result + "\\b.*")) {
-					selectedButton.setSelected(false);
+					selectedButton.setPressed(false);
 					promptSpeechInput(Constants.SPEECH_INPUT, speechImage);
 					log.debug("setResult(): canceled, retry...");
 				} else {
@@ -205,15 +207,15 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 				break;
 			case Constants.SPEECH_INPUT:
 				if (Constants.SPEECH_INPUT_GOOD.toString().matches(".*\\b" + result + "\\b.*")) {
-					buttonHappy.setSelected(true);
+					buttonHappy.setPressed(true);
 					selectedButton = buttonHappy;
 				} else if (Constants.SPEECH_INPUT_NORMAL.toString()
 						.matches(".*\\b" + result + "\\b.*")) {
-					buttonNeutral.setSelected(true);
+					buttonNeutral.setPressed(true);
 					selectedButton = buttonNeutral;
 				} else if (Constants.SPEECH_INPUT_BAD.toString()
 						.matches(".*\\b" + result + "\\b.*")) {
-					buttonSad.setSelected(true);
+					buttonSad.setPressed(true);
 					selectedButton = buttonSad;
 				} else {
 					log.error("setResult(): should not happen!");

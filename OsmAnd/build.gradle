@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
 
 android {
 	compileSdkVersion 23
-	buildToolsVersion "23.0.2"
+	buildToolsVersion '23.0.2'
 
 	signingConfigs {
 		development {
@@ -327,13 +327,20 @@ task cleanupDuplicatesInCore() {
 	}
 }
 tasks.withType(JavaCompile) {
-	compileTask -> compileTask.dependsOn << [collectExternalResources, buildOsmAndCore, cleanupDuplicatesInCore]
+	compileTask -> compileTask.dependsOn << [collectExternalResources, buildOsmAndCore,
+											 cleanupDuplicatesInCore, copyPocketSphinxLibs]
 }
 
 clean.dependsOn 'cleanNoTranslate'
 
 task cleanNoTranslate() {
 	delete('res/values/no_translate.xml')
+}
+
+task copyPocketSphinxLibs (type: Copy) {
+	from "../../resources/pocketsphinx/libs"
+	into "libs"
+	exclude ".DS_Store"
 }
 
 repositories {

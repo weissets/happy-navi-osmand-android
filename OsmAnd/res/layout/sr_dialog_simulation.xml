@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:background="@color/bg_color_dark"
 	android:orientation="vertical">
 
 	<TextView
@@ -11,7 +12,7 @@
 		android:padding="10dp"
 		android:text="@string/app_name_version"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="#47D1FF" />
+		android:textColor="@color/ctx_menu_info_text_dark" />
 
 	<TextView
 		android:id="@+id/textViewNewVersion"
@@ -20,12 +21,12 @@
 		android:padding="10dp"
 		android:text="Simulation"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="#47D1FF" />
+		android:textColor="@color/ctx_menu_info_text_dark" />
 
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="2dp"
-		android:background="#47D1FF" />
+		android:background="?attr/dashboard_divider" />
 
 	<ScrollView
 		android:layout_width="match_parent"
@@ -45,7 +46,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:autoLink="web"
-				android:text="Would you like to simulate the currently calculated route?" />
+				android:text="Would you like to simulate the currently calculated route?"
+				android:textColor="@color/ctx_menu_info_text_dark" />
 
 		</LinearLayout>
 
@@ -61,7 +63,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Speed: "
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/ctx_menu_info_text_dark" />
 
 		<Button
 			android:id="@+id/buttonPlus"
@@ -118,7 +121,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="10dp"
 			android:layout_marginStart="10dp"
-			android:text="Use routing" />
+			android:text="Use routing"
+			android:textColor="@color/ctx_menu_info_text_dark" />
 
 	</LinearLayout>
 

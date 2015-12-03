@@ -67,15 +67,15 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 		int id = view.getId();
 		int stressValue = -99;
 		switch (id) {
-			case R.id.imageButtonFaceHappy:
+			case R.id.buttonHappy:
 				log.debug("onSRButtonClick(): Face Happy clicked");
 				stressValue = Constants.STRESS_VALUE_LOW;
 				break;
-			case R.id.imageButtonFaceNeutral:
+			case R.id.buttonNeutral:
 				log.debug("onSRButtonClick(): Face Neutral clicked");
 				stressValue = Constants.STRESS_VALUE_MEDIUM;
 				break;
-			case R.id.imageButtonFaceSad:
+			case R.id.buttonSad:
 				log.debug("onSRButtonClick(): Face Sad clicked");
 				stressValue = Constants.STRESS_VALUE_HIGH;
 				break;

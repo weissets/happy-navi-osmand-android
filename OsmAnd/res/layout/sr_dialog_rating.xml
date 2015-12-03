@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:background="@color/dashboard_black"
+	android:background="@color/bg_color_dark"
 	android:orientation="vertical">
 
 	<TextView
@@ -13,18 +13,18 @@
 		android:padding="10dp"
 		android:text="@string/sr_dialog_title"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="#47D1FF" />
+		android:textColor="@color/ctx_menu_info_text_dark"/>
 
 	<View
 		android:layout_width="match_parent"
-		android:layout_height="2dp"
-		android:background="#47D1FF" />
+		android:layout_height="1dp"
+		android:background="?attr/dashboard_divider" />
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:padding="10dp"
 		android:orientation="vertical"
-		android:padding="5dp"
 		android:visibility="visible">
 
 		<TableLayout
@@ -37,117 +37,144 @@
 				android:layout_height="wrap_content">
 
 				<ImageButton
-					android:id="@+id/imageButtonFaceHappy"
-					android:layout_width="wrap_content"
-					android:layout_height="100dp"
-					android:background="@color/color_transparent"
-					android:scaleType="centerInside"
-					android:src="@drawable/sr_smiley_happy_drawable" />
+					android:id="@+id/buttonHappy"
+					android:padding="5dp"
+					android:layout_margin="5dp"
+					android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					android:clickable="true"
+					android:layout_weight="0.33"
+					android:src="@drawable/sr_smiley_happy_material" />
 
 				<ImageButton
-					android:id="@+id/imageButtonFaceNeutral"
-					android:layout_width="wrap_content"
-					android:layout_height="100dp"
-					android:background="@color/color_transparent"
-					android:scaleType="centerInside"
-					android:src="@drawable/sr_smiley_neutral_drawable" />
+					android:id="@+id/buttonNeutral"
+					android:padding="5dp"
+					android:layout_margin="5dp"
+					android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					android:clickable="true"
+					android:layout_weight="0.33"
+					android:src="@drawable/sr_smiley_neutral_material" />
+
 
 				<ImageButton
-					android:id="@+id/imageButtonFaceSad"
-					android:layout_width="wrap_content"
-					android:layout_height="100dp"
-					android:background="@color/color_transparent"
-					android:scaleType="centerInside"
-					android:src="@drawable/sr_smiley_sad_drawable" />
+					android:id="@+id/buttonSad"
+					android:padding="5dp"
+					android:layout_margin="5dp"
+					android:layout_width="100dp"
+					android:layout_height="wrap_content"
+					android:background="?attr/selectableItemBackgroundBorderless"
+					android:clickable="true"
+					android:layout_weight="0.33"
+					android:src="@drawable/sr_smiley_sad_material" />
 
 			</TableRow>
-
-			<TableRow
-				android:id="@+id/speechRow"
-				android:visibility="gone">
-
-				<TextView
-					android:id="@+id/sr_speech_good"
-					android:layout_width="100dp"
-					android:layout_height="wrap_content"
-					android:layout_margin="5dp"
-					android:layout_weight="33"
-					android:gravity="center"
-					android:text="@string/sr_speech_input_good"
-					android:textColor="@color/ctx_menu_info_text_dark"
-					android:textSize="@dimen/abc_text_size_medium_material" />
-
-				<TextView
-					android:id="@+id/sr_speech_normal"
-					android:layout_width="100dp"
-					android:layout_height="wrap_content"
-					android:layout_margin="5dp"
-					android:layout_weight="33"
-					android:gravity="center"
-					android:text="@string/sr_speech_input_normal"
-					android:textColor="@color/ctx_menu_info_text_dark"
-					android:textSize="@dimen/abc_text_size_medium_material" />
-
-				<TextView
-					android:id="@+id/sr_speech_bad"
-					android:layout_width="100dp"
-					android:layout_height="wrap_content"
-					android:layout_margin="5dp"
-					android:layout_weight="33"
-					android:gravity="center"
-					android:text="@string/sr_speech_input_bad"
-					android:textColor="@color/ctx_menu_info_text_dark"
-					android:textSize="@dimen/abc_text_size_medium_material" />
-
-			</TableRow>
-
-			<TableRow
-				android:id="@+id/speechRowValidate"
-				android:visibility="gone">
-
-				<TextView
-					android:id="@+id/sr_speech_confirm"
-					android:layout_width="100dp"
-					android:layout_height="wrap_content"
-					android:layout_margin="5dp"
-					android:layout_weight="33"
-					android:gravity="center"
-					android:text="@string/sr_speech_validation_confirm"
-					android:textColor="@color/ctx_menu_info_text_dark"
-					android:textSize="@dimen/abc_text_size_medium_material" />
-
-				<TextView
-					android:id="@+id/sr_speech_retry"
-					android:layout_width="100dp"
-					android:layout_height="wrap_content"
-					android:layout_margin="5dp"
-					android:layout_weight="33"
-					android:gravity="center"
-					android:text="@string/sr_speech_validation_retry"
-					android:textColor="@color/ctx_menu_info_text_dark"
-					android:textSize="@dimen/abc_text_size_medium_material" />
-
-			</TableRow>
-
-			<ImageView
-				android:id="@+id/speechImage"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_margin="10dp"
-				android:scaleX="1.5"
-				android:scaleY="1.5"
-				android:src="@android:drawable/ic_btn_speak_now"
-				android:visibility="gone" />
 
 		</TableLayout>
+
+		<LinearLayout
+			android:id="@+id/linearLayoutSpeech"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingTop="10dp"
+			android:visibility="gone">
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="?attr/dashboard_divider" />
+
+			<TableLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:stretchColumns="*">
+
+				<TableRow
+					android:id="@+id/speechRowInput"
+					android:paddingTop="10dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:visibility="visible">
+
+					<TextView
+						android:layout_width="100dp"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_weight="0.33"
+						android:text="@string/sr_speech_input_good"
+						android:textColor="@color/ctx_menu_info_text_dark"
+						android:textSize="@dimen/abc_text_size_medium_material" />
+
+					<TextView
+						android:layout_width="100dp"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_weight="0.33"
+						android:text="@string/sr_speech_input_normal"
+						android:textColor="@color/ctx_menu_info_text_dark"
+						android:textSize="@dimen/abc_text_size_medium_material" />
+
+					<TextView
+						android:layout_width="100dp"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_weight="0.33"
+						android:text="@string/sr_speech_input_bad"
+						android:textColor="@color/ctx_menu_info_text_dark"
+						android:textSize="@dimen/abc_text_size_medium_material" />
+
+				</TableRow>
+
+				<TableRow
+					android:id="@+id/speechRowValidate"
+					android:visibility="gone">
+
+					<TextView
+						android:id="@+id/sr_speech_confirm"
+						android:layout_width="150dp"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_weight="0.5"
+						android:text="@string/sr_speech_validation_confirm"
+						android:textColor="@color/ctx_menu_info_text_dark"
+						android:textSize="@dimen/abc_text_size_medium_material" />
+
+					<TextView
+						android:id="@+id/sr_speech_retry"
+						android:layout_width="150dp"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:layout_weight="0.5"
+						android:text="@string/sr_speech_validation_retry"
+						android:textColor="@color/ctx_menu_info_text_dark"
+						android:textSize="@dimen/abc_text_size_medium_material" />
+
+				</TableRow>
+
+				<ImageView
+					android:id="@+id/speechImage"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_margin="10dp"
+					android:scaleX="1.5"
+					android:scaleY="1.5"
+					android:src="@android:drawable/ic_btn_speak_now"
+					android:visibility="visible" />
+
+			</TableLayout>
+
+		</LinearLayout>
 
 		<TextView
 			android:id="@+id/sr_test_text"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:textColor="@color/ctx_menu_info_text_dark"
-			android:visibility="gone"/>
+			android:visibility="gone" />
 
 	</LinearLayout>
 

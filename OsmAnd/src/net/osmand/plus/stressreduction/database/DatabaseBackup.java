@@ -38,7 +38,7 @@ public class DatabaseBackup {
 					Environment.getDataDirectory() + "/data/" + packageName + "/databases/";
 			File file = new File(pathFrom + databaseName);
 
-			String pathTo = Environment.getExternalStorageDirectory() + appName + "/backup/";
+			String pathTo = Environment.getExternalStorageDirectory() + "/" + appName;
 
 			File fileBackupDir = new File(pathTo);
 

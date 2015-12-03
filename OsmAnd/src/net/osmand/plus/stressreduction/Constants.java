@@ -90,11 +90,11 @@ public class Constants {
 
 	/** uri of the database upload script (DEBUG EMULATOR) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_EMULATOR =
-			"http://10.0.2.2:8888/upload/db_upload_v1.2_debug.php";
+			"http://10.0.2.2:8888/stressreduction/db_upload_v1.2_debug.php";
 
 	/** uri of the database upload script (DEBUG DEVICE) */
 	public static final String URI_DATABASE_UPLOAD_DEBUG_DEVICE =
-			"http://141.58.49.216:8888/upload/db_upload_v1.3_debug.php";
+			"http://141.58.51.252:8888/stressreduction/db_upload_v1.3_debug.php";
 
 	/** uri of the database download script */
 	public static final String URI_DATABASE_DOWNLOAD =

@@ -1,53 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/bg_color_dark"
+	android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewVersion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="#47D1FF"
-        android:text="@string/app_name_version"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+		android:id="@+id/textViewVersion"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="10dp"
+		android:text="@string/app_name_version"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/ctx_menu_info_text_dark" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#47D1FF" />
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:background="?attr/dashboard_divider" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="10dp"
-        android:fadeScrollbars="false"
-        android:scrollbarStyle="outsideInset">
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_margin="10dp"
+		android:layout_weight="1"
+		android:fadeScrollbars="false"
+		android:scrollbarStyle="outsideInset">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/sr_info_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sr_plugin_info"
-                android:autoLink="web" />
+			<TextView
+				android:id="@+id/sr_info_text_view"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:autoLink="web"
+				android:text="@string/sr_plugin_info"
+				android:textColor="@color/ctx_menu_info_text_dark" />
 
-        </LinearLayout>
+		</LinearLayout>
 
-    </ScrollView>
+	</ScrollView>
 
-    <Button
-        android:id="@+id/sr_info_ok_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/shared_string_ok" />
+	<Button
+		android:id="@+id/sr_info_ok_button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:text="@string/shared_string_ok" />
 
 </LinearLayout>

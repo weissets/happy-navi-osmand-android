@@ -162,8 +162,8 @@ public class UploadService extends WakefulIntentService {
 				log.debug("uploadFileHttps(): get response message");
 				String serverResponseMessage = httpsURLConnection.getResponseMessage();
 
-				log.debug("uploadFileHttps(): HTTPS Response is : " + serverResponseMessage + ": " +
-						serverResponseCode);
+				log.debug("uploadFileHttps(): HTTPS Response is : " + serverResponseMessage + ":" +
+						" " + serverResponseCode);
 
 				for (int i = 0; i < httpsURLConnection.getHeaderFields().size(); i++) {
 					log.debug("uploadFileHttps(): Header" + i + " = " +
@@ -305,22 +305,24 @@ public class UploadService extends WakefulIntentService {
 			int status;
 
 			log.debug("UploadTask: doInBackground(): start uploading with async task...");
-//			if (!BuildConfig.DEBUG) {
-				log.debug("UploadTask: doInBackground(): uploading to " +
-						Constants.URI_DATABASE_UPLOAD);
-				status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD);
-//			} else {
-//				if (Build.FINGERPRINT.contains("generic")) {
-//					log.debug("UploadTask: doInBackground(): debug upload, trying emulator " +
-//							"upload");
-//					status = uploadFileHttp(databasePath,
-//							Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
-//				} else {
-//					log.debug("UploadTask: doInBackground(): debug upload, trying device upload");
-//					status = uploadFileHttp(databasePath,
-//							Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
-//				}
-//			}
+			//			if (!BuildConfig.DEBUG) {
+			log.debug(
+					"UploadTask: doInBackground(): uploading to " + Constants.URI_DATABASE_UPLOAD);
+			status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD);
+			//			} else {
+			//				if (Build.FINGERPRINT.contains("generic")) {
+			//					log.debug("UploadTask: doInBackground(): debug upload, trying
+			// emulator " +
+			//							"upload");
+			//					status = uploadFileHttp(databasePath,
+			//							Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
+			//				} else {
+			//					log.debug("UploadTask: doInBackground(): debug upload, trying
+			// device upload");
+			//					status = uploadFileHttp(databasePath,
+			//							Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
+			//				}
+			//			}
 			return status;
 		}
 
