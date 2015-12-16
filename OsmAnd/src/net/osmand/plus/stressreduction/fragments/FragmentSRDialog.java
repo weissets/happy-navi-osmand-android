@@ -46,7 +46,6 @@ public class FragmentSRDialog extends DialogFragment implements View.OnClickList
 	private ImageButton buttonNeutral;
 	private ImageButton buttonSad;
 
-	private LinearLayout speechLinearLayout;
 	private TableRow speechRowInput;
 	private TableRow speechRowValidate;
 
