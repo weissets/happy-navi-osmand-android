@@ -98,7 +98,9 @@ public class RoutePlannerFrontEnd {
 	}
 	
 	
-	public List<RouteSegmentResult> searchRoute(final RoutingContext ctx, LatLon start, LatLon end, List<LatLon> intermediates) throws IOException, InterruptedException {
+	public List<RouteSegmentResult> searchRoute(final RoutingContext ctx, LatLon start, LatLon
+			end, List<LatLon> intermediates) throws IOException,
+			InterruptedException {
 		return searchRoute(ctx, start, end, intermediates, null);
 	}
 	
@@ -123,8 +125,11 @@ public class RoutePlannerFrontEnd {
 		}
 		if(ctx.calculationMode == RouteCalculationMode.COMPLEX && routeDirection == null
 				&& maxDistance > ctx.config.DEVIATION_RADIUS * 6) {
+			log.debug("searchRoute(): [INFO] build native ctx, searchRoute() again");
 			RoutingContext nctx = buildRoutingContext(ctx.config, ctx.nativeLib, ctx.getMaps(), RouteCalculationMode.BASE);
 			nctx.calculationProgress = ctx.calculationProgress ;
+			nctx.useSrRouting = ctx.useSrRouting; // INFO set sr routing
+			nctx.srDbPath = ctx.srDbPath; // INFO set sr db path
 			List<RouteSegmentResult> ls = searchRoute(nctx, start, end, intermediates);
 			routeDirection = PrecalculatedRouteDirection.build(ls, ctx.config.DEVIATION_RADIUS, ctx.getRouter().getMaxDefaultSpeed());
 		}
@@ -139,7 +144,9 @@ public class RoutePlannerFrontEnd {
 			}
 			if(routeDirection != null) {
 				ctx.precalculatedRouteDirection = routeDirection.adopt(ctx);
-			} 
+			}
+			log.debug("calcOfflineRouteImpl(): [INFO] no inters, runNativeRouting(), " +
+					"srRouting = " + ctx.useSrRouting);
 			List<RouteSegmentResult> res = runNativeRouting(ctx, recalculationEnd);
 			if(res != null) {
 				new RouteResultPreparation().printResults(ctx, start, end, res);
@@ -162,6 +169,7 @@ public class RoutePlannerFrontEnd {
 		if(!addSegment(end, ctx, indexNotFound++, points)){
 			return null;
 		}
+		log.debug("calcOfflineRouteImpl(): [INFO] found inters, searchRoute() again");
 		List<RouteSegmentResult> res = searchRoute(ctx, points, routeDirection);
 		// make start and end more precise
 		makeStartEndPointsPrecise(res, start, end, intermediates);
@@ -364,7 +372,8 @@ public class RoutePlannerFrontEnd {
 		
 	}
 
-	private List<RouteSegmentResult> runNativeRouting(final RoutingContext ctx, RouteSegment recalculationEnd) throws IOException {
+	private List<RouteSegmentResult> runNativeRouting(final RoutingContext ctx, RouteSegment
+			recalculationEnd) throws IOException {
 		refreshProgressDistance(ctx);
 		RouteRegion[] regions = ctx.reverseMap.keySet().toArray(new BinaryMapRouteReaderAdapter.RouteRegion[ctx.reverseMap.size()]);
 		ctx.checkOldRoutingFiles(ctx.startX, ctx.startY);
@@ -372,7 +381,9 @@ public class RoutePlannerFrontEnd {
 		
 		long time = System.currentTimeMillis();
 		RouteSegmentResult[] res = ctx.nativeLib.runNativeRouting(ctx.startX, ctx.startY, ctx.targetX, ctx.targetY,
-				ctx.config, regions, ctx.calculationProgress, ctx.precalculatedRouteDirection, ctx.calculationMode == RouteCalculationMode.BASE);
+				ctx.config, regions, ctx.calculationProgress, ctx.precalculatedRouteDirection,
+				ctx.calculationMode == RouteCalculationMode.BASE,
+				ctx.useSrRouting, ctx.srDbPath); // INFO new bool for sr routing and db path
 		log.info("Native routing took " + (System.currentTimeMillis() - time) / 1000f + " seconds");
 		ArrayList<RouteSegmentResult> result = new ArrayList<RouteSegmentResult>(Arrays.asList(res));
 		if(recalculationEnd != null) {

@@ -978,7 +978,10 @@ public class OsmandSettings {
 	public final OsmandPreference<Float> SR_SPEECH_VALUE = new FloatPreference("sr_speech_value", 3.8f).makeGlobal();
 	public final OsmandPreference<Boolean> SR_USE_WIFI_ONLY = new BooleanPreference("sr_use_wifi_only", false).makeGlobal();
 	public final OsmandPreference<Boolean> SR_LOCATION_SIMULATION = new BooleanPreference("sr_location_simulation", false).makeGlobal();
-	public final OsmandPreference<Boolean> SR_ROUTING = new BooleanPreference("sr_routing", false).makeGlobal();
+	public final OsmandPreference<Boolean> SR_ROUTING = new BooleanPreference("sr_routing", true).makeGlobal();
+	public final OsmandPreference<String> SR_DB_PATH = new StringPreference("sr_db_path", "").makeGlobal();
+	public final OsmandPreference<Integer> SR_DB_VERSION_CODE_SERVER = new IntPreference("sr_db_version_code_server", 0).makeGlobal().cache();
+	public final OsmandPreference<Integer> SR_DB_VERSION_CODE_DEVICE = new IntPreference("sr_db_version_code_device", 0).makeGlobal().cache();
 
 	// For DashUserInfoFragment
 	public final OsmandPreference<Long> SR_LAST_DISPLAY_TIME =

@@ -19,6 +19,10 @@ import net.osmand.util.MapUtils;
 import android.content.Context;
 
 public class RouteCalculationResult {
+
+	// INFO alternative route
+	private RouteCalculationResult alternative;
+
 	private static double distanceClosestToIntermediate = 400;
 	// could not be null and immodifiable!
 	private final List<Location> locations;
@@ -46,6 +50,7 @@ public class RouteCalculationResult {
 		this.errorMessage = errorMessage;
 		this.routingTime = 0;
 		this.intermediatePoints = new int[0];
+		this.alternative = null;
 		this.locations = new ArrayList<Location>();
 		this.segments = new ArrayList<RouteSegmentResult>();
 		this.listDistance = new int[0];
@@ -74,7 +79,8 @@ public class RouteCalculationResult {
 			// if there is no closest points to start - add it
 			introduceFirstPointAndLastPoint(locations, localDirections, null, params.start, params.end);
 		}
-		
+
+		this.alternative = null;
 		this.locations = Collections.unmodifiableList(locations);
 		this.segments = new ArrayList<RouteSegmentResult>();
 		this.listDistance = new int[locations.size()];
@@ -85,7 +91,7 @@ public class RouteCalculationResult {
 		updateDirectionsTime(this.directions, this.listDistance);
 	}
 
-	public RouteCalculationResult(List<RouteSegmentResult> list, Location start, LatLon end, List<LatLon> intermediates,  
+	public RouteCalculationResult(List<RouteSegmentResult> list, Location start, LatLon end, List<LatLon> intermediates,
 			OsmandApplication ctx, boolean leftSide, float routingTime, List<LocationPoint> waypoints) {
 		this.routingTime = routingTime;
 		if(waypoints != null) {
@@ -98,7 +104,8 @@ public class RouteCalculationResult {
 		ArrayList<AlarmInfo> alarms = new ArrayList<AlarmInfo>();
 		List<RouteSegmentResult> segments = convertVectorResult(computeDirections, locations, list, alarms, ctx);
 		introduceFirstPointAndLastPoint(locations, computeDirections, segments, start, end);
-		
+
+		this.alternative = null;
 		this.locations = Collections.unmodifiableList(locations);
 		this.segments = Collections.unmodifiableList(segments);
 		this.listDistance = new int[locations.size()];
@@ -929,6 +936,15 @@ public class RouteCalculationResult {
 		public String pointName;
 		public int imminent;
 		private int directionInfoInd;
+	}
+
+	// INFO getter and setter for the sr route alternative
+	public void setAlternative(RouteCalculationResult alternative) {
+		this.alternative = alternative;
+	}
+
+	public RouteCalculationResult getAlternative() {
+		return alternative;
 	}
 	
 }

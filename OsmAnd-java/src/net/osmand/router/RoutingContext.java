@@ -106,10 +106,14 @@ public class RoutingContext {
 	// old planner
 	public FinalRouteSegment finalRouteSegment;
 
-
+	// sr routing infos
+	public boolean useSrRouting = false;
+	public String srDbPath = "";
 	
 
-	RoutingContext(RoutingContext cp) {
+	public RoutingContext(RoutingContext cp) {
+		this.useSrRouting = cp.useSrRouting;
+		this.srDbPath = cp.srDbPath;
 		this.config = cp.config;
 		this.map.putAll(cp.map);
 		this.calculationMode = cp.calculationMode;

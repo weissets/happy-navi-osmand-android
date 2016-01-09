@@ -25,5 +25,7 @@ public class RouteCalculationParams {
 	public boolean onlyStartPointChanged;
 	public boolean fast;
 	public boolean leftSide;
+	public boolean useSrRouting; // INFO new
+	public String srDbPath; // INFO new
 	public RouteCalculationProgress calculationProgress;
 }

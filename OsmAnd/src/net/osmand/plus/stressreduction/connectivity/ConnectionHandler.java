@@ -63,12 +63,13 @@ public class ConnectionHandler {
 	}
 
 	/**
-	 * Download data via the wakeful intent service TODO use simple download without service
+	 * Download data via the wakeful intent service
 	 *
 	 * @param osmandApplication The OsmandApplication
 	 */
 	public static void downloadSRData(final OsmandApplication osmandApplication) {
 		Intent downloadIntent = new Intent(osmandApplication, DownloadService.class);
+		log.debug("downloadSRData(): starting download service...");
 		WakefulIntentService.sendWakefulWork(osmandApplication, downloadIntent);
 	}
 

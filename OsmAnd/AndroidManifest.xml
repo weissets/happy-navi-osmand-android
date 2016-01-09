@@ -291,6 +291,9 @@
 		<service
 			android:name=".stressreduction.connectivity.UploadService" >
 		</service>
+		<service
+			android:name=".stressreduction.connectivity.DownloadService" >
+		</service>
 		<receiver
 			android:name=".stressreduction.connectivity.ConnectionReceiver"
 			android:enabled="false" >

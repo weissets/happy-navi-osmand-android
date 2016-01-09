@@ -2218,7 +2218,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_settings_location_simulation_title">Routing Simulation</string>
 	<string name="sr_settings_location_simulation_description">Display a dialog to start routing
         simulation if a new route is calculated.</string>
-    <string name="sr_settings_routing_title">Routing (Coming soon!)</string>
+    <string name="sr_settings_routing_title">Routing</string>
     <string name="sr_settings_routing_description">Use adapted routing for less stressful and tiring street segments.</string>
     <string name="sr_request_rating">Please give a rating!</string>
     <string name="sr_plugin_new_version">New Version Available</string>

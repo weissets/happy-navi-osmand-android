@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.PointF;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -121,6 +122,7 @@ public class MapRouteInfoControl implements IRouteInformationListener {
 	
 	private void updateInfo(final View main) {
 		updateWptBtn(main);
+		updateAlternativeBtn(main);
 		updateViaView(main);
 		updateFromSpinner(main);
 		updateToSpinner(main);
@@ -144,7 +146,8 @@ public class MapRouteInfoControl implements IRouteInformationListener {
 			main.findViewById(R.id.Next).setVisibility(View.GONE);
 			textView.setText(R.string.route_is_too_long);
 			textView.setVisibility(View.VISIBLE);
-			iconView.setImageDrawable(mapActivity.getMyApplication().getIconsCache().getContentIcon(R.drawable.ic_warning));
+			iconView.setImageDrawable(mapActivity.getMyApplication().getIconsCache()
+					.getContentIcon(R.drawable.ic_warning));
 		} else{
 			main.findViewById(R.id.RouteInfoControls).setVisibility(View.GONE);
 		}
@@ -164,6 +167,25 @@ public class MapRouteInfoControl implements IRouteInformationListener {
 			}
 
 		});
+	}
+
+	// INFO update button for switching between routes
+	private void updateAlternativeBtn(final View parentView) {
+		ImageView alternativeBtn = (ImageView) parentView.findViewById(R.id.alternative);
+		if (mapActivity.getRoutingHelper().getRoute().getAlternative() == null) {
+			alternativeBtn.setVisibility(View.GONE);
+		} else {
+			alternativeBtn.setVisibility(View.VISIBLE);
+			alternativeBtn.setImageDrawable(mapActivity.getMyApplication().getIconsCache()
+					.getContentIcon(R.drawable.ic_call_split_white_48dp));
+			alternativeBtn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					mapActivity.getRoutingHelper().showAlternativeRoute(mapActivity);
+					updateRouteButtons(parentView);
+				}
+			});
+		}
 	}
 
 	private void updateApplicationModes(final View parentView) {

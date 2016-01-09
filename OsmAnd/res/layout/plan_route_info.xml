@@ -33,6 +33,17 @@
                 android:layout_marginLeft="@dimen/list_content_padding"
                 android:orientation="horizontal" >
 
+                <!-- INFO button for switching between routes -->
+                <ImageView
+                    android:id="@+id/alternative"
+                    android:padding="10dp"
+                    android:layout_width="@dimen/list_item_height"
+                    android:layout_height="@dimen/list_item_height"
+                    android:background="?attr/dashboard_button"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_call_split_white_48dp"
+                    android:visibility="gone"/>
+
                 <ImageView
                     android:id="@+id/waypoints"
                     android:layout_width="@dimen/list_item_height"

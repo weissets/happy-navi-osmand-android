@@ -629,6 +629,13 @@ public class RouteProvider {
 	
 	protected RouteCalculationResult findVectorMapsRoute(final RouteCalculationParams params, boolean calcGPXRoute) throws IOException {
 		BinaryMapIndexReader[] files = params.ctx.getResourceManager().getRoutingMapFiles();
+
+		// INFO
+		log.debug("[INFO] findVectorMapsRoute(): start=" + params.start);
+		log.debug("[INFO] findVectorMapsRoute(): end=" + params.end);
+		log.debug("[INFO] findVectorMapsRoute(): useSR=" + params.useSrRouting);
+//		for (BinaryMapIndexReader r : files) log.debug("findVectorMapsRoute(): mapFile=" + r.getFile().getAbsolutePath());
+
 		RoutePlannerFrontEnd router = new RoutePlannerFrontEnd(false);
 		OsmandSettings settings = params.ctx.getSettings();
 		router.setUseFastRecalculation(settings.USE_FAST_RECALCULATION.get());
@@ -680,7 +687,7 @@ public class RouteProvider {
 		RoutingContext ctx = router.buildRoutingContext(cf,
 				lib, files, 
 				RouteCalculationMode.NORMAL);
-		
+
 		RoutingContext complexCtx = null;
 		boolean complex = params.mode.isDerivedRoutingFrom(ApplicationMode.CAR) && !settings.DISABLE_COMPLEX_ROUTING.get()
 				&& precalculated == null;
@@ -767,13 +774,21 @@ public class RouteProvider {
 			RoutePlannerFrontEnd router, RoutingContext ctx, RoutingContext complexCtx, LatLon st, LatLon en,
 			List<LatLon> inters, PrecalculatedRouteDirection precalculated) throws IOException {
 		try {
-			List<RouteSegmentResult> result ;
+			List<RouteSegmentResult> result;
+			List<RouteSegmentResult> resultSr = null;
+			RoutingContext ctxSr = new RoutingContext(ctx);
+			RoutingContext complexCtxSr = null;
+
+			// calculate route
 			if(complexCtx != null) {
+				complexCtxSr = new RoutingContext(complexCtx);
 				try {
+					log.debug("[INFO] calcOfflineRouteImpl(): calc complex route");
 					result = router.searchRoute(complexCtx, st, en, inters, precalculated);
 					// discard ctx and replace with calculated
 					ctx = complexCtx;
 				} catch(final RuntimeException e) {
+					log.debug("[INFO] calcOfflineRouteImpl(): complex route failed, fallback");
 					params.ctx.runInUIThread(new Runnable() {
 						@Override
 						public void run() {
@@ -783,27 +798,79 @@ public class RouteProvider {
 					result = router.searchRoute(ctx, st, en, inters);
 				}
 			} else {
+				log.debug("[INFO] calcOfflineRouteImpl(): calc route");
 				result = router.searchRoute(ctx, st, en, inters);
 			}
-			
+			log.debug("[INFO] calcOfflineRouteImpl(): result size = " + result.size());
+
+			// INFO if sr routing enabled calculate route a second time
+			if (params.useSrRouting) {
+				ctxSr.useSrRouting = true;
+				ctxSr.srDbPath = params.srDbPath;
+				// calculate route
+				if(complexCtxSr != null) {
+					complexCtxSr.useSrRouting = true;
+					complexCtxSr.srDbPath = params.srDbPath;
+					try {
+						log.debug("[INFO] calcOfflineRouteImpl(): calc complex SR route");
+						resultSr = router.searchRoute(complexCtxSr, st, en, inters, precalculated);
+						// discard ctx and replace with calculated
+						ctxSr = complexCtxSr;
+					} catch(final RuntimeException e) {
+						log.debug("[INFO] calcOfflineRouteImpl(): complex SR route failed, fallback");
+						params.ctx.runInUIThread(new Runnable() {
+							@Override
+							public void run() {
+								params.ctx.showToastMessage(
+										R.string.complex_route_calculation_failed, e.getMessage());
+							}
+						});
+						resultSr = router.searchRoute(ctxSr, st, en, inters);
+					}
+				} else {
+					log.debug("[INFO] calcOfflineRouteImpl(): calc SR route");
+					resultSr = router.searchRoute(ctxSr, st, en, inters);
+				}
+				log.debug("[INFO] calcOfflineRouteImpl(): result size = " + resultSr.size());
+			}
+
+			// set calculation result
 			if(result == null || result.isEmpty()) {
-				if(ctx.calculationProgress.segmentNotFound == 0) {
+				if (ctx.calculationProgress.segmentNotFound == 0) {
 					return new RouteCalculationResult(params.ctx.getString(R.string.starting_point_too_far));
-				} else if(ctx.calculationProgress.segmentNotFound == inters.size() + 1) {
+				} else if (ctx.calculationProgress.segmentNotFound == inters.size() + 1) {
 					return new RouteCalculationResult(params.ctx.getString(R.string.ending_point_too_far));
-				} else if(ctx.calculationProgress.segmentNotFound > 0) {
-					return new RouteCalculationResult(params.ctx.getString(R.string.intermediate_point_too_far, "'" + ctx.calculationProgress.segmentNotFound + "'"));
+				} else if (ctx.calculationProgress.segmentNotFound > 0) {
+					return new RouteCalculationResult(params.ctx
+							.getString(R.string.intermediate_point_too_far,
+									"'" + ctx.calculationProgress.segmentNotFound + "'"));
 				}
-				if(ctx.calculationProgress.directSegmentQueueSize == 0) {
-					return new RouteCalculationResult("Route can not be found from start point (" +ctx.calculationProgress.distanceFromBegin/1000f+" km)");
-				} else if(ctx.calculationProgress.reverseSegmentQueueSize == 0) {
-					return new RouteCalculationResult("Route can not be found from end point (" +ctx.calculationProgress.distanceFromEnd/1000f+" km)");
+				if (ctx.calculationProgress.directSegmentQueueSize == 0) {
+					return new RouteCalculationResult("Route can not be found from start point (" +
+							ctx.calculationProgress.distanceFromBegin / 1000f + " km)");
+				} else if (ctx.calculationProgress.reverseSegmentQueueSize == 0) {
+					return new RouteCalculationResult("Route can not be found from end point (" +
+							ctx.calculationProgress.distanceFromEnd / 1000f + " km)");
 				}
-				if(ctx.calculationProgress.isCancelled) {
+				if (ctx.calculationProgress.isCancelled) {
 					return interrupted();
 				}
-				// something really strange better to see that message on the scren
+				// something really strange better to see that message on the screen
 				return emptyResult();
+				// INFO calculate alternative if sr routing is active
+			} else if (params.useSrRouting && resultSr != null) {
+				RouteCalculationResult res = new RouteCalculationResult(resultSr, params.start,
+						params.end,
+						params.intermediates, params.ctx, params.leftSide, ctxSr.routingTime,
+						params.gpxRoute  == null ?
+						null : params.gpxRoute.wpt);
+
+				res.setAlternative(new RouteCalculationResult(result, params.start, params.end,
+						params.intermediates, params.ctx, params.leftSide, ctx.routingTime,
+						params.gpxRoute == null ? null : params.gpxRoute.wpt));
+				log.debug("[INFO] calcOfflineRouteImpl(): sr route time = " + res.getRoutingTime()
+						+ ", alternative time = " + res.getAlternative().getRoutingTime());
+				return res;
 			} else {
 				RouteCalculationResult res = new RouteCalculationResult(result, params.start, params.end,
 						params.intermediates, params.ctx, params.leftSide, ctx.routingTime, params.gpxRoute  == null? null: params.gpxRoute.wpt);

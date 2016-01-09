@@ -31,6 +31,11 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		getToolbar().setTitle(R.string.sr_settings_title);
 		PreferenceScreen preferenceScreen = getPreferenceScreen();
 
+		CheckBoxPreference routingPreference = createCheckBoxPreference(settings.SR_ROUTING);
+		routingPreference.setTitle(R.string.sr_settings_routing_title);
+		routingPreference.setSummary(R.string.sr_settings_routing_description);
+		preferenceScreen.addPreference(routingPreference);
+
 		CheckBoxPreference notificationSoundPreference =
 				createCheckBoxPreference(settings.SR_NOTIFICATION_SOUND);
 		notificationSoundPreference.setTitle(R.string.sr_settings_notification_sound_title);
@@ -91,14 +96,6 @@ public class StressReductionSettings extends SettingsBaseActivity {
 				locationSimulationPreference.setChecked(false);
 			}
 		}
-
-		CheckBoxPreference routingPreference = createCheckBoxPreference(settings.SR_ROUTING);
-		routingPreference.setTitle(R.string.sr_settings_routing_title);
-		routingPreference.setSummary(R.string.sr_settings_routing_description);
-		routingPreference.setEnabled(false);
-		routingPreference.setChecked(false);
-		preferenceScreen.addPreference(routingPreference);
-
 	}
 
 }

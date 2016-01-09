@@ -19,6 +19,7 @@ import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.R;
 import net.osmand.plus.TargetPointsHelper;
 import net.osmand.plus.TargetPointsHelper.TargetPoint;
+import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.routing.RouteCalculationResult.NextDirectionInfo;
 import net.osmand.plus.routing.RouteProvider.GPXRouteParamsBuilder;
 import net.osmand.plus.routing.RouteProvider.RouteService;
@@ -53,6 +54,7 @@ public class RoutingHelper {
 	private GPXRouteParamsBuilder currentGPXRoute = null;
 
 	private RouteCalculationResult route = new RouteCalculationResult("");
+	private boolean showingAlternative = false; // INFO new
 	
 	private LatLon finalLocation;
 	private List<LatLon> intermediatePoints;
@@ -545,9 +547,9 @@ public class RoutingHelper {
 		this.isDeviatedFromRoute = isOffRoute;
 		return isOffRoute;
 	}
-	
+
 	/**
-	 * Wrong movement direction is considered when between 
+	 * Wrong movement direction is considered when between
 	 * current location bearing (determines by 2 last fixed position or provided)
 	 * and bearing from currentLocation to next (current) point
 	 * the difference is more than 60 degrees
@@ -576,6 +578,24 @@ public class RoutingHelper {
 		return false;
 	}
 
+	// FIXME show alternative route
+	public void showAlternativeRoute(MapActivity mapActivity) {
+		log.info("showAlternativeRoute(): route time = " + route.getRoutingTime() + ", " +
+				"alternative time = " + route.getAlternative().getRoutingTime());
+		if (showingAlternative) {
+			log.debug("showAlternativeRoute(): showing normal route");
+		} else {
+			log.debug("showAlternativeRoute(): showing alternative route");
+		}
+		// swap routes
+		RouteCalculationResult newRoute = route.getAlternative();
+		newRoute.setAlternative(route);
+		route = newRoute;
+		// refresh map to show alternative route
+		mapActivity.refreshMap();
+		showingAlternative = !showingAlternative;
+	}
+
 	private void setNewRoute(RouteCalculationResult prevRoute, final RouteCalculationResult res, Location start){
 		final boolean newRoute = !prevRoute.isCalculated();
 		if (isFollowingMode) {
@@ -597,18 +617,18 @@ public class RoutingHelper {
 						evalWaitInterval = Math.max(3000, evalWaitInterval * 3 / 2);
 						evalWaitInterval = Math.min(evalWaitInterval, 120000);
 					}
-					
+
 				}
 			}
 
-			
+
 			// trigger voice prompt only if new route is in forward direction
 			// If route is in wrong direction after one more setLocation it will be recalculated
 			if (!wrongMovementDirection || newRoute) {
 				voiceRouter.newRouteIsCalculated(newRoute);
 			}
 		}
-		
+
 		app.runInUIThread(new Runnable() {
 			@Override
 			public void run() {
@@ -635,10 +655,10 @@ public class RoutingHelper {
 			}
 		});
 
-		
+
 		app.getWaypointHelper().setNewRoute(res);
 	}
-	
+
 	public int getLeftDistance(){
 		return route.getDistanceToFinish(lastFixedLocation);
 	}
@@ -872,6 +892,8 @@ public class RoutingHelper {
 			params.type = settings.ROUTER_SERVICE.getModeValue(mode);
 			params.mode = mode;
 			params.ctx = app;
+			params.useSrRouting = settings.SR_ROUTING.get(); // INFO get sr routing setting
+			params.srDbPath = settings.SR_DB_PATH.get(); // INFO get sr db path setting
 			if (params.type == RouteService.OSMAND) {
 				params.calculationProgress = new RouteCalculationProgress();
 				updateProgress(params);

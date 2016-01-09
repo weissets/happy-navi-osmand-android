@@ -2270,7 +2270,7 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_settings_location_simulation_title">Routingsimulation</string>
 	<string name="sr_settings_location_simulation_description">Zeigt nach der Berechnung
 		einer Route einen Dialog, über welchen die berechnete Route simuliert werden kann.</string>
-	<string name="sr_settings_routing_title">Routenberechnung (Bald verfügbar!)</string>
+	<string name="sr_settings_routing_title">Routenberechnung</string>
 	<string name="sr_settings_routing_description">Verwende angepasste Routenberechnung für weniger stressige und anstrengende Straßenabschnitte.</string>
 	<string name="sr_request_rating">Bitte Bewertung eingeben!</string>
 	<string name="sr_plugin_new_version">Neue Version verfügbar</string>
