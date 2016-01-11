@@ -67,6 +67,8 @@ import org.xml.sax.SAXException;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import btools.routingapp.IBRouterService;
 
 
@@ -807,10 +809,12 @@ public class RouteProvider {
 			if (params.useSrRouting) {
 				ctxSr.useSrRouting = true;
 				ctxSr.srDbPath = params.srDbPath;
+				ctxSr.srLevel = params.srLevel;
 				// calculate route
 				if(complexCtxSr != null) {
 					complexCtxSr.useSrRouting = true;
 					complexCtxSr.srDbPath = params.srDbPath;
+					complexCtxSr.srLevel = params.srLevel;
 					try {
 						log.debug("[INFO] calcOfflineRouteImpl(): calc complex SR route");
 						resultSr = router.searchRoute(complexCtxSr, st, en, inters, precalculated);
@@ -860,16 +864,38 @@ public class RouteProvider {
 				// INFO calculate alternative if sr routing is active
 			} else if (params.useSrRouting && resultSr != null) {
 				RouteCalculationResult res = new RouteCalculationResult(resultSr, params.start,
-						params.end,
-						params.intermediates, params.ctx, params.leftSide, ctxSr.routingTime,
-						params.gpxRoute  == null ?
-						null : params.gpxRoute.wpt);
+						params.end, params.intermediates, params.ctx, params.leftSide,
+						ctxSr.routingTime, params.gpxRoute  == null ? null : params.gpxRoute.wpt);
+				res.setIsSrRoute(true);
 
-				res.setAlternative(new RouteCalculationResult(result, params.start, params.end,
+				res.setAlternativeRoute(new RouteCalculationResult(result, params.start, params.end,
 						params.intermediates, params.ctx, params.leftSide, ctx.routingTime,
 						params.gpxRoute == null ? null : params.gpxRoute.wpt));
-				log.debug("[INFO] calcOfflineRouteImpl(): sr route time = " + res.getRoutingTime()
-						+ ", alternative time = " + res.getAlternative().getRoutingTime());
+				// INFO check if routes are equal, if yes set alternative to null and proceed normal
+				if (res.getRoutingTime() == res.getAlternativeRoute().getRoutingTime() && res
+						.getImmutableAllLocations().size() == res.getAlternativeRoute()
+						.getImmutableAllLocations().size()) {
+					res.setAlternativeRoute(null);
+					params.ctx.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(params.ctx, R.string.sr_no_sr_route, Toast.LENGTH_SHORT)
+									.show();
+						}
+					});
+					return res;
+				}
+				log.debug("[INFO] calcOfflineRouteImpl(): sr route time = " + res.getRoutingTime
+						() +
+						", alternative time = " + res.getAlternativeRoute().getRoutingTime());
+				params.ctx.runInUIThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(params.ctx, R.string.sr_show_sr_route, Toast.LENGTH_SHORT)
+								.show();
+					}
+				});
+
 				return res;
 			} else {
 				RouteCalculationResult res = new RouteCalculationResult(result, params.start, params.end,

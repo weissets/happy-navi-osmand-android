@@ -142,7 +142,7 @@ public class FragmentHandler {
 	}
 
 	private boolean isTimeout(long time) {
-		return (System.currentTimeMillis() - time) < 2000;
+		return (System.currentTimeMillis() - time) < 1000;
 	}
 
 }

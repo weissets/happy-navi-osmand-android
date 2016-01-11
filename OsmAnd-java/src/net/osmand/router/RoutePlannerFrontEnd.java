@@ -130,6 +130,7 @@ public class RoutePlannerFrontEnd {
 			nctx.calculationProgress = ctx.calculationProgress ;
 			nctx.useSrRouting = ctx.useSrRouting; // INFO set sr routing
 			nctx.srDbPath = ctx.srDbPath; // INFO set sr db path
+			nctx.srLevel = ctx.srLevel; // INFO set sr level
 			List<RouteSegmentResult> ls = searchRoute(nctx, start, end, intermediates);
 			routeDirection = PrecalculatedRouteDirection.build(ls, ctx.config.DEVIATION_RADIUS, ctx.getRouter().getMaxDefaultSpeed());
 		}
@@ -383,7 +384,8 @@ public class RoutePlannerFrontEnd {
 		RouteSegmentResult[] res = ctx.nativeLib.runNativeRouting(ctx.startX, ctx.startY, ctx.targetX, ctx.targetY,
 				ctx.config, regions, ctx.calculationProgress, ctx.precalculatedRouteDirection,
 				ctx.calculationMode == RouteCalculationMode.BASE,
-				ctx.useSrRouting, ctx.srDbPath); // INFO new bool for sr routing and db path
+				ctx.useSrRouting, ctx.srDbPath, ctx.srLevel); // INFO new bool for sr routing and db
+				// path
 		log.info("Native routing took " + (System.currentTimeMillis() - time) / 1000f + " seconds");
 		ArrayList<RouteSegmentResult> result = new ArrayList<RouteSegmentResult>(Arrays.asList(res));
 		if(recalculationEnd != null) {

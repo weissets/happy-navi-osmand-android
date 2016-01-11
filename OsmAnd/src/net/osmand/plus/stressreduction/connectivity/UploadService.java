@@ -3,6 +3,7 @@ package net.osmand.plus.stressreduction.connectivity;
 import com.commonsware.cwac.wakeful.WakefulIntentService;
 
 import net.osmand.PlatformUtil;
+import net.osmand.plus.BuildConfig;
 import net.osmand.plus.stressreduction.Constants;
 import net.osmand.plus.stressreduction.database.DatabaseBackup;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
@@ -11,6 +12,7 @@ import org.apache.commons.logging.Log;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -305,24 +307,16 @@ public class UploadService extends WakefulIntentService {
 			int status;
 
 			log.debug("UploadTask: doInBackground(): start uploading with async task...");
-			//			if (!BuildConfig.DEBUG) {
-			log.debug(
-					"UploadTask: doInBackground(): uploading to " + Constants.URI_DATABASE_UPLOAD);
-			status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD);
-			//			} else {
-			//				if (Build.FINGERPRINT.contains("generic")) {
-			//					log.debug("UploadTask: doInBackground(): debug upload, trying
-			// emulator " +
-			//							"upload");
-			//					status = uploadFileHttp(databasePath,
-			//							Constants.URI_DATABASE_UPLOAD_DEBUG_EMULATOR);
-			//				} else {
-			//					log.debug("UploadTask: doInBackground(): debug upload, trying
-			// device upload");
-			//					status = uploadFileHttp(databasePath,
-			//							Constants.URI_DATABASE_UPLOAD_DEBUG_DEVICE);
-			//				}
-			//			}
+			if (!BuildConfig.DEBUG) {
+				log.debug("UploadTask: doInBackground(): uploading to " +
+						Constants.URI_DATABASE_UPLOAD);
+				status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD);
+			} else {
+				log.debug("UploadTask: doInBackground(): uploading to " +
+						Constants.URI_DATABASE_UPLOAD_DEBUG);
+				status = uploadFileHttps(databasePath, Constants.URI_DATABASE_UPLOAD_DEBUG);
+
+			}
 			return status;
 		}
 

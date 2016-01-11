@@ -186,16 +186,15 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	 * @return Boolean whether there is a dialog timeout or not
 	 */
 	private boolean isDialogTimeout() {
-		// dialog timeout set to 30s TODO check how big the timeout should be
+		if (isLastDialog) { return false; }
+		// dialog timeout set to 30s
 		if (System.currentTimeMillis() - timerDialog <
 				(Constants.DIALOG_TIMEOUT / SIMULATION_SPEED)) {
 			log.debug("isDialogTimeout(): true, " + (System.currentTimeMillis() - timerDialog) +
 					" < " + (Constants.DIALOG_TIMEOUT / SIMULATION_SPEED));
 			return true;
-		} else {
-			timerDialog = System.currentTimeMillis();
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -204,7 +203,8 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	 * @return Boolean whether there is a dialog distance timeout or not
 	 */
 	private boolean isDialogDistanceTimeout() {
-		// dialog distance timeout set to 200m TODO check how big the distance timeout should be
+		if (isLastDialog) { return false; }
+		// dialog distance timeout set to 200m
 		if ((currentLocation != null) && (lastDialogLocation != null)) {
 			if (currentLocation.distanceTo(lastDialogLocation) <
 					Constants.DIALOG_DISTANCE_TIMEOUT) {
@@ -324,6 +324,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 				log.debug("run(): speed still below threshold, show dialog");
 				lastDialogLocation = currentLocation;
 				lastDialogSegmentID = lastLoggedSegmentID;
+				timerDialog = System.currentTimeMillis();
 				fragmentHandler.showSRDialog(dataHandler);
 			} else {
 				log.debug("run(): speed now higher than dialog speed limit, not showing dialog");

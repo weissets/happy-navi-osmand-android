@@ -2204,6 +2204,14 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_settings_speech_input_description">Control the evaluation dialog with
         your voice. Please use only the displayed words and adjust the threshold below to
         optimize the recognition rate (if needed)!</string>
+    <string name="sr_settings_sr_level_title">Stress Reduction Level</string>
+	<string name="sr_settings_sr_level_description">Higher value will select more stressless
+        street segments. But detours could be longer!</string>
+    <string-array name="sr_level_names">
+        <item>Low</item>
+        <item>Normal</item>
+        <item>High</item>
+    </string-array>
     <string name="sr_settings_speech_values_title">Speech Recognition Threshold</string>
     <string name="sr_settings_speech_values_description">Increase value if speech
         recognition detects easily surrounding noise, decrease value if speech recognition
@@ -2252,4 +2260,7 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_plugin_enabled">Stress Reduction Plugin enabled!</string>
     <string name="sr_plugin_enabled_info">Plugin is enabled! You can disable it in the
         settings.</string>
+    <string name="sr_show_sr_route">Stress Reduced Route</string>
+    <string name="sr_show_normal_route">Normal Route</string>
+    <string name="sr_no_sr_route">No Stress Reduced Route Found!</string>
 </resources>

@@ -1591,15 +1591,6 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="color_red">Rot</string>
 	<string name="color_yellow">Gelb</string>
 
-	
-	
-	
-	
-	
-	
-	
-	
-
 	<string name="osmo_settings_uuid">Geräte-ID</string>
 	<string name="osmo_settings_descr">Konfigurieren der Überwachungs-Einstellungen und des persönlichen Überwachungs-Kanals</string>
 	<string name="osmo_plugin_description">"Dieses Plugin stellt den Funktionsumfang der sogenannten OsMo Live-Überwachung bereit, siehe http://osmo.mobi.\n\nEs ermöglicht die temporäre oder dauerhafte Positionsdarstellung und Kommunikation einer Gruppe teilnehmender Geräte in Echtzeit. Es gibt verschiedene Einstellungen für zeitlich begrenzte oder Dauer-Aufzeichnung.\n\nAnonym erstellte Gruppen können spontan eingerichtet werden, hier sind die Optionen etwas eingeschränkt: Lebensdauer der Gruppe nur für einige Tage, auch ist keine zentrale Steuerung der Gruppe möglich. Voll funktionsfähige Gruppen müssen auf der genannten Internetseite erstellt werden, auf die Gruppe haben nur registrierte Nutzer Zugriff. "</string>
@@ -2256,6 +2247,15 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_settings_speech_input_description">Steuern sie den Evaluierungsdialog per
 		Spracheingabe. Bitte verwenden sie nur die angezeigten Wörter und passen sie die
 		Erkennungsschwelle unten an, um	die Erkennungsrate zu verbessern (falls erforderlich)!</string>
+	<string name="sr_settings_sr_level_title">Stressreduzierungslevel</string>
+	<string name="sr_settings_sr_level_description">Je höher das Stressreduzierungslevel,
+		desto mehr stressfreie Straßensegmente werden ausgewählt. Jedoch können auch die
+		Umwege größer ausfallen!</string>
+	<string-array name="sr_level_names">
+		<item>Niedrig</item>
+		<item>Normal</item>
+		<item>Hoch</item>
+	</string-array>
 	<string name="sr_settings_speech_values_title">Spracheingabe Erkennungsschwelle</string>
     <string name="sr_settings_speech_values_description">Erhöhen sie den Wert, wenn die
 	    Spracheingabe oft durch Nebengeräusche aktiviert wird. Verringern sie den Wert,
@@ -2306,4 +2306,7 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_plugin_enabled">Stress Reduzierung Plugin aktiviert!</string>
     <string name="sr_plugin_enabled_info">Das Plugin ist aktiviert! Sie können es in den
 	    Einstellungen deaktivieren.</string>
+	<string name="sr_show_sr_route">Stressreduzierte Route</string>
+	<string name="sr_show_normal_route">Normale Route</string>
+	<string name="sr_no_sr_route">Keine stressreduzierte Route gefunden!</string>
 </resources>

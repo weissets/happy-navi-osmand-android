@@ -84,25 +84,23 @@ public class Constants {
 					"3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0", "4.1", "4.2", "4.3",
 					"4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5.0"};
 
+	public static final Integer[] SR_LEVEL_VALUES = {1 ,2 ,3};
+
 	/** uri of the database upload script */
 	public static final String URI_DATABASE_UPLOAD =
 			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload.php";
 
-	/** uri of the database upload script (DEBUG EMULATOR) */
-	public static final String URI_DATABASE_UPLOAD_DEBUG_EMULATOR =
-			"http://10.0.2.2:8888/stressreduction/db_upload_v1.2_debug.php";
-
-	/** uri of the database upload script (DEBUG DEVICE) */
-	public static final String URI_DATABASE_UPLOAD_DEBUG_DEVICE =
-			"http://141.58.51.252:8888/stressreduction/db_upload_v1.3_debug.php";
+	/** uri of the database upload script (DEBUG) */
+	public static final String URI_DATABASE_UPLOAD_DEBUG =
+			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_upload_debug.php";
 
 	/** uri of the database download script */
 	public static final String URI_DATABASE_DOWNLOAD =
-			"https://maps.hcilab.org/stressreduction/db_download.php";
+			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_download.php";
 
 	/** uri of the database download script (DEBUG) */
 	public static final String URI_DATABASE_DOWNLOAD_DEBUG =
-			"http://10.0.2.2:8888/download/db_download_debug.php";
+			"https://maps.hci.simtech.uni-stuttgart.de/stressreduction/db_download_debug.php";
 
 	/** uri of the homepage */
 	public static final String URI_HOMEPAGE = "https://maps.hci.simtech.uni-stuttgart.de/info";
@@ -110,6 +108,10 @@ public class Constants {
 	/** uri of the version code */
 	public static final String URI_VERSION_CODE =
 			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version";
+
+	/** uri of the version code */
+	public static final String URI_VERSION_CODE_SR_DB =
+			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version_sr_db";
 
 	/** uri of the blank dash fragment content */
 	public static final String URI_JSON_BLANK =
@@ -125,7 +127,7 @@ public class Constants {
 	public static final int MINIMUM_DRIVING_SPEED = 20;
 
 	/** time between the first and last check of minimum driving speed in ms */
-	public static final int SPEED_WATCHER_TIMEOUT = 2000;
+	public static final int SPEED_WATCHER_TIMEOUT = 1000;
 
 	/** time between the first and last check of driving speed in ms */
 	public static final int DIALOG_WATCHER_TIMEOUT = 5000;
@@ -137,7 +139,7 @@ public class Constants {
 	public static final long ROUTING_LOG_TIMEOUT = 30000;
 
 	/** minimum distance in m between two stress reduction dialogs */
-	public static final int DIALOG_DISTANCE_TIMEOUT = 500;
+	public static final int DIALOG_DISTANCE_TIMEOUT = 200;
 
 	/** minimum distance in m for considering a routing abortion */
 	public static final int MIN_DIST_ABORT = 200;

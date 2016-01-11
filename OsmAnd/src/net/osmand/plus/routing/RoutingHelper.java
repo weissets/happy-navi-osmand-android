@@ -29,6 +29,8 @@ import net.osmand.router.TurnType;
 import net.osmand.util.Algorithms;
 import net.osmand.util.MapUtils;
 
+import android.widget.Toast;
+
 public class RoutingHelper {
 	
 	private static final org.apache.commons.logging.Log log = PlatformUtil.getLog(RoutingHelper.class);
@@ -54,8 +56,7 @@ public class RoutingHelper {
 	private GPXRouteParamsBuilder currentGPXRoute = null;
 
 	private RouteCalculationResult route = new RouteCalculationResult("");
-	private boolean showingAlternative = false; // INFO new
-	
+
 	private LatLon finalLocation;
 	private List<LatLon> intermediatePoints;
 	private Location lastProjection;
@@ -368,9 +369,8 @@ public class RoutingHelper {
 	}
 
 	private static double getOrthogonalDistance(Location loc, Location from, Location to) {
-		return MapUtils.getOrthogonalDistance(loc.getLatitude(),
-				loc.getLongitude(), from.getLatitude(), from.getLongitude(),
-				to.getLatitude(), to.getLongitude());
+		return MapUtils.getOrthogonalDistance(loc.getLatitude(), loc.getLongitude(),
+				from.getLatitude(), from.getLongitude(), to.getLatitude(), to.getLongitude());
 	}
 	
 	private static LatLon getProject(Location loc, Location from, Location to) {
@@ -578,22 +578,23 @@ public class RoutingHelper {
 		return false;
 	}
 
-	// FIXME show alternative route
+	// INFO show alternative route
 	public void showAlternativeRoute(MapActivity mapActivity) {
 		log.info("showAlternativeRoute(): route time = " + route.getRoutingTime() + ", " +
-				"alternative time = " + route.getAlternative().getRoutingTime());
-		if (showingAlternative) {
-			log.debug("showAlternativeRoute(): showing normal route");
-		} else {
-			log.debug("showAlternativeRoute(): showing alternative route");
-		}
+				"alternative time = " + route.getAlternativeRoute().getRoutingTime());
 		// swap routes
-		RouteCalculationResult newRoute = route.getAlternative();
-		newRoute.setAlternative(route);
-		route = newRoute;
+		RouteCalculationResult alternativeRoute = route.getAlternativeRoute();
+		alternativeRoute.setAlternativeRoute(route);
+		route = alternativeRoute;
+		if (route.isSrRoute()) {
+			log.debug("showAlternativeRoute(): showing sr route");
+			Toast.makeText(app, R.string.sr_show_sr_route, Toast.LENGTH_SHORT).show();
+		} else {
+			log.debug("showAlternativeRoute(): showing normal route");
+			Toast.makeText(app, R.string.sr_show_normal_route, Toast.LENGTH_SHORT).show();
+		}
 		// refresh map to show alternative route
 		mapActivity.refreshMap();
-		showingAlternative = !showingAlternative;
 	}
 
 	private void setNewRoute(RouteCalculationResult prevRoute, final RouteCalculationResult res, Location start){
@@ -893,6 +894,7 @@ public class RoutingHelper {
 			params.mode = mode;
 			params.ctx = app;
 			params.useSrRouting = settings.SR_ROUTING.get(); // INFO get sr routing setting
+			params.srLevel = settings.SR_LEVEL.get(); // INFO get the sr level setting
 			params.srDbPath = settings.SR_DB_PATH.get(); // INFO get sr db path setting
 			if (params.type == RouteService.OSMAND) {
 				params.calculationProgress = new RouteCalculationProgress();

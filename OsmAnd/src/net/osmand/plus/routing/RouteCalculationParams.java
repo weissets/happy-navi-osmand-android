@@ -27,5 +27,6 @@ public class RouteCalculationParams {
 	public boolean leftSide;
 	public boolean useSrRouting; // INFO new
 	public String srDbPath; // INFO new
+	public int srLevel; // INFO new
 	public RouteCalculationProgress calculationProgress;
 }

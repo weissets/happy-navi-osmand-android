@@ -35,7 +35,7 @@
 
                 <!-- INFO button for switching between routes -->
                 <ImageView
-                    android:id="@+id/alternative"
+                    android:id="@+id/alternativeRoute"
                     android:padding="10dp"
                     android:layout_width="@dimen/list_item_height"
                     android:layout_height="@dimen/list_item_height"

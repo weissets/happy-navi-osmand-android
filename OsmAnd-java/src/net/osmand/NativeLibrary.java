@@ -123,13 +123,13 @@ public class NativeLibrary {
 
 	public RouteSegmentResult[] runNativeRouting(int sx31, int sy31, int ex31, int ey31, RoutingConfiguration config,
 			RouteRegion[] regions, RouteCalculationProgress progress, PrecalculatedRouteDirection precalculatedRouteDirection, 
-			boolean basemap, boolean useSrRouting, String srDbPath) {
+			boolean basemap, boolean useSrRouting, String srDbPath, int srLevel) {
 
 //		config.router.printRules(System.out);
 		log.debug("runNativeRouting(): srDbPath = " + srDbPath);
 
 		return nativeRouting(new int[] { sx31, sy31, ex31, ey31 }, config, config.initialDirection == null ? -360 : config.initialDirection.floatValue(),
-				regions, progress, precalculatedRouteDirection, basemap, useSrRouting, srDbPath);
+				regions, progress, precalculatedRouteDirection, basemap, useSrRouting, srDbPath, srLevel);
 	}
 
 
@@ -151,8 +151,8 @@ public class NativeLibrary {
 
 	protected static native RouteSegmentResult[] nativeRouting(int[] coordinates, RoutingConfiguration r,
 			float initDirection, RouteRegion[] regions, RouteCalculationProgress progress,
-			                                                   PrecalculatedRouteDirection
-			                                                           precalculatedRouteDirection, boolean basemap, boolean useSrRouting, String srDbPath);
+			PrecalculatedRouteDirection precalculatedRouteDirection, boolean basemap,
+			boolean useSrRouting, String srDbPath, int srLevel);
 
 	protected static native void deleteSearchResult(long searchResultHandle);
 

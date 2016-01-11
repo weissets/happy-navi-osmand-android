@@ -29,8 +29,6 @@ import java.nio.channels.FileChannel;
 
 import javax.net.ssl.HttpsURLConnection;
 
-// TODO download the sr data from the server
-
 /**
  * This class is a service for downloading the database to the server
  *
@@ -110,7 +108,7 @@ public class DownloadService extends WakefulIntentService {
 
 		InputStream input = null;
 		OutputStream output = null;
-		HttpURLConnection connection = null;
+		HttpsURLConnection connection = null;
 
 		String path = ((OsmandApplication)getApplication()).getSettings()
 				.getExternalStorageDirectory().getAbsolutePath() + "/sr.db";
@@ -123,7 +121,7 @@ public class DownloadService extends WakefulIntentService {
 		try {
 			copyFile(file, fileBackup);
 			URL url = new URL(serverUri);
-			connection = (HttpURLConnection) url.openConnection();
+			connection = (HttpsURLConnection) url.openConnection();
 			connection.connect();
 
 			// check for http ok to not save error message if download went wrong
@@ -150,6 +148,7 @@ public class DownloadService extends WakefulIntentService {
 			try {
 				copyFile(fileBackup, file);
 				fileBackup.delete();
+				log.debug("downloadFile(): restored backup sr db!");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -170,13 +169,13 @@ public class DownloadService extends WakefulIntentService {
 				connection.disconnect();
 			}
 
-			// set db location in settings
-			if (dbValidityCheck(path)) {
-				((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set(path);
-				fileBackup.delete();
-			} else {
-				((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set("");
-			}
+		}
+		// set db location in settings
+		if (dbValidityCheck(path)) {
+			((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set(path);
+			fileBackup.delete();
+		} else {
+			((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set("");
 		}
 		return HttpURLConnection.HTTP_OK;
 	}
@@ -206,8 +205,12 @@ public class DownloadService extends WakefulIntentService {
 //				settings.SR_DB_VERSION_CODE_DEVICE.set(settings.SR_DB_VERSION_CODE_SERVER.get());
 
 				if (!BuildConfig.DEBUG) {
+					log.debug("UploadTask: doInBackground(): downloading sr db from " +
+							Constants.URI_DATABASE_DOWNLOAD);
 					status = downloadFile(Constants.URI_DATABASE_DOWNLOAD);
 				} else {
+					log.debug("UploadTask: doInBackground(): downloading sr db from " +
+							Constants.URI_DATABASE_DOWNLOAD_DEBUG);
 					status = downloadFile(Constants.URI_DATABASE_DOWNLOAD_DEBUG);
 				}
 //			} else {

@@ -106,9 +106,10 @@ public class RoutingContext {
 	// old planner
 	public FinalRouteSegment finalRouteSegment;
 
-	// sr routing infos
+	// INFO sr routing infos
 	public boolean useSrRouting = false;
 	public String srDbPath = "";
+	public int srLevel = 0;
 	
 
 	public RoutingContext(RoutingContext cp) {

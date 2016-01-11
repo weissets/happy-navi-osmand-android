@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.PointF;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -171,8 +170,8 @@ public class MapRouteInfoControl implements IRouteInformationListener {
 
 	// INFO update button for switching between routes
 	private void updateAlternativeBtn(final View parentView) {
-		ImageView alternativeBtn = (ImageView) parentView.findViewById(R.id.alternative);
-		if (mapActivity.getRoutingHelper().getRoute().getAlternative() == null) {
+		ImageView alternativeBtn = (ImageView) parentView.findViewById(R.id.alternativeRoute);
+		if (mapActivity.getRoutingHelper().getRoute().getAlternativeRoute() == null) {
 			alternativeBtn.setVisibility(View.GONE);
 		} else {
 			alternativeBtn.setVisibility(View.VISIBLE);

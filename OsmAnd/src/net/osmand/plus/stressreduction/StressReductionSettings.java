@@ -15,6 +15,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.support.v4.content.res.TypedArrayUtils;
 
 /**
  * This class enables the stress reduction plugin settings in the menu
@@ -35,6 +36,23 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		routingPreference.setTitle(R.string.sr_settings_routing_title);
 		routingPreference.setSummary(R.string.sr_settings_routing_description);
 		preferenceScreen.addPreference(routingPreference);
+
+		ListPreference srLevelPreference =
+				createListPreference(settings.SR_LEVEL, getResources().getStringArray(R.array
+								.sr_level_names), Constants.SR_LEVEL_VALUES);
+		srLevelPreference.setTitle(R.string.sr_settings_sr_level_title);
+		srLevelPreference.setSummary(R.string.sr_settings_sr_level_description);
+		srLevelPreference
+				.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+					@Override
+					public boolean onPreferenceChange(Preference preference, Object newValue) {
+						int value = Integer.valueOf(newValue.toString());
+						settings.SR_LEVEL.set(value);
+						return true;
+					}
+				});
+		preferenceScreen.addPreference(srLevelPreference);
 
 		CheckBoxPreference notificationSoundPreference =
 				createCheckBoxPreference(settings.SR_NOTIFICATION_SOUND);
