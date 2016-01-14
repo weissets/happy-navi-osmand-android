@@ -19,6 +19,8 @@ import org.apache.commons.logging.Log;
 /**
  * This class manages the sqlite database
  *
+ * http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
+ *
  * @author Tobias
  */
 public class SQLiteLogger extends SQLiteOpenHelper {

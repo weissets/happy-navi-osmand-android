@@ -46,6 +46,8 @@
 
             <include layout="@layout/map_hud_top"/>
 
+            <include layout="@layout/map_hud_sr_progress" />
+
             <include layout="@layout/map_hud_bottom"/>
         </FrameLayout>
         <FrameLayout

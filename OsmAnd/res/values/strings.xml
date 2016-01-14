@@ -2208,9 +2208,11 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
 	<string name="sr_settings_sr_level_description">Higher value will select more stressless
         street segments. But detours could be longer!</string>
     <string-array name="sr_level_names">
+        <item>Minimal</item>
         <item>Low</item>
         <item>Normal</item>
         <item>High</item>
+        <item>Maximal</item>
     </string-array>
     <string name="sr_settings_speech_values_title">Speech Recognition Threshold</string>
     <string name="sr_settings_speech_values_description">Increase value if speech
@@ -2263,4 +2265,5 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_show_sr_route">Stress Reduced Route</string>
     <string name="sr_show_normal_route">Normal Route</string>
     <string name="sr_no_sr_route">No Stress Reduced Route Found!</string>
+    <string name="sr_please_be_patient">Searching for stress reduced route. Please wait…</string>
 </resources>

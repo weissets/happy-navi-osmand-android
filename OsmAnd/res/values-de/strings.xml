@@ -2252,9 +2252,11 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 		desto mehr stressfreie Straßensegmente werden ausgewählt. Jedoch können auch die
 		Umwege größer ausfallen!</string>
 	<string-array name="sr_level_names">
+		<item>Minimal</item>
 		<item>Niedrig</item>
 		<item>Normal</item>
 		<item>Hoch</item>
+		<item>Maximal</item>
 	</string-array>
 	<string name="sr_settings_speech_values_title">Spracheingabe Erkennungsschwelle</string>
     <string name="sr_settings_speech_values_description">Erhöhen sie den Wert, wenn die
@@ -2309,4 +2311,6 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_show_sr_route">Stressreduzierte Route</string>
 	<string name="sr_show_normal_route">Normale Route</string>
 	<string name="sr_no_sr_route">Keine stressreduzierte Route gefunden!</string>
+	<string name="sr_please_be_patient">Eine stressreduzierte Route wird gesucht. Bitte
+		warten…</string>
 </resources>

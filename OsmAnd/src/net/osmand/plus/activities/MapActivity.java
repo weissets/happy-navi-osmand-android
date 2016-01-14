@@ -26,6 +26,8 @@ import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -332,7 +334,7 @@ public class MapActivity extends AccessibleActivity implements DownloadEvents {
 			public void finish() {
 				pb.setVisibility(View.GONE);
 			}
-		});
+		}, (FrameLayout) findViewById(R.id.map_indeterminate_progress_sr));
 	}
 
 	private void changeKeyguardFlags() {

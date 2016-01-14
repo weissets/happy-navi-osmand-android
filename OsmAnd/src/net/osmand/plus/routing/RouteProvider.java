@@ -47,6 +47,7 @@ import net.osmand.router.GeneralRouter.GeneralRouterProfile;
 import net.osmand.router.GeneralRouter.RoutingParameter;
 import net.osmand.router.GeneralRouter.RoutingParameterType;
 import net.osmand.router.PrecalculatedRouteDirection;
+import net.osmand.router.RouteCalculationProgress;
 import net.osmand.router.RoutePlannerFrontEnd;
 import net.osmand.router.RoutePlannerFrontEnd.RouteCalculationMode;
 import net.osmand.router.RouteSegmentResult;
@@ -810,6 +811,15 @@ public class RouteProvider {
 				ctxSr.useSrRouting = true;
 				ctxSr.srDbPath = params.srDbPath;
 				ctxSr.srLevel = params.srLevel;
+
+				// set sr progress bar
+				params.ctx.runInUIThread(new Runnable() {
+					@Override
+					public void run() {
+						params.ctx.getRoutingHelper().setSrProgressBar(true);
+					}
+				});
+
 				// calculate route
 				if(complexCtxSr != null) {
 					complexCtxSr.useSrRouting = true;
@@ -871,6 +881,15 @@ public class RouteProvider {
 				res.setAlternativeRoute(new RouteCalculationResult(result, params.start, params.end,
 						params.intermediates, params.ctx, params.leftSide, ctx.routingTime,
 						params.gpxRoute == null ? null : params.gpxRoute.wpt));
+
+				// remove sr progress bar
+				params.ctx.runInUIThread(new Runnable() {
+					@Override
+					public void run() {
+						params.ctx.getRoutingHelper().setSrProgressBar(false);
+					}
+				});
+
 				// INFO check if routes are equal, if yes set alternative to null and proceed normal
 				if (res.getRoutingTime() == res.getAlternativeRoute().getRoutingTime() && res
 						.getImmutableAllLocations().size() == res.getAlternativeRoute()

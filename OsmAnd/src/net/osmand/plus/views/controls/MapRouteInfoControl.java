@@ -579,6 +579,8 @@ public class MapRouteInfoControl implements IRouteInformationListener {
 			dialog.dismiss();
 			this.dialog = null;
 		}
+		// INFO hide sr progressbar
+		mapActivity.findViewById(R.id.map_indeterminate_progress_sr).setVisibility(View.GONE);
 	}
 
 	public void setShowDialog() {

@@ -29,6 +29,10 @@ import net.osmand.router.TurnType;
 import net.osmand.util.Algorithms;
 import net.osmand.util.MapUtils;
 
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class RoutingHelper {
@@ -80,6 +84,7 @@ public class RoutingHelper {
 	//private long wrongMovementDetected = 0;
 
 	private RouteCalculationProgressCallback progressRoute;
+	private FrameLayout srProgress;
 
 	private boolean announceBackOnRoute = false;
 
@@ -936,7 +941,7 @@ public class RoutingHelper {
 	}
 	
 	
-	private void updateProgress(final RouteCalculationParams params) {
+	public void updateProgress(final RouteCalculationParams params) {
 		if(progressRoute != null ) {
 			app.runInUIThread(new Runnable() {
 				@Override
@@ -952,7 +957,7 @@ public class RoutingHelper {
 						Thread t = currentRunningJob;
 						if(t instanceof RouteRecalculationThread && ((RouteRecalculationThread) t).params != params) {
 							// different calculation started
-							return; 
+							return;
 						} else {
 							updateProgress(params);
 						}
@@ -964,8 +969,10 @@ public class RoutingHelper {
 		}
 	}
 	
-	public void setProgressBar(RouteCalculationProgressCallback progressRoute) {
+	public void setProgressBar(RouteCalculationProgressCallback progressRoute, FrameLayout
+			srProgress) {
 		this.progressRoute = progressRoute;
+		this.srProgress = srProgress;
 	}
 	
 	public interface RouteCalculationProgressCallback {
@@ -1008,5 +1015,13 @@ public class RoutingHelper {
 		}
 	}
 
+	// INFO set the sr routing progress bar
+	public void setSrProgressBar(boolean visible) {
+		if (visible) {
+			srProgress.setVisibility(View.VISIBLE);
+		} else {
+			srProgress.setVisibility(View.GONE);
+		}
+	}
 
 }
