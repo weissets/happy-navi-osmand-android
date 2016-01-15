@@ -5,19 +5,16 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.stressreduction.Constants;
-import net.osmand.plus.stressreduction.database.DatabaseBackup;
 import net.osmand.plus.stressreduction.database.SQLiteLogger;
 
 import org.apache.commons.logging.Log;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -63,13 +60,13 @@ public class UploadService extends WakefulIntentService {
 		}
 	}
 
-	private void copyDatabaseToSDCard() {
-		// DEBUG: copy database to sdcard
-		DatabaseBackup tools = new DatabaseBackup(getApplicationContext());
-		String path = SQLiteLogger.getSQLiteLogger(this).getReadableDatabase().getPath();
-		String name = path.substring(path.lastIndexOf("/") + 1);
-		tools.backup(name);
-	}
+//	private void copyDatabaseToSDCard() {
+//		// DEBUG: copy database to sdcard
+//		DatabaseBackup tools = new DatabaseBackup(getApplicationContext());
+//		String path = SQLiteLogger.getSQLiteLogger(this).getReadableDatabase().getPath();
+//		String name = path.substring(path.lastIndexOf("/") + 1);
+//		tools.backup(name);
+//	}
 
 	/**
 	 * Upload the given file to the server using https
@@ -187,105 +184,105 @@ public class UploadService extends WakefulIntentService {
 	 * @param serverUrl Url of the server
 	 * @return The response code of the server
 	 */
-	private int uploadFileHttp(String dbPath, String serverUrl) {
-
-		HttpURLConnection httpURLConnection;
-		DataOutputStream dataOutputStream;
-		String lineEnd = "\r\n";
-		String twoHyphens = "--";
-		String boundary = "*****";
-		int serverResponseCode = -1;
-		int bytesRead;
-		int bytesAvailable;
-		int bufferSize;
-		int maxBufferSize = 1024 * 1024;
-		byte[] buffer;
-		File sourceFile = new File(dbPath);
-
-		if (!sourceFile.isFile()) {
-			log.error("uploadFileHttp(): ERROR! could not find database file");
-		} else {
-			try {
-				// open a URL connection
-				FileInputStream fileInputStream = new FileInputStream(sourceFile);
-				URL url = new URL(serverUrl);
-
-				// Open a HTTP connection to the URL
-				log.debug("uploadFileHttp(): open url connection with http");
-				httpURLConnection = (HttpURLConnection) url.openConnection();
-				log.debug("uploadFileHttp(): url connection with http is open");
-				httpURLConnection.setDoInput(true); // allow inputs
-				httpURLConnection.setDoOutput(true); // allow outputs
-				httpURLConnection.setUseCaches(false); // no cached copy
-				httpURLConnection.setRequestMethod("POST");
-				//				httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
-				httpURLConnection.setRequestProperty("Connection", "Close");
-				httpURLConnection.setRequestProperty("ENCTYPE", "multipart/form-data");
-				httpURLConnection.setRequestProperty("Content-Type",
-						"multipart/form-data;boundary=" + boundary);
-				httpURLConnection.setRequestProperty("database", dbPath);
-
-				log.debug("uploadFileHttp(): get output stream");
-				dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-
-				log.debug("uploadFileHttp(): write output stream intro");
-				dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-				dataOutputStream.writeBytes(
-						"Content-Disposition: form-data; name=\"database\";filename=\"" +
-								dbPath + "\"" + lineEnd);
-
-				dataOutputStream.writeBytes(lineEnd);
-
-				// create a buffer of maximum size
-				bytesAvailable = fileInputStream.available();
-
-				bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				buffer = new byte[bufferSize];
-
-				log.debug("uploadFileHttp(): read input stream");
-				// read file and write it into form
-				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-				log.debug("uploadFileHttp(): write output stream");
-				while (bytesRead > 0) {
-
-					dataOutputStream.write(buffer, 0, bufferSize);
-					bytesAvailable = fileInputStream.available();
-					bufferSize = Math.min(bytesAvailable, maxBufferSize);
-					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-
-				}
-
-				// send multipart form data necessary after file data
-				dataOutputStream.writeBytes(lineEnd);
-				dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-				log.debug("uploadFileHttp(): close streams");
-				// close the streams
-				fileInputStream.close();
-				dataOutputStream.flush();
-				dataOutputStream.close();
-
-				// Responses from the server (code and message)
-				log.debug("uploadFileHttp(): get response code");
-				serverResponseCode = httpURLConnection.getResponseCode();
-				String serverResponseMessage = httpURLConnection.getResponseMessage();
-
-				log.debug("uploadFileHttp(): HTTP Response is : " + serverResponseMessage + ": " +
-						serverResponseCode);
-
-				for (int i = 0; i < httpURLConnection.getHeaderFields().size(); i++) {
-					log.debug("uploadFileHttp(): Header" + i + " = " +
-							httpURLConnection.getHeaderField(i) + " " +
-							httpURLConnection.getHeaderFieldKey(i));
-				}
-
-			} catch (Exception e) {
-				log.error("uploadFileHttp(): Error: " + e.getMessage());
-			}
-		}
-		return serverResponseCode;
-	}
+//	private int uploadFileHttp(String dbPath, String serverUrl) {
+//
+//		HttpURLConnection httpURLConnection;
+//		DataOutputStream dataOutputStream;
+//		String lineEnd = "\r\n";
+//		String twoHyphens = "--";
+//		String boundary = "*****";
+//		int serverResponseCode = -1;
+//		int bytesRead;
+//		int bytesAvailable;
+//		int bufferSize;
+//		int maxBufferSize = 1024 * 1024;
+//		byte[] buffer;
+//		File sourceFile = new File(dbPath);
+//
+//		if (!sourceFile.isFile()) {
+//			log.error("uploadFileHttp(): ERROR! could not find database file");
+//		} else {
+//			try {
+//				// open a URL connection
+//				FileInputStream fileInputStream = new FileInputStream(sourceFile);
+//				URL url = new URL(serverUrl);
+//
+//				// Open a HTTP connection to the URL
+//				log.debug("uploadFileHttp(): open url connection with http");
+//				httpURLConnection = (HttpURLConnection) url.openConnection();
+//				log.debug("uploadFileHttp(): url connection with http is open");
+//				httpURLConnection.setDoInput(true); // allow inputs
+//				httpURLConnection.setDoOutput(true); // allow outputs
+//				httpURLConnection.setUseCaches(false); // no cached copy
+//				httpURLConnection.setRequestMethod("POST");
+//				//				httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+//				httpURLConnection.setRequestProperty("Connection", "Close");
+//				httpURLConnection.setRequestProperty("ENCTYPE", "multipart/form-data");
+//				httpURLConnection.setRequestProperty("Content-Type",
+//						"multipart/form-data;boundary=" + boundary);
+//				httpURLConnection.setRequestProperty("database", dbPath);
+//
+//				log.debug("uploadFileHttp(): get output stream");
+//				dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+//
+//				log.debug("uploadFileHttp(): write output stream intro");
+//				dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
+//				dataOutputStream.writeBytes(
+//						"Content-Disposition: form-data; name=\"database\";filename=\"" +
+//								dbPath + "\"" + lineEnd);
+//
+//				dataOutputStream.writeBytes(lineEnd);
+//
+//				// create a buffer of maximum size
+//				bytesAvailable = fileInputStream.available();
+//
+//				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+//				buffer = new byte[bufferSize];
+//
+//				log.debug("uploadFileHttp(): read input stream");
+//				// read file and write it into form
+//				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+//
+//				log.debug("uploadFileHttp(): write output stream");
+//				while (bytesRead > 0) {
+//
+//					dataOutputStream.write(buffer, 0, bufferSize);
+//					bytesAvailable = fileInputStream.available();
+//					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+//					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+//
+//				}
+//
+//				// send multipart form data necessary after file data
+//				dataOutputStream.writeBytes(lineEnd);
+//				dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+//
+//				log.debug("uploadFileHttp(): close streams");
+//				// close the streams
+//				fileInputStream.close();
+//				dataOutputStream.flush();
+//				dataOutputStream.close();
+//
+//				// Responses from the server (code and message)
+//				log.debug("uploadFileHttp(): get response code");
+//				serverResponseCode = httpURLConnection.getResponseCode();
+//				String serverResponseMessage = httpURLConnection.getResponseMessage();
+//
+//				log.debug("uploadFileHttp(): HTTP Response is : " + serverResponseMessage + ": " +
+//						serverResponseCode);
+//
+//				for (int i = 0; i < httpURLConnection.getHeaderFields().size(); i++) {
+//					log.debug("uploadFileHttp(): Header" + i + " = " +
+//							httpURLConnection.getHeaderField(i) + " " +
+//							httpURLConnection.getHeaderFieldKey(i));
+//				}
+//
+//			} catch (Exception e) {
+//				log.error("uploadFileHttp(): Error: " + e.getMessage());
+//			}
+//		}
+//		return serverResponseCode;
+//	}
 
 	/**
 	 * @author Tobias

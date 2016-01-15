@@ -20,8 +20,8 @@ import android.content.Context;
 
 public class RouteCalculationResult {
 
-	// INFO srRoute
-	private RouteCalculationResult srRoute;
+	// INFO alternative
+	private RouteCalculationResult alternative;
 	private boolean isSrRoute = false;
 
 	private static double distanceClosestToIntermediate = 400;
@@ -51,7 +51,7 @@ public class RouteCalculationResult {
 		this.errorMessage = errorMessage;
 		this.routingTime = 0;
 		this.intermediatePoints = new int[0];
-		this.srRoute = null;
+		this.alternative = null;
 		this.locations = new ArrayList<Location>();
 		this.segments = new ArrayList<RouteSegmentResult>();
 		this.listDistance = new int[0];
@@ -81,7 +81,7 @@ public class RouteCalculationResult {
 			introduceFirstPointAndLastPoint(locations, localDirections, null, params.start, params.end);
 		}
 
-		this.srRoute = null;
+		this.alternative = null;
 		this.locations = Collections.unmodifiableList(locations);
 		this.segments = new ArrayList<RouteSegmentResult>();
 		this.listDistance = new int[locations.size()];
@@ -106,7 +106,7 @@ public class RouteCalculationResult {
 		List<RouteSegmentResult> segments = convertVectorResult(computeDirections, locations, list, alarms, ctx);
 		introduceFirstPointAndLastPoint(locations, computeDirections, segments, start, end);
 
-		this.srRoute = null;
+		this.alternative = null;
 		this.locations = Collections.unmodifiableList(locations);
 		this.segments = Collections.unmodifiableList(segments);
 		this.listDistance = new int[locations.size()];
@@ -941,11 +941,11 @@ public class RouteCalculationResult {
 
 	// INFO getter and setter for the alternative route
 	public void setAlternativeRoute(RouteCalculationResult srRoute) {
-		this.srRoute = srRoute;
+		this.alternative = srRoute;
 	}
 
 	public RouteCalculationResult getAlternativeRoute() {
-		return srRoute;
+		return alternative;
 	}
 
 	public void setIsSrRoute(boolean isSrRoute) {

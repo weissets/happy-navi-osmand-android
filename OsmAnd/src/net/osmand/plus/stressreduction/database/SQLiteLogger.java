@@ -32,7 +32,7 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 	private OsmandApplication osmandApplication;
 
 	private SQLiteLogger(Context context) {
-		super(context, Constants.DATABASE_NAME, null, 1);
+		super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
 		osmandApplication = (OsmandApplication) context.getApplicationContext();
 		userPk = 1;
 	}
@@ -86,7 +86,20 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		log.warn("onUpgrade(): Upgrading database from version " + oldVersion + " to " +
-				newVersion + ", which will destroy all old data");
+				newVersion + ", which will recreate the tables");
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.USERS);
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.SEGMENTS);
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.OSM_SEGMENTS);
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.LOCATIONS);
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.APP_LOGS);
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.ROUTING_LOGS);
+		onCreate(db);
+	}
+
+	@Override
+	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		log.warn("onDowngrade(): Downgrading database from version " + oldVersion + " to " +
+				newVersion + ", which will recreate the tables");
 		db.execSQL("DROP TABLE IF EXISTS " + Constants.USERS);
 		db.execSQL("DROP TABLE IF EXISTS " + Constants.SEGMENTS);
 		db.execSQL("DROP TABLE IF EXISTS " + Constants.OSM_SEGMENTS);
@@ -148,15 +161,11 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 				SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
-	public void updateStressValueInSegmentInfos(String startTimestamp, String endTimestamp,
-	                                            int stressValue) {
+	public void updateStressValueInSegmentInfos(String startTimestamp, int stressValue) {
 		ContentValues contentValues = new ContentValues(1);
 		contentValues.put(Constants.STRESS_VALUE, stressValue);
 		int updatedRows = getWritableDatabase().update(Constants.SEGMENTS, contentValues,
-				"\"" + Constants.TIMESTAMP + "\" > \"" + startTimestamp +
-						//						"\" AND \"" + Constants.TIMESTAMP + "\" < \"" +
-						// endTimestamp +
-						"\"", null);
+				"\"" + Constants.TIMESTAMP + "\" > \"" + startTimestamp + "\"", null);
 		log.debug("updateStressValueInSegmentInfos(): updated " + updatedRows + " rows with " +
 				"stress value = " + stressValue);
 	}
@@ -200,6 +209,12 @@ public class SQLiteLogger extends SQLiteOpenHelper {
 		contentValues.put(Constants.TIME_ROUTING_END, routingLog.getTimeRoutingEnd());
 		contentValues.put(Constants.TIME_ROUTING_ABORT, routingLog.getTimeRoutingAbort());
 		contentValues.put(Constants.DISTANCE_TO_END, routingLog.getDistanceToEnd());
+		contentValues.put(Constants.USED_SR_ROUTE, (routingLog.getUsedSrRoute() ? 1 : 0));
+		contentValues.put(Constants.USED_SR_LEVEL, routingLog.getUsedSrLevel());
+		contentValues.put(Constants.DISTANCE_SR_ROUTE, routingLog.getDistanceSrRoute());
+		contentValues.put(Constants.DISTANCE_NORMAL_ROUTE, routingLog.getDistanceNormalRoute());
+		contentValues.put(Constants.TIME_SR_ROUTE, routingLog.getTimeSrRoute());
+		contentValues.put(Constants.TIME_NORMAL_ROUTE, routingLog.getTimeNormalRoute());
 		contentValues.put(Constants.USER_PK, userPk);
 
 		getWritableDatabase().insert(Constants.ROUTING_LOGS, null, contentValues);

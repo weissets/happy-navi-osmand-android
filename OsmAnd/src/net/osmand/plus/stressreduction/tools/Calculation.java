@@ -50,28 +50,6 @@ public class Calculation {
 	}
 
 	/**
-	 * Calculate the minimum or maximum value of a given list of doubles
-	 *
-	 * @param values A list of double values
-	 * @return The minimum value if negative sum or maximum value if positive sum
-	 */
-	public double getMinOrMaxValue(List<Double> values) {
-		double sum = 0;
-		double max = 0;
-		double min = 0;
-		for (double value : values) {
-			sum = sum + value;
-			max = Math.max(max, value);
-			min = Math.min(min, value);
-		}
-		if (sum >= 0) {
-			return max;
-		} else {
-			return min;
-		}
-	}
-
-	/**
 	 * Calculate the current date and time
 	 *
 	 * @return The current date and time as string

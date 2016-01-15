@@ -3,10 +3,7 @@ package net.osmand.plus.stressreduction.tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import net.osmand.PlatformUtil;
 import net.osmand.plus.stressreduction.Constants;
-
-import org.apache.commons.logging.Log;
 
 /**
  * This class handles the shared preferences
@@ -14,8 +11,6 @@ import org.apache.commons.logging.Log;
  * @author Tobias
  */
 public class SRSharedPreferences {
-
-	private static final Log log = PlatformUtil.getLog(SRSharedPreferences.class);
 
 	public static boolean getDisplayInfoDialog(final Context context) {
 		SharedPreferences sharedPreferences =

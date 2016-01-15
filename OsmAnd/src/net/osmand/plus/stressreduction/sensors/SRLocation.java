@@ -54,6 +54,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	private boolean isDriving;
 	private boolean isLastDialog;
 	private boolean checkingDialog;
+	private boolean getRouteInfos;
 	private final List<Float> segmentSpeedList = new ArrayList<>();
 	public static int SIMULATION_SPEED = 1;
 
@@ -75,6 +76,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 		isDriving = false;
 		isLastDialog = false;
 		checkingDialog = false;
+		getRouteInfos = true;
 		timerLocation = 0;
 		timerDialog = 0;
 		leftDistance = 0;
@@ -115,10 +117,43 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 
 		if (!isDriving && !isSpeedBelowThreshold(location, Constants.MINIMUM_DRIVING_SPEED)) {
 			isDriving = true;
+			if (getRouteInfos && routingLog != null) {
+				log.info("updateLocation(): getRouteInfos");
+				getRouteInfos = false;
+				if (routingHelper.getRoute().getAlternativeRoute() != null) {
+					if (routingHelper.getRoute().isSrRoute()) {
+						routingLog.setUsedSrRoute(true);
+						routingLog.setDistanceSrRoute(routingHelper.getRoute().getWholeDistance());
+						routingLog.setDistanceNormalRoute(
+								routingHelper.getRoute().getAlternativeRoute().getWholeDistance());
+						routingLog.setTimeSrRoute(
+								Math.round(routingHelper.getRoute().getRoutingTime()));
+						routingLog.setTimeNormalRoute(Math.round(
+								routingHelper.getRoute().getAlternativeRoute().getRoutingTime()));
+					} else {
+						routingLog.setUsedSrRoute(false);
+						routingLog.setDistanceSrRoute(
+								routingHelper.getRoute().getAlternativeRoute().getWholeDistance());
+						routingLog.setDistanceNormalRoute(
+								routingHelper.getRoute().getWholeDistance());
+						routingLog.setTimeSrRoute(Math.round(
+								routingHelper.getRoute().getAlternativeRoute().getRoutingTime()));
+						routingLog.setTimeNormalRoute(
+								Math.round(routingHelper.getRoute().getRoutingTime()));
+					}
+				} else {
+					routingLog.setDistanceNormalRoute(routingHelper.getRoute().getWholeDistance());
+					routingLog.setTimeNormalRoute(
+							Math.round(routingHelper.getRoute().getRoutingTime()));
+				}
+				routingLog.setUsedSrLevel(routingHelper.getSettings().SR_LEVEL.get());
+			}
 		}
 
 		if (isDriving && fragmentHandler.isSRDialogVisible()) {
+			log.info("dialog visible");
 			if (!checkingDialog) {
+				log.info("checking dialog");
 				checkingDialog = true;
 				new Thread(new DialogWatcher()).start();
 			}
@@ -186,7 +221,9 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	 * @return Boolean whether there is a dialog timeout or not
 	 */
 	private boolean isDialogTimeout() {
-		if (isLastDialog) { return false; }
+		if (isLastDialog) {
+			return false;
+		}
 		// dialog timeout set to 30s
 		if (System.currentTimeMillis() - timerDialog <
 				(Constants.DIALOG_TIMEOUT / SIMULATION_SPEED)) {
@@ -203,7 +240,9 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 	 * @return Boolean whether there is a dialog distance timeout or not
 	 */
 	private boolean isDialogDistanceTimeout() {
-		if (isLastDialog) { return false; }
+		if (isLastDialog) {
+			return false;
+		}
 		// dialog distance timeout set to 200m
 		if ((currentLocation != null) && (lastDialogLocation != null)) {
 			if (currentLocation.distanceTo(lastDialogLocation) <
@@ -301,6 +340,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 			}
 		}).start();
 		routingLog = null;
+		getRouteInfos = true;
 	}
 
 	/**

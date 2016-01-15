@@ -64,15 +64,6 @@ public class SegmentInfo extends RouteDataObject {
 	}
 
 	/**
-	 * Setter of the segment stress value
-	 *
-	 * @param stressValue The stress value of this segment
-	 */
-	public void setStressValue(int stressValue) {
-		this.stressValue = stressValue;
-	}
-
-	/**
 	 * Getter of the segment stress value
 	 *
 	 * @return The stress value of this segment

@@ -5,7 +5,6 @@ import com.commonsware.cwac.wakeful.WakefulIntentService;
 import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.OsmandApplication;
-import net.osmand.plus.OsmandSettings;
 import net.osmand.plus.stressreduction.Constants;
 
 import org.apache.commons.logging.Log;
@@ -15,13 +14,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -58,41 +55,41 @@ public class DownloadService extends WakefulIntentService {
 		new DownloadTask().execute();
 	}
 
-	private void getVersionCodeSrDb() {
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					log.debug("getVersionCodeSrDb()");
-					URL url = new URL(Constants.URI_VERSION_CODE_SR_DB);
-					HttpsURLConnection httpsURLConnection =
-							(HttpsURLConnection) url.openConnection();
-					httpsURLConnection.setRequestMethod("GET");
-					httpsURLConnection.setDoInput(true); // allow inputs
-					httpsURLConnection.setDoOutput(true); // allow outputs
-					httpsURLConnection.setUseCaches(false); // no cached copy
-					httpsURLConnection.setRequestProperty("Connection", "Close");
-					httpsURLConnection.setRequestProperty("ENCTYPE", "text/plain");
-					httpsURLConnection.connect();
-
-					BufferedReader in = new BufferedReader(
-							new InputStreamReader(httpsURLConnection.getInputStream()));
-					String v;
-					String ver = "";
-					while ((v = in.readLine()) != null) {
-						ver += v;
-					}
-					log.debug("getVersionCodeSrDb(): version = " + ver);
-					((OsmandApplication) getApplicationContext())
-							.getSettings().SR_DB_VERSION_CODE_SERVER.set(Integer.valueOf(ver));
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}.start();
-	}
+//	private void getVersionCodeSrDb() {
+//		new Thread() {
+//			@Override
+//			public void run() {
+//				try {
+//					log.debug("getVersionCodeSrDb()");
+//					URL url = new URL(Constants.URI_VERSION_CODE_SR_DB);
+//					HttpsURLConnection httpsURLConnection =
+//							(HttpsURLConnection) url.openConnection();
+//					httpsURLConnection.setRequestMethod("GET");
+//					httpsURLConnection.setDoInput(true); // allow inputs
+//					httpsURLConnection.setDoOutput(true); // allow outputs
+//					httpsURLConnection.setUseCaches(false); // no cached copy
+//					httpsURLConnection.setRequestProperty("Connection", "Close");
+//					httpsURLConnection.setRequestProperty("ENCTYPE", "text/plain");
+//					httpsURLConnection.connect();
+//
+//					BufferedReader in = new BufferedReader(
+//							new InputStreamReader(httpsURLConnection.getInputStream()));
+//					String v;
+//					String ver = "";
+//					while ((v = in.readLine()) != null) {
+//						ver += v;
+//					}
+//					log.debug("getVersionCodeSrDb(): version = " + ver);
+//					((OsmandApplication) getApplicationContext())
+//							.getSettings().SR_DB_VERSION_CODE_SERVER.set(Integer.valueOf(ver));
+//					in.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+//		}.start();
+//	}
 
 	public void copyFile(File from, File to) throws IOException {
 		FileInputStream fileInputStream = new FileInputStream(from);
@@ -196,7 +193,7 @@ public class DownloadService extends WakefulIntentService {
 		@Override
 		protected Integer doInBackground(String... sUrl) {
 
-			OsmandSettings settings = ((OsmandApplication) getApplicationContext()).getSettings();
+//			OsmandSettings settings = ((OsmandApplication) getApplicationContext()).getSettings();
 			int status;
 //			getVersionCodeSrDb();
 //			if (settings.SR_DB_VERSION_CODE_SERVER.get() > settings.SR_DB_VERSION_CODE_DEVICE.get

@@ -2225,6 +2225,11 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_dialog_title">Wie haben Ihnen die letzten Straßenabschnitte gefallen?</string>
 	<string name="sr_plugin_whats_new_title">Was Ist Neu</string>
     <string name="sr_plugin_whats_new_description">
+	    Version 2.2.0-217
+        \n\n• Stressreduzierte Routenplanung!
+	    \n• Einfacher Wechsel zwischen normaler und stressreduzierter Route
+        \n• Neues Evaluierungsdialog-Design
+        \n\n\n
 	    Version 2.2.0-216
         \n\n• Sprachsteuerung für den Evaluierungsdialog
         \n• Fehlerverbesserungen
@@ -2233,12 +2238,6 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
         \n\n• Performance Verbesserung für ältere Geräte
         \n• Neue Hilfe-Artikel
         \n• Verbesserte Benutzeroberfläche
-        \n\n\n
-        Version 2.2.0-214
-	    \n\n• Update auf Version 2.2
-        \n• Neues Design
-        \n• Native Unterstützung
-        \n• Performance Verbesserungen
     </string>
 	<string name="sr_settings_title">Stress Reduzierung Einstellungen</string>
 	<string name="sr_settings_notification_sound_title">Benachrichtigungston</string>

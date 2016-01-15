@@ -2182,6 +2182,11 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
     <string name="sr_dialog_title">How did you like the last couple street segments?</string>
     <string name="sr_plugin_whats_new_title">What\'s New</string>
     <string name="sr_plugin_whats_new_description">
+        Version 2.2.0-217
+        \n\n• Stress reduced routing!
+        \n• Switch easy between normal and stress reduced Route
+        \n• New evaluation dialog design
+        \n\n\n
         Version 2.2.0-216
         \n\n• Control evaluation dialog with your voice
         \n• Bugfixes
@@ -2190,12 +2195,6 @@ Afghanistan, Albania, Algeria, Andorra, Angola, Anguilla, Antigua and Barbuda, A
         \n\n• Performance improvements for older devices
         \n• New help articles
         \n• Improved user interface
-        \n\n\n
-        Version 2.2.0-214
-        \n\n• Updated version 2.2
-        \n• New look and feel
-        \n• Fixed native support
-        \n• Performance improvements
     </string>
     <string name="sr_settings_title">Stress Reduction Settings</string>
     <string name="sr_settings_notification_sound_title">Notification Sound</string>

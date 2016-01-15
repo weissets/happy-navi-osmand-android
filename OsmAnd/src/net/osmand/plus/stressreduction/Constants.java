@@ -14,13 +14,13 @@ public class Constants {
 	public static final String PLUGIN_ID = "net.osmand.plus.stressreduction.plugin";
 
 	/** version code of the info dialog */
-	private static final String INFO_VERSION_CODE = "2.2.0-216";
+	private static final String INFO_VERSION_CODE = "2.2.0-217";
 
 	/** version string of the info dialog */
 	public static final String INFO_VERSION = "info_" + INFO_VERSION_CODE;
 
 	/** version code of the what's new dialog */
-	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-216";
+	private static final String WHATS_NEW_VERSION_CODE = "2.2.0-217";
 
 	/** version string of the what's new dialog */
 	public static final String WHATS_NEW_VERSION = "whats_new_" + WHATS_NEW_VERSION_CODE;
@@ -110,8 +110,8 @@ public class Constants {
 			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version";
 
 	/** uri of the version code */
-	public static final String URI_VERSION_CODE_SR_DB =
-			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version_sr_db";
+//	public static final String URI_VERSION_CODE_SR_DB =
+//			"https://maps.hci.simtech.uni-stuttgart.de/happynavi/version_sr_db";
 
 	/** uri of the blank dash fragment content */
 	public static final String URI_JSON_BLANK =
@@ -148,6 +148,8 @@ public class Constants {
 
 	// database name
 	public static final String DATABASE_NAME = "stressReduction.db";
+
+	public static final int DATABASE_VERSION = 2;
 
 	// table names
 	public static final String USERS = "Users";
@@ -191,6 +193,12 @@ public class Constants {
 	public static final String TIME_ROUTING_END_CALC = "timeRoutingEndCalc";
 	public static final String TIME_ROUTING_ABORT = "timeRoutingAbort";
 	public static final String DISTANCE_TO_END = "distanceToEnd";
+	public static final String USED_SR_ROUTE = "usedSrRoute";
+	public static final String USED_SR_LEVEL = "usedSrLevel";
+	public static final String DISTANCE_SR_ROUTE = "distanceSrRoute";
+	public static final String DISTANCE_NORMAL_ROUTE = "distanceNormalRoute";
+	public static final String TIME_SR_ROUTE = "timeSrRoute";
+	public static final String TIME_NORMAL_ROUTE = "timeNormalRoute";
 	public static final String STRESS_VALUE = "stressValue";
 
 	// INFO data types get converted internally -> http://www.sqlite.org/datatype3.html
@@ -259,6 +267,12 @@ public class Constants {
 					TIME_ROUTING_END + " timestamp, " +
 					TIME_ROUTING_ABORT + " timestamp, " +
 					DISTANCE_TO_END + " integer, " +
+					USED_SR_ROUTE + " smallint(1), " +
+					USED_SR_LEVEL + " smallint(1), " +
+					DISTANCE_SR_ROUTE + " integer, " +
+					DISTANCE_NORMAL_ROUTE + " integer, " +
+					TIME_SR_ROUTE + " integer, " +
+					TIME_NORMAL_ROUTE + " integer, " +
 					USER_PK + " integer NOT NULL, " +
 					PRIMARY_KEY + " integer NOT NULL PRIMARY KEY, " +
 					"FOREIGN KEY(" + USER_PK + ") REFERENCES \"" + USERS + "\"(" + PRIMARY_KEY +

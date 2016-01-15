@@ -53,12 +53,17 @@ public class DataHandler implements FragmentSRDialog.SRDialogButtonClickListener
 	}
 
 	public void writeRoutingLogToDatabase(RoutingLog routingLog) {
+		log.info("writeRoutingLogToDatabase(): usedSrRoute="+routingLog.getUsedSrRoute());
+		log.info("writeRoutingLogToDatabase(): usedSrLevel="+routingLog.getUsedSrLevel());
+		log.info("writeRoutingLogToDatabase(): distSr="+routingLog.getDistanceSrRoute());
+		log.info("writeRoutingLogToDatabase(): distNormal="+routingLog.getDistanceNormalRoute());
+		log.info("writeRoutingLogToDatabase(): timeSr="+routingLog.getTimeSrRoute());
+		log.info("writeRoutingLogToDatabase(): timeNormal="+routingLog.getTimeNormalRoute());
 		sqLiteLogger.insertRoutingLog(routingLog);
 	}
 
 	private void updateStressValueInDatabase(int stressValue, String endTimestamp) {
-		sqLiteLogger.updateStressValueInSegmentInfos(getTimestampLastStressValue(), endTimestamp,
-				stressValue);
+		sqLiteLogger.updateStressValueInSegmentInfos(getTimestampLastStressValue(), stressValue);
 		setTimestampLastStressValue(endTimestamp);
 	}
 

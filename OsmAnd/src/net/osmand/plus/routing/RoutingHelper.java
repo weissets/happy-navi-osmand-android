@@ -31,8 +31,6 @@ import net.osmand.util.MapUtils;
 
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class RoutingHelper {

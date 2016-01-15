@@ -1,13 +1,10 @@
 package net.osmand.plus.stressreduction;
 
-import net.osmand.PlatformUtil;
 import net.osmand.plus.BuildConfig;
 import net.osmand.plus.R;
 import net.osmand.plus.activities.SettingsBaseActivity;
 import net.osmand.plus.stressreduction.tools.SRSharedPreferences;
 import net.osmand.plus.stressreduction.voice.SRPocketSphinx;
-
-import org.apache.commons.logging.Log;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +12,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
-import android.support.v4.content.res.TypedArrayUtils;
 
 /**
  * This class enables the stress reduction plugin settings in the menu
@@ -23,8 +19,6 @@ import android.support.v4.content.res.TypedArrayUtils;
  * @author Tobias
  */
 public class StressReductionSettings extends SettingsBaseActivity {
-
-	private static final Log log = PlatformUtil.getLog(StressReductionSettings.class);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +31,8 @@ public class StressReductionSettings extends SettingsBaseActivity {
 		routingPreference.setSummary(R.string.sr_settings_routing_description);
 		preferenceScreen.addPreference(routingPreference);
 
-		ListPreference srLevelPreference =
-				createListPreference(settings.SR_LEVEL, getResources().getStringArray(R.array
-								.sr_level_names), Constants.SR_LEVEL_VALUES);
+		ListPreference srLevelPreference = createListPreference(settings.SR_LEVEL,
+				getResources().getStringArray(R.array.sr_level_names), Constants.SR_LEVEL_VALUES);
 		srLevelPreference.setTitle(R.string.sr_settings_sr_level_title);
 		srLevelPreference.setSummary(R.string.sr_settings_sr_level_description);
 		srLevelPreference
