@@ -27,6 +27,9 @@ public class LocationInfo {
 	/** The z-axis acceleration of this location */
 	private final double accelerationZ;
 
+	/** The id of the current segment */
+	private final long segmentId;
+
 	/**
 	 * The direction in degrees east of true north of this location
 	 * (Bearing: 0=North, 90=East, 180=South, 270=West)
@@ -48,13 +51,15 @@ public class LocationInfo {
 	 * @param direction     The location direction in degrees east of true north
 	 */
 	public LocationInfo(double latitude, double longitude, double speed, double accelerationX,
-	                    double accelerationY, double accelerationZ, double direction) {
+	                    double accelerationY, double accelerationZ, double direction,
+	                    long segmentId) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.speed = speed;
 		this.accelerationX = accelerationX;
 		this.accelerationY = accelerationY;
 		this.accelerationZ = accelerationZ;
+		this.segmentId = segmentId;
 		this.direction = direction;
 		this.timestamp = Calculation.getCurrentDateTimeMs();
 	}
@@ -111,6 +116,15 @@ public class LocationInfo {
 	 */
 	public double getAccelerationZ() {
 		return accelerationZ;
+	}
+
+	/**
+	 * Getter of the location z-axis acceleration
+	 *
+	 * @return The z-axis acceleration of this location
+	 */
+	public double getSegmentId() {
+		return segmentId;
 	}
 
 	/**

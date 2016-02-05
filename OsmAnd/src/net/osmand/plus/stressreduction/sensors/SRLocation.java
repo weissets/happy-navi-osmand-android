@@ -191,8 +191,7 @@ public class SRLocation implements OsmAndLocationProvider.OsmAndLocationListener
 									routeSegmentResult.isForwardDirection()) *
 									Constants.MS_TO_KMH) +
 							", Oneway=" + routeDataObject.getOneway() +
-							", avgSpeed=" + currentSpeed + ", LatLon=" + location.getLatitude() +
-							"," + location.getLongitude());
+							", avgSpeed=" + currentSpeed);
 					dataHandler.writeSegmentInfoToDatabase(new SegmentInfo(routeDataObject,
 							Calculation.convertMsToKmh(
 									Calculation.getAverageValue(segmentSpeedList))));

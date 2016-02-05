@@ -2225,6 +2225,9 @@ Afghanistan, Ägypten, Albanien, Algerien, Andorra, Angola, Anguilla, Antigua an
 	<string name="sr_dialog_title">Wie haben Ihnen die letzten Straßenabschnitte gefallen?</string>
 	<string name="sr_plugin_whats_new_title">Was Ist Neu</string>
     <string name="sr_plugin_whats_new_description">
+	    Version 2.2.0-218
+	    \n\n• Kritischer Fehler behoben
+	    \n\n\n
 	    Version 2.2.0-217
         \n\n• Stressreduzierte Routenplanung!
 	    \n• Einfacher Wechsel zwischen normaler und stressreduzierter Route

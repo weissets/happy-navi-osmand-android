@@ -79,7 +79,11 @@ public class DashBlankFragment extends DashBaseFragment {
 			header.setText(jsonObject.getJSONObject(locale).getString("header"));
 			subheader.setText(jsonObject.getJSONObject(locale).getString("subheader"));
 			positiveButton.setText(jsonObject.getJSONObject(locale).getString("positiveButton"));
-			neutralButton.setText(jsonObject.getJSONObject(locale).getString("neutralButton"));
+			if (jsonObject.getJSONObject(locale).getString("neutralButton").equals("")) {
+				neutralButton.setVisibility(View.GONE);
+			} else {
+				neutralButton.setText(jsonObject.getJSONObject(locale).getString("neutralButton"));
+			}
 			negativeButton.setText(jsonObject.getJSONObject(locale).getString("negativeButton"));
 
 		} catch (JSONException e) {

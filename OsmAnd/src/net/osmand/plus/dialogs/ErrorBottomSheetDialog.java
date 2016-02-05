@@ -46,11 +46,11 @@ public class ErrorBottomSheetDialog extends BottomSheetDialogFragment {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(Intent.ACTION_SEND);
-				intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"crash@osmand.net"}); //$NON-NLS-1$
+				intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"hcilab@gmail.com"}); //$NON-NLS-1$
 				File file = getMyApplication().getAppPath(OsmandApplication.EXCEPTION_PATH);
 				intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 				intent.setType("vnd.android.cursor.dir/email"); //$NON-NLS-1$
-				intent.putExtra(Intent.EXTRA_SUBJECT, "OsmAnd bug"); //$NON-NLS-1$
+				intent.putExtra(Intent.EXTRA_SUBJECT, "Happy Navi (OsmAnd) bug"); //$NON-NLS-1$
 				StringBuilder text = new StringBuilder();
 				text.append("\nDevice : ").append(Build.DEVICE); //$NON-NLS-1$
 				text.append("\nBrand : ").append(Build.BRAND); //$NON-NLS-1$

@@ -895,6 +895,7 @@ public class RouteProvider {
 						.getImmutableAllLocations().size() == res.getAlternativeRoute()
 						.getImmutableAllLocations().size()) {
 					res.setAlternativeRoute(null);
+					res.setIsSrRoute(false);
 					params.ctx.runInUIThread(new Runnable() {
 						@Override
 						public void run() {

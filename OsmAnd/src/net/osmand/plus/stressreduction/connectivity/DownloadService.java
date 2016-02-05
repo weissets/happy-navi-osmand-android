@@ -20,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.FileChannel;
 
@@ -116,13 +115,15 @@ public class DownloadService extends WakefulIntentService {
 		File fileBackup = new File(pathBackup);
 
 		try {
-			copyFile(file, fileBackup);
+			if (file.exists() && dbValidityCheck(path)) {
+				copyFile(file, fileBackup);
+			}
 			URL url = new URL(serverUri);
 			connection = (HttpsURLConnection) url.openConnection();
 			connection.connect();
 
 			// check for http ok to not save error message if download went wrong
-			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+			if (connection.getResponseCode() != HttpsURLConnection.HTTP_OK) {
 				log.error("Server returned HTTP " + connection.getResponseCode() + ", " +
 						connection.getResponseMessage());
 				return connection.getResponseCode();
@@ -143,13 +144,15 @@ public class DownloadService extends WakefulIntentService {
 		} catch (Exception e) {
 			log.error(e.toString());
 			try {
-				copyFile(fileBackup, file);
-				fileBackup.delete();
-				log.debug("downloadFile(): restored backup sr db!");
+				if (fileBackup.exists()) {
+					copyFile(fileBackup, file);
+					fileBackup.delete();
+					log.debug("downloadFile(): restored backup sr db!");
+				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			return HttpURLConnection.HTTP_INTERNAL_ERROR;
+			return HttpsURLConnection.HTTP_INTERNAL_ERROR;
 		} finally {
 			try {
 				if (output != null) {
@@ -174,7 +177,7 @@ public class DownloadService extends WakefulIntentService {
 		} else {
 			((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set("");
 		}
-		return HttpURLConnection.HTTP_OK;
+		return HttpsURLConnection.HTTP_OK;
 	}
 
 	private boolean dbValidityCheck(String path) {
@@ -219,12 +222,13 @@ public class DownloadService extends WakefulIntentService {
 
 		@Override
 		protected void onPostExecute(Integer result) {
-			if (result == HttpURLConnection.HTTP_OK) {
+			if (result == HttpsURLConnection.HTTP_OK) {
 				log.debug("onPostExecute(): sr db at " +
 						((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH
 								.get());
 			} else {
 				log.error("onPostExecute(): sr db not downloaded!");
+				((OsmandApplication) getApplicationContext()).getSettings().SR_DB_PATH.set("");
 			}
 		}
 	}

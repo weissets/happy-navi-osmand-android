@@ -8,8 +8,10 @@ import android.hardware.SensorManager;
 
 import net.osmand.Location;
 import net.osmand.PlatformUtil;
+import net.osmand.binary.RouteDataObject;
 import net.osmand.plus.OsmAndLocationProvider;
 import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.routing.RoutingHelper;
 import net.osmand.plus.stressreduction.database.DataHandler;
 import net.osmand.plus.stressreduction.database.LocationInfo;
 import net.osmand.plus.stressreduction.tools.Calculation;
@@ -33,9 +35,11 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 	private Location currentLocation;
 	private int accelerometerType;
 
+	private static RouteDataObject routeDataObject;
+
 //	private final int ACCELEROMETER_LINEAR = 1;
-	private final int ACCELEROMETER_NORMAL = 2;
-	private final int ACCELEROMETER_NONE = 3;
+	private static final int ACCELEROMETER_NORMAL = 2;
+	private static final int ACCELEROMETER_NONE = 3;
 
 	// TODO check how much data is generated -> 500kb per hour -> check again with real device!!!
 	// INFO 500kb if no acceleration, else should be around 5 times as much
@@ -115,6 +119,7 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 		float[] gravityXYZ = {0, 0, 0};
 		final float ALPHA = 0.8f;
 		final float THRESHOLD = 0.1f;
+		long id;
 
 		@Override
 		public void onSensorChanged(SensorEvent event) {
@@ -134,12 +139,19 @@ public class SRAccelerometer implements OsmAndLocationProvider.OsmAndLocationLis
 
 					accelerationXYZ = normalizeAcceleration(accelerationXYZ.clone());
 
+				routeDataObject = osmAndLocationProvider.getLastKnownRouteSegment();
+				if (routeDataObject != null) {
+					id = routeDataObject.id;
+				} else {
+					id = -1;
+				}
+
 				dataHandler.writeLocationInfoToDatabase(
 						new LocationInfo(currentLocation.getLatitude(),
 								currentLocation.getLongitude(),
 								Calculation.convertMsToKmh(currentLocation.getSpeed()),
 								accelerationXYZ[0], accelerationXYZ[1], accelerationXYZ[2],
-								currentLocation.getBearing()));
+								currentLocation.getBearing(), id));
 			}
 		}
 
